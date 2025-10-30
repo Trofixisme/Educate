@@ -1,16 +1,17 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.BaseModels;
+package com.group.educate.educate.BaseModels.User;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
+    //Update: Issue might've been resolved. No testing has been conducted yet
 
-    static AtomicInteger userCounter = new AtomicInteger();
-    private final int userID = userCounter.incrementAndGet();
+    private final UUID userID = UUID.randomUUID();
     private String password;
     private String name;
     private String email;
@@ -24,8 +25,8 @@ class User {
         userRoles.add(userRole);
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUserID() {
+        return userID.toString();
     }
 
     //TODO: do some validation before changing the password

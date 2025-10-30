@@ -1,6 +1,6 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.BaseModels;
+package com.group.educate.educate.BaseModels.User;
 
 import java.lang.instrument.IllegalClassFormatException;
 import java.util.HashMap;
