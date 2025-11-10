@@ -10,7 +10,7 @@ public class Student extends User {
     String UniName;
 
     public Student(String password, String name, String email) {
-        super(password, name, email, UserStatics.student);
+        super(password, name, email);
     }
 
     public int getGraduatingYear() {

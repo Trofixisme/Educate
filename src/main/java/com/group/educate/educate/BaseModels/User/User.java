@@ -10,23 +10,25 @@ class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
     //Update: Issue might've been resolved. No testing has been conducted yet
+    //update made the id as an integer
 
-    private final UUID userID = UUID.randomUUID();
+    private static int counter=0;
     private String password;
     private String name;
     private String email;
+    private final int userId;
 
-    ArrayList<UserRole> userRoles = new ArrayList<>();
 
-    public User(String password, String name, String email, UserRole userRole) {
+    public User(String password, String name, String email) {
+        userId=++counter;
         setPassword(password);
         setName(name);
         setEmail(email);
-        userRoles.add(userRole);
+
     }
 
-    public String getUserID() {
-        return userID.toString();
+    public int getUserID() {
+        return userId;
     }
 
     //TODO: do some validation before changing the password

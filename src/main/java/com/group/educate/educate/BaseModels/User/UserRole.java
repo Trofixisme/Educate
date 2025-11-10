@@ -1,35 +1,17 @@
-//Created by Ziad on 28/10/2025
-
 package com.group.educate.educate.BaseModels.User;
 
-import java.lang.instrument.IllegalClassFormatException;
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+public enum UserRole {
+    STUDENT(1),
+    EMPLOYER(2),
+    COMPANY(3);
 
-public class UserRole {
+    private final int id;
 
-    private static AtomicInteger counter = new AtomicInteger();
-
-    private static HashMap<Integer, String> roles = new HashMap<>();
-
-    private String roleName;
-    private int id = counter.incrementAndGet();
-
-    public UserRole(String roleName) throws IllegalClassFormatException {
-        roleName = roleName.toLowerCase();
-            if (roles.containsValue(roleName)) {
-                throw new IllegalClassFormatException("A role with the same id or name already exists");
-            } else {
-                this.roleName = roleName;
-                roles.put(id, roleName);
-            }
+    UserRole(int id) {
+        this.id = id;
     }
 
-    protected int getRoleID() {
+    public int getId() {
         return id;
-    }
-
-    protected String getRoleName() {
-        return roleName;
     }
 }
