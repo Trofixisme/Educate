@@ -10,15 +10,17 @@ class User {
 
     private static int counter=0;
     private String hashedPassword;
-    private String name;
+    private String fname;
+    private String lname;
     private String email;
     private final int userId;
 
     //added password hashing
-    public User( String name,String plainPassword, String email) {
+    public User( String fname,String lname,String plainPassword, String email) {
         userId=++counter;
         this.hashedPassword = hashPassword(plainPassword);
-        setName(name);
+        setFname(fname);
+        setLname(lname);
         setEmail(email);
 
     }
@@ -38,14 +40,22 @@ class User {
 
 
 
-    public String getName() {
-        return name;
+    public String getFname() {
+        return fname;
     }
 
     //TODO: Also add some validation when setting the user's name (Why do we even need to do that??)
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getEmail() {
