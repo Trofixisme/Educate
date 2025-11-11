@@ -1,10 +1,9 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Roadmap;
+package com.group.educate.educate.models.Roadmap;
 
-import com.group.educate.educate.Roadmap.Skills.Skills;
+import com.group.educate.educate.models.Roadmap.Skills.Skills;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

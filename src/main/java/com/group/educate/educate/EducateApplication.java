@@ -1,6 +1,6 @@
 package com.group.educate.educate;
 
-import com.group.educate.educate.BaseModels.User.Student;
+import com.group.educate.educate.models.User.Student;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.instrument.IllegalClassFormatException;

@@ -1,4 +1,4 @@
-package com.group.educate.educate.BaseModels.User;
+package com.group.educate.educate.models.User;
 
 public enum UserRole {
     STUDENT(1),

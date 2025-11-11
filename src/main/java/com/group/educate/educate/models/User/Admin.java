@@ -1,4 +1,4 @@
-package com.group.educate.educate.BaseModels.User;
+package com.group.educate.educate.models.User;
 
 public class Admin extends User {
 
@@ -9,7 +9,7 @@ public class Admin extends User {
 
     }
 
-   
+
 
 
 }

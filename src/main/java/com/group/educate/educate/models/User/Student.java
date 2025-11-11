@@ -1,8 +1,6 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.BaseModels.User;
-
-import java.util.concurrent.atomic.AtomicInteger;
+package com.group.educate.educate.models.User;
 
 public class Student extends User {
 

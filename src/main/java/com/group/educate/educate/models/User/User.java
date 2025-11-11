@@ -1,11 +1,7 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.BaseModels.User;
-
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-
+package com.group.educate.educate.models.User;
+import org.mindrot.jbcrypt.BCrypt;
 class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
@@ -13,29 +9,34 @@ class User {
     //update made the id as an integer
 
     private static int counter=0;
-    private String password;
+    private String hashedPassword;
     private String name;
     private String email;
     private final int userId;
 
-
-    public User(String password, String name, String email) {
+    //added password hashing
+    public User( String name,String plainPassword, String email) {
         userId=++counter;
-        setPassword(password);
+        this.hashedPassword = hashPassword(plainPassword);
         setName(name);
         setEmail(email);
 
+    }
+    // Hash password with BCrypt
+    private String hashPassword(String plainPassword) {
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
+    }
+
+    // Check if the input password matches the stored hash
+    public boolean verifyPassword(String plainPassword) {
+        return BCrypt.checkpw(plainPassword, this.hashedPassword);
     }
 
     public int getUserID() {
         return userId;
     }
 
-    //TODO: do some validation before changing the password
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getName() {
         return name;

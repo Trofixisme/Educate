@@ -1,6 +1,6 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Roadmap.Skills;
+package com.group.educate.educate.models.Roadmap.Skills;
 
 import java.util.UUID;
 

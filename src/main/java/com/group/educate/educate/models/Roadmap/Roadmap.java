@@ -1,6 +1,6 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Roadmap;
+package com.group.educate.educate.models.Roadmap;
 
 import java.util.ArrayList;
 import java.util.List;
