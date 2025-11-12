@@ -8,7 +8,7 @@ class User {
     //Update: Issue might've been resolved. No testing has been conducted yet
     //update made the id as an integer
 
-    private static int counter=0;
+    private static int counter = 0;
     private String hashedPassword;
     private String fname;
     private String lname;
@@ -16,7 +16,7 @@ class User {
     private final int userId;
 
     //added password hashing
-    public User( String fname,String lname,String plainPassword, String email) {
+    public User(String fname, String lname, String email, String plainPassword) {
         userId=++counter;
         this.hashedPassword = hashPassword(plainPassword);
         setFname(fname);
