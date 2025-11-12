@@ -2,6 +2,9 @@ package com.group.educate.educate.models.User;
 
 import com.group.educate.educate.models.job.jobPosting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Application {
 
@@ -9,8 +12,32 @@ public class Application {
     private final int ApplicationId;
     jobPosting jobPosting;
     Student student;
-    public Application() {
+    private static final List<Application> allApplications = new ArrayList<>();
+
+    //public Application() {this.ApplicationId=++counter;}
+
+    public Application(jobPosting jobPosting, Student student) {
+        this.jobPosting = jobPosting;
+        this.student = student;
         this.ApplicationId=++counter;
     }
+
+    public int getApplicationId() {
+        return ApplicationId;
+    }
+
+    public static List<Application> getAllApplications() {
+        return allApplications;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void addApplication(Application application) {
+        Application.allApplications.add(application);
+    }
+
+
 
 }

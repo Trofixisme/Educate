@@ -2,6 +2,8 @@
 
 package com.group.educate.educate.models.User;
 
+import com.group.educate.educate.models.job.jobPosting;
+
 public class Student extends User {
 
     int graduatingYear;
@@ -22,5 +24,13 @@ public class Student extends User {
     public String getUniName() {
         return UniName;
     }
-    //public void submitApplication(Application application) {}
+
+    public void setUniName(String uniName) {
+        UniName = uniName;
+    }
+
+    public void submitApplication(jobPosting job_Posting) {
+        Application StudentApplication = new Application(job_Posting, this);
+        Application.addApplication(StudentApplication);
+    }
 }
