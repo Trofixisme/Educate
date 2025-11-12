@@ -19,6 +19,7 @@ public class Roadmap {
 
     private String getName() {
         return name;
+
     }
 
     public void setName(String newName) {
