@@ -1,8 +1,8 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.models.User;
+package com.group.educate.educate.Model.User;
 
-import com.group.educate.educate.models.job.jobPosting;
+import com.group.educate.educate.Model.Job.jobPosting;
 
 public class Student extends User {
 

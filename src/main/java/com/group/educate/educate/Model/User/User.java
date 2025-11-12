@@ -1,6 +1,6 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.models.User;
+package com.group.educate.educate.Model.User;
 import org.mindrot.jbcrypt.BCrypt;
 abstract class User {
 

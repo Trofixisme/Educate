@@ -1,24 +1,25 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.models.Roadmap;
+package com.group.educate.educate.Model.Roadmap;
 
-import com.group.educate.educate.models.Roadmap.Skills.Skills;
+import com.group.educate.educate.Model.Roadmap.Skills.Skills;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 public class RoadmapModule {
 
-    private static int counter=0;
-    private final int moduleId;
+    private UUID ID = UUID.randomUUID();
     private String name;
     private String description;
 
     private ArrayList<Skills> skills = new ArrayList<>();
 
     public RoadmapModule(String name, String description) {
-        this.moduleId=++counter;
         this.name = name;
         this.description = description;
     }
@@ -28,8 +29,8 @@ public class RoadmapModule {
         addSkills(skills);
     }
 
-    public int getModuleID() {
-        return moduleId;
+    public String getModuleID() {
+        return ID.toString();
     }
 
     public String getName() {
@@ -37,7 +38,8 @@ public class RoadmapModule {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.isBlank()) this.name = name;
+        else throw new RuntimeException("new name cannot be blank or null");
     }
 
     public String getDescription() {
@@ -45,7 +47,8 @@ public class RoadmapModule {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description != null && !description.isBlank()) this.description = description;
+        else throw new RuntimeException("new description cannot be blank or null");
     }
 
     public void addSkills(Skills... skills) {
