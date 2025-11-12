@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class Roadmap {
+    private static int counter=0;
+    private final int roadmapId;
 
     private UUID id = UUID.randomUUID();
     private String name;
     private ArrayList<RoadmapModule> roadmapModules = new ArrayList<>();
 
     public Roadmap(String name, RoadmapModule... modules) {
+        this.roadmapId=++counter;
         this.name = name;
         addModules(modules);
     }

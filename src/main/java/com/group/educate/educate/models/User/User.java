@@ -62,6 +62,7 @@ class User {
         return email;
     }
 
+
     //TODO: do some ACTUAL validation before changing the user's email
 
     public void setEmail(String email) {

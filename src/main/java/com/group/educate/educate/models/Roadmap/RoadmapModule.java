@@ -6,11 +6,12 @@ import com.group.educate.educate.models.Roadmap.Skills.Skills;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 public class RoadmapModule {
 
-    private UUID id = UUID.randomUUID();
+    private static int counter=0;
+    private final int moduleId;
     private String name;
     private String description;
     private int sequenceNumber;
@@ -19,6 +20,7 @@ public class RoadmapModule {
     private ArrayList<Skills> skills = new ArrayList<>();
 
     public RoadmapModule(String name, String description, int sequenceNumber) {
+        this.moduleId=++counter;
         this.name = name;
         this.description = description;
         this.sequenceNumber = sequenceNumber;
@@ -39,8 +41,8 @@ public class RoadmapModule {
         this(name, description, null, sequenceNumber, skills);
     }
 
-    public String getModuleID() {
-        return id.toString();
+    public int getModuleID() {
+        return moduleId;
     }
 
     public String getName() {
