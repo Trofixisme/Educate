@@ -11,7 +11,6 @@ public class Student extends User {
         super(fname,lname, plainPassword, email);
     }
 
-
     public int getGraduatingYear() {
         return graduatingYear;
     }
@@ -23,5 +22,5 @@ public class Student extends User {
     public String getUniName() {
         return UniName;
     }
-
+    //public void submitApplication(Application application) {}
 }
