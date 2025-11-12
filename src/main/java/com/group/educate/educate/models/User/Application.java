@@ -12,6 +12,7 @@ public class Application {
     private final int ApplicationId;
     jobPosting jobPosting;
     Student student;
+<<<<<<< Updated upstream
     private static final List<Application> allApplications = new ArrayList<>();
 
     //public Application() {this.ApplicationId=++counter;}
@@ -19,6 +20,9 @@ public class Application {
     public Application(jobPosting jobPosting, Student student) {
         this.jobPosting = jobPosting;
         this.student = student;
+=======
+    public Application() {
+>>>>>>> Stashed changes
         this.ApplicationId=++counter;
     }
 
