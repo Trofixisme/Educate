@@ -7,9 +7,10 @@ public class Student extends User {
     int graduatingYear;
     String UniName;
 
-    public Student(String password, String name, String email) {
-        super(password, name, email);
+    public Student(String fname,String lname,String plainPassword, String email) {
+        super(fname,lname, plainPassword, email);
     }
+
 
     public int getGraduatingYear() {
         return graduatingYear;
@@ -22,4 +23,5 @@ public class Student extends User {
     public String getUniName() {
         return UniName;
     }
+
 }

@@ -12,10 +12,10 @@ public class EducateApplication {
 
 //        SpringApplication.run(EducateApplication.class, args);
 
-        Student student = new Student("Hey", "Ziad", "REDACTED@.");
 
 
-        System.out.println(student.getUserID());
+
+
 
     }
 
