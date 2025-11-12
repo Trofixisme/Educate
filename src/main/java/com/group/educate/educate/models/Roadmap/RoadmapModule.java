@@ -14,31 +14,18 @@ public class RoadmapModule {
     private final int moduleId;
     private String name;
     private String description;
-    private int sequenceNumber;
 
-    private Roadmap parentRoadmap = null;
     private ArrayList<Skills> skills = new ArrayList<>();
 
-    public RoadmapModule(String name, String description, int sequenceNumber) {
+    public RoadmapModule(String name, String description) {
         this.moduleId=++counter;
         this.name = name;
         this.description = description;
-        this.sequenceNumber = sequenceNumber;
     }
 
-    public RoadmapModule(String name, String description, Roadmap parentRoadmap , int sequenceNumber) {
-        this(name, description, sequenceNumber);
-        this.parentRoadmap = parentRoadmap;
-    }
-
-    public RoadmapModule(String name, String description, Roadmap parentRoadmap, int sequenceNumber, Skills[] skills) {
-        this(name, description, sequenceNumber);
-        this.parentRoadmap = parentRoadmap;
+    public RoadmapModule(String name, String description, Skills[] skills) {
+        this(name, description);
         addSkills(skills);
-    }
-
-    public RoadmapModule(String name, String description, int sequenceNumber, Skills[] skills) {
-        this(name, description, null, sequenceNumber, skills);
     }
 
     public int getModuleID() {
@@ -59,18 +46,6 @@ public class RoadmapModule {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getSequenceNumber() {
-        return sequenceNumber;
-    }
-
-    public void setSequenceNumber(int sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
-    }
-
-    public void setNewParent(Roadmap parentRoadmap) {
-        this.parentRoadmap = parentRoadmap;
     }
 
     public void addSkills(Skills... skills) {
