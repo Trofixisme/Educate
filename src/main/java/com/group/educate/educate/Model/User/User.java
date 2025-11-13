@@ -2,7 +2,7 @@
 
 package com.group.educate.educate.Model.User;
 import org.mindrot.jbcrypt.BCrypt;
-abstract class User {
+public abstract class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
     //Update: Issue might've been resolved. No testing has been conducted yet
@@ -38,9 +38,7 @@ abstract class User {
         return userId;
     }
 
-
-
-    public String getFname() {
+    public String getFirstName() {
         return fname;
     }
 

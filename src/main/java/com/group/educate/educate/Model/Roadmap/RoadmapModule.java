@@ -2,34 +2,32 @@
 
 package com.group.educate.educate.Model.Roadmap;
 
-import com.group.educate.educate.Model.Roadmap.Skills.Skills;
-import org.apache.logging.log4j.message.StringFormattedMessage;
+import com.group.educate.educate.Model.Roadmap.Skill.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
 public class RoadmapModule {
 
-    private UUID ID = UUID.randomUUID();
+    private final UUID ID = UUID.randomUUID();
     private String name;
     private String description;
 
-    private ArrayList<Skills> skills = new ArrayList<>();
+    private final ArrayList<Skill> skills = new ArrayList<>();
 
     public RoadmapModule(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public RoadmapModule(String name, String description, Skills[] skills) {
+    public RoadmapModule(String name, String description, Skill[] skills) {
         this(name, description);
         addSkills(skills);
     }
 
-    public RoadmapModule(String name, Skills... skills) {
+    public RoadmapModule(String name, Skill... skills) {
         this(name, "Nothing to show.", skills);
     }
 
@@ -49,8 +47,7 @@ public class RoadmapModule {
         if (name != null && !name.isBlank()) {
             name = name.strip();
             this.name = name;
-        }
-        else throw new RuntimeException("new name cannot be blank or null");
+        } else throw new RuntimeException("new name cannot be blank or null");
     }
 
     public String getDescription() {
@@ -62,10 +59,11 @@ public class RoadmapModule {
         else throw new RuntimeException("new description cannot be blank or null");
     }
 
-    public void addSkills(Skills... skills) {
+    public void addSkills(Skill... skills) {
         this.skills.addAll(List.of(skills));
     }
-    ArrayList<Skills> getAllSkills() {
+
+    ArrayList<Skill> getAllSkills() {
         return skills;
     }
 }

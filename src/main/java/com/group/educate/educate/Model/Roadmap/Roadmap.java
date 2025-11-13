@@ -6,10 +6,13 @@ import java.util.*;
 
 public final class Roadmap {
 
-    private UUID ID = UUID.randomUUID();
+    private final UUID ID = UUID.randomUUID();
     private String name;
-    private ArrayList<RoadmapModule> roadmapModules = new ArrayList<>();
+    private final ArrayList<RoadmapModule> roadmapModules = new ArrayList<>();
 
+    public RoadmapProgression progressionDelegate = null;
+
+    //MARK: Constructors
     public Roadmap(String name, RoadmapModule... modules) {
         this.name = name;
 
@@ -17,6 +20,13 @@ public final class Roadmap {
             addModules(modules);
 
     }
+
+    public Roadmap(String name, RoadmapProgression delegate, RoadmapModule... modules) {
+        this(name, modules);
+        progressionDelegate = delegate;
+    }
+
+    //MARK: Functions
 
     @SuppressWarnings({"all"})
     public Roadmap(String name) {
@@ -44,8 +54,8 @@ public final class Roadmap {
         roadmapModules.addAll(List.of(modules));
     }
 
-    RoadmapModule[] getAllModules() {
-        return roadmapModules.toArray(new RoadmapModule[roadmapModules.size()]);
+    ArrayList<RoadmapModule> getAllModules() {
+        return roadmapModules;
     }
 
     @Override
@@ -64,6 +74,7 @@ public final class Roadmap {
         return returnValue.toString();
     }
 
+    //MARK: Testing
     private static class RoadmapTest {
 
         static void main(String[] args) {

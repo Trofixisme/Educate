@@ -1,14 +1,16 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.Model.User;
+package com.group.educate.educate.Model.User.Student;
 
 import com.group.educate.educate.Model.Job.jobPosting;
 import com.group.educate.educate.Model.User.Application;
+import com.group.educate.educate.Model.User.User;
 
 public class Student extends User {
 
     int graduatingYear;
     String UniName;
+    private String cv;
 
     public Student(String firstName, String lastName, String email, String password) {
         super(firstName, lastName, email, password);

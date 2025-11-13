@@ -1,23 +1,22 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Model.Roadmap.Skills;
-import com.group.educate.educate.Model.Roadmap.RoadmapModule;
+package com.group.educate.educate.Model.Roadmap.Skill;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Skills {
+public class Skill {
 
     private static int counter=0;
     private final int skillsId;
     private String name;
-    private ArrayList<URL> resourceLinks  = new ArrayList<>();
+    private final ArrayList<URL> resourceLinks  = new ArrayList<>();
     //description
     private String description;
 
-    public Skills(String name) {
+    public Skill(String name) {
         skillsId=++counter;
         this.name = name;
     }
@@ -33,6 +32,7 @@ public class Skills {
     public void setName(String newName) {
         name = newName;
     }
+
     public void addURLS(URL... resourceLinks) {
         this.resourceLinks.addAll(List.of(resourceLinks));
     }
