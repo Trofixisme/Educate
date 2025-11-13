@@ -11,9 +11,18 @@ public class Student extends User {
     int graduatingYear;
     String UniName;
     private String cv;
+    StudentMajor major;
+    StudentDepartment department;
 
-    public Student(String firstName, String lastName, String email, String password,String cv) {
+    public Student(String firstName, String lastName, String email, String password,
+                   //students artibutes
+                   int graduatingYear, StudentMajor major, StudentDepartment department ,String cv)
+    {
+
         super(firstName, lastName, email, password);
+        this.graduatingYear = graduatingYear;
+        this.major = major;
+        this.department = department;
         this.cv = cv;
     }
 
@@ -39,6 +48,22 @@ public class Student extends User {
 
     public void setCv(String cv) {
         this.cv = cv;
+    }
+
+    public StudentMajor getMajor() {
+        return major;
+    }
+
+    public void setMajor(StudentMajor major) {
+        this.major = major;
+    }
+
+    public StudentDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(StudentDepartment department) {
+        this.department = department;
     }
 
     public void submitApplication(jobPosting job_Posting) {
