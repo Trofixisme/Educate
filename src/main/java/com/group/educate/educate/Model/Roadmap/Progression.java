@@ -1,3 +1,5 @@
+//NOTE: this interface is incomplete
+
 package com.group.educate.educate.Model.Roadmap;
 
 import java.time.Instant;
