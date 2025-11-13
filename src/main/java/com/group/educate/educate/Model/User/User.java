@@ -1,8 +1,8 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.models.User;
+package com.group.educate.educate.Model.User;
 import org.mindrot.jbcrypt.BCrypt;
-class User {
+abstract class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
     //Update: Issue might've been resolved. No testing has been conducted yet

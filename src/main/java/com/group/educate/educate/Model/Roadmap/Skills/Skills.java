@@ -1,16 +1,20 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.models.Roadmap.Skills;
+package com.group.educate.educate.Model.Roadmap.Skills;
 
-import java.util.UUID;
 
 public class Skills {
 
-    private UUID id = UUID.randomUUID();
+    private static int counter=0;
+    private final int skillsId;
     private String name;
 
     public Skills(String name) {
+        skillsId=++counter;
         this.name = name;
+    }
+    public int getSkillsId() {
+        return skillsId;
     }
 
     public String getName() {
