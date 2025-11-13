@@ -2,8 +2,6 @@
 
 package com.group.educate.educate.Model.Roadmap;
 
-import ch.qos.logback.core.pattern.color.ANSIConstants;
-
 import java.util.*;
 
 public final class Roadmap {
@@ -44,6 +42,10 @@ public final class Roadmap {
 
     void addModules(RoadmapModule... modules) {
         roadmapModules.addAll(List.of(modules));
+    }
+
+    RoadmapModule[] getAllModules() {
+        return roadmapModules.toArray(new RoadmapModule[roadmapModules.size()]);
     }
 
     @Override

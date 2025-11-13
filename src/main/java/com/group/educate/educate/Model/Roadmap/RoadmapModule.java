@@ -29,6 +29,14 @@ public class RoadmapModule {
         addSkills(skills);
     }
 
+    public RoadmapModule(String name, Skills[] skills) {
+        this(name, "Nothing to show.", skills);
+    }
+
+    public RoadmapModule(String name) {
+        this(name, "Nothing to show.");
+    }
+
     public String getModuleID() {
         return ID.toString();
     }
@@ -38,7 +46,10 @@ public class RoadmapModule {
     }
 
     public void setName(String name) {
-        if (name != null && !name.isBlank()) this.name = name;
+        if (name != null && !name.isBlank()) {
+            name = name.strip();
+            this.name = name;
+        }
         else throw new RuntimeException("new name cannot be blank or null");
     }
 
