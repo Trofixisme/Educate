@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class StudentDepartment {
     private String departmentId;
     private String departmentName;
-    private ArrayList<StudentMajor> majors;
+    private final ArrayList<StudentMajor> majors;
 
     public StudentDepartment(String departmentId, String departmentName) {
         this.departmentId = departmentId;
@@ -33,7 +33,8 @@ public class StudentDepartment {
         return majors;
     }
 
-    public void setMajors(ArrayList<StudentMajor> majors) {
-        this.majors = majors;
+
+    public void addMajors(StudentMajor major) {
+        majors.add(major);
     }
 }
