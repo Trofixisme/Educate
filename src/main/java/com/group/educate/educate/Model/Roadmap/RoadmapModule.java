@@ -29,7 +29,7 @@ public class RoadmapModule {
         addSkills(skills);
     }
 
-    public RoadmapModule(String name, Skills[] skills) {
+    public RoadmapModule(String name, Skills... skills) {
         this(name, "Nothing to show.", skills);
     }
 
@@ -64,5 +64,8 @@ public class RoadmapModule {
 
     public void addSkills(Skills... skills) {
         this.skills.addAll(List.of(skills));
+    }
+    ArrayList<Skills> getAllSkills() {
+        return skills;
     }
 }
