@@ -9,9 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @SuppressWarnings({"all"})
-public class RoadmapProgression {
-
-    private UUID ID = UUID.randomUUID();
+public class RoadmapProgression implements Progression<RoadmapModule> {
 
     private double percentage;
     private Date lastUpdated = Date.from(Instant.now());

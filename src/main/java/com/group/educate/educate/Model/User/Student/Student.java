@@ -9,8 +9,8 @@ import com.group.educate.educate.Model.User.User;
 public class Student extends User {
 
     int graduatingYear;
-    String UniName;
-    private String cv;
+    String uniName;
+    private String CV;
     StudentMajor major;
     StudentDepartment department;
 
@@ -23,7 +23,7 @@ public class Student extends User {
         this.graduatingYear = graduatingYear;
         this.major = major;
         this.department = department;
-        this.cv = cv;
+        this.CV = cv;
     }
 
     public int getGraduatingYear() {
@@ -35,19 +35,19 @@ public class Student extends User {
     }
 
     public String getUniName() {
-        return UniName;
+        return uniName;
     }
 
     public void setUniName(String uniName) {
-        UniName = uniName;
+        this.uniName = uniName;
     }
 
     public String getCv() {
-        return cv;
+        return CV;
     }
 
     public void setCv(String cv) {
-        this.cv = cv;
+        this.CV = cv;
     }
 
     public StudentMajor getMajor() {

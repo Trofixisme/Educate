@@ -1,6 +1,7 @@
 package com.group.educate.educate;
 
 import com.group.educate.educate.Model.Roadmap.Roadmap;
+import com.group.educate.educate.Model.Roadmap.RoadmapProgression;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.instrument.IllegalClassFormatException;
