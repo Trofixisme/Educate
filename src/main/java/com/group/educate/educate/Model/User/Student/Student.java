@@ -12,8 +12,9 @@ public class Student extends User {
     String UniName;
     private String cv;
 
-    public Student(String firstName, String lastName, String email, String password) {
+    public Student(String firstName, String lastName, String email, String password,String cv) {
         super(firstName, lastName, email, password);
+        this.cv = cv;
     }
 
     public int getGraduatingYear() {
@@ -30,6 +31,14 @@ public class Student extends User {
 
     public void setUniName(String uniName) {
         UniName = uniName;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
     }
 
     public void submitApplication(jobPosting job_Posting) {
