@@ -1,4 +1,5 @@
 //NOTE: this interface is incomplete
+//I wouldn't recommend implementing it until it's 100% complete
 
 package com.group.educate.educate.Model.Roadmap;
 

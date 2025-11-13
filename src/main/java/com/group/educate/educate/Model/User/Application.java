@@ -39,6 +39,4 @@ public class Application {
         Application.allApplications.add(application);
     }
 
-
-
 }

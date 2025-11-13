@@ -1,6 +1,7 @@
 package com.group.educate.educate.Model.User;
 
 public enum UserRole {
+
     STUDENT(1),
     EMPLOYER(2),
     COMPANY(3);
