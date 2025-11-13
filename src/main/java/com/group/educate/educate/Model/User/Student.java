@@ -3,6 +3,7 @@
 package com.group.educate.educate.Model.User;
 
 import com.group.educate.educate.Model.Job.jobPosting;
+import com.group.educate.educate.Model.User.Application;
 
 public class Student extends User {
 
