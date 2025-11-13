@@ -26,8 +26,7 @@ public final class Roadmap {
         progressionDelegate = delegate;
     }
 
-    //MARK: Functions
-
+    //MARK: Methods
     @SuppressWarnings({"all"})
     public Roadmap(String name) {
         this(name, null);

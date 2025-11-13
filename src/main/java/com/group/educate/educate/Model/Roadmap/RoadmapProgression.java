@@ -3,13 +3,15 @@
 
 package com.group.educate.educate.Model.Roadmap;
 
-import ch.qos.logback.core.pattern.color.ANSIConstants;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
+@SuppressWarnings({"all"})
 public class RoadmapProgression {
+
+    private UUID ID = UUID.randomUUID();
 
     private double percentage;
     private Date lastUpdated = Date.from(Instant.now());
@@ -18,9 +20,10 @@ public class RoadmapProgression {
     private final ArrayList<Boolean> completeModuleList = new ArrayList<>();
 
     private double currentCompletionPercentage;
-    private int completeModules;
-    private int inCompleteModules;
+    private int completeModulesCount;
+    private int inCompleteModulesCount;
 
+    //MARK: Constructors
     public RoadmapProgression(Roadmap delegate) {
         roadmapDelegate = delegate;
     }
@@ -31,6 +34,12 @@ public class RoadmapProgression {
         }
     }
 
+    //MARK: Getters
+    public UUID getID() {
+        return ID;
+    }
+
+    //MARK: Methods
     public boolean markComplete(int index) {
         if (completeModuleList.get(index) != true) {
             completeModuleList.set(index, true);
@@ -77,12 +86,18 @@ public class RoadmapProgression {
 
     private void updateLastUpdated() { lastUpdated = Date.from(Instant.now()); }
 
-    private void updateCompletePercentage() {
+    private void updateCompletionPercentage() {
         int completeCounter = 0;
-        int incompleteCounter = 0;
 
-        for (int i = 0; i < ; i++) {
-            
+        for (Boolean i : completeModuleList) {
+            if (i == true) {
+                completeCounter++;
+            }
         }
+
+        completeModulesCount = completeCounter;
+        inCompleteModulesCount = completeModuleList.size() - completeCounter;
+
+        percentage = ((double) completeModulesCount / completeModuleList.size()) * 100;
     }
 }
