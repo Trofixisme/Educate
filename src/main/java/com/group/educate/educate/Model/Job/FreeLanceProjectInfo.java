@@ -1,5 +1,7 @@
 //Made By Eyad
 
+package com.group.educate.educate.Model.Job;
+
 public class FreeLanceProjectInfo extends JobPosting{
     private int Duration;
     private int Payout;

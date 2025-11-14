@@ -1,5 +1,7 @@
 //Made By Eyad
 
+package com.group.educate.educate.Model.Job;
+
 public class FullTime extends JobPosting{
     private String Benefits;
 
