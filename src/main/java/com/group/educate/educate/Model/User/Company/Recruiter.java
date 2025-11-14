@@ -29,4 +29,10 @@ public class Recruiter extends User {
     public static void setCompanies(List<Company> companies) {
         Recruiter.companies = companies;
     }
+    public  void addCompany(Company company) {
+        companies.add(company);
+    }
+    public  void removeCompany(Company company) {
+        companies.remove(company);
+    }
 }
