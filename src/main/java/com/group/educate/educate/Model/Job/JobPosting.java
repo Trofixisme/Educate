@@ -1,29 +1,31 @@
 //Made By Eyad
 
 package com.group.educate.educate.Model.Job;
-
-import com.group.educate.educate.Model.User.Application;
-
+import java.lang.instrument.IllegalClassFormatException;
+import java.time.Instant;
+import java.util.Date;
 public class JobPosting {
     private String JobDescription;
     private String JobName;
-    private String DatePosted;
+    private Date DatePosted = Date.from(Instant.now());
     private String JobLocation;
     private String JobRequirements;
     private String JobTitle;
-    private int JobPostingID;
-    private Type JobType;
+    private final int JobPostingID;
+    private PostingType jobPostingType;
+    private static int counter=0;
 
 
-    public JobPosting(Type JobType){
-        this.JobDescription = "";
-        this.JobName = "";
-        this.DatePosted = "";
-        this.JobLocation = "";
-        this.JobRequirements = "";
-        this.JobTitle = "";
-        this.JobPostingID = 0;
-        this.JobType =JobType;
+    public JobPosting(String JobDescription, String JobName, String JobLocation, String JobRequirements, String JobTitle, PostingType jobPostingType) {
+        this.JobDescription =JobDescription;
+        this.JobName = JobName;
+        this.DatePosted = new Date();
+        this.JobLocation = JobLocation;
+        this.JobRequirements = JobRequirements;
+        this.JobTitle = JobTitle;
+        this.JobPostingID =++counter;
+        this.jobPostingType = jobPostingType;
+
     }
 
     public String getJobLocation() {
@@ -34,13 +36,10 @@ public class JobPosting {
         JobLocation = jobLocation;
     }
 
-    public String getDatePosted() {
+    public Date getDatePosted() {
         return DatePosted;
     }
 
-    public void setDatePosted(String datePosted) {
-        DatePosted = datePosted;
-    }
 
     public String getJobDescription() {
         return JobDescription;
@@ -62,7 +61,8 @@ public class JobPosting {
         return JobPostingID;
     }
 
-    public Type getJobType() {
-        return JobType;
+    public PostingType getJobType() {
+        return jobPostingType;
     }
+
 }

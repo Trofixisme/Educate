@@ -14,15 +14,16 @@ public abstract class User {
     private String lname;
     private String email;
     private final int userId;
+    private UserRole role;
 
     //added password hashing
-    public User(String fname, String lname, String email, String plainPassword) {
-        userId=++counter;
+    public User(String fname, String lname, String email, String plainPassword,UserRole role) {
+        this.userId=++counter;
         this.hashedPassword = hashPassword(plainPassword);
         setFname(fname);
         setLname(lname);
         setEmail(email);
-
+        this.role=role;
     }
     // Hash password with BCrypt
     private String hashPassword(String plainPassword) {

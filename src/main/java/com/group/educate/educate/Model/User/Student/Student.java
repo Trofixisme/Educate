@@ -2,9 +2,10 @@
 
 package com.group.educate.educate.Model.User.Student;
 
-import com.group.educate.educate.Model.Job.jobPosting;
+import com.group.educate.educate.Model.Job.JobPosting;
 import com.group.educate.educate.Model.User.Application;
 import com.group.educate.educate.Model.User.User;
+import com.group.educate.educate.Model.User.UserRole;
 
 public class Student extends User {
 
@@ -14,12 +15,12 @@ public class Student extends User {
     StudentMajor major;
     StudentDepartment department;
 
-    public Student(String firstName, String lastName, String email, String password,
+    public Student(String fname, String lname, String email,  String plainPassword, UserRole role,
                    //students artibutes
                    int graduatingYear, StudentMajor major, StudentDepartment department ,String cv)
     {
 
-        super(firstName, lastName, email, password);
+        super( fname, lname,  email, plainPassword,role);
         this.graduatingYear = graduatingYear;
         this.major = major;
         this.department = department;
@@ -66,8 +67,9 @@ public class Student extends User {
         this.department = department;
     }
 
-    public void submitApplication(jobPosting job_Posting) {
-        Application StudentApplication = new Application(job_Posting, this);
+    public void submitApplication(JobPosting job_Posting) {
+
+        Application StudentApplication = new Application(this, job_Posting);
         Application.addApplication(StudentApplication);
     }
 }

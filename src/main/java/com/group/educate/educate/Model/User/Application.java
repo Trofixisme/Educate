@@ -1,6 +1,6 @@
 package com.group.educate.educate.Model.User;
 
-import com.group.educate.educate.Model.Job.jobPosting;
+import com.group.educate.educate.Model.Job.JobPosting;
 import com.group.educate.educate.Model.User.Student.Student;
 
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ public class Application {
 
     private static int counter;
     private final int ApplicationId;
-    jobPosting jobPosting;
+    JobPosting jobPosting;
     Student student;
     private static final List<Application> allApplications = new ArrayList<>();
 
     //public Application() {this.ApplicationId=++counter;}
 
-    public Application(jobPosting jobPosting, Student student) {
+    public Application(Student student, JobPosting jobPosting) {
         this.jobPosting = jobPosting;
         this.student = student;
         this.ApplicationId=++counter;

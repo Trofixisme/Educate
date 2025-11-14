@@ -3,17 +3,17 @@
 package com.group.educate.educate.Model.Job;
 
 public class FullTime extends JobPosting{
-    private String Benefits;
+    private String benefits;
 
-    public FullTime(Type JobType) {
-        super(JobType);
-        this.Benefits = "";
+    public FullTime(String JobDescription, String JobName, String JobLocation, String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits) {
+        super(JobDescription, JobName, JobLocation,JobRequirements, JobTitle,jobPostingType);
+        this.benefits = benefits;
     }
 
     public String getBenefits() {
-        return Benefits;
+        return benefits;
     }
-    public void setBenefits(String Benefits) {
-        this.Benefits = Benefits;
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
     }
 }

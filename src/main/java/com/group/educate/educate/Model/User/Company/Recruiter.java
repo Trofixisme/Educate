@@ -1,6 +1,7 @@
 package com.group.educate.educate.Model.User.Company;
 
 import com.group.educate.educate.Model.User.User;
+import com.group.educate.educate.Model.User.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 public class Recruiter extends User {
     private String title;
     private static List<Company> companies = new ArrayList<>();
-    public Recruiter(String firstName, String lastName, String email, String password, String title){
-        super(firstName, lastName, email, password);
+    public Recruiter(String fname, String lname, String email, String plainPassword, UserRole role){
+        super(fname, lname,  email, plainPassword,role);
         this.title=title;
     }
 
