@@ -39,4 +39,7 @@ public class UserSkillStatus {
         this.updatedTime = updatedTime;
     }
 
+    public Status getStatus() {
+        return status;
+    }
 }

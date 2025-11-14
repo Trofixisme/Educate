@@ -1,101 +1,123 @@
-// 13//11/2025 - Ziad
-//Sandra, do NOT touch this file before informing me
-
 package com.group.educate.educate.Model.Roadmap;
+import com.group.educate.educate.Model.Job.PostingType;
+import com.group.educate.educate.Model.Roadmap.Skill.Skill;
+import com.group.educate.educate.Model.Roadmap.Skill.UserSkillStatus;
+import com.group.educate.educate.Model.User.Student.Student;
+import com.group.educate.educate.Model.User.Student.StudentDepartment;
+import com.group.educate.educate.Model.User.Student.StudentMajor;
+import com.group.educate.educate.Model.User.UserRole;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
 @SuppressWarnings({"all"})
-public class RoadmapProgression implements Progression<RoadmapModule> {
-
+public class RoadmapProgression {
+    private static int skillcounter = 0;
+    private final int RoadmapProgressionId;
     private double percentage;
     private Date lastUpdated = Date.from(Instant.now());
-    private Roadmap roadmapDelegate;
-
-    private final ArrayList<Boolean> completeModuleList = new ArrayList<>();
-
+    private Roadmap roadmap;
+    private ArrayList<UserSkillStatus> userSkillStatuses;
     private double currentCompletionPercentage;
     private int completeModulesCount;
-    private int inCompleteModulesCount;
+    private int incompleteModulesCount;
 
-    //MARK: Constructors
-    public RoadmapProgression(Roadmap delegate) {
-        roadmapDelegate = delegate;
+    public RoadmapProgression(Roadmap roadmap) {
+        this.RoadmapProgressionId = ++skillcounter;
+        this.roadmap = roadmap;
+        this.userSkillStatuses = new ArrayList<>();
     }
 
-    private void prepare() {
-        for (int i = 0; i < roadmapDelegate.getAllModules().size(); i++) {
-            completeModuleList.add(false);
+    public void addUserSkillStatus(UserSkillStatus userSkillStatus) {
+        userSkillStatuses.add(userSkillStatus);
+        updateCompletionPercentage();
+        updateLastUpdated();
+    }
+
+    public void updateUserSkillStatus(UserSkillStatus userSkillStatus) {
+        int index = userSkillStatuses.indexOf(userSkillStatus);
+        if (index != -1) {
+            userSkillStatuses.set(index, userSkillStatus);
+            updateCompletionPercentage();
+            updateLastUpdated();
         }
     }
-
-    //MARK: Getters
-    public UUID getID() {
-        return ID;
-    }
-
-    //MARK: Methods
-    public boolean markComplete(int index) {
-        if (completeModuleList.get(index) != true) {
-            completeModuleList.set(index, true);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean markComplete(RoadmapModule module) {
-        if (!roadmapDelegate.getAllModules().contains(module)) {
-            return false;
-        } else {
-            if (completeModuleList.get(roadmapDelegate.getAllModules().indexOf(module)) == true) {
-                return false;
-            } else {
-                completeModuleList.set(roadmapDelegate.getAllModules().indexOf(module), true);
-                return true;
-            }
-        }
-    }
-
-    public boolean markIncomplete(int index) {
-        if (completeModuleList.get(index) != false) {
-            completeModuleList.set(index, false);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean markIncomplete(RoadmapModule module) {
-        if (!roadmapDelegate.getAllModules().contains(module)) {
-            return false;
-        } else {
-            if (completeModuleList.get(roadmapDelegate.getAllModules().indexOf(module)) == false) {
-                return false;
-            } else {
-                completeModuleList.set(roadmapDelegate.getAllModules().indexOf(module), false);
-                return true;
-            }
-        }
-    }
-
-    private void updateLastUpdated() { lastUpdated = Date.from(Instant.now()); }
 
     private void updateCompletionPercentage() {
-        int completeCounter = 0;
+        if (userSkillStatuses.isEmpty()) {
+            percentage = 0;
+            completeModulesCount = 0;
+            incompleteModulesCount = 0;
+            return;
+        }
 
-        for (Boolean i : completeModuleList) {
-            if (i == true) {
-                completeCounter++;
+        int doneCount = 0;
+        for (UserSkillStatus status : userSkillStatuses) {
+            if (status.getStatus() == UserSkillStatus.Status.DONE||status.getStatus() == UserSkillStatus.Status.SKIP) {
+                doneCount++;
             }
         }
 
-        completeModulesCount = completeCounter;
-        inCompleteModulesCount = completeModuleList.size() - completeCounter;
-
-        percentage = ((double) completeModulesCount / completeModuleList.size()) * 100;
+        completeModulesCount = doneCount;
+        incompleteModulesCount = userSkillStatuses.size() - doneCount;
+        percentage = ((double) doneCount / userSkillStatuses.size()) * 100;
+        currentCompletionPercentage = percentage;
     }
+
+    private void updateLastUpdated() {
+        lastUpdated = Date.from(Instant.now());
+    }
+
+    public int getRoadmapProgressionId() {
+        return RoadmapProgressionId;
+    }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public int getCompleteModulesCount() {
+        return completeModulesCount;
+    }
+
+    public int getIncompleteModulesCount() {
+        return incompleteModulesCount;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public static void main(String[] args) {
+        // Create a test roadmap with mock ID
+        RoadmapModule R1=new RoadmapModule("front end","learn front end");
+        Roadmap testRoadmap = new Roadmap("Java Fundamentals",R1);
+        RoadmapProgression progression = new RoadmapProgression(testRoadmap);
+
+        // Create test skills with mock data
+        Skill skill1 = new Skill("java basics");
+        Skill skill2 = new Skill("oop concepts");
+        StudentMajor m1=new StudentMajor("213","Computer Science");
+        StudentDepartment sp=new StudentDepartment("213","cs");
+        // Create student with mock data
+        //PostingType.FreeLanceProject
+        Student student = new Student("John ", "Doe", "john@example.com","....", UserRole.STUDENT,2026,m1,sp,",,");
+
+        // Add user skill statuses
+        UserSkillStatus uss1 = new UserSkillStatus(skill1,student, UserSkillStatus.Status.DONE);
+        UserSkillStatus uss2 = new UserSkillStatus(skill2,student, UserSkillStatus.Status.IN_PROGRESS);
+
+        progression.addUserSkillStatus(uss1);
+        progression.addUserSkillStatus(uss2);
+
+        // Print results
+        System.out.println("=== Roadmap Progression Test ===");
+        System.out.println("Total Skills: " + (progression.getCompleteModulesCount() + progression.getIncompleteModulesCount()));
+        System.out.println("Complete: " + progression.getCompleteModulesCount());
+        System.out.println("Incomplete: " + progression.getIncompleteModulesCount());
+        System.out.println("Completion %: " + String.format("%.2f", progression.getPercentage()) + "%");
+        System.out.println("Last Updated: " + progression.getLastUpdated());
+    }
+
 }
