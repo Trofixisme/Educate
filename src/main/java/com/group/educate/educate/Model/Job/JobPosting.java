@@ -26,11 +26,6 @@ public class JobPosting {
         this.JobType =JobType;
     }
 
-    public Application Application (Application App1){
-        return App1;
-    }
-
-
     public String getJobLocation() {
         return JobLocation;
     }
