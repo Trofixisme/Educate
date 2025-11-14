@@ -1,9 +1,4 @@
 //Made By Eyad
-//I can tell -Ziad
-
-package com.group.educate.educate.Model.Job;
-
-import com.group.educate.educate.Model.User.Application;
 
 public class JobPosting {
     private String JobDescription;
