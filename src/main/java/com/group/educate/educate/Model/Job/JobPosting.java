@@ -23,10 +23,6 @@ public class JobPosting {
     }
 
 
-    public Application Application (Application App1){
-        return App1;
-    }
-
 
     public String getJobLocation() {
         return JobLocation;
@@ -68,3 +64,4 @@ public class JobPosting {
         return JobType;
     }
 }
+
