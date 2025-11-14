@@ -37,4 +37,7 @@ public class StudentDepartment {
     public void addMajors(StudentMajor major) {
         majors.add(major);
     }
+    public void removeMajors(StudentMajor major) {
+        majors.remove(major);
+    }
 }
