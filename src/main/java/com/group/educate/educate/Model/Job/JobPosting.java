@@ -1,5 +1,3 @@
-//Made By Eyad
-
 package com.group.educate.educate.Model.Job;
 import java.lang.instrument.IllegalClassFormatException;
 import java.time.Instant;
