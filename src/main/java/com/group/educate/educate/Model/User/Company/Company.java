@@ -10,6 +10,12 @@ public class Company {
     private String websiteURL;
     private static List<Recruiter> recruiters = new ArrayList<>();
 
+    public Company(String industry, String name, String websiteURL) {
+        this.industry = industry;
+        this.name = name;
+        this.websiteURL = websiteURL;
+    }
+
     public String getIndustry() {
         return industry;
     }
@@ -40,5 +46,12 @@ public class Company {
 
     public static void setRecruiters(List<Recruiter> recruiters) {
         Company.recruiters = recruiters;
+    }
+
+    public static void addRecruiter(Recruiter recruiter) {
+        Company.recruiters.add(recruiter);
+    }
+    public static void removeRecruiter(Recruiter recruiter) {
+        Company.recruiters.remove(recruiter);
     }
 }
