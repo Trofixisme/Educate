@@ -1,5 +1,9 @@
 //Made By Eyad
 
+package com.group.educate.educate.Model.Job;
+
+import com.group.educate.educate.Model.User.Application;
+
 public class JobPosting {
     private String JobDescription;
     private String JobName;
@@ -22,6 +26,9 @@ public class JobPosting {
         this.JobType =JobType;
     }
 
+    public Application Application (Application App1){
+        return App1;
+    }
 
 
     public String getJobLocation() {
@@ -64,4 +71,3 @@ public class JobPosting {
         return JobType;
     }
 }
-
