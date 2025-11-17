@@ -3,13 +3,14 @@ package com.group.educate.Model.User.Student;
 import java.util.ArrayList;
 
 public class StudentMajor {
-    private String majorId;
+    private static int counter;
+    private final int majorId;
     private String majorName;
     // major has many students
     private ArrayList<Student> students= new ArrayList();
 
-    public StudentMajor(String majorId, String majorName) {
-        this.majorId = majorId;
+    public StudentMajor( String majorName) {
+        this.majorId =++counter;
         this.majorName = majorName;
     }
 
@@ -20,7 +21,7 @@ public class StudentMajor {
         students.add(student);
     }
 
-    public String getMajorId() {
+    public int getMajorId() {
         return majorId;
     }
 

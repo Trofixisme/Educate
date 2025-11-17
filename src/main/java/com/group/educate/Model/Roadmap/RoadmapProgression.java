@@ -98,11 +98,11 @@ public class RoadmapProgression {
             // Create test skills with mock data
             Skill skill1 = new Skill("java basics");
             Skill skill2 = new Skill("oop concepts");
-            StudentMajor m1 = new StudentMajor("213", "Computer Science");
-            StudentDepartment sp = new StudentDepartment("213", "cs");
+            StudentMajor m1 = new StudentMajor( "Computer Science");
+            StudentDepartment sp = new StudentDepartment( "cs");
             // Create student with mock data
             //PostingType.FreeLanceProject
-            Student student = new Student("John ", "Doe", "john@example.com", "....", UserRole.STUDENT, 2026, m1, sp, ",,");
+            Student student = new Student("John ", "Doe", "john@example.com", "....", UserRole.STUDENT, 2026, m1, sp);
 
             // Add user skill statuses
             UserSkillStatus uss1 = new UserSkillStatus(skill1, student, Status.DONE);

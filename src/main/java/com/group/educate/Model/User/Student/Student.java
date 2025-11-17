@@ -17,14 +17,13 @@ public class Student extends User {
 
     public Student(String fname, String lname, String email,  String plainPassword, UserRole role,
                    //students artibutes
-                   int graduatingYear, StudentMajor major, StudentDepartment department ,String cv)
+                   int graduatingYear, StudentMajor major, StudentDepartment department)
     {
 
         super( fname, lname,  email, plainPassword,role);
         this.graduatingYear = graduatingYear;
         this.major = major;
         this.department = department;
-        this.CV = cv;
     }
 
     public int getGraduatingYear() {

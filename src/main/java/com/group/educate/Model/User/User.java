@@ -35,11 +35,15 @@ public abstract class User {
         return BCrypt.checkpw(plainPassword, this.hashedPassword);
     }
 
-    public int getUserID() {
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public int getUserId() {
         return userId;
     }
 
-    public String getFirstName() {
+    public String getFname() {
         return fname;
     }
 
@@ -61,6 +65,9 @@ public abstract class User {
         return email;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
 
     //TODO: do some ACTUAL validation before changing the user's email
 

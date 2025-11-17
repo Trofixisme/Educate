@@ -3,21 +3,22 @@ package com.group.educate.Model.User.Student;
 import java.util.ArrayList;
 
 public class StudentDepartment {
-    private String departmentId;
+    private static int counter;
+    private int departmentId;
     private String departmentName;
     private final ArrayList<StudentMajor> majors;
 
-    public StudentDepartment(String departmentId, String departmentName) {
-        this.departmentId = departmentId;
+    public StudentDepartment( String departmentName) {
+        this.departmentId =++counter;
         this.departmentName = departmentName;
         this.majors = new ArrayList<>();
     }
 
-    public String getDepartmentId() {
+    public int getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(String departmentId) {
+    public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
 
