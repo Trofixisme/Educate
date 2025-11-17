@@ -1,7 +1,7 @@
-package com.group.educate.educate.Model.User;
+package com.group.educate.Model.User;
 
-import com.group.educate.educate.Model.Job.JobPosting;
-import com.group.educate.educate.Model.User.Student.Student;
+import com.group.educate.Model.Job.JobPosting;
+import com.group.educate.Model.User.Student.Student;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,8 @@
-package com.group.educate.educate;
+package com.group.educate;
 
-import com.group.educate.educate.Model.Roadmap.Roadmap;
-import com.group.educate.educate.Model.Roadmap.RoadmapProgression;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.instrument.IllegalClassFormatException;
-import java.util.Random;
 
 @SpringBootApplication
 public class EducateApplication {

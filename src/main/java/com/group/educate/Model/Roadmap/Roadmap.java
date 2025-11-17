@@ -1,6 +1,6 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Model.Roadmap;
+package com.group.educate.Model.Roadmap;
 
 import java.util.*;
 

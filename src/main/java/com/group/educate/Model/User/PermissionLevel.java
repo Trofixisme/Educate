@@ -1,4 +1,4 @@
-package com.group.educate.educate.Model.User;
+package com.group.educate.Model.User;
 
 public enum PermissionLevel {
     

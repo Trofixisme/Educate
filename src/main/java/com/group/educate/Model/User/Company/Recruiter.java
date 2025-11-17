@@ -1,7 +1,7 @@
-package com.group.educate.educate.Model.User.Company;
+package com.group.educate.Model.User.Company;
 
-import com.group.educate.educate.Model.User.User;
-import com.group.educate.educate.Model.User.UserRole;
+import com.group.educate.Model.User.User;
+import com.group.educate.Model.User.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;

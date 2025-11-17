@@ -1,6 +1,6 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Model.Roadmap.Skill;
+package com.group.educate.Model.Roadmap.Skill;
 
 import java.net.URL;
 import java.util.ArrayList;

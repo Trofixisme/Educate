@@ -1,11 +1,11 @@
 //Created by Ziad on 28/10/2025
 
-package com.group.educate.educate.Model.User.Student;
+package com.group.educate.Model.User.Student;
 
-import com.group.educate.educate.Model.Job.JobPosting;
-import com.group.educate.educate.Model.User.Application;
-import com.group.educate.educate.Model.User.User;
-import com.group.educate.educate.Model.User.UserRole;
+import com.group.educate.Model.Job.JobPosting;
+import com.group.educate.Model.User.Application;
+import com.group.educate.Model.User.User;
+import com.group.educate.Model.User.UserRole;
 
 public class Student extends User {
 

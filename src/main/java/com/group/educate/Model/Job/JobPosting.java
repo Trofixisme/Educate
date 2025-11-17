@@ -1,5 +1,4 @@
-package com.group.educate.educate.Model.Job;
-import java.lang.instrument.IllegalClassFormatException;
+package com.group.educate.Model.Job;
 import java.time.Instant;
 import java.util.Date;
 public class JobPosting {

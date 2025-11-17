@@ -1,4 +1,4 @@
-package com.group.educate.educate.Model.User.Student;
+package com.group.educate.Model.User.Student;
 
 import java.util.ArrayList;
 

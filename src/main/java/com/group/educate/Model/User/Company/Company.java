@@ -1,4 +1,4 @@
-package com.group.educate.educate.Model.User.Company;
+package com.group.educate.Model.User.Company;
 
 import java.util.ArrayList;
 import java.util.List;

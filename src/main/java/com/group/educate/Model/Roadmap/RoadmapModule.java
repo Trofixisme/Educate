@@ -1,8 +1,8 @@
 //Created by Ziad on 30/10/2025
 
-package com.group.educate.educate.Model.Roadmap;
+package com.group.educate.Model.Roadmap;
 
-import com.group.educate.educate.Model.Roadmap.Skill.Skill;
+import com.group.educate.Model.Roadmap.Skill.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
