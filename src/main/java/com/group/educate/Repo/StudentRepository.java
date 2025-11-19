@@ -20,28 +20,27 @@ public class StudentRepository extends UserRepository {
 
     @Override
     User parseUser(String line){
-        String[] parts = line.split("\\|");
-        String userId=parts[0];
-        String Fname = parts[1];
-        String lname = parts[2];
-        String email = parts[3];
-        String password = parts[4];
-        String role = parts[5];
 
-        try {
-            int GraduatingYear = Integer.parseInt(parts[6]);
+        String[] parts = line.split("\\|", -1);  // IMPORTANT: keep empty fields!
+
+        if (parts.length < 10) {
+            throw new IllegalArgumentException("Invalid line format (" + parts.length + " fields): " + line);
         }
-        catch(NumberFormatException e){
-            e.printStackTrace();
-        }
-        String uniName=parts[7];
-        String Major = parts[8];
-        String Department = parts[9];
 
-        return new Student(parts[0], parts[1], parts[2], parts[3], parts[4], UserRole.STUDENT,
-                Integer.parseInt(parts[6]), parts[7], parts[8],parts[9]);
-
+        return new Student(
+                parts[0],          // UUID
+                parts[1],          // First name
+                parts[2],          // Last name
+                parts[3],          // Email
+                parts[4],          // Password
+                UserRole.valueOf(parts[5]),
+                Integer.parseInt(parts[6]),
+                parts[7],
+                parts[8],
+                parts[9]
+        );
     }
+
 
     private static class RepositoryTest {
 
