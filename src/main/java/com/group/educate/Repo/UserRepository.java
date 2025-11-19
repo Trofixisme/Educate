@@ -19,7 +19,7 @@ public abstract class UserRepository {
     }
     // Convert User → text
     private String formatUser(User user) {
-        return user.getUserId() + "|" +
+        return  user.getUserId() + "|" +
                 user.getFname()+ "|" +
                 user.getLname()+ "|" +
                 user.getEmail() + "|" +

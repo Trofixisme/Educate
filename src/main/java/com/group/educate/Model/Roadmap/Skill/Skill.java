@@ -20,6 +20,18 @@ public class Skill {
         skillsId=++counter;
         this.name = name;
     }
+
+    public Skill(int skillsId, String name, String description, List<URL> links) {
+        this.skillsId =++counter;
+        this.name = name;
+        this.description = description;
+
+        if (links != null) {
+            this.resourceLinks.addAll(links);
+        }
+
+    }
+
     public int getSkillsId() {
         return skillsId;
     }
