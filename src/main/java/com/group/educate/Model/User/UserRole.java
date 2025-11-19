@@ -4,15 +4,18 @@ public enum UserRole {
 
     STUDENT(1),
     EMPLOYER(2),
-    COMPANY(3);
+    COMPANY(3),
+    ADMIN(4);
 
-    private final int id;
 
-    UserRole(int id) {
-        this.id = id;
+
+    private final int ID;
+
+    UserRole(int ID) {
+        this.ID = ID;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 }

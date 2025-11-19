@@ -10,8 +10,6 @@ public final class Roadmap {
     private String name;
     private final ArrayList<RoadmapModule> roadmapModules = new ArrayList<>();
 
-    public RoadmapProgression progressionDelegate = null;
-
     //MARK: Constructors
     public Roadmap(String name, RoadmapModule... modules) {
         this.name = name;
@@ -21,20 +19,14 @@ public final class Roadmap {
 
     }
 
-    public Roadmap(String name, RoadmapProgression delegate, RoadmapModule... modules) {
-        this(name, modules);
-        progressionDelegate = delegate;
-    }
-
     //MARK: Methods
     @SuppressWarnings({"all"})
     public Roadmap(String name) {
         this(name, null);
     }
 
-    private String getName() {
+    public String getName() {
         return name;
-
     }
 
     public void setName(String newName) {
@@ -43,10 +35,6 @@ public final class Roadmap {
 
     public String getRoadmapID() {
         return ID.toString();
-    }
-
-    void addModule(RoadmapModule module) {
-        addModules(module);
     }
 
     void addModules(RoadmapModule... modules) {

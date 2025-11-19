@@ -10,7 +10,7 @@ import java.util.List;
 public class Application {
 
     private static int counter;
-    private final int ApplicationId;
+    private final int ApplicationID;
     JobPosting jobPosting;
     Student student;
     private static final List<Application> allApplications = new ArrayList<>();
@@ -20,11 +20,11 @@ public class Application {
     public Application(Student student, JobPosting jobPosting) {
         this.jobPosting = jobPosting;
         this.student = student;
-        this.ApplicationId=++counter;
+        this.ApplicationID = ++counter;
     }
 
-    public int getApplicationId() {
-        return ApplicationId;
+    public int getApplicationID() {
+        return ApplicationID;
     }
 
     public static List<Application> getAllApplications() {

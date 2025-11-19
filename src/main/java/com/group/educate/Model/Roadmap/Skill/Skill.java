@@ -9,17 +9,18 @@ import java.util.List;
 
 public class Skill {
 
-    private static int counter=0;
-    private final int skillsId;
+    private static int counter = 0;
+    private final int skillID;
     private String name;
-    private final ArrayList<URL> resourceLinks  = new ArrayList<>();
+    private final ArrayList<URL> resourceLinks = new ArrayList<>();
     //description
     private String description;
 
     public Skill(String name) {
-        skillsId=++counter;
+        skillID =++counter;
         this.name = name;
     }
+
 
     public Skill(int skillsId, String name, String description, List<URL> links) {
         this.skillsId =++counter;
@@ -37,6 +38,11 @@ public class Skill {
     }
 
 
+
+    public int getSkillID() {
+        return skillID;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,18 +51,13 @@ public class Skill {
         name = newName;
     }
 
-    public void addURLS(URL... resourceLinks) {
+    public void addURLs(URL... resourceLinks) {
         this.resourceLinks.addAll(List.of(resourceLinks));
-    }
-
-    public static int getCounter() {
-        return counter;
     }
 
     public ArrayList<URL> getResourceLinks() {
         return resourceLinks;
     }
-
 
     public String getDescription() {
         return description;

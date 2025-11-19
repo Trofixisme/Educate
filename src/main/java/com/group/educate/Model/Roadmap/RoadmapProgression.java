@@ -18,8 +18,8 @@ public class RoadmapProgression {
 
     //I'm not going to even argue about this... -Ziad
     //Identifier
-    private static int skillcounter = 0;
-    private final int RoadmapProgressionId;
+    private static int counter = 0;
+    private final int ID;
 
     private double percentage;
     private Date lastModified = Date.from(Instant.now());
@@ -32,7 +32,7 @@ public class RoadmapProgression {
     private int numberOfIncompleteModules;
 
     public RoadmapProgression(Roadmap roadmap) {
-        RoadmapProgressionId = ++skillcounter;
+        ID = ++counter;
         this.roadmap = roadmap;
     }
 
@@ -68,8 +68,8 @@ public class RoadmapProgression {
         lastModified = Date.from(Instant.now());
     }
 
-    public int getRoadmapProgressionId() {
-        return RoadmapProgressionId;
+    public int getRoadmapProgressionID() {
+        return ID;
     }
 
     public double getPercentage() {
