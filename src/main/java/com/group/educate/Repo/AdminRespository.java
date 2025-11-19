@@ -1,7 +1,6 @@
 package com.group.educate.Repo;
 
 import com.group.educate.Model.User.Admin;
-import com.group.educate.Model.User.Student.Student;
 import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 
