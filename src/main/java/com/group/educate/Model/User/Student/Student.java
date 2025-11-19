@@ -7,11 +7,37 @@ import com.group.educate.Model.User.Application;
 import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 
+enum StudentMajor {
+    COMPUTER_SCIENCE,
+    INFORMATION_TECHNOLOGY,
+    SOFTWARE_ENGINEERING,
+    DATA_SCIENCE,
+    CYBER_SECURITY,
+    NETWORKING,
+    ARTIFICIAL_INTELLIGENCE,
+    BUSINESS_ADMINISTRATION,
+    MARKETING,
+    FINANCE,
+    ACCOUNTING,
+    ECONOMICS,
+    PSYCHOLOGY,
+    BIOLOGY,
+    CHEMISTRY,
+    PHYSICS,
+    MATHEMATICS,
+    ELECTRICAL_ENGINEERING,
+    MECHANICAL_ENGINEERING,
+    CIVIL_ENGINEERING,
+    ARCHITECTURE
+}
+
 public class Student extends User {
 
     private int graduatingYear;
     private String uniName;
     private String CV;
+    private StudentMajor studentMajor;
+
     private StudentMajor major;
     private StudentDepartment department;
 

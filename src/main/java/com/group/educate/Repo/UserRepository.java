@@ -2,7 +2,11 @@ package com.group.educate.Repo;
 import java.io.BufferedWriter;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
+
+import com.group.educate.Model.Roadmap.Skill.Skill;
 import com.group.educate.Model.User.User;
 
 public abstract class UserRepository {
@@ -78,5 +82,17 @@ public abstract class UserRepository {
             e.printStackTrace();
         }
         return lines;
+    }
+    public static void main(String[] args) {
+
+        ArrayList<URL> urls = new ArrayList<>();
+
+        try {
+            urls.add(new URL("https://google.com"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Skill s = new Skill(1, "java basics", "learn java", urls);
+
     }
 }

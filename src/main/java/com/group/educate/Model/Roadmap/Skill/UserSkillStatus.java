@@ -1,6 +1,6 @@
 package com.group.educate.Model.Roadmap.Skill;
 
-import com.group.educate.Model.Roadmap.RoadmapProgression;
+import com.group.educate.Services.RoadmapProgression;
 import com.group.educate.Model.Roadmap.Status;
 import com.group.educate.Model.User.Student.Student;
 

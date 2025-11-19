@@ -13,7 +13,7 @@ public class Application {
     private final int ApplicationID;
     JobPosting jobPosting;
     Student student;
-    private static final List<Application> allApplications = new ArrayList<>();
+    private static final ArrayList<Application> allApplications = new ArrayList<>();
 
     //public Application() {this.ApplicationId=++counter;}
 
@@ -27,7 +27,7 @@ public class Application {
         return ApplicationID;
     }
 
-    public static List<Application> getAllApplications() {
+    public static ArrayList<Application> getAllApplications() {
         return allApplications;
     }
 

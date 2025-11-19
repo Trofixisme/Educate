@@ -10,14 +10,14 @@ import java.util.List;
 public class Skill {
 
     private static int counter = 0;
-    private final int skillID;
+    private final int skillsId;
     private String name;
     private final ArrayList<URL> resourceLinks = new ArrayList<>();
     //description
     private String description;
 
     public Skill(String name) {
-        skillID =++counter;
+        skillsId =++counter;
         this.name = name;
     }
 
@@ -35,12 +35,6 @@ public class Skill {
 
     public int getSkillsId() {
         return skillsId;
-    }
-
-
-
-    public int getSkillID() {
-        return skillID;
     }
 
     public String getName() {
