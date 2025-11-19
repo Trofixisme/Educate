@@ -36,7 +36,7 @@ public abstract class UserRepository {
 //    }
 
     //Write to a file
-    private void writeToFile(String path, String line, boolean append) {
+    protected void writeToFile(String path, String line, boolean append) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, append))) {
             writer.write(line);
             writer.newLine();
