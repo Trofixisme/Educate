@@ -79,4 +79,16 @@ public abstract class User {
     public UserRole getRole() {
         return role;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "hashedPassword='" + hashedPassword + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", email='" + email + '\'' +
+                ", userID=" + userID +
+                ", role=" + role +
+                '}';
+    }
 }

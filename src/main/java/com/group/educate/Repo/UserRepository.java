@@ -10,14 +10,14 @@ public abstract class UserRepository {
 
     //Constructor to create a data directory if it doesn't exist
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public UserRepository(){
+    public UserRepository() {
         File file = new File("data");
         if(!file.exists()) file.mkdirs();
     }
 
     public void save(User user){
-        String line=formatUser(user);
-        writeToFile(path,line,true);
+        String line = formatUser(user);
+        writeToFile(path, line,true);
     }
     // Convert User → text
 
@@ -51,13 +51,14 @@ public abstract class UserRepository {
     }
 
     public User findByID(int userID){
-     List<User> users=findAll();
-     for(User u:users) {
-         if (u.getUserID() == userID) {
+        List<User> users = findAll();
+
+        for(User u:users) {
+            if (u.getUserID() == userID) {
              return u;
-         }
-     }
-     return null;
+            }
+        }
+        return null;
     }
 
     abstract String formatUser(User student);
@@ -65,14 +66,15 @@ public abstract class UserRepository {
     //Parse text -> User
     abstract User parseUser(String line);
 
-    private List<String> readFromFile(String path){
+    private List<String> readFromFile(String path) {
         List<String> lines=new ArrayList<>();
+
         try(BufferedReader reader=new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return lines;

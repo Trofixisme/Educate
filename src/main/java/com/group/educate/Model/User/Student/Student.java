@@ -70,4 +70,16 @@ public class Student extends User {
         Application StudentApplication = new Application(this, jobPosting);
         Application.addApplication(StudentApplication);
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "graduatingYear=" + graduatingYear +
+                ", uniName='" + uniName + '\'' +
+                ", CV='" + CV + '\'' +
+                ", major=" + major +
+                ", department=" + department +
+                "}\n" +
+                super.toString();
+    }
 }
