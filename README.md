@@ -1,5 +1,5 @@
 <picture>
-<img width="256" height="256" alt="InternMap icon without the weird noisy effect" src="https://github.com/user-attachments/assets/9c7b8583-39a0-4460-b370-57447c8deb8f" />
+<img width="920" height="325" alt="InternMap Experimental Banner" src="https://github.com/user-attachments/assets/4934f5d4-8a42-4af0-a456-872117ccaa26" />
 </picture> 
 
 # InternMap
