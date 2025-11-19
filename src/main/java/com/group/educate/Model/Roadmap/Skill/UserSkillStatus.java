@@ -2,7 +2,7 @@ package com.group.educate.Model.Roadmap.Skill;
 
 import com.group.educate.Services.RoadmapProgression;
 import com.group.educate.Model.Roadmap.Status;
-import com.group.educate.Model.User.Student.Student;
+import com.group.educate.Model.User.Student;
 
 import java.time.Instant;
 import java.util.Date;

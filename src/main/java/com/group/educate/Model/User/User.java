@@ -2,29 +2,42 @@
 
 package com.group.educate.Model.User;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.UUID;
+
 public abstract class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
     //Update: Issue might've been resolved. No testing has been conducted yet
     //update made the id as an integer
+    //Update: Made it back to a UUID
 
-    private static int counter = 0;
     private String hashedPassword;
     private String fname;
     private String lname;
     private String email;
-    private final int userID;
+    private final UUID userID;
     private final UserRole role;
 
     //added password hashing
     public User(String fname, String lname, String email, String plainPassword, UserRole role) {
-        this.userID =++counter;
+        userID = UUID.randomUUID();
         this.hashedPassword = hashPassword(plainPassword);
         setFName(fname);
         setLName(lname);
         setEmail(email);
-        this.role=role;
+        this.role = role;
     }
+
+    public User(String userID,String fname, String lname, String email, String plainPassword, UserRole role) {
+        this.userID = UUID.fromString(userID);
+        this.hashedPassword = hashPassword(plainPassword);
+        setFName(fname);
+        setLName(lname);
+        setEmail(email);
+        this.role = role;
+    }
+
     // Hash password with BCrypt
     private String hashPassword(String plainPassword) {
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
@@ -39,8 +52,8 @@ public abstract class User {
         return hashedPassword;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUserID() {
+        return userID.toString();
     }
 
     public String getFname() {
@@ -75,20 +88,18 @@ public abstract class User {
             throw new IllegalArgumentException("Provided email isn't valid");
         }
     }
-
     public UserRole getRole() {
         return role;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "hashedPassword='" + hashedPassword + '\'' +
-                ", fName='" + fname + '\'' +
-                ", lName='" + lname + '\'' +
-                ", email='" + email + '\'' +
-                ", userID=" + userID +
-                ", role=" + role +
-                '}';
+        return  getUserID() + "|" +
+                getFname() + "|" +
+                getLname() + "|" +
+                getEmail() + "|" +
+                getHashedPassword() + "|" +
+                getRole();
     }
+
 }

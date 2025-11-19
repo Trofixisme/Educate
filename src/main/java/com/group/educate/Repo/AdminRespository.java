@@ -7,12 +7,7 @@ import com.group.educate.Model.User.UserRole;
 public class AdminRespository extends UserRepository {
 
     protected String formatUser(User admin) {
-        return  admin.getUserID() + "|" +
-                admin.getFname()+ "|" +
-                admin.getLname()+ "|" +
-                admin.getEmail() + "|" +
-                admin.getHashedPassword() + "|" +
-                admin.getRole() + "|" ;
+        return admin.toString();
     }
 
 

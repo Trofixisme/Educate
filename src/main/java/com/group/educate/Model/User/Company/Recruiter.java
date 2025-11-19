@@ -4,13 +4,13 @@ import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Recruiter extends User {
     private String title;
-    private static List<Company> companies = new ArrayList<>();
+    private ArrayList<Company> companies = new ArrayList<>();
+
     public Recruiter(String fName, String lName, String email, String plainPassword, UserRole role){
-        super(fName, lName,  email, plainPassword,role);
+        super(fName, lName, email, plainPassword,role);
         this.title = title;
     }
 
@@ -22,17 +22,21 @@ public class Recruiter extends User {
         this.title = title;
     }
 
-    public static List<Company> getCompanies() {
-        return companies;
-    }
 
-    public static void setCompanies(List<Company> companies) {
-        Recruiter.companies = companies;
-    }
     public void addCompany(Company company) {
         companies.add(company);
     }
+
     public void removeCompany(Company company) {
         companies.remove(company);
     }
+
+    @Override
+    public String toString() {
+
+        return super.toString() +
+                title + " | " +
+                companies.toString();
+    }
+
 }

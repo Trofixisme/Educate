@@ -16,10 +16,7 @@ public class CompanyRepository {
     }
 
     private String formatCompany(Company company) {
-        return company.getName() + "|" +
-                company.getIndustry() + "|" +
-                company.getWebsiteURL() + "|" +
-                company.getRole() + "|";
+        return company.toString();
     }
 
     public void save(Company company) {

@@ -48,17 +48,21 @@ public abstract class UserRepository {
     public List<User> findAll() {
         List<String> lines = readFromFile(path);
         List<User> users = new ArrayList<>();
-        for(String line:lines){
-            users.add(parseUser(line));
+        for(String line : lines){
+            try {
+                users.add(parseUser(line));
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
 
-    public User findByID(int userID){
+    public User findByID(String userID){
         List<User> users = findAll();
 
         for(User u:users) {
-            if (u.getUserID() == userID) {
+            if (u.getUserID().equals(userID)) {
              return u;
             }
         }
@@ -71,7 +75,7 @@ public abstract class UserRepository {
     abstract User parseUser(String line);
 
     private List<String> readFromFile(String path) {
-        List<String> lines=new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
         try(BufferedReader reader=new BufferedReader(new FileReader(path))) {
             String line;
@@ -83,16 +87,8 @@ public abstract class UserRepository {
         }
         return lines;
     }
+
     public static void main(String[] args) {
-
-        ArrayList<URL> urls = new ArrayList<>();
-
-        try {
-            urls.add(new URL("https://google.com"));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Skill s = new Skill(1, "java basics", "learn java", urls);
 
     }
 }

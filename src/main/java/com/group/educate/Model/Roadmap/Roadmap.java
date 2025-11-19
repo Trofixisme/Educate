@@ -16,7 +16,6 @@ public final class Roadmap {
 
         if (modules != null)
             addModules(modules);
-
     }
 
     //MARK: Methods
