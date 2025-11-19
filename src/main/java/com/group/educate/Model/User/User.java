@@ -84,8 +84,8 @@ public abstract class User {
     public String toString() {
         return "User{" +
                 "hashedPassword='" + hashedPassword + '\'' +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
+                ", fName='" + fname + '\'' +
+                ", lName='" + lname + '\'' +
                 ", email='" + email + '\'' +
                 ", userID=" + userID +
                 ", role=" + role +
