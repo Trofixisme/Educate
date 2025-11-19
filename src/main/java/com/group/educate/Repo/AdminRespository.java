@@ -5,14 +5,14 @@ import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 
 public class AdminRespository extends UserRepository {
-    private String formatUser(Admin admin) {
-        return  admin.getUserId() + "|" +
+
+    protected String formatUser(User admin) {
+        return  admin.getUserID() + "|" +
                 admin.getFname()+ "|" +
                 admin.getLname()+ "|" +
                 admin.getEmail() + "|" +
                 admin.getHashedPassword() + "|" +
                 admin.getRole() + "|" ;
-
     }
 
 

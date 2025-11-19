@@ -11,8 +11,8 @@ public class StudentRepository extends UserRepository {
     @Override
     protected String formatUser(User student) {
         return  student.getUserID() + "|" +
-                student.getFName()+ "|" +
-                student.getLName()+ "|" +
+                student.getFname()+ "|" +
+                student.getLname()+ "|" +
                 student.getEmail() + "|" +
                 student.getHashedPassword() + "|" +
                 student.getRole() + "|" +

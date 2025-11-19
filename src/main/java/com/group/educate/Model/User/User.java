@@ -10,18 +10,18 @@ public abstract class User {
 
     private static int counter = 0;
     private String hashedPassword;
-    private String fName;
-    private String lName;
+    private String fname;
+    private String lname;
     private String email;
     private final int userID;
     private final UserRole role;
 
     //added password hashing
-    public User(String fName, String lName, String email, String plainPassword, UserRole role) {
+    public User(String fname, String lname, String email, String plainPassword, UserRole role) {
         this.userID =++counter;
         this.hashedPassword = hashPassword(plainPassword);
-        setFName(fName);
-        setLName(lName);
+        setFName(fname);
+        setLName(lname);
         setEmail(email);
         this.role=role;
     }
@@ -43,22 +43,22 @@ public abstract class User {
         return userID;
     }
 
-    public String getFName() {
-        return fName;
+    public String getFname() {
+        return fname;
     }
 
     //TODO: Also add some validation when setting the user's name (Why do we even need to do that??)
 
     public void setFName(String fName) {
-        this.fName = fName;
+        this.fname = fName;
     }
 
-    public String getLName() {
-        return lName;
+    public String getLname() {
+        return lname;
     }
 
     public void setLName(String lName) {
-        this.lName = lName;
+        this.lname = lName;
     }
 
     public String getEmail() {

@@ -20,13 +20,7 @@ public abstract class UserRepository {
         writeToFile(path,line,true);
     }
     // Convert User → text
-    private String formatUser(User user) {
-        return  user.getUserId() + "|" +
-                user.getFname()+ "|" +
-                user.getLname()+ "|" +
-                user.getEmail() + "|" +
-                user.getRole() + "|" ;
-    }
+
 
     //Convert User → text
 //    protected String formatUser(User user) {
