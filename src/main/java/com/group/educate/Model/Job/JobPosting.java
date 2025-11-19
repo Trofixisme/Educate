@@ -2,6 +2,7 @@ package com.group.educate.Model.Job;
 import java.time.Instant;
 import java.util.Date;
 public class JobPosting {
+
     private String JobDescription;
     private String JobName;
     private Date DatePosted = Date.from(Instant.now());

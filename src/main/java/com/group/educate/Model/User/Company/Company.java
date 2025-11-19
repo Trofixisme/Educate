@@ -6,7 +6,7 @@ import java.util.List;
 public class Company {
     private String industry;
     private String name;
-    // type of id is not decided
+    //type of id is not decided
     private String websiteURL;
     private static List<Recruiter> recruiters = new ArrayList<>();
 

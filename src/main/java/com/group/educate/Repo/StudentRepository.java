@@ -8,16 +8,17 @@ import com.group.educate.Model.User.UserRole;
 
 public class StudentRepository extends UserRepository {
 
-    private String formatUser(Student student) {
-        return  student.getUserId() + "|" +
-                student.getFname()+ "|" +
-                student.getLname()+ "|" +
+    @Override
+    protected String formatUser(User student) {
+        return  student.getUserID() + "|" +
+                student.getFName()+ "|" +
+                student.getLName()+ "|" +
                 student.getEmail() + "|" +
                 student.getHashedPassword() + "|" +
                 student.getRole() + "|" +
-                student.getGraduatingYear()+"|"+
-                student.getMajor()+"|"+
-        student.getDepartment().getDepartmentName() + "|" ;
+                ((Student) student).getGraduatingYear()+"|"+
+                ((Student) student).getMajor()+"|"+
+                ((Student) student).getDepartment().getDepartmentName() + "|" ;
     }
 //String fname, String lname, String email,  String plainPassword, UserRole role,
 //                   //students artibutes

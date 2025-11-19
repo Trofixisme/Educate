@@ -22,7 +22,7 @@ public class RoadmapModule {
         this.description = description;
     }
 
-    public RoadmapModule(String name, String description, Skill[] skills) {
+    public RoadmapModule(String name, String description, Skill... skills) {
         this(name, description);
         addSkills(skills);
     }

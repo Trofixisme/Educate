@@ -10,18 +10,18 @@ public abstract class User {
 
     private static int counter = 0;
     private String hashedPassword;
-    private String fname;
-    private String lname;
+    private String fName;
+    private String lName;
     private String email;
-    private final int userId;
-    private UserRole role;
+    private final int userID;
+    private final UserRole role;
 
     //added password hashing
-    public User(String fname, String lname, String email, String plainPassword,UserRole role) {
-        this.userId=++counter;
+    public User(String fName, String lName, String email, String plainPassword, UserRole role) {
+        this.userID =++counter;
         this.hashedPassword = hashPassword(plainPassword);
-        setFname(fname);
-        setLname(lname);
+        setFName(fName);
+        setLName(lName);
         setEmail(email);
         this.role=role;
     }
@@ -39,34 +39,30 @@ public abstract class User {
         return hashedPassword;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserID() {
+        return userID;
     }
 
-    public String getFname() {
-        return fname;
+    public String getFName() {
+        return fName;
     }
 
     //TODO: Also add some validation when setting the user's name (Why do we even need to do that??)
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    public void setFName(String fName) {
+        this.fName = fName;
     }
 
-    public String getLname() {
-        return lname;
+    public String getLName() {
+        return lName;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setLName(String lName) {
+        this.lName = lName;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public UserRole getRole() {
-        return role;
     }
 
     //TODO: do some ACTUAL validation before changing the user's email
@@ -76,8 +72,11 @@ public abstract class User {
             this.email = email;
         } else {
             //I don't think we should be throwing errors in the servers,
-            //So someone might be required to change that later on.
             throw new IllegalArgumentException("Provided email isn't valid");
         }
+    }
+
+    public UserRole getRole() {
+        return role;
     }
 }

@@ -9,13 +9,13 @@ public enum UserRole {
 
 
 
-    private final int id;
+    private final int ID;
 
-    UserRole(int id) {
-        this.id = id;
+    UserRole(int ID) {
+        this.ID = ID;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 }

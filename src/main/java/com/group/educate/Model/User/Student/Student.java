@@ -9,18 +9,17 @@ import com.group.educate.Model.User.UserRole;
 
 public class Student extends User {
 
-    int graduatingYear;
-    String uniName;
+    private int graduatingYear;
+    private String uniName;
     private String CV;
-    StudentMajor major;
-    StudentDepartment department;
+    private StudentMajor major;
+    private StudentDepartment department;
 
-    public Student(String fname, String lname, String email,  String plainPassword, UserRole role,
-                   //students artibutes
-                   int graduatingYear, StudentMajor major, StudentDepartment department)
-    {
+    //students attributes
+    public Student(String fName, String lName, String email,  String plainPassword, UserRole role,
+                   int graduatingYear, StudentMajor major, StudentDepartment department) {
 
-        super( fname, lname,  email, plainPassword,role);
+        super(fName, lName,  email, plainPassword,role);
         this.graduatingYear = graduatingYear;
         this.major = major;
         this.department = department;
@@ -42,12 +41,12 @@ public class Student extends User {
         this.uniName = uniName;
     }
 
-    public String getCv() {
+    public String getCV() {
         return CV;
     }
 
-    public void setCv(String cv) {
-        this.CV = cv;
+    public void setCV(String CV) {
+        this.CV = CV;
     }
 
     public StudentMajor getMajor() {
@@ -66,9 +65,9 @@ public class Student extends User {
         this.department = department;
     }
 
-    public void submitApplication(JobPosting job_Posting) {
+    public void submitApplication(JobPosting jobPosting) {
 
-        Application StudentApplication = new Application(this, job_Posting);
+        Application StudentApplication = new Application(this, jobPosting);
         Application.addApplication(StudentApplication);
     }
 }
