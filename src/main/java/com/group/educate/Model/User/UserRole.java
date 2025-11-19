@@ -4,7 +4,10 @@ public enum UserRole {
 
     STUDENT(1),
     EMPLOYER(2),
-    COMPANY(3);
+    COMPANY(3),
+    ADMIN(4);
+
+
 
     private final int id;
 
