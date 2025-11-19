@@ -5,36 +5,39 @@ package com.group.educate.Model.Roadmap.Skill;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
 
 public class Skill {
 
-    private static int counter = 0;
-    private final int skillsId;
+    private final UUID skillsId;
+
     private String name;
     private final ArrayList<URL> resourceLinks = new ArrayList<>();
-    //description
+
     private String description;
 
-    public Skill(String name) {
-        skillsId =++counter;
-        this.name = name;
-    }
-
-
-    public Skill(int skillsId, String name, String description, List<URL> links) {
-        this.skillsId =++counter;
+    public Skill(String name, String description, List<URL> links) {
+        this.skillsId = UUID.randomUUID();
         this.name = name;
         this.description = description;
 
         if (links != null) {
             this.resourceLinks.addAll(links);
         }
-
     }
 
-    public int getSkillsId() {
-        return skillsId;
+    public Skill(String skillsId, String name, String description, List<URL> links) {
+        this.skillsId = UUID.fromString(skillsId);
+        this.name = name;
+        this.description = description;
+
+        if (links != null) {
+            this.resourceLinks.addAll(links);
+        }
+    }
+
+    public String getSkillsId() {
+        return skillsId.toString();
     }
 
     public String getName() {
@@ -59,5 +62,13 @@ public class Skill {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return getSkillsId() + '|'
+                + name + '|'
+                + resourceLinks + '|'
+                + description + '|';
     }
 }

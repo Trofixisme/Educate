@@ -1,5 +1,3 @@
-//Sandra, for the second time, DO *NOT* TOUCH THIS FILE -Ziad
-
 package com.group.educate.Services;
 
 import com.group.educate.Model.Roadmap.Roadmap;
@@ -10,14 +8,12 @@ import com.group.educate.Model.Roadmap.Status;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 @SuppressWarnings({"all"})
 public class RoadmapProgression {
 
-    //I'm not going to even argue about this... -Ziad
-    //Identifier
-    private static int counter = 0;
-    private final int ID;
+    private UUID uuid;
 
     private double percentage;
     private Date lastModified = Date.from(Instant.now());
@@ -30,7 +26,7 @@ public class RoadmapProgression {
     private int numberOfIncompleteModules;
 
     public RoadmapProgression(Roadmap roadmap) {
-        ID = ++counter;
+        uuid = UUID.randomUUID();
         this.roadmap = roadmap;
     }
 
@@ -66,8 +62,8 @@ public class RoadmapProgression {
         lastModified = Date.from(Instant.now());
     }
 
-    public int getRoadmapProgressionID() {
-        return ID;
+    public String getRoadmapProgressionID() {
+        return uuid.toString();
     }
 
     public double getPercentage() {

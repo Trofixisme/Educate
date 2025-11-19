@@ -7,19 +7,16 @@ import com.group.educate.Model.User.UserRole;
 
 import java.util.List;
 
-public class StudentRepository extends UserRepository {
+public class StudentRepository extends BaseRepository {
 
-    @Override
-    protected String formatUser(User student) {
-        return student.toString();
-
+    public StudentRepository() {
+        super("data/Users.txt");
     }
 //String fname, String lname, String email,  String plainPassword, UserRole role,
 //                   //students attributes
 //                   int graduatingYear, StudentMajor major, StudentDepartment department,
 
-    @Override
-    User parseUser(String line){
+    User parseObject(String line) {
 
         String[] parts = line.split("\\|", -1);  // IMPORTANT: keep empty fields!
 
@@ -33,8 +30,8 @@ public class StudentRepository extends UserRepository {
                 parts[2],          // Last name
                 parts[3],          // Email
                 parts[4],          // Password
-                UserRole.valueOf(parts[5]),
-                Integer.parseInt(parts[6]),
+                UserRole.valueOf(parts[5]),//if enum
+                Integer.parseInt(parts[6]),//if integer
                 parts[7],
                 parts[8],
                 parts[9]
@@ -46,12 +43,9 @@ public class StudentRepository extends UserRepository {
 
         static void main(String[] args) {
 
+            BaseRepository repo = new StudentRepository();
 
-
-            UserRepository repo = new StudentRepository();
-
-
-            List<User> users = repo.findAll();
+            List<Object> users = repo.findAll();
             users.forEach(System.out::println);
         }
     }

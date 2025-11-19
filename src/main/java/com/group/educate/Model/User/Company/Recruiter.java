@@ -9,8 +9,13 @@ public class Recruiter extends User {
     private String title;
     private ArrayList<Company> companies = new ArrayList<>();
 
-    public Recruiter(String fName, String lName, String email, String plainPassword, UserRole role){
+    public Recruiter(String fName, String lName, String email, String plainPassword, UserRole role,String title) {
         super(fName, lName, email, plainPassword,role);
+        this.title = title;
+    }
+
+    public Recruiter(String recruiterID, String fName, String lName, String email, String plainPassword, UserRole role,String title) {
+        super(recruiterID, fName, lName, email, plainPassword,role);
         this.title = title;
     }
 
@@ -35,7 +40,7 @@ public class Recruiter extends User {
     public String toString() {
 
         return super.toString() +
-                title + " | " +
+                title + "|" +
                 companies.toString();
     }
 

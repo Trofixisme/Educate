@@ -8,9 +8,6 @@ import java.util.UUID;
 public abstract class User {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
-    //Update: Issue might've been resolved. No testing has been conducted yet
-    //update made the id as an integer
-    //Update: Made it back to a UUID
 
     private String hashedPassword;
     private String fname;
@@ -19,7 +16,6 @@ public abstract class User {
     private final UUID userID;
     private final UserRole role;
 
-    //added password hashing
     public User(String fname, String lname, String email, String plainPassword, UserRole role) {
         userID = UUID.randomUUID();
         this.hashedPassword = hashPassword(plainPassword);
@@ -29,7 +25,7 @@ public abstract class User {
         this.role = role;
     }
 
-    public User(String userID,String fname, String lname, String email, String plainPassword, UserRole role) {
+    public User(String userID, String fname, String lname, String email, String plainPassword, UserRole role) {
         this.userID = UUID.fromString(userID);
         this.hashedPassword = hashPassword(plainPassword);
         setFName(fname);
@@ -38,12 +34,12 @@ public abstract class User {
         this.role = role;
     }
 
-    // Hash password with BCrypt
+    //Hash password with BCrypt
     private String hashPassword(String plainPassword) {
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
     }
 
-    // Check if the input password matches the stored hash
+    //Check if the input password matches the stored hash
     public boolean verifyPassword(String plainPassword) {
         return BCrypt.checkpw(plainPassword, this.hashedPassword);
     }
@@ -99,7 +95,6 @@ public abstract class User {
                 getLname() + "|" +
                 getEmail() + "|" +
                 getHashedPassword() + "|" +
-                getRole();
+                getRole() + "|";
     }
-
 }

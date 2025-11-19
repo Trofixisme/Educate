@@ -8,22 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
 public class RoadmapModule {
 
-    private final UUID ID = UUID.randomUUID();
+    private final UUID ID;
     private String name;
     private String description;
 
     private final ArrayList<Skill> skills = new ArrayList<>();
 
+    //TODO: add two constructors for the repositories
+
     public RoadmapModule(String name, String description) {
+        ID = UUID.randomUUID();
         this.name = name;
         this.description = description;
     }
 
     public RoadmapModule(String name, String description, Skill... skills) {
-        this(name, description);
+        ID = UUID.randomUUID();
+        this.name = name;
+        this.description = description;
         addSkills(skills);
     }
 
@@ -65,5 +69,13 @@ public class RoadmapModule {
 
     ArrayList<Skill> getAllSkills() {
         return skills;
+    }
+
+    @Override
+    public String toString() {
+        return ID + "|" +
+                name + "|" +
+                description + "|" +
+                skills + "|";
     }
 }

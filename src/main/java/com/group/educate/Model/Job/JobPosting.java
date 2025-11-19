@@ -1,66 +1,83 @@
 package com.group.educate.Model.Job;
+
+import com.group.educate.Model.User.Company.Company;
+
 import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
+
 public class JobPosting {
 
-    private String JobDescription;
-    private String JobName;
-    private Date DatePosted = Date.from(Instant.now());
-    private String JobLocation;
-    private String JobRequirements;
-    private String JobTitle;
-    private final int JobPostingID;
+    private String jobDescription;
+    private String jobName;
+    private Date datePosted = Date.from(Instant.now());
+    private String jobRequirements;
+    private String jobTitle;
+
+    private final UUID jobPostingUUID;
     private PostingType jobPostingType;
-    private static int counter=0;
 
 
-    public JobPosting(String JobDescription, String JobName, String JobLocation, String JobRequirements, String JobTitle, PostingType jobPostingType) {
-        this.JobDescription =JobDescription;
-        this.JobName = JobName;
-        this.DatePosted = new Date();
-        this.JobLocation = JobLocation;
-        this.JobRequirements = JobRequirements;
-        this.JobTitle = JobTitle;
-        this.JobPostingID =++counter;
+    public JobPosting(String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
+        this.jobDescription =jobDescription;
+        this.jobName = jobName;
+        this.datePosted = new Date();
+        this.jobRequirements = jobRequirements;
+        this.jobTitle = jobTitle;
+        jobPostingUUID = UUID.randomUUID();
+        this.jobPostingType = jobPostingType;
+
+
+    }
+
+
+    public JobPosting(String jobPostingUUID, String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
+        this.jobDescription = jobDescription;
+        this.jobName = jobName;
+        this.datePosted = new Date();
+        this.jobRequirements = jobRequirements;
+        this.jobTitle = jobTitle;
+        this.jobPostingUUID = UUID.fromString(jobPostingUUID);
         this.jobPostingType = jobPostingType;
 
     }
 
-    public String getJobLocation() {
-        return JobLocation;
-    }
-
-    public void setJobLocation(String jobLocation) {
-        JobLocation = jobLocation;
-    }
-
     public Date getDatePosted() {
-        return DatePosted;
+        return datePosted;
     }
-
 
     public String getJobDescription() {
-        return JobDescription;
+        return jobDescription;
     }
 
     public String getJobName() {
-        return JobName;
+        return jobName;
     }
 
     public String getJobRequirements() {
-        return JobRequirements;
+        return jobRequirements;
     }
 
     public String getJobTitle() {
-        return JobTitle;
+        return jobTitle;
     }
 
-    public int getJobPostingID() {
-        return JobPostingID;
+    public String getJobPostingID() {
+        return jobPostingUUID.toString();
     }
 
     public PostingType getJobType() {
         return jobPostingType;
     }
 
+    @Override
+    public String toString() {
+        return jobDescription + '|'
+                + jobName + '|'
+                + datePosted.toString() + '|'
+                + jobRequirements + '|'
+                + jobTitle + '|'
+                + getJobPostingID() + '|'
+                + jobPostingType + '|';
+    }
 }

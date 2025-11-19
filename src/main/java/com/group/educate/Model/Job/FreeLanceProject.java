@@ -8,14 +8,21 @@ public class FreeLanceProject extends JobPosting{
 
     private int Duration;
     private int Payout;
+    private String jobLocation;
 
-
-
-    public FreeLanceProject(String JobDescription, String JobName, String JobLocation, String JobRequirements, String JobTitle, PostingType jobPostingType,int Duration,
-   int Payout) {
-        super(JobDescription, JobName, JobLocation,JobRequirements, JobTitle,jobPostingType);
+    public FreeLanceProject( String jobDescription, String jobName, String jobLocation, String jobRequirements, String jobTitle, PostingType jobPostingType,int Duration, int Payout) {
+        super(jobDescription,jobName, jobRequirements, jobTitle,jobPostingType);
+        this.jobLocation = jobLocation;
         this.Duration = Duration;
         this.Payout = Payout;
+    }
+
+    public FreeLanceProject(String freeLanceProjectID , String jobDescription, String jobName, String jobLocation, String jobRequirements, String jobTitle, PostingType jobPostingType,int Duration, int Payout) {
+        super(freeLanceProjectID ,jobDescription,jobName, jobRequirements, jobTitle,jobPostingType);
+        this.Duration = Duration;
+        this.Payout = Payout;
+        this.jobLocation = jobLocation;
+
     }
 
     public int getDuration() {
@@ -25,23 +32,21 @@ public class FreeLanceProject extends JobPosting{
     public int getPayout() {
         return Payout;
     }
-    // Access JobPosting id via getter
-    public int getPostingId() {
-        return super. getJobPostingID();
-    }
 
     public String toString(){
-        return "FreeLanceProject{" +
-                "Duration=" + Duration +
-                ", Payout=" + Payout +
-                ", JobPostingID=" + getJobPostingID() +
-                '}';
-    }
-    public static void main(String[] args) throws IllegalClassFormatException {
-        FreeLanceProject project = new FreeLanceProject("Build a website", "Web Developer", "Remote", "HTML, CSS, JS", "Website Project", PostingType.FreeLanceProject,1,15);
-        FreeLanceProject project2 = new FreeLanceProject("Build a website", "Web Developer", "Remote", "HTML, CSS, JS", "Website Project", PostingType.FreeLanceProject,1,15);
-        System.out.println(project.toString());
-        System.out.println(project2.toString());
+
+        return super.toString()
+                + Duration + '|'
+                + Payout + '|'
+                + jobLocation+'|';
     }
 
+    private static final class FreeLancingTest {
+        public static void main(String[] args) throws IllegalClassFormatException {
+            FreeLanceProject project = new FreeLanceProject("Build a website", "Website Developer", "Remote", "HTML, CSS, JS", "Frontend Developer", PostingType.FreeLanceProject, 30, 1500);
+
+            System.out.println(project.toString());
+
+        }
+    }
 }

@@ -1,0 +1,10 @@
+43734db1-c4ed-49b9-9336-0fe9e3847441|Z|Z2|some-email@gmail.com|$2a$12$Ed.V2GPZK8QqspcQ30oW5OWUJtI.9MKR6vihdt9Oip6u92PYB5ngW|STUDENT|2020|Computer Science|Computer Science|
+0ef59ccb-62f3-479a-8eb5-bce79aa322dd|Z|Z2|some-email@gmail.com|$2a$12$Y2IVjcLhTEd5d4MfB6ehu.Q9KJ4sETtW9wIgkEYRReTlTAeDYbO/u|STUDENT|2020|null|null|Computer Science|Computer Science|
+dcf9c901-945f-4238-9b94-316721670fbe|Z|Z2|some-email@gmail.com|$2a$12$CcQSPcRfSDBHtpEUjmE18eu5sTEXnaFSkne88UOLpjmX25tqzxWXu|STUDENT|2020|null|null|Computer Science|Computer Science|
+372f3f9a-2e9a-48e1-b2f8-10b6888e7751|Z|Z2|some-email@gmail.com|$2a$12$piC1iNn/nz7HOBLvgNa1gejfTAS6z2wVQ4mvqP.b8mt7fTW9uXNXm|STUDENT|2020|null|Computer Science|Computer Science|
+8706470f-88e8-481c-84f0-fecbb792202b|Z|Z2|some-email@gmail.com|$2a$12$WepNe0Dj9UoBBIoHZAr7fO96EBT5y4B9YcWJaVNWvQPhIHqlqW66i|STUDENT|2020|Computer Science|Computer Science|Some random department you've never heard of|
+34dac2d2-b510-401a-a8d4-0e4962cd483b|Z|Z2|some-email@gmail.com|$2a$12$Y0UEn4BSnAT7fuww0yOvnefSrKBtf6SqlxVYzvOoeV9ZtceSU1wCu|STUDENT|2020|Computer Science|Pure Torture|Some random department you've never heard of|
+c319071d-2b02-4bad-ad50-f2760f889e09|Z|Z2|some-email@gmail.com|$2a$12$jLNsB008MvlMYuppBTRGj.1ZNK.Rq8SgdehAcq6Irb6WIAe/iVNK6|STUDENT|2020|Computer Science|Pure Torture|Some random department you've never heard of|
+339f4e7a-f00c-41a5-8b2f-afd87bd11270|Z|Z2|some-email@gmail.com|$2a$12$p95KCrkLAtG9Ok/GR1NhzuA/ZdlV1FGKjlKsIdGb40qsNtIMeXDvu|STUDENT|2020|Computer Science|Pure Torture|Some random department you've never heard of|
+3de33385-e51a-4c7d-9484-85e2047296f3|Z|Z2|some-email@gmail.com|$2a$12$k/NyRUxRA.3irdKckoxCZuYF5b8RSjmcTiCVEkbcenRswGtalQdIa|STUDENT|2020|Computer Science|Pure Torture|Some random department you've never heard of|
+6d51717a-b0d6-4bc8-890c-fda9e19da489|Z|Z2|some-email@gmail.com|$2a$12$SE.d9DmxCOu3Dh2gnOycpuy5olGVYFHLyuVsbvvXM6NAiQPoFJ4YS|STUDENT|2020|Computer Science|Pure Torture|Some random department you've never heard of|

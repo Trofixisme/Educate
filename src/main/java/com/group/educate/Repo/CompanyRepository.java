@@ -1,60 +1,43 @@
 package com.group.educate.Repo;
 
 import com.group.educate.Model.User.Company.Company;
+import com.group.educate.Model.User.Company.Recruiter;
 import com.group.educate.Model.User.UserRole;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyRepository {
-    private final String path = "data/companies.txt";
+public class CompanyRepository extends BaseRepository {
 
     public CompanyRepository() {
-        File file = new File(path);
-        if (!file.exists()) file.mkdirs();
+        super("data/companies.txt");
     }
 
-    private String formatCompany(Company company) {
-        return company.toString();
+    //TODO: FIX
+    @Override
+            //String companyUUID , String industry, String name, String websiteURL, ArrayList<String> location, Recruiter... recruiters
+    Company parseObject(String line) {
+        String[] parts = line.split("\\|", -1);
+        String companyUUID=parts[0];
+        String industry=parts[1];
+        String name=parts[2];
+        String websiteURL=parts[3];
+
+        ArrayList<String> locations = new ArrayList<>(List.of(parts[4].split(",")));
+
+        Recruiter recruiter = parseObject(parts[5])   ; // if constructor expects only ID
+
+        return new Company(
+                companyUUID,        // companyUUID
+                industry,        // industry
+                name,        // name
+                websiteURL,        // website URL
+                locations,       // list of locations
+                parseObject(Recruiter)        // varargs, passed as 1 recruiter
+        );
     }
 
-    public void save(Company company) {
-        String line = formatCompany(company);
-        writeToFile(path, line, true);
-    }
-
-    private void writeToFile(String path, String line, boolean append) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, append))) {
-            writer.write(line);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private List<String> readFromFile(String path) {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-        }
-        return lines;
-    }
-    private Company parseCompany(String line) {
-        String[] parts = line.split("\\|");
-        int companyId=Integer.parseInt(parts[0]);
-        String industry = parts[1];
-        String name = parts[2];
-        String websiteURL = parts[3];
-        String role = parts[4];
-
-        return new Company(parts[1],parts[2],parts[3],UserRole.COMPANY);
-    }
 }
-// i didnt add find methods yet am aware
 
 

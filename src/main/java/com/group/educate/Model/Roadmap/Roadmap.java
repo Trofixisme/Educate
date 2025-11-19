@@ -6,20 +6,26 @@ import java.util.*;
 
 public final class Roadmap {
 
-    private final UUID ID = UUID.randomUUID();
+    private final UUID roadmapID;
     private String name;
     private final ArrayList<RoadmapModule> roadmapModules = new ArrayList<>();
 
-    //MARK: Constructors
-    public Roadmap(String name, RoadmapModule... modules) {
+    public Roadmap(String roadmapID, String name, RoadmapModule... modules) {
+        this.roadmapID = UUID.fromString(roadmapID);
         this.name = name;
 
         if (modules != null)
             addModules(modules);
     }
 
-    //MARK: Methods
-    @SuppressWarnings({"all"})
+    public Roadmap(String name, RoadmapModule... modules) {
+        roadmapID = UUID.randomUUID();
+        this.name = name;
+
+        if (modules != null)
+            addModules(modules);
+    }
+
     public Roadmap(String name) {
         this(name, null);
     }
@@ -33,7 +39,7 @@ public final class Roadmap {
     }
 
     public String getRoadmapID() {
-        return ID.toString();
+        return roadmapID.toString();
     }
 
     void addModules(RoadmapModule... modules) {
@@ -46,18 +52,9 @@ public final class Roadmap {
 
     @Override
     public String toString() {
-        StringBuilder returnValue = new StringBuilder(String.format("\u001B[31mRoadmap: \u001B[0m %s\n", name));
-        returnValue.append("\u001B[34m Modules {\u001B[0m\n");
-
-        if (!roadmapModules.isEmpty()) {
-            for (RoadmapModule i : roadmapModules) {
-                returnValue.append("  - ").append(i.getName()).append(": ").append(i.getDescription()).append("\n");
-            }
-        } else {
-            returnValue.append("  --Empty--\n");
-        }
-        returnValue.append("\u001B[34m } \u001B[0m");
-        return returnValue.toString();
+        return  roadmapID + "|" +
+                name + "|" +
+                roadmapModules.toString()  + "|";
     }
 
     //MARK: Testing

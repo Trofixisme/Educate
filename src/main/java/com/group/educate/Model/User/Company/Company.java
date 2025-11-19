@@ -2,26 +2,38 @@ package com.group.educate.Model.User.Company;
 
 import com.group.educate.Model.User.UserRole;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Company {
 
+    private UUID companyID;
+
     private String industry;
     private String name;
-    //type of id is not decided
-    //Update: we decided on UUID
-    private String websiteURL;
-    private UserRole role;
-    private List<Recruiter> recruiters = new ArrayList<>();
+    private URL websiteURL;
+    private ArrayList<Recruiter> recruiters = new ArrayList<>();
+    private ArrayList<String> location = new ArrayList<>();
 
-    public Company(String industry, String name, String websiteURL, UserRole role) {
+    @SuppressWarnings("all")
+    public Company(String industry, String name, URL websiteURL, ArrayList<String> location) {
+        if (companyID == null) companyID = UUID.randomUUID();
         this.industry = industry;
         this.name = name;
         this.websiteURL = websiteURL;
-        this.role = role;
     }
 
+    public Company(String companyUUID ,String industry, String name, String websiteURL, ArrayList<String> location, Recruiter... recruiters) throws MalformedURLException {
+        companyID = UUID.fromString(companyUUID);
+        this(industry, name, new URL(websiteURL), location);
+    }
+    public String getLocation() {
+        return getLocation();
+    }
     public String getIndustry() {
         return industry;
     }
@@ -39,15 +51,11 @@ public class Company {
     }
 
     public String getWebsiteURL() {
-        return websiteURL;
+        return websiteURL.toString();
     }
 
-    public void setWebsiteURL(String websiteURL) {
-        this.websiteURL = websiteURL;
-    }
-
-    public UserRole getRole() {
-        return role;
+    public void setWebsiteURL(String websiteURL) throws Exception {
+            this.websiteURL = new URL(websiteURL);
     }
 
     public void addRecruiter(Recruiter recruiter) {
@@ -62,8 +70,7 @@ public class Company {
     public String toString() {
         return name + '|'
                 + industry + '|'
-                + websiteURL + '|'
-                + role + '|'
+                + websiteURL.toString() + '|'
                 + recruiters.toString();
     }
 }
