@@ -67,7 +67,6 @@ public class Student extends User {
     public void submitApplication(JobPosting jobPosting) {
 
         Application StudentApplication = new Application(this, jobPosting);
-        Application.addApplication(StudentApplication);
     }
 
     @Override

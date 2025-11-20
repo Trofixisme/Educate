@@ -4,7 +4,7 @@ package com.group.educate.Model.Job;
 
 import com.group.educate.Model.User.Company.Company;
 
-public class FullTime extends JobPosting{
+public class FullTime extends JobPosting {
     private String benefits;
     private Company company;
 

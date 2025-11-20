@@ -2,9 +2,10 @@
 
 package com.group.educate.Model.Roadmap;
 
+import java.io.Serializable;
 import java.util.*;
 
-public final class Roadmap {
+public final class Roadmap implements Serializable {
 
     private final UUID roadmapID;
     private String name;

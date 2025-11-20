@@ -3,9 +3,10 @@ package com.group.educate.Model.User.Company;
 import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Recruiter extends User {
+public class Recruiter extends User implements Serializable {
     private String title;
     private ArrayList<Company> companies = new ArrayList<>();
 

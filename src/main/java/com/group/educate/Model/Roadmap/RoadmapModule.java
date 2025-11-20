@@ -4,11 +4,12 @@ package com.group.educate.Model.Roadmap;
 
 import com.group.educate.Model.Roadmap.Skill.Skill;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class RoadmapModule {
+public class RoadmapModule implements Serializable {
 
     private final UUID ID;
     private String name;
