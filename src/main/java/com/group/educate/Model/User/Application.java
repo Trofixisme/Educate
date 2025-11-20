@@ -2,10 +2,10 @@ package com.group.educate.Model.User;
 
 import com.group.educate.Model.Job.JobPosting;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Application {
+public class Application implements Serializable {
 
     private final UUID applicationID = UUID.randomUUID();
 

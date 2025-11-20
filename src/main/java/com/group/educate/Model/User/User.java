@@ -1,11 +1,12 @@
 //Created by Ziad on 28/10/2025
 
 package com.group.educate.Model.User;
-import org.mindrot.jbcrypt.BCrypt;
 
+import org.mindrot.jbcrypt.BCrypt;
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class User {
+public abstract class User implements Serializable {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
 

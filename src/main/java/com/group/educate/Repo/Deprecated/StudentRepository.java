@@ -1,4 +1,4 @@
-package com.group.educate.Repo;
+package com.group.educate.Repo.Deprecated;
 
 import com.group.educate.Model.User.Student;
 
@@ -7,6 +7,7 @@ import com.group.educate.Model.User.UserRole;
 
 import java.util.List;
 
+@Deprecated
 public class StudentRepository extends BaseRepository {
 
     public StudentRepository() {

@@ -4,7 +4,9 @@ package com.group.educate.Model.Job;
 
 import com.group.educate.Model.User.Company.Company;
 
-public class FullTime extends JobPosting {
+import java.io.Serializable;
+
+public class FullTime extends JobPosting implements Serializable {
     private String benefits;
     private Company company;
 

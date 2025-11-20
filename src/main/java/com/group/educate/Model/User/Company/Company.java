@@ -2,6 +2,7 @@ package com.group.educate.Model.User.Company;
 
 import com.group.educate.Model.User.UserRole;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Company {
+public class Company implements Serializable {
 
     private UUID companyID;
 

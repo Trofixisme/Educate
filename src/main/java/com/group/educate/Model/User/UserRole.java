@@ -1,6 +1,8 @@
 package com.group.educate.Model.User;
 
-public enum UserRole {
+import java.io.Serializable;
+
+public enum UserRole implements Serializable {
 
     STUDENT(1),
     EMPLOYER(2),

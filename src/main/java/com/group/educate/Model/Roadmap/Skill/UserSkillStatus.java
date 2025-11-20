@@ -6,10 +6,9 @@ import com.group.educate.Model.User.Student;
 
 import java.time.Instant;
 import java.util.Date;
-//Need to rethink user skill status and roadmap progression relationship and how they work
 
 @SuppressWarnings({"all"})
-public class UserSkillStatus {
+public class UserSkillStatus implements java.io.Serializable {
 
     private Skill skill;
     private Student student;

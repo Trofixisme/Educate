@@ -1,13 +1,10 @@
-package com.group.educate.Repo;
+package com.group.educate.Repo.Deprecated;
 
 import com.group.educate.Model.Roadmap.Roadmap;
 import com.group.educate.Model.Roadmap.RoadmapModule;
-import com.group.educate.Model.User.User;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
+@Deprecated
 public class RoadmapRepository extends BaseRepository {
 
     public RoadmapRepository(String path) {

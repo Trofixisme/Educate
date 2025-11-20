@@ -1,16 +1,6 @@
-package com.group.educate.Repo;
+package com.group.educate.Repo.Deprecated;
 
-import com.group.educate.Model.User.User;
-import com.group.educate.Model.Roadmap.Skill.Skill;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.flywaydb.core.internal.util.FileUtils.writeToFile;
-
+@Deprecated
 public class SkillRepository extends BaseRepository {
 
     public SkillRepository() {

@@ -2,9 +2,10 @@
 
 package com.group.educate.Model.Job;
 
+import java.io.Serializable;
 import java.lang.instrument.IllegalClassFormatException;
 
-public class FreeLanceProject extends JobPosting{
+public class FreeLanceProject extends JobPosting implements Serializable {
 
     private int Duration;
     private int Payout;

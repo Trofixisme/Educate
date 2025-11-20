@@ -1,6 +1,8 @@
 package com.group.educate.Model.User;
 
-public enum PermissionLevel {
+import java.io.Serializable;
+
+public enum PermissionLevel implements Serializable {
     
     LOW(0),
     MEDIUM(1),

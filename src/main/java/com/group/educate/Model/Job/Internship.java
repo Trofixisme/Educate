@@ -4,7 +4,9 @@ package com.group.educate.Model.Job;
 
 import com.group.educate.Model.User.Company.Company;
 
-public class Internship extends JobPosting{
+import java.io.Serializable;
+
+public class Internship extends JobPosting implements Serializable {
     private int duration;
     private Company company;
 

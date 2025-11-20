@@ -2,11 +2,12 @@ package com.group.educate.Model.Job;
 
 import com.group.educate.Model.User.Company.Company;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
-public class JobPosting {
+public class JobPosting implements Serializable {
 
     private String jobDescription;
     private String jobName;

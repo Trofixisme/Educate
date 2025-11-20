@@ -2,7 +2,9 @@
 
 package com.group.educate.Model.Job;
 
-public enum PostingType {
+import java.io.Serializable;
+
+public enum PostingType implements Serializable {
 
     Internship(1),
     FullTime(2),

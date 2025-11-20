@@ -1,9 +1,10 @@
-package com.group.educate.Repo;
+package com.group.educate.Repo.Deprecated;
 
 import com.group.educate.Model.User.Company.Recruiter;
 import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 
+@Deprecated
 public class RecruiterRepository extends BaseRepository {
 
     public RecruiterRepository() {
