@@ -10,10 +10,7 @@ public class RecruiterService extends UserService{
     //need to search for applications
     //need to filter applications
     //add company
-    BaseRepository baseRepository;
-    RecruiterService(BaseRepository baseRepository){
-        super(baseRepository);
-    }
+
 
 
 }

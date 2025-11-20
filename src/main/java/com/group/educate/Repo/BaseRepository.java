@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 import java.lang.reflect.Array;
 import java.util.*;
 @Repository
-public class BaseRepository<T> {
+
+public class BaseRepository<T> extends FileManager{
 
     private final String fileName;
     private final Class<T> type;

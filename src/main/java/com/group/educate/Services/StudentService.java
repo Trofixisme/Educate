@@ -11,10 +11,8 @@ public class StudentService extends UserService{
     //need to filter
     //updated skill status
     //view roadmap progression
-    BaseRepository baseRepository;
-    StudentService(BaseRepository baseRepository){
-        super(baseRepository);
-    }
+
+
 
 
 

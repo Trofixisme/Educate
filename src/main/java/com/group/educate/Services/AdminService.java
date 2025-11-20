@@ -13,8 +13,6 @@ public class AdminService extends UserService{
     //view all job postings
     //delete job posting
     BaseRepository baseRepository;
-    AdminService(BaseRepository baseRepository){
-       super(baseRepository);
-    }
+
 
 }

@@ -6,7 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
     //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
 
