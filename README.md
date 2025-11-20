@@ -1,6 +1,8 @@
-<picture>
-<img width="920" height="315" alt="InternMap Experimental Banner" src="https://github.com/user-attachments/assets/4934f5d4-8a42-4af0-a456-872117ccaa26" />
-</picture> 
+<div align="center" id="trendradar">
+
+<a title="Hello">
+  <img src="https://github.com/user-attachments/assets/586ded87-7325-46d8-ae8a-a813fe75fe69" alt="Hello" width="80%">
+</a>
 
 # InternMap
 ### WIP
