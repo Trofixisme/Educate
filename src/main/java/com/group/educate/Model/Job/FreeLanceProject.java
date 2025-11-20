@@ -23,7 +23,6 @@ public class FreeLanceProject extends JobPosting implements Serializable {
         this.Duration = Duration;
         this.Payout = Payout;
         this.jobLocation = jobLocation;
-
     }
 
     public int getDuration() {
@@ -45,7 +44,6 @@ public class FreeLanceProject extends JobPosting implements Serializable {
     private static final class FreeLancingTest {
         public static void main(String[] args) throws IllegalClassFormatException {
             FreeLanceProject project = new FreeLanceProject("Build a website", "Website Developer", "Remote", "HTML, CSS, JS", "Frontend Developer", PostingType.FreeLanceProject, 30, 1500);
-
             System.out.println(project.toString());
 
         }

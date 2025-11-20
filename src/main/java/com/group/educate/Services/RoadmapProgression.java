@@ -3,6 +3,7 @@ package com.group.educate.Services;
 import com.group.educate.Model.Roadmap.Roadmap;
 import com.group.educate.Model.Roadmap.Skill.UserSkillStatus;
 import com.group.educate.Model.Roadmap.Status;
+import org.springframework.stereotype.Service;
 //import com.group.educate.Model.User.Student.StudentMajor;
 
 import java.time.Instant;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @SuppressWarnings({"all"})
+@Service
 public class RoadmapProgression {
 
     private UUID uuid;

@@ -3,10 +3,9 @@
 package com.group.educate.Model.User;
 
 import com.group.educate.Model.Job.JobPosting;
-import java.io.Serializable;
 
 
-public class Student extends User implements Serializable {
+public class Student extends User {
 
     private int graduatingYear;
     private String uniName;

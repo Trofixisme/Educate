@@ -1,18 +1,25 @@
 package com.group.educate.Repo;
 
-import java.io.*;
+import org.springframework.stereotype.Repository;
+
+import java.lang.reflect.Array;
 import java.util.*;
+@Repository
+public class BaseRepository<T> {
 
-public class BaseRepository extends FileManager {
+    private final String fileName;
+    private final Class<T> type;
 
-    public static <T> T findbyObject(String fileName, T object) throws Exception {
-        for (Object t : FileManager.read(object.getClass(), fileName)) {
-            if (t.equals(object)) {
-                return (T) t;
-            }
-        }
-        return null;
+    public BaseRepository(Class<T> type, String fileName) {
+        this.fileName = fileName;
+        this.type = type;
     }
 
+    public List<T> findAll() throws Exception {
+        return FileManager.read(type, fileName);
+    }
 
+    public void saveAll(List<T> items) throws Exception {
+        FileManager.write(fileName, items.toArray((T[]) Array.newInstance(type, 0)));
+    }
 }

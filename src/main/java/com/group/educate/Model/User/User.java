@@ -98,4 +98,6 @@ public abstract class User implements Serializable {
                 getHashedPassword() + "|" +
                 getRole() + "|";
     }
+
+
 }
