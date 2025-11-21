@@ -48,8 +48,8 @@ public class AdminService extends UserService{
     }
     //deleting users
 
-
-    public void deleteStudent(String email) throws Exception {
+// doesnt matter which one since email is unique
+    public void deleteUser(String email) throws Exception {
         List<User> users= userRepo.findAll();
         // the u is the user, the method basically does the job of loop
         //but safer and without causing run time error
