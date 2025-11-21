@@ -17,6 +17,10 @@ public class Application implements Serializable {
         this.student = student;
     }
 
+    public UUID getApplicationID() {
+        return applicationID;
+    }
+
     @Override
     public String toString() {
         return  applicationID + "|" +
