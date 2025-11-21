@@ -64,9 +64,10 @@ public class Student extends User {
         this.department = department;
     }
 
-    public void submitApplication(JobPosting jobPosting) {
+    public Application submitApplication(JobPosting jobPosting) {
 
         Application StudentApplication = new Application(this, jobPosting);
+        return StudentApplication;
     }
 
     @Override
