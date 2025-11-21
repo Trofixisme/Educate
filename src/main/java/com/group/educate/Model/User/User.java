@@ -36,7 +36,7 @@ public class User implements Serializable {
     }
 
     //Hash password with BCrypt
-    private String hashPassword(String plainPassword) {
+    public String hashPassword(String plainPassword) {
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
     }
 
