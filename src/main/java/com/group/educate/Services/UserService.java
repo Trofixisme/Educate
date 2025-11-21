@@ -1,10 +1,12 @@
 package com.group.educate.Services;
 
+import com.group.educate.Model.Roadmap.Roadmap;
 import com.group.educate.Model.Roadmap.Skill.Skill;
 import com.group.educate.Model.User.Student;
 import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 import com.group.educate.Repo.BaseRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
@@ -18,10 +20,12 @@ public class UserService {
     private static final String fileName = "data/users.txt";
     //todo:login,update done!!
 //todo:register (make sure that user doesn't already exist) ,update done!!
-//todo:view profile
-//todo:view roadmaps even if not signed in, just won't be able to track progress
+//todo:view profile ,done but review and test ziad
+//todo:view roadmaps even if not signed in, just won't be able to track progress,done!
     protected final BaseRepository<User> repo =
             new BaseRepository<>(User.class, fileName);
+    protected final BaseRepository<Roadmap> Roadmaprepo =
+            new BaseRepository<>(Roadmap.class, fileName);
 
     public void register(User u) throws Exception {
         List<User> users = repo.findAll();
@@ -44,6 +48,27 @@ public class UserService {
         return "not found";
 
     }
+    User viewProfile(String email)
+    {
+        try{
+            List<User> users=repo.findAll();
+            for(User u:users){
+                if(u.getEmail().equals(email)){
+                    return u;
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
+        return null;
+
+    }
+    List<Roadmap> viewRoadmaps() throws Exception {
+        return Roadmaprepo.findAll();
+    }
+
 
     void main()throws Exception{
         Student u1= new Student("Ziad", "Ali", "ziad@example.com", "password123", UserRole.STUDENT, 2024, "Cairo University", "Computer Science", "FCAI");
