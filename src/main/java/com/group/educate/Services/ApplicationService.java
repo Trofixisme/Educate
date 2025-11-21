@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ApplicationService {
-    //needed to save the application
+    //todo:needed to save the application
+    //you can suggest more feature if needed
     BaseRepository baseRepository;
 
     public ApplicationService(BaseRepository baseRepository) {

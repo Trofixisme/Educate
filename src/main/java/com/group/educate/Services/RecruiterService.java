@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RecruiterService extends UserService{
-    //need to create job postings
-    //need to view applications
-    //need to search for applications
-    //need to filter applications
-    //add company
+    //todo:need to create job postings
+    //todo:need to view applications
+    //todo:need to search for applications
+    //todo:need to filter applications
+    //todo:add company
 
 
 

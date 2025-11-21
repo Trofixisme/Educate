@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService extends UserService{
-    //view all users
-    //delete users
-    //create roadmaps
-    //delete roadmaps
-    //update roadmaps
-    //view all job postings
-    //delete job posting
+    //todo:view all users
+    //todo:delete users
+    //todo:create roadmaps
+    //todo:delete roadmaps
+    //todo:update roadmaps
+    //todo:view all job postings
+    //todo:delete job posting
     BaseRepository baseRepository;
 
 

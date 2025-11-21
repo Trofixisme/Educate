@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.group.educate.Model.User.UserRole.STUDENT;
-
+//ziad,shimaa follow this structure for the rest of services
 @Service
 public class UserService {
     private static final String fileName = "data/users.txt";
-    //login
-//register (make sure that user doesn't already exist)
-//view profile
-//view roadmaps even if not signed in, just won't be able to track progress
+    //todo:login
+//todo:register (make sure that user doesn't already exist) ,update done!!
+//todo:view profile
+//todo:view roadmaps even if not signed in, just won't be able to track progress
     private final BaseRepository<User> repo =
             new BaseRepository<>(User.class, fileName);
 
