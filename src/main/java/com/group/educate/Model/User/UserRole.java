@@ -5,7 +5,7 @@ import java.io.Serializable;
 public enum UserRole implements Serializable {
 
     STUDENT(1),
-    EMPLOYER(2),
+    RECRUITER(2),
     ADMIN(3);
 
     private final int ID;

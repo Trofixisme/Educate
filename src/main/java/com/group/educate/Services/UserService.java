@@ -20,7 +20,7 @@ public class UserService {
 //todo:register (make sure that user doesn't already exist) ,update done!!
 //todo:view profile
 //todo:view roadmaps even if not signed in, just won't be able to track progress
-    private final BaseRepository<User> repo =
+    protected final BaseRepository<User> repo =
             new BaseRepository<>(User.class, fileName);
 
     public void register(User u) throws Exception {

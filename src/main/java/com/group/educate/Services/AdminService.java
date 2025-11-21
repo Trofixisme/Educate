@@ -2,7 +2,10 @@ package com.group.educate.Services;
 
 import com.group.educate.Model.Job.JobPosting;
 import com.group.educate.Model.Roadmap.Roadmap;
+import com.group.educate.Model.User.Company.Recruiter;
+import com.group.educate.Model.User.Student;
 import com.group.educate.Model.User.User;
+import com.group.educate.Model.User.UserRole;
 import com.group.educate.Repo.BaseRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,20 @@ public class AdminService extends UserService{
     // view all users
     public List<User> viewAllUser() throws Exception {
         return userRepo.findAll();
+    }
+
+
+    public List<Student> findAllStudents() throws Exception {
+        return repo.findAll().stream()
+                .filter(u -> u.getRole() == UserRole.STUDENT)
+                .map(u -> (Student) u)
+                .toList();
+    }
+    public List<Recruiter> findAllRecruiters() throws Exception {
+        return repo.findAll().stream()
+                .filter(u -> u.getRole() == UserRole.RECRUITER)
+                .map(u -> (Recruiter) u)
+                .toList();
     }
     //deleting users
     public void deleteUser(String email) throws Exception {
