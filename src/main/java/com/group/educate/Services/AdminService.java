@@ -20,6 +20,7 @@ public class AdminService extends UserService{
     //todo:update roadmaps
     //todo:view all job postings
     //todo:delete job posting
+    //i need a switch case to delete which user exactly
 
     private static final String fileNameUser = "data/users.txt";
     private static final String fileNameRoadmap = "data/roadmaps.txt";
@@ -32,7 +33,6 @@ public class AdminService extends UserService{
     public List<User> viewAllUser() throws Exception {
         return userRepo.findAll();
     }
-
 
     public List<Student> findAllStudents() throws Exception {
         return repo.findAll().stream()
@@ -47,7 +47,9 @@ public class AdminService extends UserService{
                 .toList();
     }
     //deleting users
-    public void deleteUser(String email) throws Exception {
+
+
+    public void deleteStudent(String email) throws Exception {
         List<User> users= userRepo.findAll();
         // the u is the user, the method basically does the job of loop
         //but safer and without causing run time error
