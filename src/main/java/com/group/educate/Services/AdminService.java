@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AdminService extends UserService{
+public class AdminService extends UserService {
     //todo:view all users
     //todo:delete users
     //todo:create roadmaps
@@ -20,17 +20,14 @@ public class AdminService extends UserService{
     //todo:update roadmaps
     //todo:view all job postings
     //todo:delete job posting
-    //i need a switch case to delete which user exactly
+    //I need a switch case to delete to determine which user is to be deleted
 
-    private static final String fileNameUser = "data/users.txt";
-    private static final String fileNameRoadmap = "data/roadmaps.txt";
-    private static final String fileNameJob = "data/jobs.txt";
-    private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, fileNameUser);
-    private final BaseRepository<Roadmap> roadmapRepo = new BaseRepository<>(Roadmap.class, fileNameRoadmap);
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, fileNameJob);
+    private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, FilePaths.userPath);
+    private final BaseRepository<Roadmap> roadmapRepo = new BaseRepository<>(Roadmap.class, FilePaths.roadmapPath);
+    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath);
 
-    // view all users
-    public List<User> viewAllUser() throws Exception {
+    //View all users
+    public List<User> viewAllUsers() throws Exception {
         return userRepo.findAll();
     }
 
@@ -40,40 +37,44 @@ public class AdminService extends UserService{
                 .map(u -> (Student) u)
                 .toList();
     }
+
     public List<Recruiter> findAllRecruiters() throws Exception {
         return repo.findAll().stream()
                 .filter(u -> u.getRole() == UserRole.RECRUITER)
                 .map(u -> (Recruiter) u)
                 .toList();
     }
-    //deleting users
+    //Deleting users
 
-// doesnt matter which one since email is unique
+    //Doesn't matter which one since email is unique
     public void deleteUser(String email) throws Exception {
-        List<User> users= userRepo.findAll();
-        // the u is the user, the method basically does the job of loop
+
+        List<User> users = userRepo.findAll();
+        //The u is the user, the method basically does the job of loop
         //but safer and without causing run time error
-        users.removeIf(u->u.getEmail().equals(email));
+        users.removeIf(u -> u.getEmail().equals(email));
         userRepo.saveAll(users);
-        }
-        public void addRoadmap(Roadmap roadmap) throws Exception {
+    }
+
+    public void addRoadmap(Roadmap roadmap) throws Exception {
         List<Roadmap> roadmaps= roadmapRepo.findAll();
         roadmaps.add(roadmap);
         roadmapRepo.saveAll(roadmaps);
-        }
+    }
 
-        public void removeRoadmap(Roadmap roadmap) throws Exception {
+    public void removeRoadmap(Roadmap roadmap) throws Exception {
         List<Roadmap> roadmaps= roadmapRepo.findAll();
         roadmaps.remove(roadmap);
         roadmapRepo.saveAll(roadmaps);
-        }
-        // view all job posting
-        public List<JobPosting> viewAllJobPosting() throws Exception {
+    }
+
+    //View all job posting
+    public List<JobPosting> viewAllJobPosting() throws Exception {
         return jobRepo.findAll();
-        }
+    }
 
     public void removeJobPosting(JobPosting jobPosting) throws Exception {
-        List<JobPosting> jobPostings= jobRepo.findAll();
+        List<JobPosting> jobPostings = jobRepo.findAll();
         jobPostings.remove(jobPosting);
         jobRepo.saveAll(jobPostings);
     }

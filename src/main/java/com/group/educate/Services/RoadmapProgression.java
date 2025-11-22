@@ -3,24 +3,27 @@ package com.group.educate.Services;
 import com.group.educate.Model.Roadmap.Roadmap;
 import com.group.educate.Model.Roadmap.Skill.UserSkillStatus;
 import com.group.educate.Model.Roadmap.Status;
+import com.group.educate.Model.User.Student;
 import org.springframework.stereotype.Service;
 //import com.group.educate.Model.User.Student.StudentMajor;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-@SuppressWarnings({"all"})
-@Service
-//todo:conneect it if needed with anything
-public class RoadmapProgression {
+//@SuppressWarnings({"all"})
+//@Service
+public class RoadmapProgression implements Serializable {
+//todo: conneect it if needed with anything
 
     private UUID uuid;
 
     private double percentage;
     private Date lastModified = Date.from(Instant.now());
 
+    private Student associatedStudent;
     private Roadmap roadmap;
     private ArrayList<UserSkillStatus> userSkillStatuses = new ArrayList<>();
 
@@ -28,9 +31,16 @@ public class RoadmapProgression {
     private int numberOfCompleteModules;
     private int numberOfIncompleteModules;
 
-    public RoadmapProgression(Roadmap roadmap) {
+    public RoadmapProgression(Roadmap roadmap, Student Associatedstudent) {
         uuid = UUID.randomUUID();
         this.roadmap = roadmap;
+        this.associatedStudent = Associatedstudent;
+    }
+
+    public RoadmapProgression(String uuid, Roadmap roadmap, Student Associatedstudent) {
+        this.uuid = UUID.fromString(uuid);
+        this.roadmap = roadmap;
+        this.associatedStudent = Associatedstudent;
     }
 
     public void addUserSkillStatus(UserSkillStatus userSkillStatus) {

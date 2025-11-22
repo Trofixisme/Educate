@@ -21,6 +21,14 @@ public class Application implements Serializable {
         return applicationID;
     }
 
+    public JobPosting getAssociatedJobPosting() {
+        return jobPosting;
+    }
+
+    public Student getAssociatedStudent() {
+        return student;
+    }
+
     @Override
     public String toString() {
         return  applicationID + "|" +

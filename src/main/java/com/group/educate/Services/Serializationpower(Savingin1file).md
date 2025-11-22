@@ -1,389 +1,389 @@
-[//]: # (Great question — **YES, you can save the extra fields of Student, Recruiter, Admin with ZERO extra code**, because you are already using:)
+Great question — **YES, you can save the extra fields of Student, Recruiter, Admin with ZERO extra code**, because you are already using:
 
-[//]: # ()
-[//]: # (### ✔ **Java Serialization &#40;`implements Serializable`&#41;**)
 
-[//]: # ()
-[//]: # (This automatically saves **all fields** from:)
+### ✔ **Java Serialization (`implements Serializable`)**
 
-[//]: # ()
-[//]: # (* the parent class &#40;User&#41;)
 
-[//]: # (* the subclass &#40;Student / Recruiter / Admin&#41;)
+This automatically saves **all fields** from:
 
-[//]: # (* and nested objects)
 
-[//]: # ()
-[//]: # (So you **don't** need a special student saving logic.)
+* the parent class (User)
 
-[//]: # ()
-[//]: # (Let me explain it clearly.)
+* the subclass (Student / Recruiter / Admin)
 
-[//]: # ()
-[//]: # (---)
+* and nested objects
 
-[//]: # ()
-[//]: # (# ✅ 1. Why the extra Student fields are saved automatically)
 
-[//]: # ()
-[//]: # (If your Student class is:)
+So you **don't** need a special student saving logic.
 
-[//]: # ()
-[//]: # (```java)
 
-[//]: # (public class Student extends User implements Serializable {)
+Let me explain it clearly.
 
-[//]: # (    private int graduationYear;)
 
-[//]: # (    private String university;)
+---
 
-[//]: # (    private String faculty;)
 
-[//]: # (})
+# ✅ 1. Why the extra Student fields are saved automatically
 
-[//]: # (```)
 
-[//]: # ()
-[//]: # (And you do:)
+If your Student class is:
 
-[//]: # ()
-[//]: # (```java)
 
-[//]: # (Student s = new Student&#40;"Sandra", "Remon", "s@gmail.com", "123", 2025, "MIT", "Engineering"&#41;;)
+```java
 
-[//]: # ()
-[//]: # (repo.saveAll&#40;List.of&#40;s&#41;&#41;;)
+public class Student extends User implements Serializable {
 
-[//]: # (```)
+    private int graduationYear;
 
-[//]: # ()
-[//]: # (Then:)
+    private String university;
 
-[//]: # ()
-[//]: # (### ✔ All of this gets saved into users.txt:)
+    private String faculty;
 
-[//]: # ()
-[//]: # (* fname)
+}
 
-[//]: # (* lname)
+```
 
-[//]: # (* email)
 
-[//]: # (* password)
+And you do:
 
-[//]: # (* userID)
 
-[//]: # (* role)
+```java
 
-[//]: # (* graduationYear)
+Student s = new Student("Sandra", "Remon", "s@gmail.com", "123", 2025, "MIT", "Engineering");
 
-[//]: # (* university)
 
-[//]: # (* faculty)
+repo.saveAll(List.of(s));
 
-[//]: # ()
-[//]: # (Because **the entire object graph is serialized**.)
+```
 
-[//]: # ()
-[//]: # (You do NOT need extra code.)
 
-[//]: # ()
-[//]: # (---)
+Then:
 
-[//]: # ()
-[//]: # (# ✔ 2. Your BaseRepository + FileManager already supports this)
 
-[//]: # ()
-[//]: # (Your BaseRepository calls:)
+### ✔ All of this gets saved into users.txt:
 
-[//]: # ()
-[//]: # (```java)
 
-[//]: # (FileManager.write&#40;fileName, objects&#41;;)
+* fname
 
-[//]: # (```)
+* lname
 
-[//]: # ()
-[//]: # (And FileManager writes:)
+* email
 
-[//]: # ()
-[//]: # (```java)
+* password
 
-[//]: # (objectStream.writeObject&#40;new ArrayList<>&#40;List.of&#40;objects&#41;&#41;&#41;;)
+* userID
 
-[//]: # (```)
+* role
 
-[//]: # ()
-[//]: # (So the entire **Student object including its subclass fields** is written.)
+* graduationYear
 
-[//]: # ()
-[//]: # (---)
+* university
 
-[//]: # ()
-[//]: # (# ✔ 3. Reading also restores the subclass fields correctly)
+* faculty
 
-[//]: # ()
-[//]: # (When you read using:)
 
-[//]: # ()
-[//]: # (```java)
+Because **the entire object graph is serialized**.
 
-[//]: # (repo.findAll&#40;&#41;;)
 
-[//]: # (```)
+You do NOT need extra code.
 
-[//]: # ()
-[//]: # (FileManager does:)
 
-[//]: # ()
-[//]: # (```java)
+---
 
-[//]: # (&#40;ArrayList<T>&#41; objectStream.readObject&#40;&#41;;)
 
-[//]: # (```)
+# ✔ 2. Your BaseRepository + FileManager already supports this
 
-[//]: # ()
-[//]: # (And Java automatically reconstructs the correct subclass:)
 
-[//]: # ()
-[//]: # (### If the stored object is Student → returned as Student)
+Your BaseRepository calls:
 
-[//]: # ()
-[//]: # (### If the stored object is Recruiter → returned as Recruiter)
 
-[//]: # ()
-[//]: # (You don’t need custom parsing.)
+```java
 
-[//]: # ()
-[//]: # (---)
+FileManager.write(fileName, objects);
 
-[//]: # ()
-[//]: # (# ⭐ 4. Updated **UserService** with full saving logic)
+```
 
-[//]: # ()
-[//]: # (Here is a clean service:)
 
-[//]: # ()
-[//]: # (```java)
+And FileManager writes:
 
-[//]: # (@Service)
 
-[//]: # (public class UserService {)
+```java
 
-[//]: # ()
-[//]: # (    private static final String fileName = "data/users.txt";)
+objectStream.writeObject(new ArrayList<>(List.of(objects)));
 
-[//]: # ()
-[//]: # (    private final BaseRepository<User> repo =)
+```
 
-[//]: # (            new BaseRepository<>&#40;User.class, fileName&#41;;)
 
-[//]: # ()
-[//]: # (    // Register user &#40;works for Student, Recruiter, Admin&#41;)
+So the entire **Student object including its subclass fields** is written.
 
-[//]: # (    public void register&#40;User user&#41; throws Exception {)
 
-[//]: # (        ArrayList<User> users = repo.findAll&#40;&#41;;)
+---
 
-[//]: # ()
-[//]: # (        boolean exists = users.stream&#40;&#41;)
 
-[//]: # (                .anyMatch&#40;u -> u.getEmail&#40;&#41;.equalsIgnoreCase&#40;user.getEmail&#40;&#41;&#41;&#41;;)
+# ✔ 3. Reading also restores the subclass fields correctly
 
-[//]: # ()
-[//]: # (        if &#40;exists&#41; {)
 
-[//]: # (            throw new Exception&#40;"User already exists"&#41;;)
+When you read using:
 
-[//]: # (        })
 
-[//]: # ()
-[//]: # (        users.add&#40;user&#41;;)
+```java
 
-[//]: # (        repo.saveAll&#40;users&#41;;)
+repo.findAll();
 
-[//]: # (    })
+```
 
-[//]: # ()
-[//]: # (    public User login&#40;String email, String plainPassword&#41; throws Exception {)
 
-[//]: # (        return repo.findAll&#40;&#41;.stream&#40;&#41;)
+FileManager does:
 
-[//]: # (                .filter&#40;u -> u.getEmail&#40;&#41;.equalsIgnoreCase&#40;email&#41;&#41;)
 
-[//]: # (                .filter&#40;u -> PasswordHasher.matches&#40;plainPassword, u.getHashedPassword&#40;&#41;&#41;&#41;)
+```java
 
-[//]: # (                .findFirst&#40;&#41;)
+(ArrayList<T>) objectStream.readObject();
 
-[//]: # (                .orElse&#40;null&#41;;)
+```
 
-[//]: # (    })
 
-[//]: # ()
-[//]: # (    public List<Student> findAllStudents&#40;&#41; throws Exception {)
+And Java automatically reconstructs the correct subclass:
 
-[//]: # (        return repo.findAll&#40;&#41;.stream&#40;&#41;)
 
-[//]: # (                .filter&#40;u -> u.getRole&#40;&#41; == UserRole.STUDENT&#41;)
+### If the stored object is Student → returned as Student
 
-[//]: # (                .map&#40;u -> &#40;Student&#41; u&#41;)
 
-[//]: # (                .toList&#40;&#41;;)
+### If the stored object is Recruiter → returned as Recruiter
 
-[//]: # (    })
 
-[//]: # ()
-[//]: # (    public List<Recruiter> findAllRecruiters&#40;&#41; throws Exception {)
+You don’t need custom parsing.
 
-[//]: # (        return repo.findAll&#40;&#41;.stream&#40;&#41;)
 
-[//]: # (                .filter&#40;u -> u.getRole&#40;&#41; == UserRole.RECRUITER&#41;)
+---
 
-[//]: # (                .map&#40;u -> &#40;Recruiter&#41; u&#41;)
 
-[//]: # (                .toList&#40;&#41;;)
+# ⭐ 4. Updated **UserService** with full saving logic
 
-[//]: # (    })
 
-[//]: # (})
+Here is a clean service:
 
-[//]: # (```)
 
-[//]: # ()
-[//]: # (---)
+```java
 
-[//]: # ()
-[//]: # (# ⭐ 5. What happens when saving a Student?)
+@Service
 
-[//]: # ()
-[//]: # (Example:)
+public class UserService {
 
-[//]: # ()
-[//]: # (```java)
 
-[//]: # (Student s = new Student&#40;"Sandra", "Remon", "s@gmail.com", "123", 2025, "MIT", "CS"&#41;;)
+    private static final String fileName = "data/users.txt";
 
-[//]: # ()
-[//]: # (userService.register&#40;s&#41;;)
 
-[//]: # (```)
+    private final BaseRepository<User> repo =
 
-[//]: # ()
-[//]: # (This will write something like:)
+            new BaseRepository<>(User.class, fileName);
 
-[//]: # ()
-[//]: # (```)
 
-[//]: # ([)
+    // Register user (works for Student, Recruiter, Admin)
 
-[//]: # (   Student {)
+    public void register(User user) throws Exception {
 
-[//]: # (      fname="Sandra")
+        ArrayList<User> users = repo.findAll();
 
-[//]: # (      lname="Remon")
 
-[//]: # (      email="s@gmail.com")
+        boolean exists = users.stream()
 
-[//]: # (      hashedPassword="...")
+                .anyMatch(u -> u.getEmail().equalsIgnoreCase(user.getEmail()));
 
-[//]: # (      userID=UUID)
 
-[//]: # (      role=STUDENT)
+        if (exists) {
 
-[//]: # ()
-[//]: # (      graduationYear=2025)
+            throw new Exception("User already exists");
 
-[//]: # (      university="MIT")
+        }
 
-[//]: # (      major="CS")
 
-[//]: # (   })
+        users.add(user);
 
-[//]: # (])
+        repo.saveAll(users);
 
-[//]: # (```)
+    }
 
-[//]: # ()
-[//]: # (Everything is preserved.)
 
-[//]: # ()
-[//]: # (---)
+    public User login(String email, String plainPassword) throws Exception {
 
-[//]: # ()
-[//]: # (# ⭐ 6. Why does this work so well?)
+        return repo.findAll().stream()
 
-[//]: # ()
-[//]: # (Because:)
+                .filter(u -> u.getEmail().equalsIgnoreCase(email))
 
-[//]: # ()
-[//]: # (### Java Serialization stores:)
+                .filter(u -> PasswordHasher.matches(plainPassword, u.getHashedPassword()))
 
-[//]: # ()
-[//]: # (* all primitive fields)
+                .findFirst()
 
-[//]: # (* all Strings)
+                .orElse(null);
 
-[//]: # (* all nested objects)
+    }
 
-[//]: # (* all fields in parent and child classes)
 
-[//]: # ()
-[//]: # (It's a complete snapshot.)
+    public List<Student> findAllStudents() throws Exception {
 
-[//]: # ()
-[//]: # (---)
+        return repo.findAll().stream()
 
-[//]: # ()
-[//]: # (# 💡 7. The service does NOT need to know subclasses)
+                .filter(u -> u.getRole() == UserRole.STUDENT)
 
-[//]: # ()
-[//]: # (### Because filtering is based on:)
+                .map(u -> (Student) u)
 
-[//]: # ()
-[//]: # (```java)
+                .toList();
 
-[//]: # (u.getRole&#40;&#41;)
+    }
 
-[//]: # (```)
 
-[//]: # ()
-[//]: # (So your UserService stays simple.)
+    public List<Recruiter> findAllRecruiters() throws Exception {
 
-[//]: # ()
-[//]: # (---)
+        return repo.findAll().stream()
 
-[//]: # ()
-[//]: # (# 🔥 Summary)
+                .filter(u -> u.getRole() == UserRole.RECRUITER)
 
-[//]: # ()
-[//]: # (### ✔ Extra fields of Student ARE saved automatically)
+                .map(u -> (Recruiter) u)
 
-[//]: # ()
-[//]: # (### ✔ No extra repo or parsing needed)
+                .toList();
 
-[//]: # ()
-[//]: # (### ✔ UserService simply stores a `User` list)
+    }
 
-[//]: # ()
-[//]: # (### ✔ Java serialization handles all subclass data)
+}
 
-[//]: # ()
-[//]: # (### ✔ You can filter students using `role == STUDENT`)
+```
 
-[//]: # ()
-[//]: # (---)
 
-[//]: # ()
-[//]: # (If you want, I can generate:)
+---
 
-[//]: # ()
-[//]: # (✅ StudentService if you really want separation)
 
-[//]: # (✅ Admin-only actions &#40;delete users, promote to recruiter&#41;)
+# ⭐ 5. What happens when saving a Student?
 
-[//]: # (✅ Recruiter actions &#40;post jobs, read applications&#41;)
 
-[//]: # (✅ Best project folder structure)
+Example:
 
-[//]: # ()
-[//]: # (Just tell me!)
+
+```java
+
+Student s = new Student("Sandra", "Remon", "s@gmail.com", "123", 2025, "MIT", "CS");
+
+
+userService.register(s);
+
+```
+
+
+This will write something like:
+
+
+```
+
+[
+
+   Student {
+
+      fname="Sandra"
+
+      lname="Remon"
+
+      email="s@gmail.com"
+
+      hashedPassword="..."
+
+      userID=UUID
+
+      role=STUDENT
+
+
+      graduationYear=2025
+
+      university="MIT"
+
+      major="CS"
+
+   }
+
+]
+
+```
+
+
+Everything is preserved.
+
+
+---
+
+
+# ⭐ 6. Why does this work so well?
+
+
+Because:
+
+
+### Java Serialization stores:
+
+
+* all primitive fields
+
+* all Strings
+
+* all nested objects
+
+* all fields in parent and child classes
+
+
+It's a complete snapshot.
+
+
+---
+
+
+# 💡 7. The service does NOT need to know subclasses
+
+
+### Because filtering is based on:
+
+
+```java
+
+u.getRole()
+
+```
+
+
+So your UserService stays simple.
+
+
+---
+
+
+# 🔥 Summary
+
+
+### ✔ Extra fields of Student ARE saved automatically
+
+
+### ✔ No extra repo or parsing needed
+
+
+### ✔ UserService simply stores a `User` list
+
+
+### ✔ Java serialization handles all subclass data
+
+
+### ✔ You can filter students using `role == STUDENT`
+
+
+---
+
+
+If you want, I can generate:
+
+
+✅ StudentService if you really want separation
+
+✅ Admin-only actions (delete users, promote to recruiter)
+
+✅ Recruiter actions (post jobs, read applications)
+
+✅ Best project folder structure
+
+
+Just tell me!

@@ -32,9 +32,11 @@ public class Company implements Serializable {
         companyID = UUID.fromString(companyUUID);
         this(industry, name, new URL(websiteURL), location);
     }
+
     public String getLocation() {
         return getLocation();
     }
+
     public String getIndustry() {
         return industry;
     }

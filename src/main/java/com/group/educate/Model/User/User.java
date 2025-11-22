@@ -4,11 +4,10 @@ package com.group.educate.Model.User;
 
 import org.mindrot.jbcrypt.BCrypt;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 public class User implements Serializable {
-
-    //TODO: Somehow resolve the issue causing the various objects extending this class to have unique IDs when they shouldn't
 
     private String hashedPassword;
     private String fname;
@@ -19,7 +18,7 @@ public class User implements Serializable {
 
     public User(String fname, String lname, String email, String plainPassword, UserRole role) {
         userID = UUID.randomUUID();
-        this.hashedPassword = hashPassword(plainPassword);
+        hashPassword(plainPassword);
         setFName(fname);
         setLName(lname);
         setEmail(email);
@@ -28,7 +27,7 @@ public class User implements Serializable {
 
     public User(String userID, String fname, String lname, String email, String plainPassword, UserRole role) {
         this.userID = UUID.fromString(userID);
-        this.hashedPassword = hashPassword(plainPassword);
+        hashPassword(plainPassword);
         setFName(fname);
         setLName(lname);
         setEmail(email);
@@ -36,9 +35,7 @@ public class User implements Serializable {
     }
 
     //Hash password with BCrypt
-    public String hashPassword(String plainPassword) {
-        return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
-    }
+    public void hashPassword(String plainPassword) { hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt(12)); }
 
     //Check if the input password matches the stored hash
     public boolean verifyPassword(String plainPassword) {
@@ -99,5 +96,11 @@ public class User implements Serializable {
                 getRole() + "|";
     }
 
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof User)) return false;
 
+        if (this == o) return true;
+        return this.getEmail().equalsIgnoreCase(((User) o).getEmail());
+    }
 }

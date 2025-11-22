@@ -4,8 +4,8 @@ import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Array;
 import java.util.*;
-@Repository
 
+@Repository
 public class BaseRepository<T> extends FileManager{
 
     private final String fileName;
@@ -16,11 +16,21 @@ public class BaseRepository<T> extends FileManager{
         this.type = type;
     }
 
+    public BaseRepository(String fileName) {
+        this.fileName = fileName;
+        this.type = ((Object) T).getClass();
+    }
+
     public List<T> findAll() throws Exception {
-        return FileManager.read(type, fileName);
+        try {
+            return read(type, fileName);
+        } catch (Exception e) {
+            write(fileName, null);
+        }
+        return read(type, fileName);
     }
 
     public void saveAll(List<T> items) throws Exception {
-        FileManager.write(fileName, items.toArray((T[]) Array.newInstance(type, 0)));
+        write(fileName, items.toArray((T[]) Array.newInstance(type, 0)));
     }
 }

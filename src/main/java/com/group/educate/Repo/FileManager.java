@@ -20,28 +20,41 @@ public class FileManager {
         FileOutputStream stream = new FileOutputStream(fileName);
         ObjectOutputStream objectStream = new ObjectOutputStream(stream);
 
-        objectStream.writeObject(new ArrayList<T>(List.of(objects)));
+        if (objects != null) {
+            objectStream.writeObject(new ArrayList<T>(List.of(objects)));
+        } else {
+            objectStream.writeObject(null);
+        }
     }
 
-    protected static <T> ArrayList<T> read(Class<T> type ,String fileName) throws Exception {
+    protected static <T> ArrayList<T> read(Class<T> type, String fileName) throws Exception {
         FileInputStream stream = new FileInputStream(fileName);
         ObjectInputStream objectStream = new ObjectInputStream(stream);
-        return (ArrayList<T>) objectStream.readObject();
+
+        ArrayList<T> returningList = (ArrayList<T>) objectStream.readObject();
+        if (returningList == null) {
+            return new ArrayList<T>();
+        } else {
+            return returningList;
+        }
     }
 
     private static final class RepositoryTest {
         static void main() throws Exception {
-            write("Application.txt", new Skill("Swift Student Challenge", "Empty", new ArrayList<>(List.of(new URL[]{new URL("https://developer.apple.com")}))),
+
+            String filePath = "data/test.txt";
+
+            write(filePath, new Skill("Swift Student Challenge", "Empty", new ArrayList<>(List.of(new URL[]{new URL("https://developer.apple.com")}))),
                     new Skill("Swift Student Challenge", "Empty", new ArrayList<>(List.of(new URL[]{new URL("https://www.apple.com/iphone-17/")}))));
-            read(Skill.class,"Application.txt").get(0);
+            read(Skill.class,filePath).get(0);
 
 
-                write("Application.txt",
+                write(filePath,
                         new Student("Ziad", "Ali", "ziad@example.com", "password123", UserRole.STUDENT, 2024, "Cairo University", "Computer Science", "FCAI"),
                         new Student("Alice", "Smith", "alice@example.com", "securePass", UserRole.STUDENT, 2025, "MIT", "Software Engineering", "Engineering"),
                         new Student("Bob", "Jones", "bob@example.com", "bobPass", UserRole.STUDENT, 2023, "Stanford", "Data Science", "Mathematics")
                 );
-            System.out.println(read(Skill.class,"Application.txt"));
+            System.out.println(read(Skill.class, filePath));
             }
         }
 

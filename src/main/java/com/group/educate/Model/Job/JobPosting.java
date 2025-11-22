@@ -18,9 +18,8 @@ public class JobPosting implements Serializable {
     private final UUID jobPostingUUID;
     private PostingType jobPostingType;
 
-
     public JobPosting(String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
-        this.jobDescription =jobDescription;
+        this.jobDescription = jobDescription;
         this.jobName = jobName;
         this.datePosted = new Date();
         this.jobRequirements = jobRequirements;
@@ -30,7 +29,6 @@ public class JobPosting implements Serializable {
 
 
     }
-
 
     public JobPosting(String jobPostingUUID, String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
