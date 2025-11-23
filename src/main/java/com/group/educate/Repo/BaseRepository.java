@@ -1,5 +1,6 @@
 package com.group.educate.Repo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Array;
@@ -10,15 +11,10 @@ public class BaseRepository<T> extends FileManager{
 
     private final String fileName;
     private final Class<T> type;
-
+  @Autowired
     public BaseRepository(Class<T> type, String fileName) {
         this.fileName = fileName;
         this.type = type;
-    }
-
-    public BaseRepository(String fileName) {
-        this.fileName = fileName;
-        this.type = ((Object) T).getClass();
     }
 
     public List<T> findAll() throws Exception {
