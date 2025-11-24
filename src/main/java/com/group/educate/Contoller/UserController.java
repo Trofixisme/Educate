@@ -22,7 +22,7 @@ public class  UserController {
         model.addAttribute("user", new Student("Ziad", "Ali", "ziad@example.com",
                 "password123", UserRole.STUDENT, 2024, "Cairo University",
                 "Computer Science", "FCAI"));
-        return "home";  // corresponds to register.html
+        return "redirect:/login";  // corresponds to register.html
     }
 
     @PostMapping("/register")
@@ -34,4 +34,23 @@ public class  UserController {
         }
         return "redirect:/login";
     }
+
+    @GetMapping("/login")
+    public String showloginPage(Model model) {
+        model.addAttribute("user", new Student("Ziad", "Ali", "ziad@example.com",
+                "password123", UserRole.STUDENT, 2024, "Cairo University",
+                "Computer Science", "FCAI"));
+        return "redirect:/";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute("user") User user) {
+        try {
+            userService.register(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/";
+    }
+
 }

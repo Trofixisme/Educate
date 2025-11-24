@@ -8,15 +8,14 @@
 
 <h2>find your account</h2>
 
-<form th:action="@{/login}" th:object="${user}" method="get">
-
-
+<!--/*@thymesVar id="user" type="com.group.educate.Model.User.User"*/-->
+<form th:action="@{/login}" th:object="${user}" method="post">
 
     <label>Email:</label>
     <input type="email" th:field="*{email}" />
 
     <label>Password:</label>
-    <input type="password" th:field="*{password}" />
+    <input type="password" th:field="*{hashedPassword}" />
 
     <button type="submit">login</button>
 </form>
