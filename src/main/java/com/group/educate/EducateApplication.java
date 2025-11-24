@@ -11,7 +11,5 @@ public class EducateApplication {
     public static void main(String[] args) throws IllegalClassFormatException {
 
         SpringApplication.run(EducateApplication.class, args);
-
     }
-
 }

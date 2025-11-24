@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 import java.lang.reflect.Array;
 import java.util.*;
 
-@Repository
-public class BaseRepository<T> extends FileManager{
+//@Repository
+public class BaseRepository<T> extends FileManager {
 
     private final String fileName;
     private final Class<T> type;
-  @Autowired
+//  @Autowired
     public BaseRepository(Class<T> type, String fileName) {
         this.fileName = fileName;
         this.type = type;

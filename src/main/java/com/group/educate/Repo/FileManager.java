@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileManager {
+class FileManager {
 
     protected static <T> void write(String fileName, T... objects) throws Exception {
         FileOutputStream stream = new FileOutputStream(fileName);

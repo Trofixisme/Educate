@@ -7,11 +7,11 @@ import java.lang.instrument.IllegalClassFormatException;
 
 public class FreeLanceProject extends JobPosting implements Serializable {
 
-    private int Duration;
+    private double Duration;
     private int Payout;
     private String jobLocation;
 
-    public FreeLanceProject( String jobDescription, String jobName, String jobLocation, String jobRequirements, String jobTitle, PostingType jobPostingType,int Duration, int Payout) {
+    public FreeLanceProject( String jobDescription, String jobName, String jobLocation, String jobRequirements, String jobTitle, PostingType jobPostingType, double Duration, int Payout) {
         super(jobDescription,jobName, jobRequirements, jobTitle,jobPostingType);
         this.jobLocation = jobLocation;
         this.Duration = Duration;
@@ -25,7 +25,7 @@ public class FreeLanceProject extends JobPosting implements Serializable {
         this.jobLocation = jobLocation;
     }
 
-    public int getDuration() {
+    public double getDuration() {
         return Duration;
     }
 

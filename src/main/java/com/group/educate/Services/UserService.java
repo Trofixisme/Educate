@@ -70,7 +70,7 @@ public class UserService {
         static void main () throws Exception {
             UserService service = new UserService();
 
-            Student u1 = new Student("Ziad", "Ali", "ziad@example.com", "password123", UserRole.STUDENT, 2024, "Cairo University", "Computer Science", "FCAI");
+            Student u1 = new Student("Ziad", "Ali", "ziad2@example.com", "password123ashdashdoi", UserRole.STUDENT, 2024, "Cairo University", "Computer Science", "FCAI");
 //            service.register(u1);
             System.out.println(service.repo.findAll());
             System.out.println(service.viewProfile("ziad@example.com"));
