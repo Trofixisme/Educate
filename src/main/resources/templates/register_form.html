@@ -8,7 +8,7 @@
 
 <h2>Create an Account</h2>
 
-<form th:action="@{/home}" th:object="${user}" method="post">
+<form action="#" th:action="@{/users/register}" th:object="${user}" method="post">
 
     <label>First Name:</label>
     <input type="text" th:field="*{fname}" />
@@ -20,7 +20,7 @@
     <input type="email" th:field="*{email}" />
 
     <label>Password:</label>
-    <input type="password" th:field="*{hashedPassword}" />
+    <input type="password" th:field="*{plainPassword}" />
 
     <button type="submit">Register</button>
 </form>
