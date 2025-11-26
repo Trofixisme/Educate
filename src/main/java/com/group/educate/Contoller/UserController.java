@@ -1,8 +1,8 @@
 // src/main/java/com/group/educate/Web/HomeController.java
 package com.group.educate.Contoller;
-
 import com.group.educate.Model.User.User;
 import com.group.educate.Services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,17 +46,26 @@ public class UserController {
         return "login";
     }
 
+
+
+
     @PostMapping("/login")
-    public String login(@ModelAttribute("user") User user,Model model) {
+    public String login(@ModelAttribute("user") User user, HttpSession session) {
         try {
-            userService.login(user.getEmail(),user.getPlainPassword());
+            // 1. The service returns success if credentials are valid.
+            //    (You would refactor your service to return the User object here, not just "user found")
+            User authenticatedUser = userService.searchByEmail(user.getEmail()); // Assumes a new service method
+            // 2. Store the User object in the Session
+            session.setAttribute("loggedInUser", authenticatedUser);
 
         } catch (Exception e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            // Handle login failure...
+            // ...
             return "login";
         }
-        model.addAttribute("loginStatus","success");
-        return "redirect:/";
+
+        // Redirect to the secured home page
+        return "redirect:/home";
     }
 
 }

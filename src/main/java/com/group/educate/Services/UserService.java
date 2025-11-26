@@ -7,7 +7,6 @@ import com.group.educate.Model.User.UserRole;
 import com.group.educate.Repo.BaseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Ziad, Shimaa follow this structure for the rest of services
@@ -56,7 +55,7 @@ public class UserService {
     }
 
 
-    User viewProfile(String email) {
+    public User searchByEmail(String email) {
         try {
             List<User> users = repo.findAll();
             for (User u : users) {
@@ -82,8 +81,8 @@ public class UserService {
             Student u1 = new Student("Ziad", "Ali", "ziad2@example.com", "password123ashdashdoi", UserRole.STUDENT, 2024, "Cairo University", "Computer Science", "FCAI");
 //            service.register(u1);
             System.out.println(service.repo.findAll());
-            System.out.println(service.viewProfile("ziad@example.com"));
-            System.out.println(service.viewProfile("ziad2@example.com"));
+            System.out.println(service.searchByEmail("ziad@example.com"));
+            System.out.println(service.searchByEmail("ziad2@example.com"));
         }
     }
 }
