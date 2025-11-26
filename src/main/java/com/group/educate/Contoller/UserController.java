@@ -47,12 +47,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("user") User user) {
+    public String login(@ModelAttribute("user") User user,Model model) {
         try {
             userService.login(user.getEmail(),user.getPlainPassword());
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            model.addAttribute("errorMessage", e.getMessage());
+            return "login";
         }
+        model.addAttribute("loginStatus","success");
         return "redirect:/";
     }
 

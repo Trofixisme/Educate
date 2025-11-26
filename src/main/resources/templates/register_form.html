@@ -10,7 +10,6 @@
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
     <p th:text="${errorMessage}"></p></div>
-
 <form action="#" th:action="@{/users/register}" th:object="${user}" method="post">
 
     <label>First Name:</label>

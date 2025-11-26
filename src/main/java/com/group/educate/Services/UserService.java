@@ -33,17 +33,17 @@ public class UserService {
     }
 
     public String login(String email, String password) throws Exception {
-        if (email == null || password == null) { return "not found"; }
+        if (email == null || password == null) { throw new Exception("can't save a null user"); }
 
         List<User> users = repo.findAll();
         for (User u : users) {
             if (u.verifyPassword(password) && u.getEmail().equals(email)) {
                 return "user found";
             } else if ((u.getEmail().equals(email)) && !u.verifyPassword(password)) {
-                return "incorrect password";
+                throw new Exception("incorrect password");
             }
         }
-        return "not found";
+        throw new Exception("user not found");
     }
 
     User viewProfile(String email) {
