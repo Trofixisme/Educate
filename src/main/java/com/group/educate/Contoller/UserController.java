@@ -21,7 +21,7 @@ public class UserController {
         return "error";
     }
 
-    @GetMapping("/")
+    @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("user", new User());
         return "register_form";
