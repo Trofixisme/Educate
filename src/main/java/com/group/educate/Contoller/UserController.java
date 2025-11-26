@@ -8,11 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class  UserController {
+public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/error")
+    public String error(Model model) {
+        model.addAttribute("user", new User());
+        return "error";
     }
 
     @GetMapping("/")
@@ -35,10 +41,9 @@ public class  UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        // 💡 CRITICAL: This must be present for th:object="${user}" to work
+    public String showloginPage(Model model) {
         model.addAttribute("user", new User());
-        return "login"; // Returns login.html
+        return "login";
     }
 
     @PostMapping("/login")
@@ -48,7 +53,7 @@ public class  UserController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/register_form";
+        return "redirect:/";
     }
 
 }
