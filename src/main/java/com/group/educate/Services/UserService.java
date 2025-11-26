@@ -31,27 +31,36 @@ public class UserService {
             throw new Exception("user already exists");
         }
     }
-
     public String login(String email, String password) throws Exception {
-        if (email == null || password == null) { throw new Exception("can't save a null user"); }
+
+        if (email == null || password == null) {
+            throw new IllegalArgumentException("Email and password cannot be null");
+        }
 
         List<User> users = repo.findAll();
+
         for (User u : users) {
-            if (u.verifyPassword(password) && u.getEmail().equals(email)) {
-                return "user found";
-            } else if ((u.getEmail().equals(email)) && !u.verifyPassword(password)) {
-                throw new Exception("incorrect password");
+
+            if (u.getEmail().equals(email)) {
+
+                if (u.getPlainPassword().equals(password)) {
+                    return "user found";
+                }
+                else if(!u.getPlainPassword().equals(password)) {
+                    throw new Exception("incorrect password");
+                }
             }
         }
+
         throw new Exception("user not found");
     }
+
 
     User viewProfile(String email) {
         try {
             List<User> users = repo.findAll();
             for (User u : users) {
                 if(u.getEmail().equals(email)){
-                    u.hashPassword("null");
                     return u;
                 }
             }

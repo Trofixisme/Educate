@@ -1,8 +1,6 @@
 //Created by Ziad on 28/10/2025
 
 package com.group.educate.Model.User;
-
-import org.mindrot.jbcrypt.BCrypt;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -21,36 +19,25 @@ public class User implements Serializable {
 
     public User(String fname, String lname, String email, String plainPassword, UserRole role) {
         userID = UUID.randomUUID();
-        hashPassword(plainPassword);
+        this.plainPassword=plainPassword;
         setFname(fname);
         setLname(lname);
         setEmail(email);
         this.role = role;
     }
-
     public User(String userID, String fname, String lname, String email, String plainPassword, UserRole role) {
         this.userID = UUID.fromString(userID);
-        hashPassword(plainPassword);
+        this.plainPassword=plainPassword;
         setFname(fname);
         setLname(lname);
         setEmail(email);
         this.role = role;
     }
-
-    //Hash password with BCrypt
-    public void hashPassword(String plainPassword) { this.plainPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt(12)); }
-
-    //Check if the input password matches the stored hash
-    public boolean verifyPassword(String plainPassword) {
-        return BCrypt.checkpw(plainPassword, this.plainPassword);
-    }
-
     public String getPlainPassword() {
         return plainPassword;
     }
-
     public void setPlainPassword(String plainPassword) {
-       hashPassword(plainPassword);
+      this.plainPassword=plainPassword;
     }
 
     public String getFname() {
