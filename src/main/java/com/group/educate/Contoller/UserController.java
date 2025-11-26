@@ -53,17 +53,15 @@ public class UserController {
             //    This method should throw an exception on failure (e.g., "incorrect password").
             //    If successful, it returns the fully validated User object.
             User authenticatedUser = userService.login(user.getEmail(), user.getPlainPassword());
-
-            // 2. ONLY if no exception was thrown (authentication succeeded), save the object to the session.
             session.setAttribute("loggedInUser", authenticatedUser);
 
         } catch (Exception e) {
-            // 3. On failure, add the error message and return the login view.
             model.addAttribute("errorMessage", e.getMessage());
-            return "login";
+            return "login";//return view name
+
         }
         System.out.println("user logged in");
         // 4. Redirect only on guaranteed SUCCESS.
-        return "redirect:/index";
+        return "redirect:/user/home";  //redirect to a page url
     }
 }
