@@ -46,26 +46,24 @@ public class UserController {
         return "login";
     }
 
-
-
-
     @PostMapping("/login")
-    public String login(@ModelAttribute("user") User user, HttpSession session) {
+    public String login(@ModelAttribute("user") User user, Model model, HttpSession session) {
         try {
-            // 1. The service returns success if credentials are valid.
-            //    (You would refactor your service to return the User object here, not just "user found")
-            User authenticatedUser = userService.searchByEmail(user.getEmail()); // Assumes a new service method
-            // 2. Store the User object in the Session
+            // 1. Service finds user by email AND verifies the password.
+            //    This method should throw an exception on failure (e.g., "incorrect password").
+            //    If successful, it returns the fully validated User object.
+            User authenticatedUser = userService.login(user.getEmail(), user.getPlainPassword());
+
+            // 2. ONLY if no exception was thrown (authentication succeeded), save the object to the session.
             session.setAttribute("loggedInUser", authenticatedUser);
 
         } catch (Exception e) {
-            // Handle login failure...
-            // ...
+            // 3. On failure, add the error message and return the login view.
+            model.addAttribute("errorMessage", e.getMessage());
             return "login";
         }
-
-        // Redirect to the secured home page
-        return "redirect:/home";
+        System.out.println("user logged in");
+        // 4. Redirect only on guaranteed SUCCESS.
+        return "redirect:/index";
     }
-
 }

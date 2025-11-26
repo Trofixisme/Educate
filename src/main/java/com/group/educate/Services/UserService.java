@@ -30,7 +30,7 @@ public class UserService {
             throw new Exception("user already exists");
         }
     }
-    public String login(String email, String password) throws Exception {
+    public User login(String email, String password) throws Exception {
 
         if (email == null || password == null) {
             throw new IllegalArgumentException("Email and password cannot be null");
@@ -43,7 +43,7 @@ public class UserService {
             if (u.getEmail().equals(email)) {
 
                 if (u.getPlainPassword().equals(password)) {
-                    return "user found";
+                    return u;
                 }
                 else if(!u.getPlainPassword().equals(password)) {
                     throw new Exception("incorrect password");
