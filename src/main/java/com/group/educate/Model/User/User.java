@@ -50,7 +50,7 @@ public class User implements Serializable {
     }
 
     public void setPlainPassword(String plainPassword) {
-        this.plainPassword = plainPassword;
+       hashPassword(plainPassword);
     }
 
     public String getFname() {

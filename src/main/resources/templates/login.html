@@ -7,7 +7,9 @@
 <body>
 
 <h2>find your account</h2>
-
+<div th:if="${errorMessage}"
+     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+    <p th:text="${errorMessage}"></p></div>
 <!--/*@thymesVar id="user" type="com.group.educate.Model.User.User"*/-->
 <form th:action="@{/login}" th:object="${user}" method="post">
 

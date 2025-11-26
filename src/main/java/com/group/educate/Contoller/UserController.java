@@ -35,8 +35,10 @@ public class  UserController {
     }
 
     @GetMapping("/login")
-    public String showloginPage(Model model) {
-        return "login";
+    public String showLoginForm(Model model) {
+        // 💡 CRITICAL: This must be present for th:object="${user}" to work
+        model.addAttribute("user", new User());
+        return "login"; // Returns login.html
     }
 
     @PostMapping("/login")
