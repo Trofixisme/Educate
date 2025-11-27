@@ -5,20 +5,21 @@ import com.group.educate.Model.User.Student;
 import com.group.educate.Model.User.User;
 import com.group.educate.Model.User.UserRole;
 import com.group.educate.Repo.BaseRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 //Ziad, Shimaa follow this structure for the rest of services
 @Service
-public class UserService  implements FilePaths {
+public class UserService implements FilePaths {
     //todo:login, update: done!!
     //todo:register (make sure that user doesn't already exist), update: done!!
     //todo:view profile, done but review and test ziad. Done
     //todo:view roadmaps even if not signed in, just won't be able to track progress, done!
 
     protected final BaseRepository<User> repo = new BaseRepository<>(User.class, userPath);
-    protected final BaseRepository<Roadmap> RoadmapRepo = new BaseRepository<>(Roadmap.class,roadmapPath);
+    protected final BaseRepository<Roadmap> RoadmapRepo = new BaseRepository<>(Roadmap.class, roadmapPath);
 
     public void register(User u) throws Exception {
         List<User> users = repo.findAll();
@@ -30,6 +31,7 @@ public class UserService  implements FilePaths {
             throw new Exception("user already exists");
         }
     }
+
     public User login(String email, String password) throws Exception {
 
         if (email == null || password == null) {

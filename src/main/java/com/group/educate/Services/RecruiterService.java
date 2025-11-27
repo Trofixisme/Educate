@@ -3,8 +3,11 @@ package com.group.educate.Services;
 import com.group.educate.Model.Job.JobPosting;
 import com.group.educate.Model.User.Application;
 import com.group.educate.Model.User.Company.Company;
+import com.group.educate.Model.User.User;
 import com.group.educate.Repo.BaseRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.io.File;
 import java.util.List;
@@ -19,9 +22,11 @@ public class RecruiterService extends UserService {
     //todo:need to filter applications
     //todo:add company
 
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath);
-    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, FilePaths.applicationPath);
-    private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, FilePaths.companyPath);
+    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
+    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, applicationPath);
+
+    private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
+
 
     public void addJobPosting(JobPosting jobPosting) throws Exception {
         List<JobPosting> jobPostings = jobRepo.findAll();
@@ -35,13 +40,19 @@ public class RecruiterService extends UserService {
         companyRepo.saveAll(companies);
     }
 
+    public List<Company> viewAllCompanies() throws Exception {
+        return companyRepo.findAll();
+    }
+
     public List<Application> viewAllApplications() throws Exception {
         return applicationRepo.findAll();
     }
+
     public Application searchApplication(UUID appId) throws Exception {
         List<Application> applications = applicationRepo.findAll();
         return applications.stream().filter(app -> app.getApplicationID().equals(appId)).findFirst().orElse(null);
     }
+
     public List<Application> filterApplication(UUID appId) throws Exception {
         List<Application> applications = applicationRepo.findAll();
         return applications.stream().filter(app -> app.getApplicationID().equals(appId)).collect(Collectors.toList());

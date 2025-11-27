@@ -10,7 +10,12 @@ public class Student extends User {
     private int graduatingYear;
     private String uniName;
     private String studentMajor;
-    private String department;
+    private String faculty;
+
+    public Student(){
+        super();
+        this.role = UserRole.STUDENT;
+    }
 
     //students attributes
     public Student(String fName, String lName, String email,  String plainPassword, UserRole role,
@@ -20,7 +25,7 @@ public class Student extends User {
         this.graduatingYear = graduatingYear;
         this.uniName = uniName;
         this.studentMajor = studentMajor;
-        this.department = department;
+        this.faculty = department;
     }
 
     public Student(String UUID, String fName, String lName, String email,  String plainPassword, UserRole role,
@@ -29,7 +34,7 @@ public class Student extends User {
         this.graduatingYear = graduatingYear;
         this.uniName = uniName;
         this.studentMajor = studentMajor;
-        this.department = department;
+        this.faculty = department;
     }
 
     public int getGraduatingYear() {
@@ -48,20 +53,20 @@ public class Student extends User {
         this.uniName = uniName;
     }
 
-    public String getMajor() {
+    public String getStudentMajor() {
         return studentMajor;
     }
 
-    public void setMajor(String major) {
-        studentMajor = major;
+    public void setStudentMajor(String studentMajor) {
+        this.studentMajor = studentMajor;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getFaculty() {
+        return faculty;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
 
     public Application submitApplication(JobPosting jobPosting) {
@@ -76,6 +81,6 @@ public class Student extends User {
                 + graduatingYear + '|'
                 + uniName + '|'
                 + studentMajor + '|'
-                + department + '|';
+                + faculty + '|';
     }
 }

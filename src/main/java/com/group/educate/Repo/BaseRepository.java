@@ -1,13 +1,9 @@
 package com.group.educate.Repo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import java.lang.reflect.Array;
 import java.util.*;
 
-
-public class BaseRepository<T> extends FileManager{
+public class BaseRepository<T> extends FileManager {
 
     private final String fileName;
     private final Class<T> type;

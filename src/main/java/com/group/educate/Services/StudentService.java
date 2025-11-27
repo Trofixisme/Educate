@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentService extends UserService implements FilePaths{
+public class StudentService extends UserService implements FilePaths {
     //todo:need to create an application
     //todo:need to view job postings
     //todo:need to search for job posting ,, soo filtering by name?

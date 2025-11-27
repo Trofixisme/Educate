@@ -10,7 +10,12 @@ public class Recruiter extends User implements Serializable {
     private String title;
     private ArrayList<Company> companies = new ArrayList<>();
 
-    public Recruiter(String fName, String lName, String email, String plainPassword, UserRole role,String title) {
+    public Recruiter() {
+        super();
+        this.role = UserRole.RECRUITER;
+    }
+
+    public Recruiter(String fName, String lName, String email, String plainPassword, UserRole role, String title) {
         super(fName, lName, email, plainPassword,role);
         this.title = title;
     }

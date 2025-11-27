@@ -21,14 +21,16 @@ public class Company implements Serializable {
     private ArrayList<String> location = new ArrayList<>();
 
     @SuppressWarnings("all")
-    public Company(String industry, String name, URL websiteURL, ArrayList<String> location) {
+    public Company(String industry, String name, URL websiteURL,
+                   ArrayList<String> location) {
         if (companyID == null) companyID = UUID.randomUUID();
         this.industry = industry;
         this.name = name;
         this.websiteURL = websiteURL;
     }
 
-    public Company(String companyUUID ,String industry, String name, String websiteURL, ArrayList<String> location, Recruiter... recruiters) throws MalformedURLException {
+    public Company(String companyUUID ,String industry, String name, String websiteURL,
+                   ArrayList<String> location, Recruiter... recruiters) throws MalformedURLException {
         companyID = UUID.fromString(companyUUID);
         this(industry, name, new URL(websiteURL), location);
     }
@@ -75,5 +77,12 @@ public class Company implements Serializable {
                 + industry + '|'
                 + websiteURL.toString() + '|'
                 + recruiters.toString();
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof Company company)) return false;
+
+        return name.equals(company.name);
     }
 }

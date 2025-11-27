@@ -11,10 +11,10 @@ public class User implements Serializable {
     private String lname;
     private String email;
     private final UUID userID;
-    private final UserRole role;
-    public User(){
+    protected UserRole role;
+
+    public User() {
         userID = UUID.randomUUID();
-        this.role = UserRole.STUDENT;
     }
 
     public User(String fname, String lname, String email, String plainPassword, UserRole role) {
@@ -37,7 +37,7 @@ public class User implements Serializable {
         return plainPassword;
     }
     public void setPlainPassword(String plainPassword) {
-      this.plainPassword=plainPassword;
+      this.plainPassword = plainPassword;
     }
 
     public String getFname() {
