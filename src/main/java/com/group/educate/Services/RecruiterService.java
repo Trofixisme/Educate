@@ -36,6 +36,9 @@ public class RecruiterService extends UserService {
 
     public void addCompany(Company company) throws Exception {
         List<Company> companies = companyRepo.findAll();
+        if (companies.contains(company)) {
+            throw new Exception("Company already exists");
+        }
         companies.add(company);
         companyRepo.saveAll(companies);
     }

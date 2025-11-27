@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recruiter Register</title>
+</head>
+<body>
+
+<h2>Create a Recruiter Account</h2>
+<div th:if="${errorMessage}"
+     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+    <p th:text="${errorMessage}"></p></div>
+<div th:if="${success}"
+     style="color:green;border:1px solid green;padding:10px;margin-bottom:15px;">
+    <p th:text="${success}"></p></div>
+
+<form id="recruiterForm" action="#" th:action="@{/recruiter/register}" th:object="${user}" method="post">
+
+    <label for="fname">First Name:</label>
+    <input id="fname" type="text" th:field="*{fname}" />
+
+    <label for="lname">Last Name:</label>
+    <input id="lname" type="text" th:field="*{lname}" />
+
+    <label for="email">Email:</label>
+    <input id="email" type="email" th:field="*{email}" />
+
+    <label for="password">Password:</label>
+    <input id="password" type="password" th:field="*{plainPassword}" />
+
+    <label for="title">Your Title:</label>
+    <input id="title" type="text" th:field="*{title}" />
+
+    <hr />
+    <p>Company (if your company already exists, enter the exact company name below to associate you with it). If the company doesn't exist you'll be redirected to create it.</p>
+
+    <!-- Bind a nested Company object via explicit name attributes so Spring can populate @ModelAttribute("company") -->
+    <label for="company_name">Company Name:</label>
+    <input id="company_name" type="text" th:name="company.name" />
+
+    <button type="submit">Register</button>
+</form>
+
+<p>If your company doesn't exist, you can <a th:href="@{/Company/Register}">create a company</a> first.</p>
+
+<a th:href="@{/login}">Already have an account?</a>
+
+</body>
+</html>

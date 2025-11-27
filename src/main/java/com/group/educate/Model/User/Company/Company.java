@@ -1,13 +1,8 @@
 package com.group.educate.Model.User.Company;
 
-import com.group.educate.Model.User.UserRole;
-
 import java.io.Serializable;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class Company implements Serializable {
@@ -16,12 +11,16 @@ public class Company implements Serializable {
 
     private String industry;
     private String name;
-    private URL websiteURL;
+    private String websiteURL = "";
     private ArrayList<Recruiter> recruiters = new ArrayList<>();
     private ArrayList<String> location = new ArrayList<>();
 
+    public Company() {
+        companyID = UUID.randomUUID();
+    }
+
     @SuppressWarnings("all")
-    public Company(String industry, String name, URL websiteURL,
+    public Company(String industry, String name, String websiteURL,
                    ArrayList<String> location) {
         if (companyID == null) companyID = UUID.randomUUID();
         this.industry = industry;
@@ -32,7 +31,7 @@ public class Company implements Serializable {
     public Company(String companyUUID ,String industry, String name, String websiteURL,
                    ArrayList<String> location, Recruiter... recruiters) throws MalformedURLException {
         companyID = UUID.fromString(companyUUID);
-        this(industry, name, new URL(websiteURL), location);
+        this(industry, name, websiteURL, location);
     }
 
     public String getLocation() {
@@ -56,11 +55,12 @@ public class Company implements Serializable {
     }
 
     public String getWebsiteURL() {
-        return websiteURL.toString();
+        return websiteURL;
     }
 
-    public void setWebsiteURL(String websiteURL) throws Exception {
-            this.websiteURL = new URL(websiteURL);
+    public void setWebsiteURL(String websiteURL) {
+            if (websiteURL == null || websiteURL.isBlank()) return;
+            this.websiteURL = websiteURL;
     }
 
     public void addRecruiter(Recruiter recruiter) {
@@ -83,6 +83,6 @@ public class Company implements Serializable {
     public final boolean equals(Object o) {
         if (!(o instanceof Company company)) return false;
 
-        return name.equals(company.name);
+        return name.equalsIgnoreCase(((Company) o).name);
     }
 }

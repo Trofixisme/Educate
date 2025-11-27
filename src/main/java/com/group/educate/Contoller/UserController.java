@@ -57,13 +57,17 @@ public class UserController {
     public String registerRecruiter(@ModelAttribute("user") Recruiter user, @ModelAttribute("company") Company company, Model model) {
         try {
             userService.register(user);
-            for (Company i: recruiterService.viewAllCompanies()) {
-                if (i.equals(company)) {
-                    user.addCompany(i);
-                    i.addRecruiter(user);
+            System.out.println(company);
+            System.out.println(recruiterService.viewAllCompanies());
+                if (recruiterService.viewAllCompanies().contains(company)) {
+                    user.addCompany(company);
+                    company.addRecruiter(user);
+
+                    model.addAttribute("success", "Recruiter created successfully.");
+                    return "redirect:/login";
+                } else if (company.getName() == null || company.getName().isBlank()) {
                     return "redirect:/login";
                 }
-            }
 
             return "redirect:/Company/Register";
 
@@ -74,26 +78,23 @@ public class UserController {
         }
     }
 
+    @GetMapping("/Company/Register")
+    public String showRegisterCompany(Model model) {
+        model.addAttribute("company", new Company());
+        return "CompanyRegister";
+    }
+
     @PostMapping("/Company/Register")
-    public String showRegisterCompany(@ModelAttribute("company") Company company, Model model) {
+    public String RegisterCompany(@ModelAttribute("company") Company company, Model model) {
         try {
-            for (Company i: recruiterService.viewAllCompanies()) {
-                if (i.equals(company)) {
-
-                    model.addAttribute("errorMessage", "Company already exists.");
-                    return "redirect:/recruiter/register";
-                }
-            }
-
             recruiterService.addCompany(company);
             model.addAttribute("success", "Company created successfully.");
-            return "redirect:/recruiter/register";
-
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             // 2. Return the view name (DO NOT REDIRECT)
-            return "RecruiterRegister";
         }
+
+        return "redirect:/recruiter/register";
     }
 
     @GetMapping("/Admin/register")
