@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AdminService extends UserService {
+public class AdminService extends UserService implements FilePaths {
     //todo:view all users
     //todo:delete users
     //todo:create roadmaps
@@ -22,9 +22,9 @@ public class AdminService extends UserService {
     //todo:delete job posting
     //I need a switch case to delete to determine which user is to be deleted
 
-    private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, FilePaths.userPath);
-    private final BaseRepository<Roadmap> roadmapRepo = new BaseRepository<>(Roadmap.class, FilePaths.roadmapPath);
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath);
+    private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, userPath);
+    private final BaseRepository<Roadmap> roadmapRepo = new BaseRepository<>(Roadmap.class, roadmapPath);
+    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
 
     //View all users
     public List<User> viewAllUsers() throws Exception {

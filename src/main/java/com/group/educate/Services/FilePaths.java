@@ -1,6 +1,6 @@
 package com.group.educate.Services;
 
-public final class FilePaths {
+public interface FilePaths {
 
     public static final String userPath = "data/users.txt";
     public static final String roadmapPath = "data/roadmaps.txt";

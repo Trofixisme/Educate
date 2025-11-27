@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentService extends UserService{
+public class StudentService extends UserService implements FilePaths{
     //todo:need to create an application
     //todo:need to view job postings
     //todo:need to search for job posting ,, soo filtering by name?
@@ -20,8 +20,8 @@ public class StudentService extends UserService{
     //todo:updated skill status
     //todo:view roadmap progression
 
-    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, FilePaths.applicationPath);
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath);
+    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, applicationPath);
+    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
 
     public void createApplication(Student student, JobPosting jobPosting) throws Exception {
          List<Application> applications = applicationRepo.findAll();

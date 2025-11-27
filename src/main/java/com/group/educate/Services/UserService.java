@@ -11,14 +11,14 @@ import java.util.List;
 
 //Ziad, Shimaa follow this structure for the rest of services
 @Service
-public class UserService {
+public class UserService  implements FilePaths {
     //todo:login, update: done!!
     //todo:register (make sure that user doesn't already exist), update: done!!
     //todo:view profile, done but review and test ziad. Done
     //todo:view roadmaps even if not signed in, just won't be able to track progress, done!
 
-    protected final BaseRepository<User> repo = new BaseRepository<>(User.class, FilePaths.userPath);
-    protected final BaseRepository<Roadmap> RoadmapRepo = new BaseRepository<>(Roadmap.class, FilePaths.roadmapPath);
+    protected final BaseRepository<User> repo = new BaseRepository<>(User.class, userPath);
+    protected final BaseRepository<Roadmap> RoadmapRepo = new BaseRepository<>(Roadmap.class,roadmapPath);
 
     public void register(User u) throws Exception {
         List<User> users = repo.findAll();
