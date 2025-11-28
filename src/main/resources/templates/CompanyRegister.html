@@ -14,7 +14,7 @@
      style="color:green;border:1px solid green;padding:10px;margin-bottom:15px;">
     <p th:text="${success}"></p></div>
 
-<form action="#" th:action="@{/Company/Register}" th:object="${company}" method="post">
+<form action="#" th:action="@{/company/register}" th:object="${company}" method="post">
 
     <label>Company Name:</label>
     <input type="text" th:field="*{name}" required />

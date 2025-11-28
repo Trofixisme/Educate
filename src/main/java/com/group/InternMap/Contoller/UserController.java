@@ -88,13 +88,13 @@ public class UserController {
         }
     }
 
-    @GetMapping("/company/Register")
+    @GetMapping("/company/register")
     public String showRegisterCompany(Model model) {
         model.addAttribute("company", new Company());
         return "CompanyRegister";
     }
 
-    @PostMapping("/company/Register")
+    @PostMapping("/company/register")
     public String RegisterCompany(@ModelAttribute("company") Company company, Model model) {
         try {
             recruiterService.addCompany(company);
