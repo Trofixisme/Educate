@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
-public abstract class JobPosting implements Serializable {
+public  class JobPosting implements Serializable {
 
     private String jobDescription;
     private String jobName;
@@ -15,6 +15,13 @@ public abstract class JobPosting implements Serializable {
 
     private final UUID jobPostingUUID;
     private PostingType jobPostingType;
+    private String CompanyName;
+    private String recruiterEmail;
+
+    public JobPosting() {
+        this.jobPostingUUID = UUID.randomUUID();
+    }
+
 
     public JobPosting(String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
@@ -63,8 +70,20 @@ public abstract class JobPosting implements Serializable {
         return jobPostingUUID.toString();
     }
 
-    public PostingType getJobType() {
+
+    public PostingType getJobPostingType() {
         return jobPostingType;
+    }
+
+    public void setJobPostingType(PostingType jobPostingType) {
+        this.jobPostingType = jobPostingType;
+    }
+
+    public String getCompanyName() {
+        return CompanyName;
+    }
+    public String getRecruiterEmail() {
+        return recruiterEmail;
     }
 
     @Override

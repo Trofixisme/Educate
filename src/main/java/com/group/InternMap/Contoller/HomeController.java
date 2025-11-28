@@ -43,7 +43,6 @@ public class HomeController {
     @GetMapping("/profile")
     public String showProfile(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
-
         if (user == null) {
             return "redirect:/login";
         }
@@ -65,6 +64,12 @@ public class HomeController {
       }
 
     }
+    @GetMapping("/JobPosting")
+    public String JobPosting( HttpSession session){
+        if(session.getAttribute("loggedInUser") == null){return"redirect:/login";}
+        return "JobPosting";
+    }
+
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {

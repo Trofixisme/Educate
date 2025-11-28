@@ -25,11 +25,9 @@ public class CompanyService {
     public void handleRecruiterAddedEvent(RecruiterAddedEvent event) throws  Exception {
         String recruiterId = event.getRecruiterId();
         String companyId = event.getCompanyId();
-        List<Company> companies= companyRepo.findAll();
         Recruiter recruiter =recruiterService.findRecruiterById(recruiterId);
         Company company = recruiterService.findCompanyById(companyId);
         company.addRecruiter(recruiter);
-        companyRepo.saveAll(companies);
         System.out.println("Company updated after recruiter was added.");
     }
 }

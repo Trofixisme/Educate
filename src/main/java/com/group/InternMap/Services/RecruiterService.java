@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
+import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
+
 @Service
 public class RecruiterService extends UserService {
     //todo:need to create job postings
@@ -26,6 +29,7 @@ public class RecruiterService extends UserService {
 
     private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
     private final ApplicationEventPublisher eventPublisher;
+
     public RecruiterService(ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
@@ -73,18 +77,16 @@ public class RecruiterService extends UserService {
 
 
     public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
-        List<User> users = repo.findAll();
+//        List<User> users = repo.findAll();
         Recruiter recruiter =findRecruiterById(recruiterId);
         Company company = findCompanyById(companyId);
         recruiter.addCompany(company);
-        repo.saveAll( users);
         eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID()));
     }
 
     public void addJobPosting(JobPosting jobPosting) throws Exception {
-        List<JobPosting> jobPostings = jobRepo.findAll();
-        jobPostings.add(jobPosting);
-        jobRepo.saveAll(jobPostings);
+//        List<JobPosting> jobPostings = jobRepo.findAll();
+        allJobPostings.add(jobPosting);
     }
 
     public void addCompany(Company company) throws Exception {

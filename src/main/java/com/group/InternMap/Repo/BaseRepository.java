@@ -2,6 +2,7 @@ package com.group.InternMap.Repo;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class BaseRepository<T> extends FileManager {
 
@@ -32,6 +33,21 @@ public class BaseRepository<T> extends FileManager {
 
     public void saveAll(List<T> items) throws Exception {
         write(fileName, items.toArray((T[]) Array.newInstance(type, 0)));
+    }
+
+    public List<T> search(Predicate<T> condition) throws Exception {
+        return  findAll().stream()
+                .filter(condition)
+                .toList();
+    }
+
+    public T findOne(List<T> items, Predicate<T> condition) {
+        for (T item : items) {
+            if (condition.test(item)) {
+                return item;   // return first match
+            }
+        }
+        return null;
     }
 
 
