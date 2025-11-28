@@ -83,7 +83,7 @@ public class UserService implements FilePaths {
         }
         return null;
     }
-    List<Roadmap> viewRoadmaps() throws Exception {
+    public List<Roadmap> viewRoadmaps() throws Exception {
         return RoadmapRepo.findAll();
     }
 

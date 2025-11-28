@@ -1,14 +1,24 @@
 package com.group.educate.Contoller;
 
+import com.group.educate.Model.Roadmap.Roadmap;
 import com.group.educate.Model.User.User;
+import com.group.educate.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+
 
 @Controller
 public class HomeController {
+    private final UserService userService;
+    public HomeController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String showHomePage() {
@@ -41,6 +51,19 @@ public class HomeController {
         model.addAttribute("user", user);
 
         return "profile";
+    }
+    @GetMapping("/roadmaps")
+    public String ViewRoadmaps(@ModelAttribute("user") User user, Model model){
+      try {
+          List<Roadmap> roadmaps = userService.viewRoadmaps();
+          model.addAttribute("roadmaps", roadmaps);
+          return "index";
+      }
+      catch(Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+      }
+
     }
 
     @PostMapping("/logout")

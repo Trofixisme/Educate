@@ -1,5 +1,5 @@
 <!Doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to InternMap</title>
@@ -7,11 +7,12 @@
 <body>
 <nav>
     <ul>
-        <a th:href="@{/login}">Log In</a>
-        <a th:href="@{/admin/register}">Admin Register</a>
-        <a th:href="@{/student/register}">Student Register</a>
-        <a th:href="@{/recruiter/register}">Recruiter Register</a>
+       <li> <a th:href="@{/login}">Log In</a></li>
+        <li> <a th:href="@{/admin/register}">Admin Register</a></li>
+        <li><a th:href="@{/student/register}">Student Register</a></li>
+        <li><a th:href="@{/recruiter/register}">Recruiter Register</a></li>
     </ul>
 </nav>
+
 </body>
 </html>
