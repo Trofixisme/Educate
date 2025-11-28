@@ -28,7 +28,7 @@ public class UserController {
         return "error";
     }
 
-    @GetMapping("/Student/register")
+    @GetMapping("/student/register")
     public String showRegisterStudent(Model model) {
         model.addAttribute("user", new Student());
         return "StudentRegister";
@@ -78,23 +78,23 @@ public class UserController {
 //        }
         try {
             userService.register(user);
-            if (company.getCompanyID() == null)
-                recruiterService.addCompany(company);
+            System.out.println(company);
+            System.out.println(user);
             recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID());
             return "redirect:/login";
-        }catch(Exception e){
+        } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "RecruiterRegister";
         }
     }
 
-    @GetMapping("/Company/Register")
+    @GetMapping("/company/Register")
     public String showRegisterCompany(Model model) {
         model.addAttribute("company", new Company());
         return "CompanyRegister";
     }
 
-    @PostMapping("/Company/Register")
+    @PostMapping("/company/Register")
     public String RegisterCompany(@ModelAttribute("company") Company company, Model model) {
         try {
             recruiterService.addCompany(company);
@@ -107,7 +107,7 @@ public class UserController {
         return "redirect:/recruiter/register";
     }
 
-    @GetMapping("/Admin/register")
+    @GetMapping("/admin/register")
     public String showRegisterAdmin(Model model) {
         model.addAttribute("user", new Admin());
         return "adminRegister";
@@ -149,6 +149,6 @@ public class UserController {
         }
         System.out.println("user logged in");
         // 4. Redirect only on guaranteed SUCCESS.
-        return "redirect:/index";
+        return "index";
     }
 }
