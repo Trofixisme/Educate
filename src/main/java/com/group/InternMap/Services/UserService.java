@@ -60,7 +60,7 @@ public class UserService implements FilePaths {
         try {
             List<User> users = repo.findAll();
             for (User u : users) {
-                if(u.getEmail().equals(email)){
+                if (u.getEmail().equals(email)) {
                     return u;
                 }
             }
