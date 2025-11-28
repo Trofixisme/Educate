@@ -55,25 +55,35 @@ public class UserController {
 
     @PostMapping("/recruiter/register")
     public String registerRecruiter(@ModelAttribute("user") Recruiter user, @ModelAttribute("company") Company company, Model model) {
+//        try {
+//            userService.register(user);
+//            System.out.println(company);
+//            System.out.println(recruiterService.viewAllCompanies());
+//                if (recruiterService.viewAllCompanies().contains(company)) {
+//                    user.addCompany(company);
+//                    company.addRecruiter(user);
+//
+//                    model.addAttribute("success", "Recruiter created successfully.");
+//                    return "redirect:/login";
+//                } else if (company.getName() == null || company.getName().isBlank()) {
+//                    return "redirect:/login";
+//                }
+//
+//            return "redirect:/Company/Register";
+//
+//        } catch (Exception e) {
+//            model.addAttribute("errorMessage", e.getMessage());
+//            // 2. Return the view name (DO NOT REDIRECT)
+//            return "RecruiterRegister";
+//        }
         try {
             userService.register(user);
-            System.out.println(company);
-            System.out.println(recruiterService.viewAllCompanies());
-                if (recruiterService.viewAllCompanies().contains(company)) {
-                    user.addCompany(company);
-                    company.addRecruiter(user);
-
-                    model.addAttribute("success", "Recruiter created successfully.");
-                    return "redirect:/login";
-                } else if (company.getName() == null || company.getName().isBlank()) {
-                    return "redirect:/login";
-                }
-
-            return "redirect:/Company/Register";
-
-        } catch (Exception e) {
+            if (company.getCompanyID() == null)
+                recruiterService.addCompany(company);
+            recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID());
+            return "redirect:/login";
+        }catch(Exception e){
             model.addAttribute("errorMessage", e.getMessage());
-            // 2. Return the view name (DO NOT REDIRECT)
             return "RecruiterRegister";
         }
     }
@@ -91,7 +101,7 @@ public class UserController {
             model.addAttribute("success", "Company created successfully.");
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
-            // 2. Return the view name (DO NOT REDIRECT)
+            return "CompanyRegister";
         }
 
         return "redirect:/recruiter/register";

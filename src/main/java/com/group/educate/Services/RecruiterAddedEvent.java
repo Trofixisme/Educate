@@ -1,14 +1,14 @@
 package com.group.educate.Services;
 
 public class RecruiterAddedEvent {
-    private final Long recruiterId;
-    private final Long companyId;
+    private final String recruiterId;
+    private final String companyId;
 
-    public RecruiterAddedEvent(Long recruiterId, Long companyId) {
+    public RecruiterAddedEvent( String recruiterId, String companyId) {
         this.recruiterId = recruiterId;
         this.companyId = companyId;
     }
 
-    public Long getRecruiterId() { return recruiterId; }
-    public Long getCompanyId() { return companyId; }
+    public String getRecruiterId() { return recruiterId; }
+    public String getCompanyId() { return companyId; }
 }

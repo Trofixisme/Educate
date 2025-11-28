@@ -63,8 +63,13 @@ public class Company implements Serializable {
             this.websiteURL = websiteURL;
     }
 
+    public String getCompanyID() {
+        return companyID.toString();
+    }
+
     public void addRecruiter(Recruiter recruiter) {
-        recruiters.add(recruiter);
+        if (recruiter == null) return;
+        if (!recruiters.contains(recruiter)) recruiters.add(recruiter);
     }
 
     public void removeRecruiter(Recruiter recruiter) {

@@ -25,4 +25,6 @@ public class BaseRepository<T> extends FileManager {
     public void saveAll(List<T> items) throws Exception {
         write(fileName, items.toArray((T[]) Array.newInstance(type, 0)));
     }
+
+
 }

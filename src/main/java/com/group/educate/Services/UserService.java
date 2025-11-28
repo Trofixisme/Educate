@@ -70,7 +70,19 @@ public class UserService implements FilePaths {
         }
         return null;
     }
-
+    public User SearchbyID(String id) {
+        try {
+            List<User> users = repo.findAll();
+            for (User u : users) {
+                if (u.getUserID().toString().equals(id)) {
+                    return u;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     List<Roadmap> viewRoadmaps() throws Exception {
         return RoadmapRepo.findAll();
     }
@@ -85,6 +97,7 @@ public class UserService implements FilePaths {
             System.out.println(service.repo.findAll());
             System.out.println(service.searchByEmail("ziad@example.com"));
             System.out.println(service.searchByEmail("ziad2@example.com"));
+
         }
     }
 }

@@ -60,8 +60,8 @@ public class User implements Serializable {
         return email;
     }
 
-    public UUID getUserID() {
-        return userID;
+    public String getUserID() {
+        return userID.toString();
     }
     //TODO: do some ACTUAL validation before changing the user's email
 
