@@ -18,13 +18,14 @@ public class JobPostingService {
     private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
     private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, userPath);
     //find by company name
-    public JobPosting findByCompanyName(String companyName) {
-        return jobRepo.findOne(allJobPostings, jobPosting -> jobPosting.getCompanyName().equalsIgnoreCase(companyName));
+    public List<JobPosting> findByCompanyName(String companyName) throws Exception {
+        return jobRepo.search( jobPosting -> jobPosting.getCompanyName().equalsIgnoreCase(companyName));
+    }
+    public List<JobPosting> findJobPostingsByRecruiterEmail(String email) throws Exception {
+        return jobRepo.search(job -> job.getRecruiterEmail().equalsIgnoreCase(email));
+
     }
 
-    public Recruiter findByRecruiterEmail(String recruiterEmail) {
-        return userRepo.findOne(allJobPostings, user -> user.getEmail().equalsIgnoreCase(recruiterEmail);
-    }
 
 
 
