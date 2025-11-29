@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+<h2>Create a Job Posting</h2>
+<div th:if="${errorMessage}"
+     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+    <p th:text="${errorMessage}"></p></div>
+<form th:action="@{/JobPostingForm}" th:object="${jobposting}" method="post">
+    <label>Job title:</label>
+    <input type="text" th:field="*{jobName}" />
+    <label>Company:</label>
+    <input type="text" th:field="*{companyName}" />
+    <label>Recruiter Email:</label>
+    <input type="text" th:field="*{recruiterEmail}" />
+    <label>Job description:</label>
+    <input type="text" th:field="*{jobDescription}" />
+    <label>job requirements:</label>
+    <input type="text" th:field="*{jobRequirements}" />
+
+
+    <label>Job posting ID:</label>
+    <input type="text" th:field="*{jobPostingID}" />
+    <!--    same names as enums />-->
+    <label>Job Posting Type:</label>
+    <select th:field="*{jobPostingType}">
+        <option value="" disabled selected>Select job type</option>
+        <option value="FullTime">Full Time</option>
+        <option value="Internship">Part Time</option>
+        <option value="FreeLanceProject">Internship</option>
+    </select>
+    <!--    <input type="text" th:field="*{studentMajor}" />-->
+    <!--    <label>Your Faculty:</label>-->
+    <!--    <input type="text" th:field="*{faculty}" />-->
+
+    <button type="submit">ADD job posting</button>
+</form>
+
+<!--<a th:href="@{/login}">Already have an account?</a>-->
+
+</body>
+</html>

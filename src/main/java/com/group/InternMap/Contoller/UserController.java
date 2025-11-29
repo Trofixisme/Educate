@@ -23,10 +23,10 @@ public class UserController {
         this.recruiterService = recruiterService;
     }
 
-    @GetMapping("/error")
-    public String error() {
-        return "error";
-    }
+//    @GetMapping("/error")
+//    public String error() {
+//        return "error";
+//    }
 
     @GetMapping("/student/register")
     public String showRegisterStudent(Model model) {
@@ -104,7 +104,7 @@ public class UserController {
             return "CompanyRegister";
         }
 
-        return "redirect:/recruiter/register";
+        return "redirect:/login";
     }
 
     @GetMapping("/admin/register")

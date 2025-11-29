@@ -12,6 +12,7 @@ public class Application implements Serializable {
     JobPosting jobPosting;
     Student student;
 
+
     public Application(Student student, JobPosting jobPosting) {
         this.jobPosting = jobPosting;
         this.student = student;

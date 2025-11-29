@@ -6,7 +6,7 @@ import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Services.FilePaths;
-import org.flywaydb.core.internal.util.JsonUtils;
+
 
 import java.util.ArrayList;
 

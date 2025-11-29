@@ -2,45 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>All Job Postings</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
+
 <body>
+<h1>All Job Postings</h1>
 
-<h2>Create a Job Posting</h2>
-<div th:if="${errorMessage}"
-     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
-    <p th:text="${errorMessage}"></p></div>
-<form action="#" th:action="@{/student/jobPosting}" th:object="${jobposting}" method="post">
-
-    <label>Job description:</label>
-    <input type="text" th:field="*{jobDescription}" />
-
-    <label>Job name:</label>
-    <input type="text" th:field="*{jobName}" />
-
-    <label>job requirements:</label>
-    <input type="text" th:field="*{jobRequirements}" />
-
-    <label>Job title:</label>
-    <input type="text" th:field="*{jobTitle}" />
-    <label>Job posting ID:</label>
-    <input type="text" th:field="*{jobPostingID}" />
-    <!--    same names as enums />-->
-    <label>Job Posting Type:</label>
-    <select th:field="*{jobPostingType}">
-        <option value="" disabled selected>Select job type</option>
-        <option value="FullTime">Full Time</option>
-        <option value="Internship">Part Time</option>
-        <option value="FreeLanceProject">Internship</option>
-    </select>
-<!--    <input type="text" th:field="*{studentMajor}" />-->
-<!--    <label>Your Faculty:</label>-->
-<!--    <input type="text" th:field="*{faculty}" />-->
-
-    <button type="submit">Register</button>
+<!-- Optional search form -->
+<form th:action="@{/JobPostings/search}" method="get">
+    <input type="text" name="q" placeholder="Search by job title, date, or email"/>
+    <button type="submit">Search</button>
 </form>
+ <a th:href="@{/JobPostingForm}">
+    <button>Add a job Posting</button>
+</a>
 
-<!--<a th:href="@{/login}">Already have an account?</a>-->
+<table>
+    <thead>
+    <tr>
+        <th>Job Title</th>
+        <th>Company Name</th>
+        <th>Recruiter Email</th>
+        <th>Date Posted</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through all job postings -->
+    <tr th:each="job : ${jobPostings}">
+        <td th:text="${job.jobName}">Job Title</td>
+        <td th:text="${job.companyName}">Company</td>
+<!--        <td th:text="${job.recruiterEmail}">Recruiter Email</td>-->
+        <td th:text="${job.datePosted}">Date</td>
+        <td th:text="${job.jobDescription}">Description</td>
+        <td th:text="${job.jobRequirements}">Job Requirements</td>
+        <td th:text="${job.jobPostingType}">Job type</td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/index}"><button>Back to Home</button></a>
 
 </body>
 </html>

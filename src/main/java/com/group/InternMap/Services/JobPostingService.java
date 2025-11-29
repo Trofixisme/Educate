@@ -4,6 +4,7 @@ import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Repo.BaseRepository;
+import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -17,12 +18,33 @@ public class JobPostingService {
     private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
     private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, userPath);
     //find by company name
-    public List<JobPosting> findByCompanyName(String companyName) throws Exception {
-        return jobRepo.search( jobPosting -> jobPosting.getCompanyName().equalsIgnoreCase(companyName));
+//    public List<JobPosting> findByCompanyName(String companyName) throws Exception {
+//        return jobRepo.search( jobPosting -> jobPosting.getCompanyName().equalsIgnoreCase(companyName));
+//    }
+//    public List<JobPosting> findJobPostingsByRecruiterEmail(String email) throws Exception {
+//        return jobRepo.search(job -> job.getRecruiterEmail().equalsIgnoreCase(email));
+//    }
+    public List<JobPosting> searchJobPostings(String companyName, String recruiterEmail) throws Exception {
+        return jobRepo.search(job -> {
+            boolean matches = false;
+
+            if (companyName != null && !companyName.isBlank()) {
+                matches |= job.getCompanyName().equalsIgnoreCase(companyName);
+            }
+
+            if (recruiterEmail != null && !recruiterEmail.isBlank()) {
+                matches |= job.getRecruiter().getEmail().equalsIgnoreCase(recruiterEmail);
+            }
+
+            return matches;
+        });
     }
-    public List<JobPosting> findJobPostingsByRecruiterEmail(String email) throws Exception {
-        return jobRepo.search(job -> job.getRecruiterEmail().equalsIgnoreCase(email));
+    public List<JobPosting> getAllJobPostings() throws Exception {
+      return  RepositoryAccessors.allJobPostings;
     }
+
+
+
 
 
 

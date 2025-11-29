@@ -64,11 +64,7 @@ public class HomeController {
       }
 
     }
-    @GetMapping("/JobPosting")
-    public String JobPosting( HttpSession session){
-        if(session.getAttribute("loggedInUser") == null){return"redirect:/login";}
-        return "JobPosting";
-    }
+
 
 
     @PostMapping("/logout")

@@ -1,5 +1,6 @@
 package com.group.InternMap.Model.Job;
 
+import com.group.InternMap.Model.User.Company.Recruiter;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
@@ -8,15 +9,14 @@ import java.util.UUID;
 public  class JobPosting implements Serializable {
 
     private String jobDescription;
-    private String jobName;
     private Date datePosted = Date.from(Instant.now());
     private String jobRequirements;
-    private String jobTitle;
+    private String jobName;
 
     private final UUID jobPostingUUID;
     private PostingType jobPostingType;
-    private String CompanyName;
-    private String recruiterEmail;
+    private String companyName;
+    private Recruiter recruiter;
 
     public JobPosting() {
         this.jobPostingUUID = UUID.randomUUID();
@@ -25,22 +25,21 @@ public  class JobPosting implements Serializable {
 
     public JobPosting(String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
-        this.jobName = jobName;
+
         this.datePosted = new Date();
         this.jobRequirements = jobRequirements;
-        this.jobTitle = jobTitle;
+        this.jobName = jobTitle;
         jobPostingUUID = UUID.randomUUID();
         this.jobPostingType = jobPostingType;
-
 
     }
 
     public JobPosting(String jobPostingUUID, String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
-        this.jobName = jobName;
+
         this.datePosted = new Date();
         this.jobRequirements = jobRequirements;
-        this.jobTitle = jobTitle;
+        this.jobName = jobTitle;
         this.jobPostingUUID = UUID.fromString(jobPostingUUID);
         this.jobPostingType = jobPostingType;
 
@@ -54,16 +53,13 @@ public  class JobPosting implements Serializable {
         return jobDescription;
     }
 
-    public String getJobName() {
-        return jobName;
-    }
 
     public String getJobRequirements() {
         return jobRequirements;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getJobName() {
+        return jobName;
     }
 
     public String getJobPostingID() {
@@ -79,20 +75,24 @@ public  class JobPosting implements Serializable {
         this.jobPostingType = jobPostingType;
     }
 
-    public String getCompanyName() {
-        return CompanyName;
+    public Recruiter getRecruiter() {
+        return recruiter;
     }
-    public String getRecruiterEmail() {
-        return recruiterEmail;
+
+    public void setRecruiter(Recruiter recruiter) {
+        this.recruiter = recruiter;
     }
+
+    public String getCompanyName() {return  companyName;}
+
 
     @Override
     public String toString() {
         return jobDescription + '|'
-                + jobName + '|'
+
                 + datePosted.toString() + '|'
                 + jobRequirements + '|'
-                + jobTitle + '|'
+                + jobName + '|'
                 + getJobPostingID() + '|'
                 + jobPostingType + '|';
     }
