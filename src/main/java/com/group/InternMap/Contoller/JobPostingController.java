@@ -68,6 +68,7 @@ public class JobPostingController {
         }
 
         Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
+        jobposting.setRecruiter(user);
 //        jobposting.setRecruiterEmail(user.getEmail());
         try { // link posting to recruiter
             RepositoryAccessors.allJobPostings.add(jobposting);
