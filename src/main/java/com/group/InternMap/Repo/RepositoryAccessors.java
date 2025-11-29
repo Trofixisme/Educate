@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public final class RepositoryAccessors {
 
     public static final ArrayList<User> allUsers = (ArrayList<User>) (new BaseRepository<>(User.class, FilePaths.userPath)).findAll();
-    public static final ArrayList<Company> allCompanies = (ArrayList<Company>) (new BaseRepository<>(Company.class, FilePaths.userPath)).findAll();
-    public static final ArrayList<Roadmap> allRoadmaps = (ArrayList<Roadmap>) (new BaseRepository<>(Roadmap.class, FilePaths.userPath)).findAll();
-    public static final ArrayList<JobPosting> allJobPostings = (ArrayList<JobPosting>) (new BaseRepository<>(JobPosting.class, FilePaths.userPath)).findAll();
-    public static final ArrayList<Application> allApplications = (ArrayList<Application>) (new BaseRepository<>(Application.class, FilePaths.userPath)).findAll();
+    public static final ArrayList<Company> allCompanies = (ArrayList<Company>) (new BaseRepository<>(Company.class, FilePaths.companyPath)).findAll();
+    public static final ArrayList<Roadmap> allRoadmaps = (ArrayList<Roadmap>) (new BaseRepository<>(Roadmap.class, FilePaths.roadmapPath)).findAll();
+    public static final ArrayList<JobPosting> allJobPostings = (ArrayList<JobPosting>) (new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath)).findAll();
+    public static final ArrayList<Application> allApplications = (ArrayList<Application>) (new BaseRepository<>(Application.class, FilePaths.applicationPath)).findAll();
 
     public static void saveAll() {
         try {

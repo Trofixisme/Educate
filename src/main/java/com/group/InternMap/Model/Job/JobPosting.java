@@ -22,7 +22,6 @@ public  class JobPosting implements Serializable {
         this.jobPostingUUID = UUID.randomUUID();
     }
 
-
     public JobPosting(String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
 
@@ -77,6 +76,13 @@ public  class JobPosting implements Serializable {
 
     public Recruiter getRecruiter() {
         return recruiter;
+    }
+
+    public String getRecruiterEmail() {
+        if (recruiter == null) {
+            return "null";
+        }
+        return recruiter.getEmail();
     }
 
     public void setRecruiter(Recruiter recruiter) {

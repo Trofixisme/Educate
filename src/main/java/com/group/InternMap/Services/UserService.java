@@ -5,6 +5,7 @@ import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Model.User.UserRole;
 import com.group.InternMap.Repo.BaseRepository;
+import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +22,10 @@ public class UserService implements FilePaths {
     protected final BaseRepository<Roadmap> RoadmapRepo = new BaseRepository<>(Roadmap.class, roadmapPath);
 
     public void register(User u) throws Exception {
-        List<User> users = repo.findAll();
+        List<User> users = RepositoryAccessors.allUsers;
 
         if (!users.contains(u)) {
             users.add(u);
-            repo.saveAll(users);
         } else {
             throw new Exception("user already exists");
         }
@@ -37,7 +37,7 @@ public class UserService implements FilePaths {
             throw new IllegalArgumentException("Email and password cannot be null");
         }
 
-        List<User> users = repo.findAll();
+        List<User> users = RepositoryAccessors.allUsers;
 
         for (User u : users) {
 
