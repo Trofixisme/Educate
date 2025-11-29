@@ -51,11 +51,10 @@ public class JobPostingController {
 
     @GetMapping("/JobPostingForm")
     public String AddJobPostingForm(Model model, HttpSession session) {
-        if (session.getAttribute("loggedInUser") == null) {
+        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter user)) {
             return "redirect:/login";
         }
 
-        Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
         model.addAttribute("user", user);
         model.addAttribute("jobposting", new JobPosting());
 
@@ -70,7 +69,7 @@ public class JobPostingController {
 
         Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
 //        jobposting.setRecruiterEmail(user.getEmail());
-        try {// link posting to recruiter
+        try { // link posting to recruiter
             RepositoryAccessors.allJobPostings.add(jobposting);
             return "redirect:/JobPostings";
 

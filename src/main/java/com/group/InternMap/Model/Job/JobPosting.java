@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
-public  class JobPosting implements Serializable {
+public class JobPosting implements Serializable {
 
     private String jobDescription;
     private Date datePosted = Date.from(Instant.now());
@@ -44,6 +44,26 @@ public  class JobPosting implements Serializable {
 
     }
 
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
+    }
+
+    public void setJobRequirements(String jobRequirements) {
+        this.jobRequirements = jobRequirements;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     public Date getDatePosted() {
         return datePosted;
     }
@@ -51,7 +71,6 @@ public  class JobPosting implements Serializable {
     public String getJobDescription() {
         return jobDescription;
     }
-
 
     public String getJobRequirements() {
         return jobRequirements;
