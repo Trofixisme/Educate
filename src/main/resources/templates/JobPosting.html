@@ -41,6 +41,8 @@
         <th>Recruiter Email</th>
         <th>Date Posted</th>
         <th>Description</th>
+        <th>Requirements</th>
+        <th>Type</th>
     </tr>
     </thead>
     <tbody>
@@ -51,8 +53,8 @@
         <td th:text="${job.recruiterEmail}">Recruiter Email</td>
         <td th:text="${job.datePosted}">Date</td>
         <td th:text="${job.jobDescription}">Description</td>
-        <td th:text="${job.jobRequirements}">Job Requirements</td>
-        <td th:text="${job.jobPostingType}">Job type</td>
+        <td th:text="${job.jobRequirements}">Requirements</td>
+        <td th:text="${job.jobPostingType}">Type</td>
     </tr>
     </tbody>
 </table>
