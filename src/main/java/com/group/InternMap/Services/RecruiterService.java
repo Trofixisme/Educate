@@ -6,6 +6,7 @@ import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Repo.BaseRepository;
+import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class RecruiterService extends UserService {
         if(recruiterId == null || recruiterId.isBlank()) {
             throw new IllegalArgumentException("recruiterId must be provided");
         }
-        return (Recruiter) repo.findAll().stream()
+        return (Recruiter) RepositoryAccessors.allUsers.stream()
                 .filter(u -> u.getUserID().equals(recruiterId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Recruiter not found"));
@@ -78,7 +79,7 @@ public class RecruiterService extends UserService {
 
     public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
 //        List<User> users = repo.findAll();
-        Recruiter recruiter =findRecruiterById(recruiterId);
+        Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = findCompanyById(companyId);
         recruiter.addCompany(company);
         eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID()));
