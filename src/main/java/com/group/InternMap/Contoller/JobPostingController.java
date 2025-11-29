@@ -23,6 +23,7 @@ public class JobPostingController {
     public String JobPosting(){
         return "JobPosting";
     }
+
      @GetMapping("/JobPosting")
     public String AddJobPosting(JobPosting jobposting, Model model1, Model model, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) {return "redirect:/login";}
@@ -41,6 +42,7 @@ public class JobPostingController {
         JobPostingService jobPostingService;
         if (session.getAttribute("loggedInUser") == null) {return "redirect:/login";}
         User user= (Recruiter) session.getAttribute("loggedInUser");
+        // missing return statment
     }
 
 }
