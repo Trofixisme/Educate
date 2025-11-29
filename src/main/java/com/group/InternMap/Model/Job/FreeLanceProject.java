@@ -19,7 +19,7 @@ public class FreeLanceProject extends JobPosting implements Serializable {
     }
 
     public FreeLanceProject(String freeLanceProjectID , String jobDescription, String jobName, String jobLocation, String jobRequirements, String jobTitle, PostingType jobPostingType,int Duration, int Payout) {
-        super(freeLanceProjectID ,jobDescription,jobName, jobRequirements, jobTitle,jobPostingType);
+        super(freeLanceProjectID ,jobDescription, jobRequirements, jobTitle,jobPostingType);
         this.Duration = Duration;
         this.Payout = Payout;
         this.jobLocation = jobLocation;

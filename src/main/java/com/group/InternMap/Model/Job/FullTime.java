@@ -10,14 +10,14 @@ public class FullTime extends JobPosting implements Serializable {
     private String benefits;
     private Company company;
 
-    public FullTime(String JobDescription, String JobName, String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
-        super(JobDescription, JobName, JobRequirements, JobTitle, jobPostingType);
+    public FullTime(String JobDescription,  String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
+        super(JobDescription, JobRequirements, JobTitle, jobPostingType);
         this.benefits = benefits;
         this.company=company;
     }
 
-    public FullTime(String fullTimeID ,String JobDescription, String JobName, String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
-        super(fullTimeID ,JobDescription, JobName, JobRequirements, JobTitle,jobPostingType);
+    public FullTime(String fullTimeID ,String JobDescription,  String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
+        super(fullTimeID ,JobDescription,JobRequirements, JobTitle,jobPostingType);
         this.benefits = benefits;
         this.company=company;
     }

@@ -22,7 +22,7 @@ public class JobPosting implements Serializable {
         this.jobPostingUUID = UUID.randomUUID();
     }
 
-    public JobPosting(String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
+    public JobPosting(String jobDescription,  String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
 
         this.datePosted = new Date();
@@ -33,9 +33,8 @@ public class JobPosting implements Serializable {
 
     }
 
-    public JobPosting(String jobPostingUUID, String jobDescription, String jobName, String jobRequirements, String jobTitle, PostingType jobPostingType) {
+    public JobPosting(String jobPostingUUID, String jobDescription,  String jobRequirements, String jobTitle, PostingType jobPostingType) {
         this.jobDescription = jobDescription;
-
         this.datePosted = new Date();
         this.jobRequirements = jobRequirements;
         this.jobName = jobTitle;
@@ -103,6 +102,12 @@ public class JobPosting implements Serializable {
         }
         return recruiter.getEmail();
     }
+    public void setRecruiterEmail(String recruiterEmail) {
+        if (recruiter == null) {
+            recruiter.setEmail(recruiterEmail);
+        }
+    }
+
 
     public void setRecruiter(Recruiter recruiter) {
         this.recruiter = recruiter;
