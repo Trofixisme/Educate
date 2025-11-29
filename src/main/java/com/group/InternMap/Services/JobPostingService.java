@@ -12,7 +12,6 @@ import static com.group.InternMap.Services.FilePaths.jobPostingPath;
 import static com.group.InternMap.Services.FilePaths.userPath;
 
 @Service
-
 public class JobPostingService {
 
     private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
@@ -23,7 +22,6 @@ public class JobPostingService {
     }
     public List<JobPosting> findJobPostingsByRecruiterEmail(String email) throws Exception {
         return jobRepo.search(job -> job.getRecruiterEmail().equalsIgnoreCase(email));
-
     }
 
 

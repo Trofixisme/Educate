@@ -24,21 +24,22 @@ public class JobPostingController {
         return "JobPosting";
     }
      @GetMapping("/JobPosting")
-    public String AddJobPosting(JobPosting jobposting,Model model1, Model model, HttpSession session){
-        if (session.getAttribute("loggedInUser") == null){return "redirect:/login";}
-         User user= (Recruiter) session.getAttribute("loggedInUser");
-        try{
+    public String AddJobPosting(JobPosting jobposting, Model model1, Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {return "redirect:/login";}
+         User user = (Recruiter) session.getAttribute("loggedInUser");
+        try {
             model1.addAttribute("user",user);
             model.addAttribute("jobposting", new JobPosting());
             recruiterService.addJobPosting(jobposting);
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
         }
         return "JobPosting";
     }
-    public String SearchJobPosting(JobPosting jobposting,Model model1, Model model, HttpSession session){
+
+    public String SearchJobPosting(JobPosting jobposting, Model model1, Model model, HttpSession session) {
         JobPostingService jobPostingService;
-        if (session.getAttribute("loggedInUser") == null){return "redirect:/login";}
+        if (session.getAttribute("loggedInUser") == null) {return "redirect:/login";}
         User user= (Recruiter) session.getAttribute("loggedInUser");
     }
 

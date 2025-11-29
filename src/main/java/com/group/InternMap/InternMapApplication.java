@@ -13,6 +13,6 @@ public class InternMapApplication {
 
         SpringApplication.run(InternMapApplication.class, args);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(RepositoryAccessors::saveAll));
+        Runtime.getRuntime().addShutdownHook(new Thread(RepositoryAccessors::saveAll, "Save Thread"));
     }
 }
