@@ -34,9 +34,8 @@ public class BaseRepository<T> extends FileManager {
     }
 
     public void saveAll(List<T> items) throws Exception {
-        write(fileName, items.toArray((T[]) Array.newInstance(type, 0)));
+        writeList(fileName, items);  // Use writeList instead of write
     }
-
     public List<T> search(Predicate<T> condition) throws Exception {
         return  findAll().stream()
                 .filter(condition)
