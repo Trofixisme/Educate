@@ -42,60 +42,49 @@ public class RecruiterService extends UserService {
 //    }
 //}
 
-      public void register(User u, Company company) throws Exception {
-        List<User> users = repo.findAll();
-
-        if (!users.contains(u)) {
-            users.add(u);
-            repo.saveAll(users);
-
-            eventPublisher.publishEvent(new RecruiterAddedEvent(u.getUserID(), company.getCompanyID()));
-        } else {
-            throw new Exception("user already exists");
-        }
-    }
-     public Recruiter findRecruiterById(String recruiterId) throws Exception {
-        if(recruiterId == null || recruiterId.isBlank()) {
+    public Recruiter findRecruiterById(String recruiterId) {
+        if (recruiterId == null || recruiterId.isBlank()) {
             throw new IllegalArgumentException("recruiterId must be provided");
         }
-        return (Recruiter) RepositoryAccessors.allUsers.stream()
-                .filter(u -> u.getUserID().equals(recruiterId))
+
+        return RepositoryAccessors.allUsers.stream()
+                .filter(u -> u instanceof Recruiter)
+                .map(u -> (Recruiter) u)
+                .filter(r -> r.getUserID().equals(recruiterId))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Recruiter not found"));
+                .orElseThrow(() -> new RuntimeException("Recruiter not found: " + recruiterId));
     }
 
-    public Company findCompanyById(String companyId) throws Exception {
+    public Company findCompanyById(String companyId) {
         if (companyId == null || companyId.isBlank()) {
             throw new IllegalArgumentException("companyId must be provided");
         }
 
-        return companyRepo.findAll().stream()
-                .filter(c -> java.util.Objects.equals(c.getCompanyID(), companyId))
+        // Debug: print all companies
+        RepositoryAccessors.allCompanies.forEach(c -> {
+            System.out.println("Company ID: " + c.getCompanyID() + ", Name: " + c.getName());
+        });
+
+        return RepositoryAccessors.allCompanies.stream()
+                .filter(c -> c.getCompanyID().equals(companyId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Company not found: " + companyId));
     }
 
-
     public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
-//        List<User> users = repo.findAll();
         Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = findCompanyById(companyId);
         recruiter.addCompany(company);
         eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID()));
     }
 
-    public void addJobPosting(JobPosting jobPosting) throws Exception {
-//        List<JobPosting> jobPostings = jobRepo.findAll();
-        allJobPostings.add(jobPosting);
-    }
-
     public void addCompany(Company company) throws Exception {
-        List<Company> companies = companyRepo.findAll();
-        if (allCompanies.contains(company)) {
-            throw new Exception("Company already exists");
+        if (!allCompanies.contains(company)) {
+           throw new Exception("Company already exists");
         }
         allCompanies.add(company);
     }
+
 
 
     public List<Company> viewAllCompanies() throws Exception {

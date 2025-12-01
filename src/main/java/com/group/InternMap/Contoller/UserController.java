@@ -77,10 +77,12 @@ public class UserController {
 //            return "RecruiterRegister";
 //        }
         try {
+            recruiterService.addCompany(company);
             userService.register(user);
+
+            recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID());
             System.out.println(company);
             System.out.println(user);
-            recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID());
             return "redirect:/login";
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());

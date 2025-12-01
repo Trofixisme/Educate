@@ -17,6 +17,7 @@ public class Company implements Serializable {
 
     public Company() {
         companyID = UUID.randomUUID();
+        this.name = "Unnamed Company";
     }
 
     @SuppressWarnings("all")
@@ -86,8 +87,13 @@ public class Company implements Serializable {
 
     @Override
     public final boolean equals(Object o) {
-        if (!(o instanceof Company company)) return false;
-
-        return name.equalsIgnoreCase(((Company) o).name);
+        if (!(o instanceof Company)) return false;
+        Company other = (Company) o;
+        // Null-safe version
+        if (this.name == null && other.name == null) return true;
+        if (this.name == null || other.name == null) return false;
+        return name.equalsIgnoreCase(other.name);
     }
+
+
 }
