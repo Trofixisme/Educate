@@ -79,7 +79,7 @@ public class RecruiterService extends UserService {
     }
 
     public void addCompany(Company company) throws Exception {
-        if (!allCompanies.contains(company)) {
+        if (allCompanies.contains(company)) {
            throw new Exception("Company already exists");
         }
         allCompanies.add(company);
