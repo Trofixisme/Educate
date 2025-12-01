@@ -3,6 +3,7 @@ package com.group.InternMap.Model.User.Company;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Company implements Serializable {
@@ -89,17 +90,20 @@ public class Company implements Serializable {
                 ", recruiterCount=" + recruiters.size() + // Just print count, not the list
                 '}';
     }
-
-
     @Override
-    public final boolean equals(Object o) {
-        if (!(o instanceof Company)) return false;
-        Company other = (Company) o;
-        // Null-safe version
-        if (this.name == null && other.name == null) return true;
-        if (this.name == null || other.name == null) return false;
-        return name.equalsIgnoreCase(other.name);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return Objects.equals(companyID, company.companyID);
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(companyID);
+    }
 }
+
+
+
+

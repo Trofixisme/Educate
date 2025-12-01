@@ -55,30 +55,41 @@ public class UserController {
 
     @GetMapping("/recruiter/register")
     public String showRegisterRecruiter(Model model, RecruiterRegistrationDTO recruiterRegistrationDTO) {
-        model.addAttribute("recruiterRegistrationDTO", new RecruiterRegistrationDTO());
+        model.addAttribute("form", new RecruiterRegistrationDTO());
         return "RecruiterRegister";
     }
 
     @PostMapping("/recruiter/register")
-    public String registerRecruiter(@ModelAttribute("recruiterRegistrationDTO") RecruiterRegistrationDTO recruiterRegistrationDTO, Model model) {
-
+    public String registerRecruiter(@ModelAttribute("form") RecruiterRegistrationDTO recruiterRegistrationDTO, Model model) {
         try {
             Company company = recruiterRegistrationDTO.getCompany();
             Recruiter user = recruiterRegistrationDTO.getUser();
-//            companyService.findByName(company.getName());
 
-            allCompanies.add(company);
+            Company existingCompany = companyService.findByName(company.getName());
+            Company finalCompany;
+            if (existingCompany != null) {
+                finalCompany = existingCompany;
+                System.out.println("Using existing company: " + existingCompany.getCompanyID());
+            } else {
+                allCompanies.add(company);
+                finalCompany = company;
+                System.out.println("Created new company: " + company.getCompanyID());
+            }
+
             userService.register(user);
+            System.out.println("company Id : " + finalCompany.getCompanyID());
+            System.out.println("user   : " + user.getUserID());
             recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID().toString());
-            System.out.println(company);
-            System.out.println(user);
+
+            System.out.println("Successfully linked recruiter to company");
+
             return "redirect:/login";
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("form", recruiterRegistrationDTO);
             return "RecruiterRegister";
         }
     }
-
     @GetMapping("/company/register")
     public String showRegisterCompany(Model model) {
         model.addAttribute("company", new Company());
