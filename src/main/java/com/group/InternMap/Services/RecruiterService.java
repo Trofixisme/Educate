@@ -78,7 +78,7 @@ public class RecruiterService extends UserService {
             allCompanies.add(company);
         }
         recruiter.addCompany(company);
-        eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID()));
+        eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID().toString()));
     }
 
 //    public void checkCompany(Company company) throws Exception {

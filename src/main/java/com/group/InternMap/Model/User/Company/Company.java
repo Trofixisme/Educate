@@ -17,7 +17,7 @@ public class Company implements Serializable {
 
     public Company() {
         companyID = UUID.randomUUID();
-        this.name = "Unnamed Company";
+//        this.name = "Unnamed Company";
     }
 
     @SuppressWarnings("all")
@@ -59,13 +59,17 @@ public class Company implements Serializable {
         return websiteURL;
     }
 
+    public void setCompanyID(UUID companyID) {
+        this.companyID = companyID;
+    }
+
     public void setWebsiteURL(String websiteURL) {
             if (websiteURL == null || websiteURL.isBlank()) return;
             this.websiteURL = websiteURL;
     }
 
-    public String getCompanyID() {
-        return companyID.toString();
+    public UUID getCompanyID() {
+        return companyID;
     }
 
     public void addRecruiter(Recruiter recruiter) {
@@ -79,11 +83,13 @@ public class Company implements Serializable {
 
     @Override
     public String toString() {
-        return name + '|'
-                + industry + '|'
-                + websiteURL.toString() + '|'
-                + recruiters.toString();
+        return "Company{" +
+                "id=" + companyID +
+                ", name='" + name + '\'' +
+                ", recruiterCount=" + recruiters.size() + // Just print count, not the list
+                '}';
     }
+
 
     @Override
     public final boolean equals(Object o) {

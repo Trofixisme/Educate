@@ -7,41 +7,55 @@
 <body>
 
 <h2>Create a Recruiter Account</h2>
+
+<!-- Error message -->
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
-    <p th:text="${errorMessage}"></p></div>
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<!-- Success message -->
 <div th:if="${success}"
      style="color:green;border:1px solid green;padding:10px;margin-bottom:15px;">
-    <p th:text="${success}"></p></div>
+    <p th:text="${success}"></p>
+</div>
 
-<form id="recruiterForm" action="#" th:action="@{/recruiter/register}" th:object="${user}" method="post">
+<!-- FORM -->
+<form th:action="@{/recruiter/register}"
+      th:object="${form}"
+      method="post">
 
     <label for="fname">First Name:</label>
-    <input id="fname" type="text" th:field="*{fname}" />
+    <input id="fname" type="text" th:field="*{user.fname}" />
 
     <label for="lname">Last Name:</label>
-    <input id="lname" type="text" th:field="*{lname}" />
+    <input id="lname" type="text" th:field="*{user.lname}" />
 
     <label for="email">Email:</label>
-    <input id="email" type="email" th:field="*{email}" />
+    <input id="email" type="email" th:field="*{user.email}" />
 
     <label for="password">Password:</label>
-    <input id="password" type="password" th:field="*{plainPassword}" />
+    <input id="password" type="password" th:field="*{user.plainPassword}" />
 
     <label for="title">Your Title:</label>
-    <input id="title" type="text" th:field="*{title}" />
+    <input id="title" type="text" th:field="*{user.title}" />
 
     <hr />
-    <p>Company (if your company already exists, enter the exact company name below to associate you with it). If the company doesn't exist you'll be redirected to create it.</p>
 
-    <!-- Bind a nested Company object via explicit name attributes so Spring can populate @ModelAttribute("company") -->
+    <p>
+        Company (If your company already exists, enter the exact name.
+        If not, you will be redirected to register it.)
+    </p>
+
     <label for="company_name">Company Name:</label>
-    <input id="company_name" type="text" th:name="company.name" />
+    <input id="company_name" type="text" th:field="*{company.name}" />
 
     <button type="submit">Register</button>
 </form>
 
-<p>If your company doesn't exist, you can <a th:href="@{/company/register}">create a company</a> first.</p>
+<p>If your company doesn't exist, you can
+    <a th:href="@{/company/register}">create a company</a> first.
+</p>
 
 <a th:href="@{/login}">Already have an account?</a>
 

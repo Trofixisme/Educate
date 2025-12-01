@@ -5,6 +5,7 @@ import com.group.InternMap.Model.User.UserRole;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Recruiter extends User implements Serializable {
     private String title;
@@ -44,10 +45,14 @@ public class Recruiter extends User implements Serializable {
 
     @Override
     public String toString() {
-
-        return super.toString() +
-                title + "|" +
-                companies.toString();
+        return "Recruiter{" +
+                "id=" + getUserID() +
+                ", companyIds=" + (companies != null ?
+                companies.stream()
+                        .map(Company::getCompanyID)
+                        .collect(Collectors.toList()) :
+                "[]") +
+                "}";
     }
 
 }

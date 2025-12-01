@@ -9,6 +9,7 @@ import com.group.InternMap.Model.User.Company.Company;
 
 import java.util.List;
 
+import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
 import static com.group.InternMap.Services.FilePaths.companyPath;
 import static com.group.InternMap.Services.FilePaths.userPath;
 
@@ -30,5 +31,15 @@ public class CompanyService {
         company.addRecruiter(recruiter);
         System.out.println("Company updated after recruiter was added.");
     }
+    public static Company findByName(String companyName) {
+        if (companyName == null || companyName.isBlank()) return null;
+
+        return allCompanies.stream()
+                .filter(c -> c.getName().equalsIgnoreCase(companyName))
+                .findFirst()
+                .orElse(null);
+    }
+
+
 }
 

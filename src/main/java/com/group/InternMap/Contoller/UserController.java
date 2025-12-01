@@ -1,11 +1,13 @@
 // src/main/java/com/group/educate/Web/HomeController.java
 package com.group.InternMap.Contoller;
 
+import com.group.InternMap.Dto.RecruiterRegistrationDTO;
 import com.group.InternMap.Model.User.Admin;
 import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
+import com.group.InternMap.Services.CompanyService;
 import com.group.InternMap.Services.RecruiterService;
 import com.group.InternMap.Services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -19,10 +21,12 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
 public class UserController {
     private final UserService userService;
     private final RecruiterService recruiterService;
+    private final CompanyService companyService;
 
-    public UserController(UserService userService, RecruiterService recruiterService) {
+    public UserController(UserService userService, RecruiterService recruiterService, CompanyService companyService) {
         this.userService = userService;
         this.recruiterService = recruiterService;
+        this.companyService = companyService;
     }
 
 //    @GetMapping("/error")
@@ -50,40 +54,22 @@ public class UserController {
     }
 
     @GetMapping("/recruiter/register")
-    public String showRegisterRecruiter(Model model) {
-        model.addAttribute("user", new Recruiter());
+    public String showRegisterRecruiter(Model model, RecruiterRegistrationDTO recruiterRegistrationDTO) {
+        model.addAttribute("recruiterRegistrationDTO", new RecruiterRegistrationDTO());
         return "RecruiterRegister";
     }
 
     @PostMapping("/recruiter/register")
-    public String registerRecruiter(@ModelAttribute("user") Recruiter user, @ModelAttribute("company") Company company, Model model) {
-//        try {
-//            userService.register(user);
-//            System.out.println(company);
-//            System.out.println(recruiterService.viewAllCompanies());
-//                if (recruiterService.viewAllCompanies().contains(company)) {
-//                    user.addCompany(company);
-//                    company.addRecruiter(user);
-//
-//                    model.addAttribute("success", "Recruiter created successfully.");
-//                    return "redirect:/login";
-//                } else if (company.getName() == null || company.getName().isBlank()) {
-//                    return "redirect:/login";
-//                }
-//
-//            return "redirect:/Company/Register";
-//
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", e.getMessage());
-//            // 2. Return the view name (DO NOT REDIRECT)
-//            return "RecruiterRegister";
-//        }
-        try {
-            allCompanies.add(company);
-//            recruiterService.addCompany(company);
-            userService.register(user);
+    public String registerRecruiter(@ModelAttribute("recruiterRegistrationDTO") RecruiterRegistrationDTO recruiterRegistrationDTO, Model model) {
 
-            recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID());
+        try {
+            Company company = recruiterRegistrationDTO.getCompany();
+            Recruiter user = recruiterRegistrationDTO.getUser();
+//            companyService.findByName(company.getName());
+
+            allCompanies.add(company);
+            userService.register(user);
+            recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID().toString());
             System.out.println(company);
             System.out.println(user);
             return "redirect:/login";
