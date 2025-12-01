@@ -74,16 +74,20 @@ public class RecruiterService extends UserService {
     public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
         Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = findCompanyById(companyId);
+        if (!allCompanies.contains(company)) {
+            allCompanies.add(company);
+        }
         recruiter.addCompany(company);
         eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID()));
     }
 
-    public void addCompany(Company company) throws Exception {
-        if (allCompanies.contains(company)) {
-           throw new Exception("Company already exists");
-        }
-        allCompanies.add(company);
-    }
+//    public void checkCompany(Company company) throws Exception {
+//        if (allCompanies.contains(company)) {
+//         recruiter.addCompany(company);
+//        }
+//        allCompanies.add(company);
+//    }
+
 
 
 

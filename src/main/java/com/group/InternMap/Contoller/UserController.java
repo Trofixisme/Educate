@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
+
 @Controller
 public class UserController {
     private final UserService userService;
@@ -77,7 +79,8 @@ public class UserController {
 //            return "RecruiterRegister";
 //        }
         try {
-            recruiterService.addCompany(company);
+            allCompanies.add(company);
+//            recruiterService.addCompany(company);
             userService.register(user);
 
             recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID());
@@ -99,7 +102,7 @@ public class UserController {
     @PostMapping("/company/register")
     public String RegisterCompany(@ModelAttribute("company") Company company, Model model) {
         try {
-            recruiterService.addCompany(company);
+            allCompanies.add(company);
             model.addAttribute("success", "Company created successfully.");
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
