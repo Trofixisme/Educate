@@ -27,12 +27,12 @@ public class Company implements Serializable {
         this.name = name;
         this.websiteURL = websiteURL;
     }
-
     public Company(String companyUUID ,String industry, String name, String websiteURL,
                    ArrayList<String> location, Recruiter... recruiters) throws MalformedURLException {
-        companyID = UUID.fromString(companyUUID);
-        this(industry, name, websiteURL, location);
+        this(industry, name, websiteURL, location); // must be first
+        this.companyID = UUID.fromString(companyUUID); // assign after
     }
+
 
     public String getLocation() {
         return getLocation();

@@ -14,8 +14,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
-import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
+import static com.group.InternMap.Repo.RepositoryAccessors.*;
 
 @Service
 public class RecruiterService extends UserService {
@@ -92,11 +91,10 @@ public class RecruiterService extends UserService {
 
     public void addCompany(Company company) throws Exception {
         List<Company> companies = companyRepo.findAll();
-        if (companies.contains(company)) {
+        if (allCompanies.contains(company)) {
             throw new Exception("Company already exists");
         }
-        companies.add(company);
-        companyRepo.saveAll(companies);
+        allCompanies.add(company);
     }
 
 
