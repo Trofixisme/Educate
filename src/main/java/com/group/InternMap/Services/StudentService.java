@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import com.group.InternMap.Repo.BaseRepository;
+
+import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
+import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 
 @Service
 public class StudentService extends UserService implements FilePaths {
@@ -20,23 +24,30 @@ public class StudentService extends UserService implements FilePaths {
     //todo:updated skill status
     //todo:view roadmap progression
 
-    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, applicationPath);
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
 
-    public void createApplication(Student student, JobPosting jobPosting) throws Exception {
-         List<Application> applications = applicationRepo.findAll();
-         Application app = student.submitApplication(jobPosting);
-         applications.add(app);
-         applicationRepo.saveAll(applications);
+
+    public void submitApplication(Student student,JobPosting jobPosting,Application application) throws Exception {
+       allApplications.add(application);
+       jobPosting.recieveApplication(application);
     }
 
-    public void deleteApplication(Student student, JobPosting jobPosting) throws Exception {
-        List<Application> applications = applicationRepo.findAll();
-        applications.removeIf(u -> u.getAssociatedStudent().equals(student) && u.getAssociatedJobPosting().equals(jobPosting));
+    public void deleteApplication(Student student, JobPosting jobPosting,Application application) throws Exception {
+        if(allApplications.contains(application)){
+            allApplications.remove(application);
+            String appId = application.getApplicationID().toString();
+            allJobPostings.stream()
+                    .filter(j -> j.viewApplications().stream()
+                            .anyMatch(a -> a.getApplicationID().equals(appId)))
+                    .findFirst()
+                    .ifPresent(j ->
+                            j.viewApplications()
+                                    .removeIf(a -> a.getApplicationID().equals(appId)));
+            jobPosting.deleteApplication(application);
+        }
     }
 
     public List<JobPosting> findJobposting() throws Exception{
-        return jobRepo.findAll();
+        return allJobPostings;
     }
 
     public List<JobPosting> findJobpostingByname(String name) throws Exception{

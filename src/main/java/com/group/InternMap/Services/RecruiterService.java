@@ -74,7 +74,7 @@ public class RecruiterService extends UserService {
     public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
         Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = findCompanyById(companyId);
-//        if (!allCompanies.contains(company)) {
+//        if (!allCompanies.contains(compan
 //            allCompanies.add(company);
 //        }
         recruiter.addCompany(company);

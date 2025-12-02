@@ -61,35 +61,24 @@ public class UserController {
 
     @PostMapping("/recruiter/register")
     public String registerRecruiter(@ModelAttribute("form") RecruiterRegistrationDTO recruiterRegistrationDTO, Model model) {
+
         try {
             Company company = recruiterRegistrationDTO.getCompany();
             Recruiter user = recruiterRegistrationDTO.getUser();
+//            companyService.findByName(company.getName());
 
-            Company existingCompany = companyService.findByName(company.getName());
-            Company finalCompany;
-            if (existingCompany != null) {
-                finalCompany = existingCompany;
-                System.out.println("Using existing company: " + existingCompany.getCompanyID());
-            } else {
-                allCompanies.add(company);
-                finalCompany = company;
-                System.out.println("Created new company: " + company.getCompanyID());
-            }
-
+            allCompanies.add(company);
             userService.register(user);
-            System.out.println("company Id : " + finalCompany.getCompanyID());
-            System.out.println("user   : " + user.getUserID());
             recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID().toString());
-
-            System.out.println("Successfully linked recruiter to company");
-
+            System.out.println(company);
+            System.out.println(user);
             return "redirect:/login";
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("form", recruiterRegistrationDTO);
             return "RecruiterRegister";
         }
     }
+
     @GetMapping("/company/register")
     public String showRegisterCompany(Model model) {
         model.addAttribute("company", new Company());

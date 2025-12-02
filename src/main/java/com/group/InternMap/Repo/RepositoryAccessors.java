@@ -25,14 +25,16 @@ public final class RepositoryAccessors {
             new BaseRepository<>(Roadmap.class, FilePaths.roadmapPath).saveAll(allRoadmaps);
             new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath).saveAll(allJobPostings);
             new BaseRepository<>(Application.class, FilePaths.applicationPath).saveAll(allApplications);
-            System.out.println("\u001B[32mSaved all repositories successfully.");
-            Runtime.getRuntime().halt(0);
+
+            System.out.println("\u001B[32mSaved all repositories successfully.\u001B[0m");
+
         } catch (Exception e) {
-            Runtime.getRuntime().halt(-1);
-            System.out.println("\u001B[31mFailed to save one or more of the repositories: ");
-            System.out.println(e.getMessage());
+            System.out.println("\u001B[31mFailed to save one or more repositories:\u001B[0m");
+            e.printStackTrace(); // better debugging output
+
         } finally {
             System.out.println("\u001B[34mInternMap Exited\u001B[0m");
         }
     }
-}
+    }
+

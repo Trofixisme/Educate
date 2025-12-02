@@ -1,8 +1,10 @@
 package com.group.InternMap.Model.Job;
 
+import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,6 +19,7 @@ public class JobPosting implements Serializable {
     private PostingType jobPostingType;
     private String companyName;
     private Recruiter recruiter;
+    private ArrayList<Application> application;
 
     public JobPosting() {
         this.jobPostingUUID = UUID.randomUUID();
@@ -79,9 +82,6 @@ public class JobPosting implements Serializable {
         return jobName;
     }
 
-    public String getJobPostingID() {
-        return jobPostingUUID.toString();
-    }
 
 
     public PostingType getJobPostingType() {
@@ -108,13 +108,33 @@ public class JobPosting implements Serializable {
         }
     }
 
+    public UUID getJobPostingUUID() {
+        return jobPostingUUID;
+    }
+
+    public void setApplication(ArrayList<Application> application) {
+        this.application = application;
+    }
+
+    public ArrayList<Application> viewApplications() {
+       return application;
+    }
 
     public void setRecruiter(Recruiter recruiter) {
         this.recruiter = recruiter;
     }
 
     public String getCompanyName() {return  companyName;}
+    public ArrayList<Application> getApplication() {
+        return application;
+    }
 
+    public void recieveApplication(Application application) {
+        this.application.add(application);
+    }
+    public void deleteApplication(Application application) {
+        this.application.remove(application);
+    }
 
     @Override
     public String toString() {
@@ -123,7 +143,7 @@ public class JobPosting implements Serializable {
                 + datePosted.toString() + '|'
                 + jobRequirements + '|'
                 + jobName + '|'
-                + getJobPostingID() + '|'
+                + getJobPostingUUID() + '|'
                 + jobPostingType + '|';
     }
 }

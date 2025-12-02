@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//to do:application controller,and review html
 @Controller
 
 public class JobPostingController {
