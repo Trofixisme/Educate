@@ -16,7 +16,6 @@ import static com.group.InternMap.Services.FilePaths.userPath;
 public class JobPostingService {
 
     private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
-    private final BaseRepository<User> userRepo = new BaseRepository<>(User.class, userPath);
     //find by company name
 //    public List<JobPosting> findByCompanyName(String companyName) throws Exception {
 //        return jobRepo.search( jobPosting -> jobPosting.getCompanyName().equalsIgnoreCase(companyName));
@@ -44,11 +43,6 @@ public class JobPostingService {
     }
 
 
-
-
-
-
-
 //    JobPosting SearchbySeany(String companyName){
 //        for(JobPosting jobPosting : allJobPostings){
 //            if(jobPosting.getCompanyName().equals(companyName)){
@@ -66,5 +60,3 @@ public class JobPostingService {
 //    }
 //    return null;
 }
-
-

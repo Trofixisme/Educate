@@ -7,6 +7,7 @@ import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
+import com.group.InternMap.Repo.RepositoryAccessors;
 import com.group.InternMap.Services.CompanyService;
 import com.group.InternMap.Services.RecruiterService;
 import com.group.InternMap.Services.UserService;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
+import static com.group.InternMap.Repo.RepositoryAccessors.allUsers;
 
 @Controller
 public class UserController {
@@ -56,6 +58,8 @@ public class UserController {
     @GetMapping("/recruiter/register")
     public String showRegisterRecruiter(Model model, RecruiterRegistrationDTO recruiterRegistrationDTO) {
         model.addAttribute("form", new RecruiterRegistrationDTO());
+        System.out.println(RepositoryAccessors.allUsers);
+        System.out.println(RepositoryAccessors.allCompanies);
         return "RecruiterRegister";
     }
 
@@ -66,12 +70,20 @@ public class UserController {
             Company company = recruiterRegistrationDTO.getCompany();
             Recruiter user = recruiterRegistrationDTO.getUser();
 //            companyService.findByName(company.getName());
-
-            allCompanies.add(company);
-            userService.register(user);
-            recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID().toString());
             System.out.println(company);
-            System.out.println(user);
+            Company returnedCompany = CompanyService.findByName(company.getName());
+            System.out.println(company);
+            if (returnedCompany != null) {
+//                user.addCompany(returnedCompany);
+                userService.register(user);
+                recruiterService.addCompanyToRecruiter(user.getUserID(), returnedCompany.getCompanyID().toString());
+                System.out.println(allCompanies);
+                System.out.println(allUsers);
+            } else {
+                userService.register(user);
+            }
+            // exception here
+            System.out.println("After fix");
             return "redirect:/login";
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());

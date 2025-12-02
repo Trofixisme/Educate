@@ -65,13 +65,22 @@ public class RecruiterService extends UserService {
             System.out.println("Company ID: " + c.getCompanyID() + ", Name: " + c.getName());
         });
 
+        for (Company c : RepositoryAccessors.allCompanies) {
+            System.out.println("Checking Company: " + c);
+        }
+
+        System.out.println("======================");
+        System.out.println("Company ID: " + companyId);
+
+
         return RepositoryAccessors.allCompanies.stream()
-                .filter(c -> c.getCompanyID().equals(companyId))
+                .filter(c -> c.getCompanyID().toString().equals(companyId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Company not found: " + companyId));
     }
 
     public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
+
         Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = findCompanyById(companyId);
 //        if (!allCompanies.contains(compan
@@ -87,9 +96,6 @@ public class RecruiterService extends UserService {
 //        }
 //        allCompanies.add(company);
 //    }
-
-
-
 
     public List<Company> viewAllCompanies() throws Exception {
         return companyRepo.findAll();

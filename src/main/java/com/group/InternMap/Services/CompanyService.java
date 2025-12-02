@@ -31,15 +31,12 @@ public class CompanyService {
         company.addRecruiter(recruiter);
         System.out.println("Company updated after recruiter was added.");
     }
-    public static Company findByName(String companyName) {
-        if (companyName == null || companyName.isBlank()) return null;
 
+    public static Company findByName(String companyName) throws Exception{
+        if (companyName == null || companyName.isBlank()) return null;
         return allCompanies.stream()
                 .filter(c -> c.getName().equalsIgnoreCase(companyName))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new Exception("Company not found , please check the name again or create a new company"));
     }
-
-
 }
-
