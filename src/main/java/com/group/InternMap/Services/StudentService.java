@@ -57,4 +57,5 @@ public class StudentService extends UserService implements FilePaths {
     public List<JobPosting> findJobpostingByType(PostingType type) throws Exception{
         return RepositoryAccessors.allJobPostings.stream().filter(job -> job.getJobPostingType().equals(type)).collect(Collectors.toList());
     }
+
 }

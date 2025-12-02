@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Form</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+<div class="container mt-5">
+
+    <!-- CV Form Card -->
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4 text-center">Create/Edit Your CV</h2>
+
+        <form th:action="@{/cv/save}" th:object="${cv}" method="post">
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label fw-bold">
+                    Professional Summary
+                    <span class="text-danger">*</span>
+                </label>
+                <textarea
+                        class="form-control"
+                        id="description"
+                        th:field="*{description}"
+                        rows="4"
+                        placeholder="Write a brief summary about yourself, your career goals, and what makes you unique..."
+                        required>
+                </textarea>
+                <small class="text-muted">A concise overview of your professional profile</small>
+            </div>
+
+            <!-- Past Experiences -->
+            <div class="mb-3">
+                <label for="pastExperiences" class="form-label fw-bold">
+                    Past Experiences
+                    <span class="text-danger">*</span>
+                </label>
+                <textarea
+                        class="form-control"
+                        id="pastExperiences"
+                        th:field="*{pastExperiences}"
+                        rows="6"
+                        placeholder="List your work experience, internships, volunteer work...&#10;&#10;Example:&#10;Software Engineering Intern | ABC Corp | Summer 2024&#10;- Developed REST APIs using Spring Boot&#10;- Collaborated with team of 5 developers"
+                        required>
+                </textarea>
+                <small class="text-muted">Include job titles, companies, dates, and key responsibilities</small>
+            </div>
+
+            <!-- Projects -->
+            <div class="mb-3">
+                <label for="projects" class="form-label fw-bold">
+                    Projects
+                    <span class="text-danger">*</span>
+                </label>
+                <textarea
+                        class="form-control"
+                        id="projects"
+                        th:field="*{projects}"
+                        rows="6"
+                        placeholder="Describe your notable projects...&#10;&#10;Example:&#10;E-commerce Platform | Java, Spring Boot, MySQL&#10;- Built full-stack web application with user authentication&#10;- Implemented shopping cart and payment integration"
+                        required>
+                </textarea>
+                <small class="text-muted">Include project names, technologies used, and key achievements</small>
+            </div>
+
+            <hr>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between mt-4">
+                <a href="/profile" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save CV</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+</body>
+</html>

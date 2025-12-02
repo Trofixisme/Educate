@@ -1,6 +1,9 @@
 package com.group.InternMap.Contoller;
 
 import com.group.InternMap.Model.Roadmap.Roadmap;
+import com.group.InternMap.Model.User.Admin;
+import com.group.InternMap.Model.User.Company.Recruiter;
+import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -41,15 +44,30 @@ public class HomeController {
     }
 
     @GetMapping("/profile")
-    public String showProfile(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user == null) {
+    public String showStudentProfile(Model model, HttpSession session) {
+        User loggedUser = (User) session.getAttribute("loggedInUser");
+        if (loggedUser == null) {
             return "redirect:/login";
         }
+        model.addAttribute("user", loggedUser);
 
-        model.addAttribute("user", user);
+        if (loggedUser instanceof Student) {
+            model.addAttribute("student", (Student) loggedUser);
+            model.addAttribute("type", "student");
+            return "Profile";
+        }
+        if (loggedUser instanceof Recruiter) {
+            model.addAttribute("recruiter", (Recruiter) loggedUser);
+            model.addAttribute("type", "recruiter");
+            return "Profile";
+        }
+        if (loggedUser instanceof Admin) {
+            model.addAttribute("admin", (Admin) loggedUser);
+            model.addAttribute("type", "admin");
+            return "Profile";
+        }
 
-        return "profile";
+        return "index";
     }
     @GetMapping("/roadmaps")
     public String ViewRoadmaps(@ModelAttribute("user") User user, Model model){

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,4 +102,13 @@ public class JobPostingController {
         }
         return "searchResult"; // Thymeleaf template
     }
+    @GetMapping("/applications/new")
+    public String createNewApplication(@RequestParam("jobId") String jobId, Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("jobId", jobId);
+        return "redirect:/Applications";
+    }
+
 }

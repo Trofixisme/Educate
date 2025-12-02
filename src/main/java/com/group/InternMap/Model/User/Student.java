@@ -6,12 +6,11 @@ import com.group.InternMap.Model.Job.JobPosting;
 
 
 public class Student extends User {
-
     private int graduatingYear;
     private String uniName;
     private String studentMajor;
     private String faculty;
-
+    private CV cv;
     public Student(){
         super();
         this.role = UserRole.STUDENT;
@@ -70,9 +69,18 @@ public class Student extends User {
     }
 
     public Application submitApplication(JobPosting jobPosting) {
+        return new Application(this, jobPosting);
+    }
+    public void createCV() {
+        new CV();
+    }
 
-        Application StudentApplication = new Application(this, jobPosting);
-        return StudentApplication;
+    public CV getCv() {
+        return cv;
+    }
+
+    public void setCv(CV cv) {
+        this.cv = cv;
     }
 
     @Override

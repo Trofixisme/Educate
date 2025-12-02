@@ -43,6 +43,14 @@ public class Recruiter extends User implements Serializable {
         companies.remove(company);
     }
 
+    public ArrayList<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(ArrayList<Company> companies) {
+        this.companies = companies;
+    }
+
     @Override
     public String toString() {
         return "Recruiter{" +
