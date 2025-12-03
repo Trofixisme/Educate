@@ -25,11 +25,11 @@ public class StudentService extends UserService implements FilePaths {
     //todo:view roadmap progression
 
 
-
-    public void submitApplication(Student student,JobPosting jobPosting,Application application) throws Exception {
-       allApplications.add(application);
-       jobPosting.recieveApplication(application);
-    }
+//
+//    public void submitApplication(Student student,JobPosting jobPosting,Application application) throws Exception {
+//       allApplications.add(application);
+//       jobPosting.recieveApplication(application);
+//    }
 
     public void deleteApplication(Student student, JobPosting jobPosting,Application application) throws Exception {
         if(allApplications.contains(application)){

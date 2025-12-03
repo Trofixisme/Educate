@@ -55,11 +55,11 @@
         <td th:text="${job.jobDescription}">Description</td>
         <td th:text="${job.jobRequirements}">Requirements</td>
         <td th:text="${job.jobPostingType}">Type</td>
-<!--        <td>-->
-<!--            <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" class="btn btn-primary">-->
-<!--                Add Application-->
-<!--            </a>-->
-<!--        </td>-->
+        <td>
+            <a th:href="@{/applications}" class="btn btn-primary">
+                Add Application
+            </a>
+        </td>
 
     </tr>
     </tbody>

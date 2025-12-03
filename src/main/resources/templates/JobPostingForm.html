@@ -10,7 +10,7 @@
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
     <p th:text="${errorMessage}"></p></div>
-<form th:action="@{/JobPostingForm}" th:object="${jobposting}" method="post">
+<form th:action="@{/JobPostingForm}" th:object="${jobPosting}" method="post">
     <label>Job title:</label>
     <input type="text" th:field="*{jobName}" />
     <label>Company:</label>
@@ -21,8 +21,8 @@
     <input type="text" th:field="*{jobRequirements}" />
 
 
-    <label>Job posting ID:</label>
-    <input type="text" th:field="*{jobPostingID}" />
+<!--    <label>Job posting ID:</label>-->
+<!--    <input type="text" th:field="*{jobPostingID}" />-->
     <!--    same names as enums />-->
     <label>Job Posting Type:</label>
     <select th:field="*{jobPostingType}">

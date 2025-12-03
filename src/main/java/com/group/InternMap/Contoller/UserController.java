@@ -71,12 +71,12 @@ public class UserController {
             Recruiter user = recruiterRegistrationDTO.getUser();
 //            companyService.findByName(company.getName());
             System.out.println(company);
-            Company returnedCompany = CompanyService.findByName(company.getName());
+            // Company returnedCompany = CompanyService.findByName(company.getName());
             System.out.println(company);
-            if (returnedCompany != null) {
+            if (company!= null) {
 //                user.addCompany(returnedCompany);
                 userService.register(user);
-                recruiterService.addCompanyToRecruiter(user.getUserID(), returnedCompany.getCompanyID().toString());
+                recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID().toString());
                 System.out.println(allCompanies);
                 System.out.println(allUsers);
             } else {
@@ -102,12 +102,12 @@ public class UserController {
         try {
             allCompanies.add(company);
             model.addAttribute("success", "Company created successfully.");
+            return"redirect:/login";
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "CompanyRegister";
         }
 
-        return "redirect:/login";
     }
 
     @GetMapping("/admin/register")

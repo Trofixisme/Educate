@@ -53,13 +53,13 @@ public class JobPostingController {
     }
 
     @GetMapping("/JobPostingForm")
-    public String AddJobPostingForm(Model model, HttpSession session) {
+    public String AddJobPostingForm(Model model,JobPosting jobPosting, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter user)) {
             return "redirect:/login";
         }
 
-        model.addAttribute("user", user);
-        model.addAttribute("jobposting", new JobPosting());
+
+        model.addAttribute("jobPosting", new JobPosting());
 
         return "JobPostingForm"; // Thymeleaf template to display the form
     }
@@ -117,6 +117,7 @@ public class JobPostingController {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
+
         try {
             if (application != null) {
                 model.addAttribute("success", "you have applied successfully");
