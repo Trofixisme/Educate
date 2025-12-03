@@ -1,5 +1,7 @@
 package com.group.InternMap.Contoller;
 
+import com.group.InternMap.Model.User.Application;
+import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Repo.RepositoryAccessors;
 import com.group.InternMap.Services.JobPostingService;
 import org.springframework.ui.Model;
@@ -102,13 +104,36 @@ public class JobPostingController {
         }
         return "searchResult"; // Thymeleaf template
     }
-    @GetMapping("/applications/new")
-    public String createNewApplication(@RequestParam("jobId") String jobId, Model model, HttpSession session) {
+    @GetMapping("/applications")
+    public String createNewApplication( Application application, Model model, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
-        model.addAttribute("jobId", jobId);
-        return "redirect:/Applications";
+        model.addAttribute("application", new Application());
+        return "Application";
     }
+    @PostMapping("/application/save")
+    public String saveApplication(@ModelAttribute Application application,JobPosting jobPosting, Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+        try {
+            if (application != null) {
+                model.addAttribute("success", "you have applied successfully");
+                model.addAttribute("application", application);
+                jobPosting.setApplication(application);
+                return "redirect:/jobPostings";
+            }
+        }
+        catch (Exception e) {
+            model.addAttribute("error", "Error saving application: " + e.getMessage());
+            return "JobPostingForm";
+        }
+        return "JobPosting";
+
+    }
+
+
+
 
 }

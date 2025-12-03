@@ -7,33 +7,83 @@ import java.util.UUID;
 
 public class Application implements Serializable {
 
-    private final UUID applicationID = UUID.randomUUID();
+    private UUID applicationID = UUID.randomUUID();
+    private String fname;
+    private String lname;
+    private String email;
+    private String phoneNumber;
+    private CV cv;
 
-    JobPosting jobPosting;
-    Student student;
-
-
-    public Application(Student student, JobPosting jobPosting) {
-        this.jobPosting = jobPosting;
-        this.student = student;
+    public Application() {
+        this.applicationID=UUID.randomUUID();
     }
 
-    public UUID getApplicationID() {
-        return applicationID;
+    public Application(String fName, String lName, String email, String phoneNumber,CV cv) {
+        this.fname = fName;
+        this.lname = lName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.cv =cv;
+    }
+    public String getApplicationID() {
+        return applicationID.toString();
     }
 
-    public JobPosting getAssociatedJobPosting() {
-        return jobPosting;
+    public void setApplicationID(UUID applicationID) {
+        this.applicationID = applicationID;
     }
 
-    public Student getAssociatedStudent() {
-        return student;
+    public String getFname() {
+        return fname;
     }
 
-    @Override
-    public String toString() {
-        return  applicationID + "|" +
-                jobPosting + "|" +
-                student + "|";
+    public void setFname(String fname) {
+        this.fname = fname;
     }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public CV getCv() {
+        return cv;
+    }
+
+    public void setCv(CV cv) {
+        this.cv = cv;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    //
+//    @Override
+//    public String toString() {
+//        return "Application{" +
+//                "applicationID=" + applicationID +
+//                ", fName='" + fName + '\'' +
+//                ", lName='" + lName + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", cv=" + cv +
+//                '}';
+//    }
 }

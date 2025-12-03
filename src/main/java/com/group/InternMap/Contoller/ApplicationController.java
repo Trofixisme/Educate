@@ -19,11 +19,9 @@ public class ApplicationController {
     public String cv(Model model, HttpSession session) {
         // Fixed: Use correct attribute name
         User user = (User) session.getAttribute("loggedInUser");
-
         if (user == null) {
             return "redirect:/login";
         }
-
         if (!(user instanceof Student)) {
             return "redirect:/profile";
         }
@@ -33,7 +31,6 @@ public class ApplicationController {
         } else {
             model.addAttribute("cv", new CV());
         }
-
         // Fixed: Return the form view
         return "CV";
     }
@@ -62,7 +59,6 @@ public class ApplicationController {
                 System.out.println(existingCV);
 //                allUsers.add(student);
             } else {
-
                 cv.setStudent(student);
                 student.setCv(cv);
 //                allUsers.add(student);

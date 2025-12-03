@@ -1,31 +1,31 @@
-<!--<!Doctype html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Application</title>-->
-<!--</head>-->
-<!--<body>-->
+<!Doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+</head>
+<body>
 
-<!--<h2>Create an Account</h2>-->
-<!--<div th:if="${errorMessage}"-->
-<!--     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">-->
-<!--    <p th:text="${errorMessage}"></p></div>-->
+<h2>Create an Account</h2>
+<div th:if="${errorMessage}"
+     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+    <p th:text="${errorMessage}"></p></div>
 
-<!--<form action="#" th:action="@{/application/new}" th:object="${application}" method="post">-->
+<form action="#" th:action="@{/application/save}" th:object="${application}" method="post">
 
-<!--    <label>First Name:</label>-->
-<!--    <input type="text" th:field="*{fname}" />-->
+    <label>First Name:</label>
+    <input type="text" th:field="*{fname}" />
 
-<!--    <label>Last Name:</label>-->
-<!--    <input type="text" th:field="*{lname}" />-->
+    <label>Last Name:</label>
+    <input type="text" th:field="*{lname}" />
 
-<!--    <label>Email:</label>-->
-<!--    <input type="email" th:field="*{email}" />-->
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" />
+    <label>CV:</label>
+    <input type="text" th:field="*{cv}" />
 
-<!--    <label>Password:</label>-->
-<!--    <input type="password" th:field="*{plainPassword}" />-->
 <!--    <label>Graduating Year:</label>-->
-<!--    <input type="text" th:field="*{graduatingYear}" />-->
+<!--    <input type="text" th:field="*{application.graduatingYear}" />-->
 <!--    <label>University:</label>-->
 <!--    <input type="text" th:field="*{uniName}" />-->
 <!--    <label>Your Major:</label>-->
@@ -33,10 +33,10 @@
 <!--    <label>Your Faculty:</label>-->
 <!--    <input type="text" th:field="*{faculty}" />-->
 
-<!--    <button type="submit">Register</button>-->
-<!--</form>-->
+    <button type="submit">Apply</button>
+</form>
 
-<!--<a th:href="@{/login}">Already have an account?</a>-->
+<a th:href="@{/login}">Already have an account?</a>
 
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>

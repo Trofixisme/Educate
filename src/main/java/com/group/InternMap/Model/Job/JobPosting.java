@@ -112,8 +112,8 @@ public class JobPosting implements Serializable {
         return jobPostingUUID;
     }
 
-    public void setApplication(ArrayList<Application> application) {
-        this.application = application;
+    public void setApplication(Application application) {
+        this.application.add(application);
     }
 
     public ArrayList<Application> viewApplications() {
@@ -129,9 +129,6 @@ public class JobPosting implements Serializable {
         return application;
     }
 
-    public void recieveApplication(Application application) {
-        this.application.add(application);
-    }
     public void deleteApplication(Application application) {
         this.application.remove(application);
     }
