@@ -23,6 +23,7 @@ public class JobPosting implements Serializable {
 
     public JobPosting() {
         this.jobPostingUUID = UUID.randomUUID();
+        application = new ArrayList<>();
     }
 
     public JobPosting(String jobDescription,  String jobRequirements, String jobTitle, PostingType jobPostingType) {
@@ -33,7 +34,7 @@ public class JobPosting implements Serializable {
         this.jobName = jobTitle;
         jobPostingUUID = UUID.randomUUID();
         this.jobPostingType = jobPostingType;
-
+      application = new ArrayList<>();
     }
 
     public JobPosting(String jobPostingUUID, String jobDescription,  String jobRequirements, String jobTitle, PostingType jobPostingType) {
@@ -43,6 +44,7 @@ public class JobPosting implements Serializable {
         this.jobName = jobTitle;
         this.jobPostingUUID = UUID.fromString(jobPostingUUID);
         this.jobPostingType = jobPostingType;
+        application = new ArrayList<>();
 
     }
 

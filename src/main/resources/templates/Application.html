@@ -18,8 +18,13 @@
     <p th:text="${errorMessage}"></p>
 </div>
 
-<form action="#" th:action="@{/application/save/{id}(id=${jobPosting.jobPostingUUID})}"
-      th:object="${applicationandCVDTO}" method="post">
+<!--<form action="#" th:action="@{/application/save/{id}(id=${jobPosting.jobPostingUUID})}"-->
+<!--      th:object="${applicationandCVDTO}" method="post">-->
+<!-- Update the th:action to include the jobId parameter -->
+<form action="#"
+      th:action="@{/application/save(jobId=${jobId})}"
+      th:object="${applicationandCVDTO}"
+      method="post">
 
     <label>First Name:</label>
     <input type="text" th:field="*{application.fname}" />
@@ -29,11 +34,11 @@
 
     <label>Email:</label>
     <input type="email" th:field="*{application.email}" />
+
     <label>phone no:</label>
     <input type="text" th:field="*{application.phoneNumber}" />
-    <!--    <label>CV:</label>-->
-<!--    <input type="text" th:field="*{cv}" />-->
-<
+
+    <!-- Remove the stray '<' character that was here in your code -->
     <button type="submit">Apply</button>
 </form>
 </body>

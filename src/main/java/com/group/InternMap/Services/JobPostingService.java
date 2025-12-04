@@ -42,6 +42,8 @@ public class JobPostingService {
       return  RepositoryAccessors.allJobPostings;
     }
     public JobPosting findByID(UUID jopPostingId) {
+        System.out.println(jopPostingId);
+
          return allJobPostings.stream()
                  .filter(j -> j.getJobPostingUUID().equals(jopPostingId))
                  .findFirst().orElse(null);

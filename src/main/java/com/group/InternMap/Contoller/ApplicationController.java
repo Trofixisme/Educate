@@ -105,33 +105,40 @@ public class ApplicationController {
                                   @ModelAttribute ApplicationandCVDTO applicationandCVDTO,
                                   Model model, HttpSession session,
                                   RedirectAttributes redirectAttributes)  {
+        System.out.println("Inside saveApplication");
+
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
-//        Application application = applicationandCVDTO.getApplication();
 
+
+//        Application application = applicationandCVDTO.getApplication();
+        System.out.println("Before user line 116");
         Student user = (Student) session.getAttribute("loggedInUser");
         if(user.getCv()==null){
             redirectAttributes.addFlashAttribute("error","CV not found");
-            return "redirect:/CV";
+            return "redirect:/cv";
         }
 //        applicationandCVDTO.setStudent(user);
 //        UUID jobPostingID = jobId;
 
         try {
             JobPosting jobPosting=jobPostingService.findByID(jobId);
+
+            System.out.println(jobPosting);
             if(jobPosting==null){
                 redirectAttributes.addFlashAttribute("error","Job posting not found");
-                return "redirect:/jobPosting";
+                System.out.println("Inside saveApplication");
+                return "redirect:/JobPostings";
+
             }
             Application application=applicationandCVDTO.getApplication();
             application.setCv(user.getCv());
             applicationandCVDTO.setStudent(user);
             jobPosting.setApplication(application);
             allApplications.add(application);
-            allJobPostings.add(jobPosting);
             redirectAttributes.addFlashAttribute("message", "Application saved successfully");
-            return "redirect:/jobPosting";
+            return "redirect:/JobPostings";
 //            if (user.getCv() != null) {
 //                application.setCv(user.getCv());
 //                applicationandCVDTO.setApplication(application);
@@ -144,6 +151,7 @@ public class ApplicationController {
 //            }
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             model.addAttribute("error", "Error saving application: " + e.getMessage());
             return "redirect:/applications/new?jobId=" + jobId;
         }
