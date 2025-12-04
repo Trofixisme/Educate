@@ -88,6 +88,11 @@ public class ApplicationController {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
+        JobPosting jobPosting=jobPostingService.findByID(jobPostingId);
+        if(jobPosting==null){
+            redirectAttributes.addFlashAttribute("error","Job posting not found");
+            return "redirect:/jobPosting";
+        }
 
         model.addAttribute("jobId", jobPostingId);
         model.addAttribute("applicationandCVDTO", new ApplicationandCVDTO());
@@ -95,37 +100,52 @@ public class ApplicationController {
         return "Application";
     }
 
-    @PostMapping("/application/save/{jobId}")
-    public String saveApplication(@PathVariable("jobId") UUID jobId, @ModelAttribute ApplicationandCVDTO applicationandCVDTO , Model model, HttpSession session) {
-        Application application = applicationandCVDTO.getApplication();
-
+    @PostMapping("/application/save")
+    public String saveApplication(@RequestParam("jobId") UUID jobId,
+                                  @ModelAttribute ApplicationandCVDTO applicationandCVDTO,
+                                  Model model, HttpSession session,
+                                  RedirectAttributes redirectAttributes)  {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
+//        Application application = applicationandCVDTO.getApplication();
 
         Student user = (Student) session.getAttribute("loggedInUser");
-        applicationandCVDTO.setStudent(user);
-        UUID jobPostingID = jobId;
+        if(user.getCv()==null){
+            redirectAttributes.addFlashAttribute("error","CV not found");
+            return "redirect:/CV";
+        }
+//        applicationandCVDTO.setStudent(user);
+//        UUID jobPostingID = jobId;
 
         try {
-            if (user.getCv() != null) {
-                application.setCv(user.getCv());
-                applicationandCVDTO.setApplication(application);
-                JobPosting jobPosting = jobPostingService.findByID(jobPostingID);
-                allApplications.add(application);
-                jobPosting.setApplication(application);
-                allJobPostings.add(jobPosting);
-                model.addAttribute("success", "you have applied successfully");
-                return "redirect:/jobPostings";
+            JobPosting jobPosting=jobPostingService.findByID(jobId);
+            if(jobPosting==null){
+                redirectAttributes.addFlashAttribute("error","Job posting not found");
+                return "redirect:/jobPosting";
             }
-            else{
-                return "redirect:/cv";
-            }
-
+            Application application=applicationandCVDTO.getApplication();
+            application.setCv(user.getCv());
+            applicationandCVDTO.setStudent(user);
+            jobPosting.setApplication(application);
+            allApplications.add(application);
+            allJobPostings.add(jobPosting);
+            redirectAttributes.addFlashAttribute("message", "Application saved successfully");
+            return "redirect:/jobPosting";
+//            if (user.getCv() != null) {
+//                application.setCv(user.getCv());
+//                applicationandCVDTO.setApplication(application);
+//                JobPosting jobPosting = jobPostingService.findByID(jobPostingID);
+//                allApplications.add(application);
+//                jobPosting.setApplication(application);
+//                allJobPostings.add(jobPosting);
+//                model.addAttribute("success", "you have applied successfully");
+//                return "redirect:/jobPostings";
+//            }
         }
         catch (Exception e) {
             model.addAttribute("error", "Error saving application: " + e.getMessage());
-            return "JobPostingForm";
+            return "redirect:/applications/new?jobId=" + jobId;
         }
 
     }

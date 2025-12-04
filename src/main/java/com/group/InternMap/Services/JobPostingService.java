@@ -41,12 +41,10 @@ public class JobPostingService {
     public List<JobPosting> getAllJobPostings() throws Exception {
       return  RepositoryAccessors.allJobPostings;
     }
-    public JobPosting findByID(UUID jopPostingId) throws Exception {
-        if (jopPostingId == null ) return null;
+    public JobPosting findByID(UUID jopPostingId) {
          return allJobPostings.stream()
                  .filter(j -> j.getJobPostingUUID().equals(jopPostingId))
-                 .findFirst()
-                 .orElseThrow(() -> new RuntimeException("JobPosting not found: " + jopPostingId));
+                 .findFirst().orElse(null);
     }
 
 

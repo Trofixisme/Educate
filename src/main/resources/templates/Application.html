@@ -7,12 +7,19 @@
 <body>
 
 <h2>Create Application</h2>
+
+<div th:if="${jobPosting != null}">
+    <h3>Applying for: <span th:text="${jobPosting.jobName}">Job Title</span></h3>
+    <p>Posted: <span th:text="${jobPosting.datePosted}">Date</span></p>
+</div>
+
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
     <p th:text="${errorMessage}"></p>
 </div>
 
-<form action="#" th:action="@{/application/save(jobId=${job.postingUUID})}" th:object="${applicationandCVDTO}" method="post">
+<form action="#" th:action="@{/application/save/{id}(id=${jobPosting.jobPostingUUID})}"
+      th:object="${applicationandCVDTO}" method="post">
 
     <label>First Name:</label>
     <input type="text" th:field="*{application.fname}" />
