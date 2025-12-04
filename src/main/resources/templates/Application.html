@@ -12,20 +12,20 @@
     <p th:text="${errorMessage}"></p>
 </div>
 
-<form action="#" th:action="@{/application/save}" th:object="${application}" method="post">
+<form action="#" th:action="@{/application/save}" th:object="${applicationandCVDTO}" method="post">
 
     <label>First Name:</label>
-    <input type="text" th:field="*{fname}" />
+    <input type="text" th:field="*{application.fname}" />
 
     <label>Last Name:</label>
-    <input type="text" th:field="*{lname}" />
+    <input type="text" th:field="*{application.lname}" />
 
     <label>Email:</label>
-    <input type="email" th:field="*{email}" />
+    <input type="email" th:field="*{application.email}" />
 
-    <label>CV:</label>
-    <input type="text" th:field="*{cv}" />
-
+<!--    <label>CV:</label>-->
+<!--    <input type="text" th:field="*{cv}" />-->
+<
     <button type="submit">Apply</button>
 </form>
 </body>

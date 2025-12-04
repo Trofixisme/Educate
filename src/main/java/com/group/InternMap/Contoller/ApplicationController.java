@@ -1,5 +1,8 @@
 package com.group.InternMap.Contoller;
 
+import com.group.InternMap.Dto.ApplicationandCVDTO;
+import com.group.InternMap.Model.Job.JobPosting;
+import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.CV;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
@@ -72,5 +75,37 @@ public class ApplicationController {
 
         return "redirect:/profile";
     }
-    
+    @GetMapping("/applications")
+    public String createNewApplication(ApplicationandCVDTO applicationandCVDTO,  Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("applicationandCVDTO", new ApplicationandCVDTO());
+        return "Application";
+    }
+//    @PostMapping("/application/save")
+//    public String saveApplication(@ModelAttribute ApplicationandCVDTO applicationandCVDTO , JobPosting jobPosting, Model model, HttpSession session) {
+//        Application application = applicationandCVDTO.getApplication();
+//
+//        if (session.getAttribute("loggedInUser") == null) {
+//            return "redirect:/login";
+//        }
+//        Student user = (Student) session.getAttribute("loggedInUser");
+//        applicationandCVDTO.setStudent(user);
+//
+//        try {
+//            if (application != null) {
+//                model.addAttribute("success", "you have applied successfully");
+//                jobPosting.setApplication(application);
+//                return "redirect:/jobPostings";
+//            }
+//        }
+//        catch (Exception e) {
+//            model.addAttribute("error", "Error saving application: " + e.getMessage());
+//            return "JobPostingForm";
+//        }
+//        return "JobPosting";
+//
+//    }
+
 }
