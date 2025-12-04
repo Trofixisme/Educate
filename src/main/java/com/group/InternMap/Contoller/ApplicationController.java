@@ -7,17 +7,24 @@ import com.group.InternMap.Model.User.CV;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Repo.RepositoryAccessors;
+import com.group.InternMap.Services.JobPostingService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static com.group.InternMap.Repo.RepositoryAccessors.allUsers;
+import java.util.UUID;
+
+import static com.group.InternMap.Repo.RepositoryAccessors.*;
 
 @Controller
 public class ApplicationController {
+    JobPostingService jobPostingService;
+    ApplicationController(JobPostingService jobPostingService){
+        this.jobPostingService = jobPostingService;
+    }
+
     @GetMapping("/cv")
     public String cv(Model model, HttpSession session) {
         // Fixed: Use correct attribute name
@@ -75,37 +82,52 @@ public class ApplicationController {
 
         return "redirect:/profile";
     }
-    @GetMapping("/applications")
-    public String createNewApplication(ApplicationandCVDTO applicationandCVDTO,  Model model, HttpSession session) {
+
+    @GetMapping("/applications/new")
+    public String createNewApplication(@RequestParam("jobId") UUID jobPostingId, ApplicationandCVDTO applicationandCVDTO, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
+
+        model.addAttribute("jobId", jobPostingId);
         model.addAttribute("applicationandCVDTO", new ApplicationandCVDTO());
+        model.addAttribute("jobPosting", jobPosting); // Add job details to display
         return "Application";
     }
-//    @PostMapping("/application/save")
-//    public String saveApplication(@ModelAttribute ApplicationandCVDTO applicationandCVDTO , JobPosting jobPosting, Model model, HttpSession session) {
-//        Application application = applicationandCVDTO.getApplication();
-//
-//        if (session.getAttribute("loggedInUser") == null) {
-//            return "redirect:/login";
-//        }
-//        Student user = (Student) session.getAttribute("loggedInUser");
-//        applicationandCVDTO.setStudent(user);
-//
-//        try {
-//            if (application != null) {
-//                model.addAttribute("success", "you have applied successfully");
-//                jobPosting.setApplication(application);
-//                return "redirect:/jobPostings";
-//            }
-//        }
-//        catch (Exception e) {
-//            model.addAttribute("error", "Error saving application: " + e.getMessage());
-//            return "JobPostingForm";
-//        }
-//        return "JobPosting";
-//
-//    }
+
+    @PostMapping("/application/save/{jobId}")
+    public String saveApplication(@PathVariable("jobId") UUID jobId, @ModelAttribute ApplicationandCVDTO applicationandCVDTO , Model model, HttpSession session) {
+        Application application = applicationandCVDTO.getApplication();
+
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        Student user = (Student) session.getAttribute("loggedInUser");
+        applicationandCVDTO.setStudent(user);
+        UUID jobPostingID = jobId;
+
+        try {
+            if (user.getCv() != null) {
+                application.setCv(user.getCv());
+                applicationandCVDTO.setApplication(application);
+                JobPosting jobPosting = jobPostingService.findByID(jobPostingID);
+                allApplications.add(application);
+                jobPosting.setApplication(application);
+                allJobPostings.add(jobPosting);
+                model.addAttribute("success", "you have applied successfully");
+                return "redirect:/jobPostings";
+            }
+            else{
+                return "redirect:/cv";
+            }
+
+        }
+        catch (Exception e) {
+            model.addAttribute("error", "Error saving application: " + e.getMessage());
+            return "JobPostingForm";
+        }
+
+    }
 
 }

@@ -41,22 +41,14 @@ public class JobPostingService {
     public List<JobPosting> getAllJobPostings() throws Exception {
       return  RepositoryAccessors.allJobPostings;
     }
+    public JobPosting findByID(UUID jopPostingId) throws Exception {
+        if (jopPostingId == null ) return null;
+         return allJobPostings.stream()
+                 .filter(j -> j.getJobPostingUUID().equals(jopPostingId))
+                 .findFirst()
+                 .orElseThrow(() -> new RuntimeException("JobPosting not found: " + jopPostingId));
+    }
 
 
-//    JobPosting SearchbySeany(String companyName){
-//        for(JobPosting jobPosting : allJobPostings){
-//            if(jobPosting.getCompanyName().equals(companyName)){
-//                return  jobPosting;
-//            }
-//        }
-//        return null;
-//    }
-//}
-//JobPosting SearchbyRecruiter(String companyName){
-//    for(JobPosting jobPosting : allJobPostings){
-//        if(jobPosting.getCompanyName().equals(companyName)){
-//            return  jobPosting;
-//        }
-//    }
-//    return null;
+
 }

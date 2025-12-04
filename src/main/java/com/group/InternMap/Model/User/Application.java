@@ -15,7 +15,7 @@ public class Application implements Serializable {
     private CV cv;
 
     public Application() {
-        this.applicationID=UUID.randomUUID();
+        this.applicationID = UUID.randomUUID();
     }
 
     public Application(String fName, String lName, String email, String phoneNumber,CV cv) {

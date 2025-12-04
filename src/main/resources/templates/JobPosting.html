@@ -36,6 +36,7 @@
     <thead>
     <tr>
         <th>Job Title</th>
+        <th>jobPostingId</th>
         <th>Company Name</th>
         <th>Recruiter Email</th>
         <th>Date Posted</th>
@@ -49,6 +50,7 @@
     <!-- Loop through all job postings -->
     <tr th:each="job : ${jobPostings}">
         <td th:text="${job.jobName}">Job Title</td>
+        <td th:text="${job.jobPostingUUID}">jobPostingId</td>
         <td th:text="${job.companyName}">Company</td>
         <td th:text="${job.recruiterEmail}">Recruiter Email</td>
         <td th:text="${job.datePosted}">Date</td>
@@ -56,7 +58,7 @@
         <td th:text="${job.jobRequirements}">Requirements</td>
         <td th:text="${job.jobPostingType}">Type</td>
         <td>
-            <a th:href="@{/applications}" class="btn btn-primary">
+            <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" class="btn btn-primary">
                 Add Application
             </a>
         </td>

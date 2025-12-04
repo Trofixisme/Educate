@@ -104,35 +104,35 @@ public class JobPostingController {
         }
         return "searchResult"; // Thymeleaf template
     }
-    @GetMapping("/applications")
-    public String createNewApplication( Application application, Model model, HttpSession session) {
-        if (session.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("application", new Application());
-        return "Application";
-    }
-    @PostMapping("/application/save")
-    public String saveApplication(@ModelAttribute Application application,JobPosting jobPosting, Model model, HttpSession session) {
-        if (session.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";
-        }
-
-        try {
-            if (application != null) {
-                model.addAttribute("success", "you have applied successfully");
-                model.addAttribute("application", application);
-                jobPosting.setApplication(application);
-                return "redirect:/jobPostings";
-            }
-        }
-        catch (Exception e) {
-            model.addAttribute("error", "Error saving application: " + e.getMessage());
-            return "JobPostingForm";
-        }
-        return "JobPosting";
-
-    }
+//    @GetMapping("/applications")
+//    public String createNewApplication( Application application, Model model, HttpSession session) {
+//        if (session.getAttribute("loggedInUser") == null) {
+//            return "redirect:/login";
+//        }
+//        model.addAttribute("application", new Application());
+//        return "Application";
+//    }
+//    @PostMapping("/application/save")
+//    public String saveApplication(@ModelAttribute Application application,JobPosting jobPosting, Model model, HttpSession session) {
+//        if (session.getAttribute("loggedInUser") == null) {
+//            return "redirect:/login";
+//        }
+//
+//        try {
+//            if (application != null) {
+//                model.addAttribute("success", "you have applied successfully");
+//                model.addAttribute("application", application);
+//                jobPosting.setApplication(application);
+//                return "redirect:/jobPostings";
+//            }
+//        }
+//        catch (Exception e) {
+//            model.addAttribute("error", "Error saving application: " + e.getMessage());
+//            return "JobPostingForm";
+//        }
+//        return "JobPosting";
+//
+//    }
 
 
 
