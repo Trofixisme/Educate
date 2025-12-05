@@ -14,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.group.InternMap.Repo.RepositoryAccessors.allRoadmaps;
 
 
 @Controller
@@ -27,13 +30,15 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String showHomePage() {
+    public String showHomePage(Model model) {
         System.out.println("home page accessed, without session ");
+
+        model.addAttribute("roadmaps", allRoadmaps);
         return "index";
     }
 
     @GetMapping("/user/home")
-    public String showHomePage(Model model, HttpSession session) {
+    public String showHomePage(Model model, ArrayList<Roadmap> roadmaps, HttpSession session) {
         System.out.println("home page accessed, with session ");
         // 1. Retrieve the User object from the session
         User user = (User) session.getAttribute("loggedInUser");
@@ -42,7 +47,8 @@ public class HomeController {
             return "redirect:/login";
         }
         // 3. Pass the user object to the Thymeleaf model for display
-        model.addAttribute("user", user);
+//        model.addAttribute("user", user);
+        model.addAttribute("roadmaps", allRoadmaps);
         return "index";
     }
 
@@ -57,21 +63,22 @@ public class HomeController {
         if (loggedUser instanceof Student) {
             model.addAttribute("student", (Student) loggedUser);
             model.addAttribute("type", "student");
-            return "Profile";
+            return "profile";
         }
         if (loggedUser instanceof Recruiter) {
             model.addAttribute("recruiter", (Recruiter) loggedUser);
             model.addAttribute("type", "recruiter");
-            return "Profile";
+            return "profile";
         }
         if (loggedUser instanceof Admin) {
             model.addAttribute("admin", (Admin) loggedUser);
             model.addAttribute("type", "admin");
-            return "Profile";
+            return "profile";
         }
 
         return "index";
     }
+
     @GetMapping("/roadmaps")
     public String ViewRoadmaps(@ModelAttribute("user") User user, Model model){
       try {

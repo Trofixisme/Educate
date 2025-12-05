@@ -18,17 +18,18 @@ public class RoadmapController {
     private RoadmapService roadmapService = new RoadmapService();
 
     //Display all roadmaps
-    @GetMapping
-    public String listRoadmaps(Model model) {
-        model.addAttribute("roadmaps", allRoadmaps);
-        return "roadmap/list";
-    }
+//    @GetMapping
+//    public String listRoadmaps(Model model) {
+//        model.addAttribute("roadmaps", allRoadmaps);
+//        return "roadmap/list";
+//    }
 
     //Display a specific roadmap with modules and skills
     @GetMapping("/{id}")
     public String viewRoadmap(@PathVariable UUID id, Model model) {
         try {
             Roadmap roadmap = roadmapService.findRoadmapbyId(id);
+            // Calculate statistics
             int totalSkills = roadmap.getAllModules().stream()
                     .mapToInt(module -> module.getAllSkills() != null ? module.getAllSkills().size() : 0)
                     .sum();
@@ -41,13 +42,10 @@ public class RoadmapController {
             return "redirect:/roadmaps";
         }
 
-
-
         // Calculate statistics
 //        int totalSkills = roadmap.getAllModules().stream()
 //                .mapToInt(module -> module.getAllSkills() != null ? module.getAllSkills().size() : 0)
 //                .sum();
-
 //            int completedSkills = roadmap.getAllModules().stream()
 //                    .flatMap(module -> module.getAllSkills() != null ? module.getAllSkills().stream() : null)
 //                    .filter(::isCompleted)
@@ -74,15 +72,13 @@ public class RoadmapController {
         model.addAttribute("roadmap", new Roadmap());
         return "roadmap/form";
     }
-
-
     //Create new roadmap
-    @PostMapping
+    //No url??
+    @PostMapping("/create/roadmap")
     public String createRoadmap(@ModelAttribute Roadmap roadmap) {
         allRoadmaps.add(roadmap);
         return "redirect:/roadmaps/" + roadmap.getRoadmapID();
     }
-
     //Display form to edit roadmap
     @GetMapping("/{id}/edit")
     public String editRoadmap(@PathVariable UUID id, Model model) {
@@ -94,15 +90,14 @@ public class RoadmapController {
             model.addAttribute(e);
             return "redirect:/roadmaps";
         }
-    }
 
+    }
      //Update roadmap
     @PostMapping("/{id}")
     public String updateRoadmap(@PathVariable UUID id, @ModelAttribute Roadmap roadmap) {
         allRoadmaps.add(roadmap);
         return "redirect:/roadmaps/" + id;
     }
-
     //Delete roadmap
     @PostMapping("/{id}/delete")
     public String deleteRoadmap(@PathVariable UUID id) {
