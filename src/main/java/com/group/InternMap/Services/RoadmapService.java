@@ -19,7 +19,6 @@ public class RoadmapService {
     }
 
     public void deleteById(UUID id) {
-        RepositoryAccessors.allRoadmaps.stream()
-                .dropWhile(r -> r.getRoadmapID().equals(id.toString()));
+          RepositoryAccessors.allRoadmaps.removeIf(r -> r.getRoadmapID().equals(id.toString()));
     }
 }

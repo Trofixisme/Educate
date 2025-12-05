@@ -15,38 +15,38 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allRoadmaps;
 @RequestMapping("/roadmaps")
 public class RoadmapController {
 
-        private RoadmapService roadmapService;
-        RoadmapController(RoadmapService roadmapService) {
-            this.roadmapService = roadmapService;
-        }
+    private RoadmapService roadmapService = new RoadmapService();
 
+    //Display all roadmaps
+    @GetMapping
+    public String listRoadmaps(Model model) {
+        model.addAttribute("roadmaps", allRoadmaps);
+        return "roadmap/list";
+    }
 
-
-        /**
-         * Display all roadmaps
-         */
-        @GetMapping
-        public String listRoadmaps(Model model) {
-            model.addAttribute("roadmaps", allRoadmaps);
-            return "roadmap/list";
-        }
-
-        /**
-         * Display a specific roadmap with modules and skills
-         */
-        @GetMapping("/{id}")
-        public String viewRoadmap(@PathVariable UUID id, Model model) {
+    //Display a specific roadmap with modules and skills
+    @GetMapping("/{id}")
+    public String viewRoadmap(@PathVariable UUID id, Model model) {
+        try {
             Roadmap roadmap = roadmapService.findRoadmapbyId(id);
-
-            if (roadmap == null) {
-                return "redirect:/roadmaps";
-            }
-
-
-            // Calculate statistics
             int totalSkills = roadmap.getAllModules().stream()
                     .mapToInt(module -> module.getAllSkills() != null ? module.getAllSkills().size() : 0)
                     .sum();
+            model.addAttribute("roadmap", roadmap);
+            model.addAttribute("totalSkills", totalSkills);
+            return "roadmap/view";
+        }
+        catch(Exception e){
+            model.addAttribute(e);
+            return "redirect:/roadmaps";
+        }
+
+
+
+        // Calculate statistics
+//        int totalSkills = roadmap.getAllModules().stream()
+//                .mapToInt(module -> module.getAllSkills() != null ? module.getAllSkills().size() : 0)
+//                .sum();
 
 //            int completedSkills = roadmap.getAllModules().stream()
 //                    .flatMap(module -> module.getAllSkills() != null ? module.getAllSkills().stream() : null)
@@ -56,16 +56,11 @@ public class RoadmapController {
 //
 //            double progress = totalSkills > 0 ? (completedSkills * 100.0 / totalSkills) : 0;
 
-            model.addAttribute("roadmap", roadmap);
-            model.addAttribute("totalSkills", totalSkills);
-//            model.addAttribute("completedSkills", completedSkills);
-//            model.addAttribute("progress", String.format("%.1f", progress));
-            return "roadmap/view";
-        }
+    }
 
-        /**
-         * Toggle skill completion status (form submission)
-         */
+    /**
+     * Toggle skill completion status (form submission)
+     */
 //        @PostMapping("/skills/{skillId}/toggle")
 //        public String toggleSkillCompletion(@PathVariable Long skillId,
 //                                            @RequestParam Long roadmapId) {
@@ -73,55 +68,45 @@ public class RoadmapController {
 //            return "redirect:/roadmaps/" + roadmapId;
 //        }
 
-        /**
-         * Display form to create new roadmap
-         */
-        @GetMapping("/new")
-        public String newRoadmap(Model model) {
-            model.addAttribute("roadmap", new Roadmap());
-            return "roadmap/form";
-        }
+    //Display form to create new roadmap
+    @GetMapping("/new")
+    public String newRoadmap(Model model) {
+        model.addAttribute("roadmap", new Roadmap());
+        return "roadmap/form";
+    }
 
-        /**
-         * Create new roadmap
-         */
-        @PostMapping
-        public String createRoadmap(@ModelAttribute Roadmap roadmap) {
-            allRoadmaps.add(roadmap);
-            return "redirect:/roadmaps/" + roadmap.getRoadmapID();
-        }
 
-        /**
-         * Display form to edit roadmap
-         */
-        @GetMapping("/{id}/edit")
-        public String editRoadmap(@PathVariable String id, Model model) {
+    //Create new roadmap
+    @PostMapping
+    public String createRoadmap(@ModelAttribute Roadmap roadmap) {
+        allRoadmaps.add(roadmap);
+        return "redirect:/roadmaps/" + roadmap.getRoadmapID();
+    }
+
+    //Display form to edit roadmap
+    @GetMapping("/{id}/edit")
+    public String editRoadmap(@PathVariable UUID id, Model model) {
+        try {
             Roadmap roadmap = roadmapService.findRoadmapbyId(id);
-
-            if (roadmap == null) {
-                return "redirect:/roadmaps";
-            }
-
             model.addAttribute("roadmap", roadmap);
             return "roadmap/form";
-        }
-
-        /**
-         * Update roadmap
-         */
-        @PostMapping("/{id}")
-        public String updateRoadmap(@PathVariable UUID id, @ModelAttribute Roadmap roadmap) {
-            allRoadmaps.add(roadmap);
-            return "redirect:/roadmaps/" + id;
-        }
-
-        /**
-         * Delete roadmap
-         */
-        @PostMapping("/{id}/delete")
-        public String deleteRoadmap(@PathVariable UUID id) {
-            roadmapService.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute(e);
             return "redirect:/roadmaps";
         }
+    }
+
+     //Update roadmap
+    @PostMapping("/{id}")
+    public String updateRoadmap(@PathVariable UUID id, @ModelAttribute Roadmap roadmap) {
+        allRoadmaps.add(roadmap);
+        return "redirect:/roadmaps/" + id;
+    }
+
+    //Delete roadmap
+    @PostMapping("/{id}/delete")
+    public String deleteRoadmap(@PathVariable UUID id) {
+        roadmapService.deleteById(id);
+        return "redirect:/roadmaps";
     }
 }

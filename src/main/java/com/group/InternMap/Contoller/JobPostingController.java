@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 //to do:application controller,and review html
 @Controller
-
 public class JobPostingController {
     private final RecruiterService recruiterService;
     private final JobPostingService jobPostingService;
