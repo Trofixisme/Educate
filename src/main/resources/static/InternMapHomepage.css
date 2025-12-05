@@ -180,39 +180,39 @@ body {
     .grid-button:hover {
         background-color: #70c1ff;
     }
+}
 
-    footer {
-        width: auto;
-        height: 300px;
-        background: linear-gradient(180deg, rgb(255, 255, 255) 15%, #3397FC 100%);
+footer {
+    width: auto;
+    height: 300px;
+    background: linear-gradient(180deg, rgb(255, 255, 255) 15%, #3397FC 100%);
 
-        #ft1 {
-            text-align: start;
-            text-shadow: 0 0 75px rgba(0, 0, 0, 0.25);
-            font-size: 64px;
-            font-style: normal;
-            font-weight: 800;
-            line-height: normal;
-            background-clip: text;
-            background: #FFFFFF;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            width: 502px;
-            flex-direction: column;
-            justify-content: center;
-            aspect-ratio: 502.00/118.79;
-        }
+    #ft1 {
+        text-align: start;
+        text-shadow: 0 0 75px rgba(0, 0, 0, 0.25);
+        font-size: 64px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+        background-clip: text;
+        background: #FFFFFF;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        width: 502px;
+        flex-direction: column;
+        justify-content: center;
+        aspect-ratio: 502.00/118.79;
+    }
 
-        #ft2 {
-            color: #FFF;
-            font-size: 32px;
-            font-style: normal;
-            font-weight: 800;
-            line-height: normal;
-            padding-left: 70px;
-            margin: 10px;
-        }
+    #ft2 {
+        color: #FFF;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+        padding-left: 70px;
+        margin: 10px;
     }
 }

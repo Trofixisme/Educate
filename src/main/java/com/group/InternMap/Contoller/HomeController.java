@@ -1,24 +1,17 @@
 package com.group.InternMap.Contoller;
 
 import com.group.InternMap.Model.Roadmap.Roadmap;
-import com.group.InternMap.Model.Roadmap.Skill.Skill;
 import com.group.InternMap.Model.User.Admin;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
-import com.group.InternMap.Services.RoadmapService;
 import com.group.InternMap.Services.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import static com.group.InternMap.Repo.RepositoryAccessors.allRoadmaps;
 
 
