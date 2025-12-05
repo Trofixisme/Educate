@@ -69,6 +69,7 @@ public class Company implements Serializable {
             this.websiteURL = websiteURL;
     }
 
+
     public UUID getCompanyID() {
         return companyID;
     }

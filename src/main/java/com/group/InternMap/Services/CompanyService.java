@@ -15,9 +15,11 @@ import static com.group.InternMap.Services.FilePaths.userPath;
 
 @Service
 public class CompanyService {
+
     protected final BaseRepository<User> repo = new BaseRepository<>(User.class, userPath);
     private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
     public RecruiterService recruiterService;
+
     CompanyService(RecruiterService recruiterService) {
         this.recruiterService = recruiterService;
     }

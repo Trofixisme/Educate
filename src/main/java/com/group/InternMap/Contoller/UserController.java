@@ -76,7 +76,7 @@ public class UserController {
             if (company!= null) {
 //                user.addCompany(returnedCompany);
                 userService.register(user);
-                recruiterService.addCompanyToRecruiter(user.getUserID(), company.getCompanyID().toString());
+                recruiterService.addCompanyToRecruiter(user.getUserID(), company.getName());
                 System.out.println(allCompanies);
                 System.out.println(allUsers);
             } else {
