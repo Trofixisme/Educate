@@ -68,7 +68,7 @@ public class RoadmapModule implements Serializable {
         this.skills.addAll(List.of(skills));
     }
 
-    ArrayList<Skill> getAllSkills() {
+    public ArrayList<Skill> getAllSkills() {
         return skills;
     }
 
