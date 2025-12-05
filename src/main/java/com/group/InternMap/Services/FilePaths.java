@@ -7,4 +7,5 @@ public interface FilePaths {
     String jobPostingPath = "data/jobs.txt";
     String applicationPath = "data/applications.txt";
     String companyPath = "data/companies.txt";
+    String skillPath = "data/skills.txt";
 }

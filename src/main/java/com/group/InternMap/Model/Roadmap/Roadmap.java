@@ -11,6 +11,10 @@ public final class Roadmap implements Serializable {
     private String name;
     private final ArrayList<RoadmapModule> roadmapModules = new ArrayList<>();
 
+    public Roadmap() {
+        this.roadmapID = UUID.randomUUID();
+    }
+
     public Roadmap(String roadmapID, String name, RoadmapModule... modules) {
         this.roadmapID = UUID.fromString(roadmapID);
         this.name = name;
