@@ -152,6 +152,6 @@ public class UserController {
         }
         System.out.println("user logged in");
         // 4. Redirect only on guaranteed SUCCESS.
-        return "index";
+        return "redirect:/";
     }
 }
