@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>InternMapSignUp</title>
+    <link rel="icon" type="image/png" href="Logo Glass.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="InternMapSignUpchoice.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .flex-button-container{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 20px;
+            padding-bottom: 20px;
+            justify-content: center;
+        }
+        .flex-button{
+            width: 280px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: black solid 2px;
+            border-radius: 50px;
+            background-color: rgb(247,247,247);
+            font-family: Inter;
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .flex-button:hover{
+            cursor: pointer;
+            border-width: 4px;
+        }
+
+        #b2{
+            width: 200px;
+            height: 65px;
+            padding: 9px 31px;
+            border-radius: 34px;
+            border-color: transparent;
+            background: #2391FF;
+            color: #FFF;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        #b2:hover{
+            cursor: pointer;
+            background-color: #1A73E8;
+        }
+    </style>
+</head>
+
+<header>
+    <button id="b1" th:onclick="|window.location.href='@{/login}'|">Sign In</button>
+    <img id="logo" src="Logo Glass.png" alt="Logo">
+</header>
+
+<body>
+<form th:action="@{/signup-choice}" th:object="${signupChoice}" method="post">
+
+    <input type="hidden" th:field="*{role}" id="selectedRole"/>
+
+    <div id="p1">Sign Up as?</div>
+
+    <div class="flex-button-container">
+
+        <div class="flex-button"
+             onclick="document.getElementById('selectedRole').value='STUDENT'">
+            Student
+        </div>
+
+        <div class="flex-button"
+             onclick="document.getElementById('selectedRole').value='RECRUITER'">
+            Recruiter
+        </div>
+
+        <div class="flex-button"
+             onclick="document.getElementById('selectedRole').value='ADMIN'">
+            Admin
+        </div>
+
+    </div>
+
+    <div style="text-align:center;">
+        <button id="b2" type="submit">Continue</button>
+    </div>
+
+</form>
+
+</body>
+
+<footer>
+    <div class="box">
+        <div class="box-item">InternMap</div>
+        <div><a href="InternMap.html">Home</a></div>
+    </div>
+</footer>
+
+</html>
