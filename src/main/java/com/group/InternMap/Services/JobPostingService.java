@@ -24,21 +24,19 @@ public class JobPostingService {
 //    public List<JobPosting> findJobPostingsByRecruiterEmail(String email) throws Exception {
 //        return jobRepo.search(job -> job.getRecruiterEmail().equalsIgnoreCase(email));
 //    }
-    public List<JobPosting> searchJobPostings(String companyName, String recruiterEmail) throws Exception {
+    public List<JobPosting> searchJobPostings(String searchQuery) throws Exception {
         return jobRepo.search(job -> {
             boolean matches = false;
 
-            if (companyName != null && !companyName.isBlank()) {
-                matches |= job.getCompanyName().equalsIgnoreCase(companyName);
-            }
-
-            if (recruiterEmail != null && !recruiterEmail.isBlank()) {
-                matches |= job.getRecruiter().getEmail().equalsIgnoreCase(recruiterEmail);
+            if (searchQuery != null && !searchQuery.isBlank()) {
+                matches |= job.getJobName().toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT));
+                matches |= job.getCompanyName().toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT));
             }
 
             return matches;
         });
     }
+
     public List<JobPosting> getAllJobPostings() throws Exception {
       return  RepositoryAccessors.allJobPostings;
     }

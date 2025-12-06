@@ -146,8 +146,8 @@
 <!-- Search and Action Section -->
 <div class="search-action-container">
     <h1>All Job Postings</h1>
-    <form th:action="@{/JobPostings/search}" method="get" class="search-form">
-        <input type="text" name="q" placeholder="Search by job title, date, or email" class="search-input"/>
+    <form th:action="@{/JobPostings/search(searchQuery=${searchQuery})}" method="post" class="search-form">
+            <input type="text" name="searchQuery" placeholder="Search by job title, date, or email" class="search-input"/>
         <button type="submit" class="search-button">Search</button>
     </form>
 

@@ -1,9 +1,9 @@
 package com.group.InternMap.Contoller;
 
 import com.group.InternMap.Model.User.Application;
-import com.group.InternMap.Model.User.User;
-import com.group.InternMap.Repo.RepositoryAccessors;
+import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Services.JobPostingService;
+import com.group.InternMap.Services.UserService;
 import org.springframework.ui.Model;
 import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.User.Company.Recruiter;
@@ -25,7 +25,7 @@ public class JobPostingController {
     private final RecruiterService recruiterService;
     private final JobPostingService jobPostingService;
 
-    public JobPostingController(RecruiterService recruiterService, JobPostingService jobPostingService) {
+    public JobPostingController(RecruiterService recruiterService, JobPostingService jobPostingService, UserService userService) {
         this.recruiterService = recruiterService;
         this.jobPostingService = jobPostingService;
     }
@@ -87,25 +87,19 @@ public class JobPostingController {
         }
     }
 
-    @PostMapping("/searchJobPosting")
-    public String searchJobPosting(@ModelAttribute JobPosting jobposting, Model model, HttpSession session) {
-        if (session.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";
-        }
+    @PostMapping("/JobPostings/search")
+    public String searchJobPosting(@RequestParam("searchQuery") String searchQuery, @ModelAttribute JobPosting jobposting, Model model, HttpSession session) {
         try {
             // Search dynamically using your service
-            List<JobPosting> results = jobPostingService.searchJobPostings(
-                    jobposting.getCompanyName(),
-                    jobposting.getRecruiter().getEmail()
-            );
+            List<JobPosting> results = jobPostingService.searchJobPostings(searchQuery.replaceFirst(",", ""));
             // Add search results to the model
-            model.addAttribute("results", results);
+            model.addAttribute("jobPostings", results);
             // Add the jobposting object to the model so form fields keep their values
             model.addAttribute("jobposting", jobposting);
         } catch (Exception e) {
             model.addAttribute("error", "Error searching job postings: " + e.getMessage());
         }
-        return "searchResult"; // Thymeleaf template
+        return "JobPosting"; // Thymeleaf template
     }
 //    @GetMapping("/applications")
 //    public String createNewApplication( Application application, Model model, HttpSession session) {
@@ -183,9 +177,10 @@ public String viewApplications(@PathVariable UUID jobId,
     @GetMapping("/cv/{email}")
     public String viewCV(@PathVariable("email") String email, Model model, HttpSession session) {
         try {
-            System.out.println(email);
-            Application application = recruiterService.findByEmail(email);
-            model.addAttribute("application", application);
+            Student retrievedStudent = (Student) new UserService().searchByEmail(email);
+            model.addAttribute("user", retrievedStudent);
+            model.addAttribute("student", retrievedStudent);
+            model.addAttribute("type", "student");
             return "profile";
         }
         catch(Exception e) {
@@ -193,10 +188,4 @@ public String viewApplications(@PathVariable UUID jobId,
             return "ViewApplicationDetail";
         }
     }
-
-
 }
-
-
-
-
