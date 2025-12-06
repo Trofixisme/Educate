@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flexible Table Design</title>
-    <link rel="stylesheet" th:href="@{
-    /tables.css}">
+    <link rel="stylesheet" th:href="@{/tables.css}">
+
 
 </head>
 <body>
@@ -28,14 +28,22 @@
             <tr th:each="job : ${myJobs}">
                 <td th:text="${job.jobName}" data-label="Job Title"></td>
                 <td th:text="${job.jobDescription}" data-label="Description"></td>
+<!--                <td data-label="Applications">-->
+<!--&lt;!&ndash;                    <a th:href="@{/recruiter/applications/{id}(id=${job.jobPostingUUID})}"&ndash;&gt;-->
+<!--                    <a th:href="@{/JobPostings/{jobId}/applications(jobId=${job.jobPostingUUID})}"-->
+<!--                       class="btn btn-primary btn-sm">-->
+<!--                        View Applications-->
+<!--                        <span class="badge" th:text="${job.application.size()}"></span>-->
+<!--                    </a>-->
+<!--                </td>-->
                 <td data-label="Applications">
-<!--                    <a th:href="@{/recruiter/applications/{id}(id=${job.jobPostingUUID})}"-->
-                    <a th:href="@{/JobPostings/{jobId}/applications(jobId=${job.jobPostingUUID})}"
-                       class="btn btn-primary btn-sm">
-                        View Applications
-                        <span class="badge" th:text="${job.application.size()}"></span>
-                    </a>
+                <a th:href="@{/JobPostings/{id}/applications(id=${job.jobPostingUUID})}"
+                   class="btn btn-primary">
+                    View Applications
+                </a>
                 </td>
+
+
             </tr>
             </tbody>
 
