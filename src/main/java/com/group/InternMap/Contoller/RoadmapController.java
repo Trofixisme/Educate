@@ -4,6 +4,7 @@ import com.group.InternMap.Dto.RoadmapModuleSkill;
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Model.User.Admin;
+import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Services.RoadmapService;
 import com.group.InternMap.Model.Roadmap.Skill.Skill;
 import jakarta.servlet.http.HttpSession;
@@ -43,11 +44,10 @@ public class RoadmapController {
     //Display form to create new roadmap
     @GetMapping("/new")
     public String newRoadmap(Model model, HttpSession session) {
-        Admin admin = (Admin) session.getAttribute("logged in");
-        System.out.println(admin);
-        if(admin == null){
+        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {
             return "redirect:/login";
         }
+        System.out.println(admin);
             RoadmapModuleSkill dto = new RoadmapModuleSkill();
             RoadmapModuleSkill.ModuleData module = new RoadmapModuleSkill.ModuleData();
             RoadmapModuleSkill.SkillData skill = new RoadmapModuleSkill.SkillData();
@@ -60,9 +60,6 @@ public class RoadmapController {
     public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto, HttpSession session) {
         Admin admin = (Admin) session.getAttribute("logged in");
         if(admin == null){
-            return "redirect:/login";
-        }
-        if(session.getAttribute("logged in") == null){
             return "redirect:/login";
         }
         Roadmap roadmap = dto.toRoadmap();
