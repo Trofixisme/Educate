@@ -4,7 +4,6 @@ import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;
-import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Repo.BaseRepository;
 import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.context.ApplicationEventPublisher;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static com.group.InternMap.Repo.RepositoryAccessors.*;
 
 @Service
 public class RecruiterService extends UserService {
@@ -42,8 +39,8 @@ public class RecruiterService extends UserService {
 //    }
 //}
 
-    public Recruiter findRecruiterById(String recruiterId) {
-        if (recruiterId == null || recruiterId.isBlank()) {
+    public Recruiter findRecruiterById(UUID recruiterId) {
+        if (recruiterId == null ) {
             throw new IllegalArgumentException("recruiterId must be provided");
         }
 
@@ -79,7 +76,7 @@ public class RecruiterService extends UserService {
                 .orElseThrow(() -> new RuntimeException("Company not found: " + companyId));
     }
 
-    public void addCompanyToRecruiter(String recruiterId, String companyId) throws Exception {
+    public void addCompanyToRecruiter(UUID recruiterId, String companyId) throws Exception {
 
         Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = CompanyService.findByName(companyId);
@@ -114,4 +111,21 @@ public class RecruiterService extends UserService {
         List<Application> applications = applicationRepo.findAll();
         return applications.stream().filter(app -> app.getApplicationID().equals(appId)).collect(Collectors.toList());
     }
+
+    //function to display all applications for a specific jobPosting
+    public List<Application> getApplicationsByJobPosting(JobPosting jobPosting) {
+        if (jobPosting == null) {
+            throw new IllegalArgumentException("Job posting cannot be null");
+        }
+
+        // Get applications and sort by date
+        //also i already have a getter for all application submitted in my model
+        List<Application> applications = jobPosting.getApplication();
+        applications.sort((a1, a2) -> a1.getApplicationDate().compareTo(a2.getApplicationDate()));
+        return applications;
+    }
+
+
+
+
 }

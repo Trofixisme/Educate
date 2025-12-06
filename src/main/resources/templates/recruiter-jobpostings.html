@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Job Title</th>
+        <th>Description</th>
+        <th>Applications</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="job : ${myJobs}">
+        <td th:text="${job.jobName}"></td>
+        <td th:text="${job.jobDescription}"></td>
+        <td>
+            <a th:href="@{/recruiter/applications/{id}(id=${job.jobId})}"
+               class="btn btn-primary btn-sm">
+                View Applications ( <span th:text="${job.application.size()}"></span> )
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,11 +1,14 @@
 package com.group.InternMap.Model.User;
 
+import com.group.InternMap.Contoller.ApplicationController;
 import com.group.InternMap.Model.Job.JobPosting;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
-public class Application implements Serializable {
+public class Application implements Serializable,Comparable<Application> {
 
     private UUID applicationID = UUID.randomUUID();
     private String fname;
@@ -13,6 +16,7 @@ public class Application implements Serializable {
     private String email;
     private String phoneNumber;
     private CV cv;
+    private Date applicationDate;
 
     public Application() {
         this.applicationID = UUID.randomUUID();
@@ -24,7 +28,17 @@ public class Application implements Serializable {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.cv =cv;
+        this.applicationDate = new Date();
     }
+
+    public Date getApplicationDate() {
+        return applicationDate;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+    }
+
     public String getApplicationID() {
         return applicationID.toString();
     }
@@ -71,6 +85,17 @@ public class Application implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public int compareTo(Application application) {
+        if(this.getApplicationDate().before(application.getApplicationDate())){
+            return 1;
+        }
+        else if(this.getApplicationDate().after(application.getApplicationDate())){
+            return -1;
+        }
+        return 0;
     }
 
 

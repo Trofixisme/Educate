@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.group.InternMap.Model.User.Company.Company;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
 import static com.group.InternMap.Services.FilePaths.companyPath;
@@ -26,7 +27,7 @@ public class CompanyService {
 
     @EventListener
     public void handleRecruiterAddedEvent(RecruiterAddedEvent event) throws  Exception {
-        String recruiterId = event.getRecruiterId();
+        UUID recruiterId = event.getRecruiterId();
         String companyId = event.getCompanyId();
         Recruiter recruiter =recruiterService.findRecruiterById(recruiterId);
         Company company = recruiterService.findCompanyById(companyId);

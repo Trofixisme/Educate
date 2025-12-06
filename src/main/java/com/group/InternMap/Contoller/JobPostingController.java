@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 //to do:application controller,and review html
 @Controller
 public class JobPostingController {
@@ -132,6 +135,48 @@ public class JobPostingController {
 //        return "JobPosting";
 //
 //    }
+@GetMapping("/recruiter/jobpostings")
+public String getRecruiterJobPostings(Model model, HttpSession session) throws Exception {
+
+    Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
+    if (recruiter == null) {
+        return "redirect:/login";
+    }
+    List<JobPosting> myJobs = jobPostingService.getJobPostingsByRecruiterId(recruiter.getUserID());
+
+    model.addAttribute("myJobs", myJobs);
+
+    return "recruiter-jobpostings";
+}
+
+@GetMapping("/JobPostings/{jobId}/applications")
+public String viewApplications(@RequestParam UUID jobId,
+                               Model model,
+                               HttpSession session,
+                               RedirectAttributes redirectAttributes) {
+
+    if (session.getAttribute("loggedInUser") == null) {
+        return "redirect:/login";
+    }
+
+    try {
+        JobPosting job = jobPostingService.findByID(jobId);
+        if (job == null) {
+            redirectAttributes.addFlashAttribute("error", "Job not found");
+            return "redirect:/JobPostings";
+        }
+
+        List<Application> apps = recruiterService.getApplicationsByJobPosting(job);
+        model.addAttribute("jobPosting", job);
+        model.addAttribute("applications", apps);
+
+        return "ViewApplications";  //i still dont have it but need to do it for clicking the view button
+
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "Error loading applications");
+        return "redirect:/JobPostings";
+    }
+}
 
 
 

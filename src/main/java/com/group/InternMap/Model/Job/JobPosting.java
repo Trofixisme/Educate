@@ -135,6 +135,8 @@ public class JobPosting implements Serializable {
         this.application.remove(application);
     }
 
+
+
     @Override
     public String toString() {
         return jobDescription + '|'
