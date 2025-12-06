@@ -1,76 +1,232 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>All Job Postings</title>
+    <title> InternMap </title>
+    <link rel="icon" type="image/png" href="Logo Glass.png">
+    <link rel="stylesheet" th:href="@{/jobPosting.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        table {
+        /* Search and Action Buttons Styling */
+        .search-action-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
             width: 100%;
-            border-collapse: collapse;
+            max-width: 600px;
+            align-items: center;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 34px;
+            border: 2px solid rgba(35, 145, 255, 0.3);
+            background: rgba(248, 248, 250, 0.8);
+            font-size: 16px;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
         }
-        th {
-            background-color: #f5f5f5;
+
+        .search-input:focus {
+            border-color: #2391FF;
+            background: #fff;
         }
-        tr:hover {
-            background-color: #f0f0f0;
+
+        .search-button {
+            padding: 12px 30px;
+            border-radius: 34px;
+            border: none;
+            background: #2391FF;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #1c7ae6;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 10px 25px;
+            border-radius: 34px;
+            border: 2px solid #2391FF;
+            background: #2391FF;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #1c7ae6;
+            border-color: #1c7ae6;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            color: #2391FF;
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(35, 145, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .search-form {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
+<header>
+    <div id="h1">
+        <div id="T1" class="box-title">
+            InternMap
+        </div>
+        <div id="s1" class="box-sign-buttons">
+            <button id="hb1"> Sign in</button>
+            <button id="hb2"> Sign up</button>
+        </div>
+    </div>
+    <div id="l1">
+            <img id="logo" th:src="@{/images/Logo Glass.png}" alt="Logo">
+        <span id="p1">InternMap</span>
+        <span id="p2">Welcome to the platform that sets your future for you</span>
+    </div>
+</header>
 <body>
-<h1>All Job Postings</h1>
 
-<!-- Optional search form -->
-<form th:action="@{/JobPostings/search}" method="get">
-    <input type="text" name="q" placeholder="Search by job title, date, or email"/>
-    <button type="submit">Search</button>
-</form>
- <a th:href="@{/JobPostingForm}">
-    <button>Add a job Posting</button>
+<!-- Search and Action Section -->
+<div class="search-action-container">
+    <h1>All Job Postings</h1>
+    <form th:action="@{/JobPostings/search}" method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search by job title, date, or email" class="search-input"/>
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+    <div class="action-buttons">
+        <a th:href="@{/JobPostingForm}">
+            <button class="action-btn">Add a Job Posting</button>
+        </a>
+        <a th:href="@{/recruiter/jobpostings}">
+            <button class="action-btn">View Your Job Postings</button>
+        </a>
+
+    </div>
+</div>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Job Title</th>-->
+<!--        <th>jobPostingId</th>-->
+<!--        <th>Company Name</th>-->
+<!--        <th>Recruiter Email</th>-->
+<!--        <th>Date Posted</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Requirements</th>-->
+<!--        <th>Type</th>-->
+<!--        <th>apply</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    &lt;!&ndash; Loop through all job postings &ndash;&gt;-->
+<!--    <tr th:each="job : ${jobPostings}">-->
+<!--        <td th:text="${job.jobName}">Job Title</td>-->
+<!--        <td th:text="${job.jobPostingUUID}">jobPostingId</td>-->
+<!--        <td th:text="${job.companyName}">Company</td>-->
+<!--        <td th:text="${job.recruiterEmail}">Recruiter Email</td>-->
+<!--        <td th:text="${job.datePosted}">Date</td>-->
+<!--        <td th:text="${job.jobDescription}">Description</td>-->
+<!--        <td th:text="${job.jobRequirements}">Requirements</td>-->
+<!--        <td th:text="${job.jobPostingType}">Type</td>-->
+<!--        <td>-->
+<!--            <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" class="btn btn-primary">-->
+<!--                Add Application-->
+<!--            </a>-->
+<!--        </td>-->
+
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!-- Job Cards Grid -->
+<div>
+    <div class="grid" id="box">
+        <div class="box" th:each="job : ${jobPostings}">
+            <div id="Title" th:text="${job.jobName}">Title</div>
+            <div id="info" th:text="${job.jobDescription}">
+                "Here's to the crazy ones, the misfits, the rebels, the troublemakers, the round pegs in the square holes... the ones who see things differently - they're not fond of rules... You can quote them, disagree with them, glorify or vilify them, but the only thing you can't do is ignore them because they change things... they push the human race forward, and while some may see them as the crazy ones, we see genius, because the ones who are crazy enough to think that they can change the world, are the ones who do."
+            </div>
+            <hr id="separator">
+            <div id="details" style="font-weight: bold; font-size: 20px;">Details</div>
+            <div class="unordered-list" id="details-specifics">
+                <ul>
+                    <li>Email: <span th:text="${job.recruiterEmail}">example@example.com</span></li>
+                    <li>Company: <span th:text="${job.companyName}">[COMPANY NAME]</span></li>
+                    <li>Posting Type: <span th:text="${job.jobPostingType}">Full Time</span></li>
+                    <li>Date Posted: <span th:text="${job.datePosted}">2024-01-01</span></li>
+                    <li>Requirements: <span th:text="${job.jobRequirements}">Requirements</span></li>
+                    <li>Job ID: <span th:text="${job.jobPostingUUID}">UUID</span></li>
+                </ul>
+                <div id="bottom" style="justify-items: right; -webkit-align-content: center;">
+                    <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}">
+                        <button id="apply-button">Apply</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a th:href="@{/}">
+    <button class="action-btn secondary">Back to Home</button>
 </a>
-<a th:href="@{/recruiter/jobpostings}">
-<button>view your job Postings</button>
-</a>
-<table>
-    <thead>
-    <tr>
-        <th>Job Title</th>
-        <th>jobPostingId</th>
-        <th>Company Name</th>
-        <th>Recruiter Email</th>
-        <th>Date Posted</th>
-        <th>Description</th>
-        <th>Requirements</th>
-        <th>Type</th>
-        <th>apply</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop through all job postings -->
-    <tr th:each="job : ${jobPostings}">
-        <td th:text="${job.jobName}">Job Title</td>
-        <td th:text="${job.jobPostingUUID}">jobPostingId</td>
-        <td th:text="${job.companyName}">Company</td>
-        <td th:text="${job.recruiterEmail}">Recruiter Email</td>
-        <td th:text="${job.datePosted}">Date</td>
-        <td th:text="${job.jobDescription}">Description</td>
-        <td th:text="${job.jobRequirements}">Requirements</td>
-        <td th:text="${job.jobPostingType}">Type</td>
-        <td>
-            <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" class="btn btn-primary">
-                Add Application
-            </a>
-        </td>
-
-    </tr>
-    </tbody>
-</table>
-
-<a th:href="@{/}"><button>Back to Home</button></a>
 
 </body>
 </html>
