@@ -71,6 +71,7 @@
     <h2 class="form-title">Sign In</h2>
 
     <form th:action="@{/login}" th:object="${user}" method="post">
+        <div class="form-row">
         <div class="form-group">
             <input type="email"
                    class="form-input"
@@ -86,7 +87,7 @@
                    placeholder="Password"
                    required />
         </div>
-
+        </div>
         <button type="submit" class="form-submit">Sign In</button>
     </form>
 

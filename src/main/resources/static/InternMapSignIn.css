@@ -925,6 +925,7 @@ header {
     padding: 50px;
     flex-direction: column;
     align-items: center;
+
     gap: 40px;
     border-radius: 80px;
     background: #FCFCFC;
@@ -944,10 +945,16 @@ header {
     font-weight: 700;
 }
 
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
 /* Form Group */
 .form-group {
-    width: 100%;
-    margin-bottom: 20px;
+    flex: 1 1 calc(50% - 20px);   /* 2 per row */
 }
 
 .form-label {

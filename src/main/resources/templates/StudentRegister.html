@@ -2,40 +2,101 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>InternMap - Login</title>
+    <link rel="icon" type="image/png" th:href="@{/images/Logo Glass.png}">
+    <link rel="stylesheet" th:href="@{/InternMapSignIn.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
 
-<h2>Create an Account</h2>
+<header>
+    <div class="header-top">
+        <div class="header-brand">InternMap</div>
+        <nav class="header-nav">
+            <a th:href="@{/login}">
+                <button class="btn-header primary">login</button>
+            </a>
+        </nav>
+    </div>
+    <div class="header-hero">
+        <img class="logo" th:src="@{/images/Logo Glass.png}" alt="InternMap Logo">
+    </div>
+</header>
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
     <p th:text="${errorMessage}"></p></div>
-<form action="#" th:action="@{/student/register}" th:object="${user}" method="post">
+<body>
+<div class="form-container">
+    <h2 class="form-title">Student Register</h2>
+<form  th:action="@{/student/register}" th:object="${user}" method="post">
+    <div class="form-row">
+    <div class="form-group">
+        <input type="text"
+               class="form-input"
+               th:field="*{fname}"
+               placeholder="first name"
+               required />
+    </div>
+    <div class="form-group">
+        <input type="text"
+               class="form-input"
+               th:field="*{lname}"
+               placeholder="last name"
+               required />
+    </div>
+    <div class="form-group">
+        <input type="email"
+               class="form-input"
+               th:field="*{email}"
+               placeholder="Email"
+               required />
+    </div>
+    <div class="form-group">
+        <input type="password"
+               class="form-input"
+               th:field="*{plainPassword}"
+               placeholder="Password"
+               required />
+    </div>
+    <div class="form-group">
+        <input type="text"
+               class="form-input"
+               th:field="*{graduatingYear}"
+               placeholder="Graduating Year"
+               required />
+    </div>
 
-    <label>First Name:</label>
-    <input type="text" th:field="*{fname}" />
-
-    <label>Last Name:</label>
-    <input type="text" th:field="*{lname}" />
-
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" />
-
-    <label>Password:</label>
-    <input type="password" th:field="*{plainPassword}" />
-    <label>Graduating Year:</label>
-    <input type="text" th:field="*{graduatingYear}" />
-    <label>University:</label>
-    <input type="text" th:field="*{uniName}" />
-    <label>Your Major:</label>
-    <input type="text" th:field="*{studentMajor}" />
-    <label>Your Faculty:</label>
-    <input type="text" th:field="*{faculty}" />
-
-    <button type="submit">Register</button>
+    <div class="form-group">
+        <input type="text"
+               class="form-input"
+               th:field="*{uniName}"
+               placeholder="University"
+               required />
+    </div>
+    <div class="form-group">
+        <input type="text"
+               class="form-input"
+               th:field="*{studentMajor}"
+               placeholder="student major"
+               required />
+    </div>
+    <div class="form-group">
+        <input type="text"
+               class="form-input"
+               th:field="*{faculty}"
+               placeholder="faculty"
+               required />
+    </div>
+    </div>
+    <button type="submit" class="form-submit">Student Sign In</button>
 </form>
-
-<a th:href="@{/login}">Already have an account?</a>
+<p class="form-link">
+    Already have an account>
+    <a th:href="@{/login}">Sign up</a>
+</p>
+</div>
 
 </body>
 </html>
