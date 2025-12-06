@@ -16,7 +16,7 @@
     <p th:text="${errorMessage}"></p></div>
 <body>
 <header th:replace="~{fragments/header}"></header>
-<h2 class="form-title">sign up as a student</h2>
+<h2 class="form-title">Sign up</h2>
 <div class="form-container">
 <form  th:action="@{/student/register}" th:object="${user}" method="post">
     <div class="form-row">
@@ -78,7 +78,7 @@
                required />
     </div>
     </div>
-    <button type="submit" class="form-submit">Student Sign In</button>
+    <button type="submit" class="form-submit">Create Account</button>
 </form>
 <p class="form-link">
     Already have an account?

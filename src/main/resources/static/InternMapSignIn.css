@@ -914,29 +914,29 @@ body {
 
 /* Form Container */
 .form-container {
-    margin: 20px auto;
+    margin: 10px auto;
     display: flex;
     max-width: 800px;
+    max-height: 580px;
     width: 90%;
-    padding: 50px;
+    padding: 30px;
     flex-direction: column;
     align-items: center;
 
-    gap: 40px;
-    border-radius: 80px;
+    gap: 60px;
+    border-radius: 60px;
     background: #FCFCFC;
     box-shadow: 0 0 120px -6px rgba(0, 0, 0, 0.25);
 }
 
 /* Form Title */
 .form-title {
-    padding-bottom: 15px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     color: black;
-    font-family: Inter;
     font-size: 36px;
     font-weight: 700;
 }
@@ -944,7 +944,7 @@ body {
 .form-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     width: 100%;
 }
 
@@ -999,7 +999,9 @@ body {
 
 /* Form Submit Button */
 .form-submit {
-    margin: 20px auto;
+    margin-top: 35px;
+    margin-left: auto;
+    margin-right: auto;
     border: none;
     display: flex;
     width: auto;
@@ -1008,7 +1010,6 @@ body {
     padding: 9px 31px;
     justify-content: center;
     align-items: center;
-    gap: 14px;
     border-radius: 80px;
     background: #2391FF;
     color: #FFF;
@@ -1401,17 +1402,17 @@ footer {
     }
 
     .header-hero {
-        padding: 20px;
+        padding: 10px;
     }
 
     .logo {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
 
     .form-container {
         padding: 30px 20px;
-        width: 70%;
+        width: 100%;
     }
 
     .form-input,
