@@ -30,6 +30,9 @@
     <h2 class="form-title">Sign In</h2>
 
     <form th:action="@{/login}" th:object="${user}" method="post">
+        <div th:if="${errorMessage}"
+             style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+            <p th:text="${errorMessage}"></p></div>
         <div class="form-row">
         <div class="form-group">
             <input type="email"

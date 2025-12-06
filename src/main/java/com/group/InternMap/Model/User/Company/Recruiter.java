@@ -56,8 +56,9 @@ public class Recruiter extends User implements Serializable {
     public String toString() {
         return "Recruiter{" +
                 "id=" + getUserID() +
-                ", companyIds=" + (companies != null ?
+                ", companyIds=" + (companies != null && !companies.isEmpty() ?
                 companies.stream()
+                        .filter(company -> company != null) // Filter out any null companies
                         .map(Company::getCompanyID)
                         .collect(Collectors.toList()) :
                 "[]") +
