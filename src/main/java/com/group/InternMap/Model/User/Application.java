@@ -96,17 +96,4 @@ public class Application implements Serializable,Comparable<Application> {
         return 0;
     }
 
-
-    //
-//    @Override
-//    public String toString() {
-//        return "Application{" +
-//                "applicationID=" + applicationID +
-//                ", fName='" + fName + '\'' +
-//                ", lName='" + lName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", phoneNumber='" + phoneNumber + '\'' +
-//                ", cv=" + cv +
-//                '}';
-//    }
 }

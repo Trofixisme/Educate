@@ -12,20 +12,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-//@SuppressWarnings({"all"})
-//@Service
 public class RoadmapProgression implements Serializable {
-//todo: conneect it if needed with anything
 
     private UUID uuid;
-
     private double percentage;
     private Date lastModified = Date.from(Instant.now());
-
     private Student associatedStudent;
     private Roadmap roadmap;
     private ArrayList<UserSkillStatus> userSkillStatuses = new ArrayList<>();
-
     private double currentCompletionPercentage;
     private int numberOfCompleteModules;
     private int numberOfIncompleteModules;
@@ -94,36 +88,4 @@ public class RoadmapProgression implements Serializable {
         return lastModified;
     }
 
-//    private class RoadmapTest {
-//        public static void main(String[] args) {
-//            // Create a test roadmap with mock ID
-//            RoadmapModule R1 = new RoadmapModule("front end", "learn front end");
-//            Roadmap testRoadmap = new Roadmap("Java Fundamentals", R1);
-//            RoadmapProgression progression = new RoadmapProgression(testRoadmap);
-//
-//            // Create test skills with mock data
-//            Skill skill1 = new Skill("java basics");
-//            Skill skill2 = new Skill("oop concepts");
-////            StudentMajor m1 = new StudentMajor( "Computer Science");
-//            StudentDepartment sp = new StudentDepartment( "cs");
-//            // Create student with mock data
-//            //PostingType.FreeLanceProject
-////            Student student = new Student("John ", "Doe", "john@example.com", "....", UserRole.STUDENT, 2026, m1, sp);
-//
-//            // Add user skill statuses
-////            UserSkillStatus uss1 = new UserSkillStatus(skill1, student, Status.DONE);
-////            UserSkillStatus uss2 = new UserSkillStatus(skill2, student, Status.IN_PROGRESS);
-////
-////            progression.addUserSkillStatus(uss1);
-////            progression.addUserSkillStatus(uss2);
-//
-//            // Print results
-//            System.out.println("=== Roadmap Progression Test ===");
-//            System.out.println("Total Skills: " + (progression.getNumberOfCompleteModules() + progression.getNumberOfIncompleteModules()));
-//            System.out.println("Complete: " + progression.getNumberOfCompleteModules());
-//            System.out.println("Incomplete: " + progression.getNumberOfIncompleteModules());
-//            System.out.println("Completion %: " + String.format("%.2f", progression.getPercentage()) + "%");
-//            System.out.println("Last Updated: " + progression.getLastModified());
-//        }
-//    }
 }

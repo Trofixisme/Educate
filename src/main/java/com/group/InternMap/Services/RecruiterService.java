@@ -18,30 +18,15 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
 
 @Service
 public class RecruiterService extends UserService {
-    //todo:need to create job postings
-    //todo:need to view applications
-    //todo:need to search for applications
-    //todo:need to filter applications
-    //todo:add company
 
     private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
     private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, applicationPath);
-
     private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
     private final ApplicationEventPublisher eventPublisher;
 
     public RecruiterService(ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
-//    public void addRecruiterToCompany(Recruiter recruiter, Company company) {
-//        // Main business logic (e.g., save recruiter to DB)
-//        // recruiterRepository.save(recruiter);
-//
-//        // Publish the event to notify other components
-//        eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter, company));
-//    }
-//}
-
     public Recruiter findRecruiterById(UUID recruiterId) {
         if (recruiterId == null ) {
             throw new IllegalArgumentException("recruiterId must be provided");
@@ -83,19 +68,10 @@ public class RecruiterService extends UserService {
 
         Recruiter recruiter = findRecruiterById(recruiterId);
         Company company = CompanyService.findByName(companyId);
-//        if (!allCompanies.contains(compan
-//            allCompanies.add(company);
-//        }
+
         recruiter.addCompany(company);
         eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID().toString()));
     }
-
-//    public void checkCompany(Company company) throws Exception {
-//        if (allCompanies.contains(company)) {
-//         recruiter.addCompany(company);
-//        }
-//        allCompanies.add(company);
-//    }
 
     public List<Company> viewAllCompanies() throws Exception {
         return companyRepo.findAll();

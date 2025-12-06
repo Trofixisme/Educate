@@ -38,13 +38,13 @@ public class HomeController {
     @GetMapping("/user/home")
     public String showHomePage(Model model, ArrayList<Roadmap> roadmaps, HttpSession session) {
         System.out.println("home page accessed, with session ");
-        // 1. Retrieve the User object from the session
+        // Retrieve the User object from the session
         User user = (User) session.getAttribute("loggedInUser");
         // 2. If no user is found in the session, redirect to the login page
         if (user == null) {
             return "redirect:/login";
         }
-        // 3. Pass the user object to the Thymeleaf model for display
+        //  Pass the user object to the Thymeleaf model for display
 //        model.addAttribute("user", user);
         model.addAttribute("roadmaps", allRoadmaps);
         return "index";
@@ -90,8 +90,6 @@ public class HomeController {
       }
 
     }
-
-
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {

@@ -14,15 +14,7 @@ import java.util.List;
 
 @Service
 public class AdminService extends UserService implements FilePaths {
-    //todo:view all users
-    //todo:delete users
-    //todo:create roadmaps
-    //todo:delete roadmaps
-    //todo:update roadmaps
-    //todo:view all job postings
-    //todo:delete job posting
-    //I need a switch case to delete to determine which user is to be deleted
-    //View all users
+
     public List<User> viewAllUsers() throws Exception {
         return RepositoryAccessors.allUsers;
     }

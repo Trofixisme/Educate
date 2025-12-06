@@ -17,8 +17,6 @@ public class RoadmapModule implements Serializable {
 
     private final ArrayList<Skill> skills = new ArrayList<>();
 
-    //TODO: add two constructors for the repositories
-
     public RoadmapModule(String name, String description) {
         ID = UUID.randomUUID();
         this.name = name;

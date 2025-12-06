@@ -84,8 +84,6 @@ public class JobPosting implements Serializable {
         return jobName;
     }
 
-
-
     public PostingType getJobPostingType() {
         return jobPostingType;
     }
@@ -134,8 +132,6 @@ public class JobPosting implements Serializable {
     public void deleteApplication(Application application) {
         this.application.remove(application);
     }
-
-
 
     @Override
     public String toString() {

@@ -13,11 +13,6 @@ import java.util.List;
 //Ziad, Shimaa follow this structure for the rest of services
 @Service
 public class UserService implements FilePaths {
-    //todo:login, update: done!!
-    //todo:register (make sure that user doesn't already exist), update: done!!
-    //todo:view profile, done but review and test ziad. Done
-    //todo:view roadmaps even if not signed in, just won't be able to track progress, done!
-
     protected final BaseRepository<User> repo = new BaseRepository<>(User.class, userPath);
     protected final BaseRepository<Roadmap> RoadmapRepo = new BaseRepository<>(Roadmap.class, roadmapPath);
 
@@ -86,19 +81,6 @@ public class UserService implements FilePaths {
         return RoadmapRepo.findAll();
     }
 
-    private static final class testService {
-
-        static void main () throws Exception {
-            UserService service = new UserService();
-
-            Student u1 = new Student("Ziad", "Ali", "ziad2@example.com", "password123ashdashdoi", UserRole.STUDENT, 2024, "Cairo University", "Computer Science", "FCAI");
-//            service.register(u1);
-            System.out.println(service.repo.findAll());
-            System.out.println(service.searchByEmail("ziad@example.com"));
-            System.out.println(service.searchByEmail("ziad2@example.com"));
-
-        }
-    }
 }
 
 

@@ -17,13 +17,6 @@ import static com.group.InternMap.Services.FilePaths.userPath;
 public class JobPostingService {
 
     private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
-    //find by company name
-//    public List<JobPosting> findByCompanyName(String companyName) throws Exception {
-//        return jobRepo.search( jobPosting -> jobPosting.getCompanyName().equalsIgnoreCase(companyName));
-//    }
-//    public List<JobPosting> findJobPostingsByRecruiterEmail(String email) throws Exception {
-//        return jobRepo.search(job -> job.getRecruiterEmail().equalsIgnoreCase(email));
-//    }
     public List<JobPosting> searchJobPostings(String searchQuery) throws Exception {
         return jobRepo.search(job -> {
             boolean matches = false;
@@ -47,15 +40,7 @@ public class JobPostingService {
                  .filter(j -> j.getJobPostingUUID().equals(jopPostingId))
                  .findFirst().orElse(null);
     }
-//    public List<JobPosting> getJobPostingsByRecruiterId(UUID recruiterId) throws Exception {
-//        if(recruiterId == null){
-//            new Exception("recruiterId is null");
-//        }
-//        return allJobPostings.stream()
-//                .filter(jobPosting -> jobPosting.getRecruiter().getUserID().equals(recruiterId))
-//                        .collect(Collectors.toList());
-//
-//    }
+
 public List<JobPosting> getJobPostingsByRecruiterId(UUID recruiterId) throws Exception {
 
     System.out.println("Looking for jobs for recruiter: " + recruiterId);

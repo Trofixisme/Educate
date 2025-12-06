@@ -62,13 +62,4 @@ public final class Roadmap implements Serializable {
                 roadmapModules.toString()  + "|";
     }
 
-    //MARK: Testing
-    private static class RoadmapTest {
-
-        static void main(String[] args) {
-            Roadmap roadmap = new Roadmap("Hello");
-            roadmap.addModules(new RoadmapModule("Hello", "Hello"), new RoadmapModule("Henlo", "Benlo"), new RoadmapModule("Macarana", "Genesis"));
-            System.out.println(roadmap);
-        }
-    }
 }

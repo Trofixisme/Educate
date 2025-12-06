@@ -35,7 +35,6 @@ public class Company implements Serializable {
         this.companyID = UUID.fromString(companyUUID); // assign after
     }
 
-
     public String getLocation() {
         return getLocation();
     }
@@ -68,7 +67,6 @@ public class Company implements Serializable {
             if (websiteURL == null || websiteURL.isBlank()) return;
             this.websiteURL = websiteURL;
     }
-
 
     public UUID getCompanyID() {
         return companyID;

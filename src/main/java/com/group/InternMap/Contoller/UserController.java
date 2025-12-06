@@ -30,11 +30,6 @@ public class UserController {
         this.companyService = companyService;
     }
 
-//    @GetMapping("/error")
-//    public String error() {
-//        return "error";
-//    }
-
     @GetMapping("/student/register")
     public String showRegisterStudent(Model model) {
         model.addAttribute("user", new Student());
@@ -47,7 +42,7 @@ public class UserController {
             userService.register(user);
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
-            // 2. Return the view name (DO NOT REDIRECT)
+            // Return the view name (DO NOT REDIRECT)
             return "StudentRegister";
         }
         // Only redirect on SUCCESS
@@ -68,12 +63,9 @@ public class UserController {
         try {
             Company company = recruiterRegistrationDTO.getCompany();
             Recruiter user = recruiterRegistrationDTO.getUser();
-//            companyService.findByName(company.getName());
             System.out.println(company);
-            // Company returnedCompany = CompanyService.findByName(company.getName());
             System.out.println(company);
             if (company!= null) {
-//                user.addCompany(returnedCompany);
                 userService.register(user);
                 recruiterService.addCompanyToRecruiter(user.getUserID(), company.getName());
                 System.out.println(allCompanies);
@@ -121,7 +113,7 @@ public class UserController {
             userService.register(user);
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
-            // 2. Return the view name (DO NOT REDIRECT)
+            // Return the view name (DO NOT REDIRECT)
             return "adminRegister";
         }
         // Only redirect on SUCCESS
@@ -137,20 +129,13 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute("user") User user, Model model, HttpSession session) {
         try {
-            // 1. Service finds user by email AND verifies the password.
-            //    This method should throw an exception on failure (e.g., "incorrect password").
-            //    If successful, it returns the fully validated User object.
             User authenticatedUser = userService.login(user.getEmail(), user.getPlainPassword());
-
-            // 2. ONLY if no exception was thrown (authentication succeeded), save the object to the session.
             session.setAttribute("loggedInUser", authenticatedUser);
         } catch (Exception e) {
-            // 3. On failure, add the error message and return the login view.
             model.addAttribute("errorMessage", e.getMessage());
             return "login";
         }
         System.out.println("user logged in");
-        // 4. Redirect only on guaranteed SUCCESS.
         return "redirect:/";
     }
 }

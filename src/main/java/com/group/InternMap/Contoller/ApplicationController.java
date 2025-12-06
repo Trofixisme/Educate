@@ -40,9 +40,10 @@ public class ApplicationController {
         } else {
             model.addAttribute("cv", new CV());
         }
-        // Fixed: Return the form view
+
         return "CV";
     }
+
     @PostMapping("/cv/save")
     public String saveCV(@ModelAttribute("cv") CV cv, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedInUser");
@@ -71,14 +72,10 @@ public class ApplicationController {
                 cv.setStudent(student);
                 student.setCv(cv);
 //                allUsers.add(student);
-
             }
         }
-
-
         // Update session
         session.setAttribute("loggedInUser", student);
-
         return "redirect:/profile";
     }
 

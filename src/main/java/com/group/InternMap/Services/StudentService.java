@@ -17,20 +17,6 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 
 @Service
 public class StudentService extends UserService implements FilePaths {
-    //todo:need to create an application
-    //todo:need to view job postings
-    //todo:need to search for job posting ,, soo filtering by name?
-    //todo:need to filter
-    //todo:updated skill status
-    //todo:view roadmap progression
-
-
-//
-//    public void submitApplication(Student student,JobPosting jobPosting,Application application) throws Exception {
-//       allApplications.add(application);
-//       jobPosting.recieveApplication(application);
-//    }
-
     public void deleteApplication(Student student, JobPosting jobPosting,Application application) throws Exception {
         if(allApplications.contains(application)){
             allApplications.remove(application);

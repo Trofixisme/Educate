@@ -66,9 +66,6 @@ public class Student extends User {
         this.faculty = faculty;
     }
 
-//    public Application submitApplication(JobPosting jobPosting) {
-//        return new Application(this, jobPosting);
-//    }
     public void createCV() {
         new CV();
     }

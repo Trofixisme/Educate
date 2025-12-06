@@ -20,13 +20,6 @@ public class RoadmapController {
 
     private RoadmapService roadmapService = new RoadmapService();
 
-//    //Display all roadmaps
-//    @GetMapping
-//    public String listRoadmaps(Model model) {
-//        model.addAttribute("roadmaps", allRoadmaps);
-//        return "roadmap/list";
-//    }
-
     //Display a specific roadmap with modules and skills
     @GetMapping("/{id}")
     public String viewRoadmap(@PathVariable UUID id, Model model) {
@@ -43,33 +36,7 @@ public class RoadmapController {
             model.addAttribute(e);
             return "redirect:/roadmaps";
         }
-
-
-
-        // Calculate statistics
-//        int totalSkills = roadmap.getAllModules().stream()
-//                .mapToInt(module -> module.getAllSkills() != null ? module.getAllSkills().size() : 0)
-//                .sum();
-
-//            int completedSkills = roadmap.getAllModules().stream()
-//                    .flatMap(module -> module.getAllSkills() != null ? module.getAllSkills().stream() : null)
-//                    .filter(::isCompleted)
-//                    .mapToInt(skill -> 1)
-//                    .sum();
-//
-//            double progress = totalSkills > 0 ? (completedSkills * 100.0 / totalSkills) : 0;
-
     }
-
-    /**
-     * Toggle skill completion status (form submission)
-     */
-//        @PostMapping("/skills/{skillId}/toggle")
-//        public String toggleSkillCompletion(@PathVariable Long skillId,
-//                                            @RequestParam Long roadmapId) {
-//            skillService.toggleCompletion(skillId);
-//            return "redirect:/roadmaps/" + roadmapId;
-//        }
 
     //Display form to create new roadmap
     @GetMapping("/new")
@@ -98,23 +65,6 @@ public class RoadmapController {
 
         return "redirect:/roadmaps/" + roadmap.getRoadmapID();
     }
-
-//    @PostMapping
-//    public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto) {
-//        Roadmap roadmap = dto.toRoadmap();
-//        // Save
-//        allRoadmaps.add(roadmap);
-//        // Save modules and skills if needed
-//        for (RoadmapModule module : roadmap.getAllModules()) {
-//            allmodules.add(module);
-//            for (Skill skill : module.getAllSkills()) {
-//                allskills.add(skill);
-//            }
-//        }
-//        return "redirect:/roadmaps/" + roadmap.getRoadmapID();
-//    }
-// PUT THIS AFTER /new
-
 
     //Display form to edit roadmap
     @GetMapping("/{id}/edit")

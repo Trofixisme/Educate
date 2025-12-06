@@ -31,12 +31,6 @@ public class JobPostingController {
    //JobPostings
     @GetMapping("/JobPostings")
     public String getAllJobPostings(Model model, ArrayList<JobPosting> jobposting, HttpSession session) {
-        // Optional: check if user is logged in
-//        if()
-//        Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
-//        jobposting.setRecruiter(user); // link the job posting to the recruiter
-//        RepositoryAccessors.allJobPostings.add(jobposting);
-
         try {
             // Fetch all job postings from the service
             jobposting = (ArrayList<JobPosting>) jobPostingService.getAllJobPostings();
@@ -72,7 +66,6 @@ public class JobPostingController {
             return "redirect:/login";
         }
         Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
-//        jobposting.setRecruiterEmail(user.getEmail());
         try { // link posting to recruiter
             allJobPostings.add(jobposting);
             jobposting.setRecruiter(user);
@@ -100,35 +93,7 @@ public class JobPostingController {
         }
         return "JobPosting"; // Thymeleaf template
     }
-//    @GetMapping("/applications")
-//    public String createNewApplication( Application application, Model model, HttpSession session) {
-//        if (session.getAttribute("loggedInUser") == null) {
-//            return "redirect:/login";
-//        }
-//        model.addAttribute("application", new Application());
-//        return "Application";
-//    }
-//    @PostMapping("/application/save")
-//    public String saveApplication(@ModelAttribute Application application,JobPosting jobPosting, Model model, HttpSession session) {
-//        if (session.getAttribute("loggedInUser") == null) {
-//            return "redirect:/login";
-//        }
-//
-//        try {
-//            if (application != null) {
-//                model.addAttribute("success", "you have applied successfully");
-//                model.addAttribute("application", application);
-//                jobPosting.setApplication(application);
-//                return "redirect:/jobPostings";
-//            }
-//        }
-//        catch (Exception e) {
-//            model.addAttribute("error", "Error saving application: " + e.getMessage());
-//            return "JobPostingForm";
-//        }
-//        return "JobPosting";
-//
-//    }
+
 @GetMapping("/recruiter/jobpostings")
 public String getRecruiterJobPostings(Model model, HttpSession session) throws Exception {
 
@@ -139,9 +104,7 @@ public String getRecruiterJobPostings(Model model, HttpSession session) throws E
     List<JobPosting> myJobs = jobPostingService.getJobPostingsByRecruiterId(recruiter.getUserID());
     model.addAttribute("myJobs", myJobs);
     return "recruiter-jobpostings";
-}
-
-
+    }
 
 @GetMapping("/JobPostings/{jobId}/applications")
 public String viewApplications(@PathVariable UUID jobId,

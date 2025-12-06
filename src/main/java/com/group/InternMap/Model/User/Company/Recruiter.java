@@ -33,8 +33,6 @@ public class Recruiter extends User implements Serializable {
         this.title = title;
     }
 
-
-
     public void addCompany(Company company) {
         companies.add(company);
     }

@@ -161,41 +161,7 @@
 
     </div>
 </div>
-<!--<table>-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>Job Title</th>-->
-<!--        <th>jobPostingId</th>-->
-<!--        <th>Company Name</th>-->
-<!--        <th>Recruiter Email</th>-->
-<!--        <th>Date Posted</th>-->
-<!--        <th>Description</th>-->
-<!--        <th>Requirements</th>-->
-<!--        <th>Type</th>-->
-<!--        <th>apply</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    &lt;!&ndash; Loop through all job postings &ndash;&gt;-->
-<!--    <tr th:each="job : ${jobPostings}">-->
-<!--        <td th:text="${job.jobName}">Job Title</td>-->
-<!--        <td th:text="${job.jobPostingUUID}">jobPostingId</td>-->
-<!--        <td th:text="${job.companyName}">Company</td>-->
-<!--        <td th:text="${job.recruiterEmail}">Recruiter Email</td>-->
-<!--        <td th:text="${job.datePosted}">Date</td>-->
-<!--        <td th:text="${job.jobDescription}">Description</td>-->
-<!--        <td th:text="${job.jobRequirements}">Requirements</td>-->
-<!--        <td th:text="${job.jobPostingType}">Type</td>-->
-<!--        <td>-->
-<!--            <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" class="btn btn-primary">-->
-<!--                Add Application-->
-<!--            </a>-->
-<!--        </td>-->
 
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
-<!-- Job Cards Grid -->
 <div>
     <div class="grid" id="box">
         <div class="box" th:each="job : ${jobPostings}">
