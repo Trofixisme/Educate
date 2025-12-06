@@ -21,6 +21,7 @@ public class Application implements Serializable,Comparable<Application> {
 
     public Application() {
         this.applicationID = UUID.randomUUID();
+        this.applicationDate = new Date(); // Fix
     }
 
     public Application(String fName, String lName, String email, String phoneNumber,CV cv) {

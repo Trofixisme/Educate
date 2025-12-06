@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>InternMap - Login</title>
@@ -13,7 +13,6 @@
 
 <header>
     <div class="header-top">
-        <div class="header-brand">InternMap</div>
         <nav class="header-nav">
             <a th:href="@{/signup-choice}">
                 <button class="btn-header primary">Sign Up</button>
@@ -31,23 +30,27 @@
 
     <form th:action="@{/login}" th:object="${user}" method="post">
         <div th:if="${errorMessage}"
-             style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+             style="color:red;border:0 solid red;padding:2px;margin-bottom:5px;">
             <p th:text="${errorMessage}"></p></div>
         <div class="form-row">
         <div class="form-group">
-            <input type="email"
-                   class="form-input"
-                   th:field="*{email}"
-                   placeholder="Email"
-                   required />
+            <label>
+                <input type="email"
+                       class="form-input"
+                       th:field="*{email}"
+                       placeholder="Email"
+                       required />
+            </label>
         </div>
 
         <div class="form-group">
-            <input type="password"
-                   class="form-input"
-                   th:field="*{plainPassword}"
-                   placeholder="Password"
-                   required />
+            <label>
+                <input type="password"
+                       class="form-input"
+                       th:field="*{plainPassword}"
+                       placeholder="Password"
+                       required />
+            </label>
         </div>
         </div>
         <button type="submit" class="form-submit">Sign In</button>

@@ -4,9 +4,12 @@ package com.group.InternMap.Model.User;
 
 import com.group.InternMap.Model.Job.JobPosting;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class Student extends User {
-    private int graduatingYear;
+    private int graduatingYear = Calendar.getInstance().get(Calendar.YEAR) + 1;
     private String uniName;
     private String studentMajor;
     private String faculty;
