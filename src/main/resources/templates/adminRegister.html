@@ -74,10 +74,10 @@ footer{
     <form th:action="@{/admin/register}" th:object="${admin}" method="post">
 
         <div class="grid">
-            <input class="grid-item" type="text" placeholder="First Name" th:field="*{firstName}">
-            <input class="grid-item" type="text" placeholder="Last Name" th:field="*{lastName}">
+            <input class="grid-item" type="text" placeholder="First Name" th:field="*{fname}">
+            <input class="grid-item" type="text" placeholder="Last Name" th:field="*{lname}">
             <input class="grid-item" type="email" placeholder="Email" th:field="*{email}">
-            <input class="grid-item" type="password" placeholder="Password" th:field="*{password}">
+            <input class="grid-item" type="password" placeholder="Password" th:field="*{passwordPlain}">
         </div>
 
         <input id="F" type="submit" value="Create Account">
