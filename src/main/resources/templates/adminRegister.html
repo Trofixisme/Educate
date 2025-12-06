@@ -1,100 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin SignUp</title>
-    <link rel="icon" type="image/png" href="/images/Logo Glass Large.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/InternSignUp.css">
+    <meta charset="UTF-8">
+    <title>InternMap - Admin Sign Up</title>
+    <link rel="icon" type="image/png" th:href="@{/images/Logo Glass.png}">
+    <link rel="stylesheet" th:href="@{/InternMapSignIn.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, intitial-scale=1.0">
-
-    <style>
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding-bottom: 20px;
-        }
-       .grid-item {
-    width: 350px;
-    height: 50px;
-    padding: 0 20px;     
-    border-radius: 35px;
-    border: none;
-    background: #FFF;
-    box-shadow: 0 1px 40px rgba(198, 198, 198, 0.1);
-    font-family: Inter;
-    font-size: 20px;   
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.60);
-}
-
-       #F {
-    border: none;
-    border-radius: 80px;
-    background: #2391FF;
-    width: 275px;
-    height: 67px;
-    justify-self: center;
-    color: white;
-    font-family: Inter;
-    font-size: 24px;   
-    font-weight: 700;
-    display: flex;     
-    align-items: center;
-    justify-content: center;
-}
-footer{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<header>
-    <a th:href="@{/login}">
-    <button id="b1">Sign In</button>
-</a>
-    <img id="logo" src="Logo Glass.png" alt="Logo">
-</header>
-
 <body>
+<header th:replace="~{fragments/header}"></header>
 
-<div id="p1">Admin Sign Up</div>
-
-<div id="p2" class="box">
-
-    <div th:if="${error}" id="p3" style="color:red; font-size:22px;">
-        <span th:text="${error}"></span>
-    </div>
-
-    <form th:action="@{/admin/register}" th:object="${admin}" method="post">
-
-        <div class="grid">
-            <input class="grid-item" type="text" placeholder="First Name" th:field="*{fname}">
-            <input class="grid-item" type="text" placeholder="Last Name" th:field="*{lname}">
-            <input class="grid-item" type="email" placeholder="Email" th:field="*{email}">
-            <input class="grid-item" type="password" placeholder="Password" th:field="*{plainPassword}">
-        </div>
-
-        <input id="F" type="submit" value="Create Account">
-
-    </form>
-
-    <div id="p4">
-        Already have an account?
-        <a th:href="@{/login}">Sign In</a>
-    </div>
-
+<!-- Error message -->
+<div th:if="${errorMessage}"
+     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+    <p th:text="${errorMessage}"></p>
 </div>
 
-<footer>
-    <div id="p5">InternMap</div>
-    <div id="p6"><a href="/" style="text-decoration:none;">Home</a></div>
-</footer>
+<h2 class="form-title">Admin Sign Up</h2>
 
+<div class="form-container">
+    <form th:action="@{/admin/register}"
+          th:object="${user}"
+          method="post">
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text"
+                       class="form-input"
+                       th:field="*{fname}"
+                       placeholder="First name"
+                       required />
+            </div>
+            <div class="form-group">
+                <input type="text"
+                       class="form-input"
+                       th:field="*{lname}"
+                       placeholder="Last name"
+                       required />
+            </div>
+            <div class="form-group">
+                <input type="email"
+                       class="form-input"
+                       th:field="*{email}"
+                       placeholder="Email"
+                       required />
+            </div>
+            <div class="form-group">
+                <input type="password"
+                       class="form-input"
+                       th:field="*{plainPassword}"
+                       placeholder="Password"
+                       required />
+            </div>
+        </div>
+        <button type="submit" class="form-submit">Create Account</button>
+    </form>
+
+    <p class="form-link">
+        Already have an account?
+        <a th:href="@{/login}">Sign In</a>
+    </p>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
 </body>
 </html>

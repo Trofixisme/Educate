@@ -3,8 +3,11 @@ package com.group.InternMap.Contoller;
 import com.group.InternMap.Dto.RoadmapModuleSkill;
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;
+import com.group.InternMap.Model.User.Admin;
+import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Services.RoadmapService;
 import com.group.InternMap.Model.Roadmap.Skill.Skill;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,18 +43,24 @@ public class RoadmapController {
 
     //Display form to create new roadmap
     @GetMapping("/new")
-    public String newRoadmap(Model model) {
-        RoadmapModuleSkill dto = new RoadmapModuleSkill();
-        // Initialize with one empty module and skill
-        RoadmapModuleSkill.ModuleData module = new RoadmapModuleSkill.ModuleData();
-        RoadmapModuleSkill.SkillData skill = new RoadmapModuleSkill.SkillData();
-        module.getSkills().add(skill);
-        dto.getModules().add(module);
-        model.addAttribute("roadmaps", dto);
-        return "roadmap/form";
+    public String newRoadmap(Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {
+            return "redirect:/login";
+        }
+        System.out.println(admin);
+            RoadmapModuleSkill dto = new RoadmapModuleSkill();
+            RoadmapModuleSkill.ModuleData module = new RoadmapModuleSkill.ModuleData();
+            RoadmapModuleSkill.SkillData skill = new RoadmapModuleSkill.SkillData();
+            module.getSkills().add(skill);
+            dto.getModules().add(module);
+            model.addAttribute("roadmaps", dto);
+            return "roadmap/form";
     }
     @PostMapping("/new")
-    public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto) {
+    public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {
+            return "redirect:/login";
+        }
         Roadmap roadmap = dto.toRoadmap();
 
         allRoadmaps.add(roadmap);

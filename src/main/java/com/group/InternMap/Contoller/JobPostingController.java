@@ -96,7 +96,6 @@ public class JobPostingController {
 
 @GetMapping("/recruiter/jobpostings")
 public String getRecruiterJobPostings(Model model, HttpSession session) throws Exception {
-
     Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
     if (recruiter == null) {
         return "redirect:/login";
