@@ -1,26 +1,342 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+
+<!--    <link rel="icon" type="image/png" th:href="@{/images/Logo Glass.png}">-->
+<!--    <link rel="stylesheet" th:href="@{/jobPosting.css}">-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"-->
+<!--          rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
+<!--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+<!--    <style>-->
+<!--        /* Search and Action Buttons Styling */-->
+<!--        .search-action-container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 40px auto;-->
+<!--            padding: 0 20px;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            gap: 20px;-->
+<!--        }-->
+
+<!--        .search-form {-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            width: 100%;-->
+<!--            max-width: 600px;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .search-input {-->
+<!--            flex: 1;-->
+<!--            padding: 12px 20px;-->
+<!--            border-radius: 34px;-->
+<!--            border: 2px solid rgba(35, 145, 255, 0.3);-->
+<!--            background: rgba(248, 248, 250, 0.8);-->
+<!--            font-size: 16px;-->
+<!--            font-weight: 500;-->
+<!--            outline: none;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .search-input:focus {-->
+<!--            border-color: #2391FF;-->
+<!--            background: #fff;-->
+<!--        }-->
+
+<!--        .search-button {-->
+<!--            padding: 12px 30px;-->
+<!--            border-radius: 34px;-->
+<!--            border: none;-->
+<!--            background: #2391FF;-->
+<!--            color: #FFF;-->
+<!--            font-size: 16px;-->
+<!--            font-weight: 700;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .search-button:hover {-->
+<!--            background: #1c7ae6;-->
+<!--            transform: translateY(-2px);-->
+<!--        }-->
+
+<!--        .action-buttons {-->
+<!--            display: flex;-->
+<!--            gap: 15px;-->
+<!--            flex-wrap: wrap;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .action-btn {-->
+<!--            padding: 10px 25px;-->
+<!--            border-radius: 34px;-->
+<!--            border: 2px solid #2391FF;-->
+<!--            background: #2391FF;-->
+<!--            color: #FFF;-->
+<!--            font-size: 16px;-->
+<!--            font-weight: 700;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .action-btn:hover {-->
+<!--            background: #1c7ae6;-->
+<!--            border-color: #1c7ae6;-->
+<!--            transform: translateY(-2px);-->
+<!--        }-->
+
+<!--        .action-btn.secondary {-->
+<!--            background: transparent;-->
+<!--            color: #2391FF;-->
+<!--        }-->
+
+<!--        .action-btn.secondary:hover {-->
+<!--            background: rgba(35, 145, 255, 0.1);-->
+<!--        }-->
+
+<!--        @media (max-width: 768px) {-->
+<!--            .search-form {-->
+<!--                flex-direction: column;-->
+<!--                width: 100%;-->
+<!--            }-->
+
+<!--            .search-input {-->
+<!--                width: 100%;-->
+<!--            }-->
+
+<!--            .search-button {-->
+<!--                width: 100%;-->
+<!--            }-->
+
+<!--            .action-buttons {-->
+<!--                flex-direction: column;-->
+<!--                width: 100%;-->
+<!--            }-->
+
+<!--            .action-btn {-->
+<!--                width: 100%;-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Custom Styling for Application Cards */-->
+<!--        .application-details-header {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto 20px auto;-->
+<!--            padding: 20px;-->
+<!--            background-color: #f4f4f4;-->
+<!--            border-left: 5px solid #2391FF;-->
+<!--            border-radius: 8px;-->
+<!--        }-->
+
+<!--        .applications-grid {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 20px auto;-->
+<!--            display: grid;-->
+<!--            gap: 20px;-->
+<!--            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Adjusted card size */-->
+<!--            padding: 0 20px;-->
+<!--        }-->
+
+<!--        .application-card {-->
+<!--            background: #fff;-->
+<!--            padding: 25px;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);-->
+<!--            border-top: 5px solid #2391FF;-->
+<!--        }-->
+
+<!--        .applicant-title {-->
+<!--            font-size: 1.4em;-->
+<!--            font-weight: 700;-->
+<!--            color: #333;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        /*.status-badge {*/-->
+<!--        /*    display: inline-block;*/-->
+<!--        /*    padding: 5px 10px;*/-->
+<!--        /*    border-radius: 5px;*/-->
+<!--        /*    font-weight: 600;*/-->
+<!--        /*    color: white;*/-->
+<!--        /*    background-color: #28a745; !* Example: Approved status *!*/-->
+<!--        /*    !* Add specific classes for other statuses (Pending, Rejected) if needed *!*/-->
+<!--        /*}*/-->
+
+<!--        .application-info ul {-->
+<!--            list-style: none;-->
+<!--            padding: 0;-->
+<!--            margin: 10px 0 0 0;-->
+<!--        }-->
+
+<!--        .application-info li {-->
+<!--            margin-bottom: 8px;-->
+<!--            font-size: 0.95em;-->
+<!--        }-->
+
+<!--        .application-info li strong {-->
+<!--            font-weight: 600;-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        .action-link {-->
+<!--            display: block;-->
+<!--            margin-top: 15px;-->
+<!--            text-align: right;-->
+<!--        }-->
+
+<!--        .empty-state {-->
+<!--            grid-column: 1 / -1;-->
+<!--            text-align: center;-->
+<!--            padding: 50px;-->
+<!--            border: 2px dashed #ccc;-->
+<!--            border-radius: 8px;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--    </style>-->
+<!--    <title></title>-->
+<!--</head>-->
+
+<!--<header>-->
+<!--    <div id="h1">-->
+<!--        <div id="T1" class="box-title">-->
+<!--            InternMap-->
+<!--        </div>-->
+<!--        <div id="s1" class="box-sign-buttons">-->
+<!--            <button id="hb1"> Sign in</button>-->
+<!--            <button id="hb2"> Sign up</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div id="l1">-->
+<!--        <img id="logo" th:src="@{/images/Logo Glass.png}" alt="Logo">-->
+<!--        <span id="p1">InternMap</span>-->
+<!--        <span id="p2">Welcome to the platform that sets your future for you</span>-->
+<!--    </div>-->
+<!--</header>-->
+<!--<body>-->
+
+<!--<div class="search-action-container">-->
+<!--    <h1 th:text="'Applications for: ' + ${jobPosting.jobName}">Applications List</h1>-->
+
+<!--    <form th:action="@{/JobPostings/{id}/applications/search(id=${jobPosting.jobPostingUUID})}" method="get" class="search-form">-->
+<!--        <input type="text" name="q" placeholder="Search applications by name or status" class="search-input"/>-->
+<!--        <button type="submit" class="search-button">Search</button>-->
+<!--    </form>-->
+
+<!--    <div class="action-buttons">-->
+<!--        <a th:href="@{/JobPostings}">-->
+<!--            <button class="action-btn secondary">← Back to All Job Postings</button>-->
+<!--        </a>-->
+<!--        <a th:href="@{/JobPostings/{id}(id=${jobPosting.jobPostingUUID})}">-->
+<!--            <button class="action-btn secondary">View Job Posting Details</button>-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="application-details-header">-->
+<!--    <h3>Job: <span th:text="${jobPosting.jobName}"></span></h3>-->
+<!--    <p>Posted By: <span th:text="${jobPosting.recruiterEmail}"></span></p>-->
+<!--    <p>Total Applications: <span th:text="${applications.size()}"></span></p>-->
+<!--</div>-->
+
+<!--<div class="applications-grid">-->
+
+<!--    <th:block th:if="${applications != null and !applications.isEmpty()}">-->
+<!--        <div class="application-card" th:each="app : ${applications}">-->
+
+<!--            <div class="applicant-title" th:text="${app.fname + ' ' + app.lname}">Applicant Name</div>-->
+
+<!--            <div class="application-info">-->
+<!--                <ul>-->
+<!--&lt;!&ndash;                    <li><strong>Status:</strong> <span class="status-badge" th:text="${app.applicationStatus ?: 'Pending'}">Status</span></li>&ndash;&gt;-->
+<!--                    <li><strong>Email:</strong> <span th:text="${app.email}">example@student.com</span></li>-->
+<!--                    <li><strong>Phone:</strong> <span th:text="${app.phoneNumber ?: 'N/A'}"></span></li>-->
+
+<!--                    <li><strong>Applied On:</strong> <span th:text="${#dates.format(app.applicationDate, 'dd-MMM-yyyy')}">Date</span></li>-->
+
+<!--                    <li><strong>CV:</strong>-->
+<!--                        <span th:if="${app.cv != null}">-->
+<!--                            <a href="#" style="color: #2391FF;">View CV Details</a>-->
+<!--                        </span>-->
+<!--                        <span th:unless="${app.cv != null}">N/A</span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+
+<!--            <div class="action-link">-->
+<!--                <a th:href="@{/recruiter/applications/view/{id}(id=${app.applicationID})}" class="action-btn secondary" style="padding: 8px 15px;">-->
+<!--                    Review Application-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </th:block>-->
+
+<!--    <th:block th:if="${applications == null or applications.isEmpty()}">-->
+<!--        <div class="empty-state">-->
+<!--            <h3>No applications found.</h3>-->
+<!--            <p>Candidates haven't applied to this job posting yet.</p>-->
+<!--        </div>-->
+<!--    </th:block>-->
+<!--</div>-->
+
+<!--<div class="search-action-container">-->
+<!--    <a th:href="@{/JobPostings}">-->
+<!--        <button class="action-btn secondary">Back to Job Postings</button>-->
+<!--    </a>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Applications for ' + ${jobPosting?.jobName ?: 'Job'}">Applications</title>
     <link rel="icon" type="image/png" th:href="@{/images/Logo Glass.png}">
-    <link rel="stylesheet" th:href="@{/jobPosting.css}">
+    <link rel="stylesheet" th:href="@{/InternMapGeneral.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Search and Action Buttons Styling */
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #2391FF 0%, #1c7ae6 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(35, 145, 255, 0.3);
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin: 5px 0;
+            opacity: 0.95;
+        }
+
         .search-action-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 20px;
+            margin-bottom: 40px;
         }
 
         .search-form {
@@ -28,7 +344,7 @@
             gap: 10px;
             width: 100%;
             max-width: 600px;
-            align-items: center;
+            margin: 0 auto;
         }
 
         .search-input {
@@ -76,217 +392,251 @@
             padding: 10px 25px;
             border-radius: 34px;
             border: 2px solid #2391FF;
-            background: #2391FF;
-            color: #FFF;
+            background: transparent;
+            color: #2391FF;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .action-btn:hover {
-            background: #1c7ae6;
-            border-color: #1c7ae6;
+            background: rgba(35, 145, 255, 0.1);
             transform: translateY(-2px);
         }
 
-        .action-btn.secondary {
-            background: transparent;
-            color: #2391FF;
-        }
-
-        .action-btn.secondary:hover {
-            background: rgba(35, 145, 255, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .search-form {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .search-input {
-                width: 100%;
-            }
-
-            .search-button {
-                width: 100%;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .action-btn {
-                width: 100%;
-            }
-        }
-
-        /* Custom Styling for Application Cards */
-        .application-details-header {
-            max-width: 1200px;
-            margin: 0 auto 20px auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-            border-left: 5px solid #2391FF;
-            border-radius: 8px;
-        }
-
         .applications-grid {
-            max-width: 1200px;
-            margin: 20px auto;
             display: grid;
-            gap: 20px;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Adjusted card size */
-            padding: 0 20px;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         }
 
         .application-card {
             background: #fff;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid #2391FF;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid #2391FF;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(35, 145, 255, 0.2);
         }
 
         .applicant-title {
-            font-size: 1.4em;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
+            color: #1f2937;
+            margin-bottom: 15px;
         }
-
-        /*.status-badge {*/
-        /*    display: inline-block;*/
-        /*    padding: 5px 10px;*/
-        /*    border-radius: 5px;*/
-        /*    font-weight: 600;*/
-        /*    color: white;*/
-        /*    background-color: #28a745; !* Example: Approved status *!*/
-        /*    !* Add specific classes for other statuses (Pending, Rejected) if needed *!*/
-        /*}*/
 
         .application-info ul {
             list-style: none;
             padding: 0;
-            margin: 10px 0 0 0;
+            margin: 0;
         }
 
         .application-info li {
-            margin-bottom: 8px;
-            font-size: 0.95em;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #4b5563;
         }
 
         .application-info li strong {
             font-weight: 600;
-            color: #555;
+            color: #1f2937;
+            display: inline-block;
+            min-width: 110px;
+        }
+
+        .cv-link {
+            color: #2391FF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .cv-link:hover {
+            text-decoration: underline;
         }
 
         .action-link {
-            display: block;
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: right;
+        }
+
+        .review-btn {
+            padding: 10px 20px;
+            border-radius: 34px;
+            background: #2391FF;
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .review-btn:hover {
+            background: #1c7ae6;
+            transform: translateY(-2px);
         }
 
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 50px;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            margin-top: 20px;
+            padding: 60px 20px;
+            background: #f9fafb;
+            border-radius: 15px;
+            border: 2px dashed #d1d5db;
         }
 
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .applications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
+<body>
+<!-- Header -->
 <header>
-    <div id="h1">
-        <div id="T1" class="box-title">
-            InternMap
-        </div>
-        <div id="s1" class="box-sign-buttons">
-            <button id="hb1"> Sign in</button>
-            <button id="hb2"> Sign up</button>
-        </div>
-    </div>
-    <div id="l1">
-        <img id="logo" th:src="@{/images/Logo Glass.png}" alt="Logo">
-        <span id="p1">InternMap</span>
-        <span id="p2">Welcome to the platform that sets your future for you</span>
+    <div class="header-top">
+        <div class="header-brand">InternMap</div>
+        <nav class="header-nav">
+            <a th:href="@{/}">
+                <button class="btn-header transparent">Home</button>
+            </a>
+            <a th:href="@{/JobPostings}">
+                <button class="btn-header transparent">All Jobs</button>
+            </a>
+            <a th:href="@{/recruiter/jobpostings}">
+                <button class="btn-header transparent">My Jobs</button>
+            </a>
+            <a th:href="@{/profile}">
+                <button class="btn-header primary">Profile</button>
+            </a>
+        </nav>
     </div>
 </header>
-<body>
 
-<div class="search-action-container">
-    <h1 th:text="'Applications for: ' + ${jobPosting.jobName}">Applications List</h1>
-
-    <form th:action="@{/JobPostings/{id}/applications/search(id=${jobPosting.jobPostingUUID})}" method="get" class="search-form">
-        <input type="text" name="q" placeholder="Search applications by name or status" class="search-input"/>
-        <button type="submit" class="search-button">Search</button>
-    </form>
-
-    <div class="action-buttons">
-        <a th:href="@{/JobPostings}">
-            <button class="action-btn secondary">← Back to All Job Postings</button>
-        </a>
-        <a th:href="@{/JobPostings/{id}(id=${jobPosting.jobPostingUUID})}">
-            <button class="action-btn secondary">View Job Posting Details</button>
-        </a>
+<div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 th:text="'Applications for: ' + ${jobPosting.jobName}">Applications List</h1>
+        <p><strong>Company:</strong> <span th:text="${jobPosting.companyName}">Company Name</span></p>
+        <p><strong>Posted By:</strong> <span th:text="${jobPosting.recruiterEmail}">recruiter@example.com</span></p>
+        <p><strong>Total Applications:</strong> <span th:text="${applications.size()}">0</span></p>
     </div>
-</div>
-<div class="application-details-header">
-    <h3>Job: <span th:text="${jobPosting.jobName}"></span></h3>
-    <p>Posted By: <span th:text="${jobPosting.recruiterEmail}"></span></p>
-    <p>Total Applications: <span th:text="${applications.size()}"></span></p>
-</div>
 
-<div class="applications-grid">
+    <!-- Search and Action Buttons -->
+    <div class="search-action-container">
+        <form th:action="@{/JobPostings/{id}/applications/search(id=${jobPosting.jobPostingUUID})}"
+              method="get"
+              class="search-form">
+            <input type="text" name="q" placeholder="Search applications by name or email" class="search-input"/>
+            <button type="submit" class="search-button">Search</button>
+        </form>
 
-    <th:block th:if="${applications != null and !applications.isEmpty()}">
-        <div class="application-card" th:each="app : ${applications}">
+        <div class="action-buttons">
+            <a th:href="@{/recruiter/jobpostings}" class="action-btn">
+                ← Back to My Job Postings
+            </a>
+            <a th:href="@{/JobPostings}" class="action-btn">
+                View All Job Postings
+            </a>
+        </div>
+    </div>
 
+    <!-- Applications Grid -->
+    <div class="applications-grid">
+        <!-- Application Cards -->
+        <div class="application-card" th:each="app : ${applications}" th:if="${applications != null and !applications.isEmpty()}">
             <div class="applicant-title" th:text="${app.fname + ' ' + app.lname}">Applicant Name</div>
 
             <div class="application-info">
                 <ul>
-<!--                    <li><strong>Status:</strong> <span class="status-badge" th:text="${app.applicationStatus ?: 'Pending'}">Status</span></li>-->
-                    <li><strong>Email:</strong> <span th:text="${app.email}">example@student.com</span></li>
-                    <li><strong>Phone:</strong> <span th:text="${app.phoneNumber ?: 'N/A'}"></span></li>
-
-                    <li><strong>Applied On:</strong> <span th:text="${#dates.format(app.applicationDate, 'dd-MMM-yyyy')}">Date</span></li>
-
-                    <li><strong>CV:</strong>
+                    <li>
+                        <strong>Email:</strong>
+                        <span th:text="${app.email}">example@student.com</span>
+                    </li>
+                    <li>
+                        <strong>Phone:</strong>
+                        <span th:text="${app.phoneNumber != null ? app.phoneNumber : 'N/A'}">N/A</span>
+                    </li>
+                    <li>
+                        <strong>Applied On:</strong>
+                        <span th:text="${#temporals.format(app.applicationDate, 'dd-MMM-yyyy')}">Date</span>
+                    </li>
+                    <li>
+<!--                        <strong>Status:</strong>-->
+<!--                        <span th:text="${app.applicationStatus != null ? app.applicationStatus : 'Pending'}">Pending</span>-->
+                    </li>
+                    <li>
+                        <strong>CV:</strong>
                         <span th:if="${app.cv != null}">
-                            <a href="#" style="color: #2391FF;">View CV Details</a>
+                            <a href="#" class="cv-link">View CV</a>
                         </span>
-                        <span th:unless="${app.cv != null}">N/A</span>
+                        <span th:unless="${app.cv != null}">Not provided</span>
                     </li>
                 </ul>
             </div>
 
             <div class="action-link">
-                <a th:href="@{/recruiter/applications/view/{id}(id=${app.applicationID})}" class="action-btn secondary" style="padding: 8px 15px;">
-                    Review Application
+                <a th:href="@{/recruiter/applications/view/{id}(id=${app.applicationID})}" class="review-btn">
+                    Review Application →
                 </a>
             </div>
         </div>
-    </th:block>
 
-    <th:block th:if="${applications == null or applications.isEmpty()}">
-        <div class="empty-state">
-            <h3>No applications found.</h3>
-            <p>Candidates haven't applied to this job posting yet.</p>
+        <!-- Empty State -->
+        <div class="empty-state" th:if="${applications == null or applications.isEmpty()}">
+            <h3>No applications found</h3>
+            <p>No candidates have applied to this job posting yet.</p>
         </div>
-    </th:block>
+    </div>
 </div>
 
-<div class="search-action-container">
-    <a th:href="@{/JobPostings}">
-        <button class="action-btn secondary">Back to Job Postings</button>
-    </a>
-</div>
-
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">InternMap</div>
+        <div class="footer-links">
+            <ul class="footer-nav">
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/JobPostings}">Job Postings</a></li>
+                <li>About us</li>
+            </ul>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

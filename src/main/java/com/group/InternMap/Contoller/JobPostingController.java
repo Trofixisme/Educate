@@ -173,8 +173,7 @@ public String viewApplications(@RequestParam UUID jobId,
         List<Application> apps = recruiterService.getApplicationsByJobPosting(job);
         model.addAttribute("jobPosting", job);
         model.addAttribute("applications", apps);
-
-        return "ViewApplicationDetail";  //i still dont have it but need to do it for clicking the view button
+        return "ViewApplicationDetail";//i still dont have it but need to do it for clicking the view button
 
     } catch (Exception e) {
         redirectAttributes.addFlashAttribute("error", "Error loading applications");

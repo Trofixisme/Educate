@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flexible Table Design</title>
-    <link rel="stylesheet" th:href="@{/tables.css}">
+    <link rel="stylesheet" th:href="@{
+    /tables.css}">
 
 </head>
 <body>
@@ -28,7 +29,8 @@
                 <td th:text="${job.jobName}" data-label="Job Title"></td>
                 <td th:text="${job.jobDescription}" data-label="Description"></td>
                 <td data-label="Applications">
-                    <a th:href="@{/recruiter/applications/{id}(id=${job.jobPostingUUID})}"
+<!--                    <a th:href="@{/recruiter/applications/{id}(id=${job.jobPostingUUID})}"-->
+                    <a th:href="@{/JobPostings/{jobId}/applications(jobId=${job.jobPostingUUID})}"
                        class="btn btn-primary btn-sm">
                         View Applications
                         <span class="badge" th:text="${job.application.size()}"></span>
