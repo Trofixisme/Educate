@@ -1,7 +1,10 @@
 package com.group.InternMap.Contoller;
 
+import com.group.InternMap.Dto.RoadmapModuleSkill;
 import com.group.InternMap.Model.Roadmap.Roadmap;
+import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Services.RoadmapService;
+import com.group.InternMap.Model.Roadmap.Skill.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-import static com.group.InternMap.Repo.RepositoryAccessors.allRoadmaps;
+
+import static com.group.InternMap.Repo.RepositoryAccessors.*;
 
 @Controller
 @RequestMapping("/roadmaps")
@@ -71,17 +75,47 @@ public class RoadmapController {
     //Display form to create new roadmap
     @GetMapping("/new")
     public String newRoadmap(Model model) {
-        model.addAttribute("roadmap", new Roadmap());
+        RoadmapModuleSkill dto = new RoadmapModuleSkill();
+        // Initialize with one empty module and skill
+        RoadmapModuleSkill.ModuleData module = new RoadmapModuleSkill.ModuleData();
+        RoadmapModuleSkill.SkillData skill = new RoadmapModuleSkill.SkillData();
+        module.getSkills().add(skill);
+        dto.getModules().add(module);
+        model.addAttribute("roadmaps", dto);
         return "roadmap/form";
     }
+    @PostMapping("/new")
+    public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto) {
+        Roadmap roadmap = dto.toRoadmap();
 
-
-    //Create new roadmap
-    @PostMapping
-    public String createRoadmap(@ModelAttribute Roadmap roadmap) {
         allRoadmaps.add(roadmap);
+
+        for (RoadmapModule module : roadmap.getAllModules()) {
+            allmodules.add(module);
+            for (Skill skill : module.getAllSkills()) {
+                allskills.add(skill);
+            }
+        }
+
         return "redirect:/roadmaps/" + roadmap.getRoadmapID();
     }
+
+//    @PostMapping
+//    public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto) {
+//        Roadmap roadmap = dto.toRoadmap();
+//        // Save
+//        allRoadmaps.add(roadmap);
+//        // Save modules and skills if needed
+//        for (RoadmapModule module : roadmap.getAllModules()) {
+//            allmodules.add(module);
+//            for (Skill skill : module.getAllSkills()) {
+//                allskills.add(skill);
+//            }
+//        }
+//        return "redirect:/roadmaps/" + roadmap.getRoadmapID();
+//    }
+// PUT THIS AFTER /new
+
 
     //Display form to edit roadmap
     @GetMapping("/{id}/edit")

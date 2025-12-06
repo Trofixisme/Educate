@@ -78,11 +78,23 @@
 
 <!--    </ul>-->
 <!--</nav>-->
+<!--<div class="button-grid">-->
+<!--    <div class="grid-button"-->
+<!--         th:each="roadmap : ${roadmaps}"-->
+<!--         th:text="${roadmap.name}">-->
+<!--    </div>-->
+<!--</div>-->
 <div class="button-grid">
-    <div class="grid-button"
-         th:each="roadmap : ${roadmaps}"
-         th:text="${roadmap.name}">
-    </div>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button"
+       style="cursor: pointer"
+    text="new roadmap">
+    <a th:href="@{/roadmaps/{id}(id=${roadmap.roadmapID})}"
+       class="grid-button"
+       th:each="roadmap : ${roadmaps}"
+       th:text="${roadmap.name}"
+       style="text-decoration: none;">
+    </a>
 </div>
 </body>
 

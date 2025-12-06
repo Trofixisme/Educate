@@ -8,4 +8,5 @@ public interface FilePaths {
     String applicationPath = "data/applications.txt";
     String companyPath = "data/companies.txt";
     String skillPath = "data/skills.txt";
+    String modulePath = "data/modules.txt";
 }

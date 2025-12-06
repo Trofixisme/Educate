@@ -2,6 +2,7 @@ package com.group.InternMap.Repo;
 
 import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.Roadmap.Roadmap;
+import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Model.Roadmap.Skill.Skill;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Company.Company;
@@ -18,6 +19,8 @@ public final class RepositoryAccessors {
     public static final ArrayList<JobPosting> allJobPostings = (ArrayList<JobPosting>) (new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath)).findAll();
     public static final ArrayList<Application> allApplications = (ArrayList<Application>) (new BaseRepository<>(Application.class, FilePaths.applicationPath)).findAll();
     public static final ArrayList<Skill> allskills=(ArrayList<Skill>) (new BaseRepository<>(Skill.class, FilePaths.skillPath)).findAll();
+    public static final ArrayList<RoadmapModule> allmodules=(ArrayList<RoadmapModule>)  (new BaseRepository<>(RoadmapModule.class, FilePaths.modulePath)).findAll();
+
 
     public static void saveAll() {
         try {

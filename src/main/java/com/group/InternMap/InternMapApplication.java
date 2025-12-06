@@ -20,6 +20,5 @@ public class InternMapApplication {
     public static void main(String[] args) throws IllegalClassFormatException {// REGISTER IT HERE
         ApplicationContext context = SpringApplication.run(InternMapApplication.class, args);
         ShutDownSaver.registerShutdownHook();
-
     }
 }

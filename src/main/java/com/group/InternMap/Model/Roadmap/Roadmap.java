@@ -47,7 +47,7 @@ public final class Roadmap implements Serializable {
         return roadmapID.toString();
     }
 
-    void addModules(RoadmapModule... modules) {
+   public void addModules(RoadmapModule... modules) {
         roadmapModules.addAll(List.of(modules));
     }
 
