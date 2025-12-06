@@ -1,11 +1,7 @@
 package com.group.InternMap.Model.User;
 
-import com.group.InternMap.Contoller.ApplicationController;
-import com.group.InternMap.Model.Job.JobPosting;
-
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 

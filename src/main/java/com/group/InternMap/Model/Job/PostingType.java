@@ -1,5 +1,3 @@
-
-
 package com.group.InternMap.Model.Job;
 
 import java.io.Serializable;

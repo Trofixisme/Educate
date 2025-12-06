@@ -5,7 +5,6 @@ import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Services.RoadmapService;
 import com.group.InternMap.Model.Roadmap.Skill.Skill;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

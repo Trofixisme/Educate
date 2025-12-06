@@ -2,7 +2,6 @@ package com.group.InternMap.Model.User.Company;
 
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Model.User.UserRole;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Collectors;

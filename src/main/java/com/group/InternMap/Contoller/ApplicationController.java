@@ -6,7 +6,6 @@ import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.CV;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
-import com.group.InternMap.Repo.RepositoryAccessors;
 import com.group.InternMap.Services.JobPostingService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

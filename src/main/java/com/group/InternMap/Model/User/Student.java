@@ -1,11 +1,6 @@
-//Created by Ziad on 28/10/2025
-
 package com.group.InternMap.Model.User;
 
-import com.group.InternMap.Model.Job.JobPosting;
-
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class Student extends User {

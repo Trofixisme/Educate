@@ -1,5 +1,4 @@
-//Made By Eyad
-
+//Made By Ey
 package com.group.InternMap.Model.Job;
 
 import java.io.Serializable;

@@ -1,9 +1,6 @@
-//Made By Eyad
-
 package com.group.InternMap.Model.Job;
 
 import com.group.InternMap.Model.User.Company.Company;
-
 import java.io.Serializable;
 
 public class FullTime extends JobPosting implements Serializable {

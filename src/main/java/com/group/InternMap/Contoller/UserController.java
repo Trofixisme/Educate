@@ -1,4 +1,3 @@
-// src/main/java/com/group/educate/Web/HomeController.java
 package com.group.InternMap.Contoller;
 
 import com.group.InternMap.Dto.RecruiterRegistrationDTO;
