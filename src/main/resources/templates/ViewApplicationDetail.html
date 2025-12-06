@@ -594,7 +594,8 @@
                     </li>
                     <li>
                         <strong>Applied On:</strong>
-                        <span th:text="${#temporals.format(app.applicationDate, 'dd-MMM-yyyy')}">Date</span>
+                        <span th:text="${#dates.format(app.applicationDate, 'dd-MMM-yyyy')}"></span>
+
                     </li>
                     <li>
 <!--                        <strong>Status:</strong>-->
@@ -602,10 +603,10 @@
                     </li>
                     <li>
                         <strong>CV:</strong>
-                        <span th:if="${app.CV != null}">
+                        <span th:if="${app.cv != null}">
                             <a href="#" class="cv-link">View CV</a>
                         </span>
-                        <span th:unless="${app.CV != null}">Not provided</span>
+                        <span th:unless="${app.cv != null}">Not provided</span>
                     </li>
                 </ul>
             </div>
