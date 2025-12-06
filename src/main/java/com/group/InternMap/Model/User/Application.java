@@ -4,6 +4,7 @@ import com.group.InternMap.Contoller.ApplicationController;
 import com.group.InternMap.Model.Job.JobPosting;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +17,7 @@ public class Application implements Serializable,Comparable<Application> {
     private String email;
     private String phoneNumber;
     private CV cv;
-    private Date applicationDate;
+    private Date applicationDate=Date.from(Instant.now());;
 
     public Application() {
         this.applicationID = UUID.randomUUID();

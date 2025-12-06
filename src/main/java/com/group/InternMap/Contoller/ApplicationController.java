@@ -139,16 +139,6 @@ public class ApplicationController {
             allApplications.add(application);
             redirectAttributes.addFlashAttribute("message", "Application saved successfully");
             return "redirect:/JobPostings";
-//            if (user.getCv() != null) {
-//                application.setCv(user.getCv());
-//                applicationandCVDTO.setApplication(application);
-//                JobPosting jobPosting = jobPostingService.findByID(jobPostingID);
-//                allApplications.add(application);
-//                jobPosting.setApplication(application);
-//                allJobPostings.add(jobPosting);
-//                model.addAttribute("success", "you have applied successfully");
-//                return "redirect:/jobPostings";
-//            }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
