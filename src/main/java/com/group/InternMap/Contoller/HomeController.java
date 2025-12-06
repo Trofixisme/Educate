@@ -22,12 +22,17 @@ public class HomeController {
         this.userService = userService;
     }
 
+
     @GetMapping("/")
     public String showHomePage(Model model) {
         System.out.println("home page accessed, without session ");
 
         model.addAttribute("roadmaps", allRoadmaps);
         return "index";
+    }
+    @GetMapping("/signup-choice")
+    public String signupChoice() {// or whatever your object is
+        return "InternMapSignUpchoice"; // Note: no .html extension
     }
 
     @GetMapping("/user/home")

@@ -17,20 +17,38 @@
 </head>
 
 <header>
+<!--    <div id="h1">-->
+<!--        <div id="T1" class="box">-->
+<!--            InternMap-->
+<!--        </div>-->
+<!--        <nav>-->
+
+<!--            <button class="action-btn"></button>-->
+<!--            <button id="hb1" onclick="location.href = '/login'">Sign in</button>-->
+<!--            <button id="hb2" onclick="location.href = '/admin/register'">Admin sign up</button>-->
+<!--            <button id="hb3" onclick="location.href='@{/InternMapSignUpchoice.html}'">sign in choice</button>-->
+<!--&lt;!&ndash;            <button id="hb3" onclick="location.href = '/student/register'">Student sign up</button>&ndash;&gt;-->
+<!--            <button id="hb4" onclick="location.href = '/recruiter/register'">Recruiter sign up</button>-->
+<!--            <button id="hb6" onclick="location.href = '/profile'"><img id="person-fill" src="/images/person_fill.png" alt="Profile" style="width: 25px; height: 26px;"></button>-->
+<!--        </nav>-->
+<!--    </div>-->
     <div id="h1">
         <div id="T1" class="box">
             InternMap
         </div>
-        <nav>
-        <div id="s1" class="box">
-            <button id="hb1" onclick="location.href = '/login'">Sign in</button>
-            <button id="hb2" onclick="location.href = '/admin/register'">Admin sign up</button>
-            <button id="hb3" onclick="location.href = '/student/register'">Student sign up</button>
-            <button id="hb4" onclick="location.href = '/recruiter/register'">Recruiter sign up</button>
-            <button id="hb6" onclick="location.href = '/profile'"><img id="person-fill" src="/images/person_fill.png" alt="Profile" style="width: 25px; height: 26px;"></button>
+        <div id="s1" class="box-sign-buttons">
+            <button id="hb1" onclick="location.href='/login'">Sign in</button>
+            <button id="hb2" onclick="location.href='/admin/register'">Admin sign up</button>
+            <a th:href="@{/signup-choice}" style="text-decoration: none;">
+                <button id="hb3">Sign in choice</button>
+            </a>
+            <button id="hb4" onclick="location.href='/recruiter/register'">Recruiter sign up</button>
+            <button id="hb6" onclick="location.href='/profile'">
+                <img id="person-fill" src="/images/person_fill.png" alt="Profile" style="width: 25px; height: 26px;">
+            </button>
         </div>
-        </nav>
     </div>
+
     <div id="l1">
         <img id="logo" src="/images/Logo Glass.png" alt="This didn't load successfuly >:(">
         <span id="p1">InternMap</span>
