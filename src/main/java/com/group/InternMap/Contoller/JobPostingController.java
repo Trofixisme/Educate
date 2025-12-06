@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
+
 //to do:application controller,and review html
 @Controller
 public class JobPostingController {
@@ -55,28 +57,30 @@ public class JobPostingController {
     }
 
     @GetMapping("/JobPostingForm")
-    public String AddJobPostingForm(Model model,JobPosting jobPosting, HttpSession session) {
-        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter user)) {
+    public String AddJobPostingForm(Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter recruiter)) {
             return "redirect:/login";
         }
 
+        JobPosting jobPosting = new JobPosting();
+        jobPosting.setRecruiter(recruiter); // correctly assign recruiter
 
-        model.addAttribute("jobPosting", new JobPosting());
-
-        return "JobPostingForm"; // Thymeleaf template to display the form
+        model.addAttribute("jobPosting", jobPosting);
+        return "JobPostingForm";
     }
+
 
     @PostMapping("/JobPostingForm")
     public String saveJobPosting(@ModelAttribute JobPosting jobposting, HttpSession session,Model model) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
-
         Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
-        jobposting.setRecruiter(user);
 //        jobposting.setRecruiterEmail(user.getEmail());
         try { // link posting to recruiter
-            RepositoryAccessors.allJobPostings.add(jobposting);
+            allJobPostings.add(jobposting);
+            jobposting.setRecruiter(user);
+
             return "redirect:/JobPostings";
 
         }
@@ -143,11 +147,11 @@ public String getRecruiterJobPostings(Model model, HttpSession session) throws E
         return "redirect:/login";
     }
     List<JobPosting> myJobs = jobPostingService.getJobPostingsByRecruiterId(recruiter.getUserID());
-
     model.addAttribute("myJobs", myJobs);
-
     return "recruiter-jobpostings";
 }
+
+
 
 @GetMapping("/JobPostings/{jobId}/applications")
 public String viewApplications(@RequestParam UUID jobId,

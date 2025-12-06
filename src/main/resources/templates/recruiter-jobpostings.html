@@ -14,7 +14,7 @@
         <td th:text="${job.jobName}"></td>
         <td th:text="${job.jobDescription}"></td>
         <td>
-            <a th:href="@{/recruiter/applications/{id}(id=${job.jobId})}"
+            <a th:href="@{/recruiter/applications/{id}(id=${job.jobPostingUUID})}"
                class="btn btn-primary btn-sm">
                 View Applications ( <span th:text="${job.application.size()}"></span> )
             </a>

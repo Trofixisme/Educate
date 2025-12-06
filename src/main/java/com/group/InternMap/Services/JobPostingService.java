@@ -49,15 +49,28 @@ public class JobPostingService {
                  .filter(j -> j.getJobPostingUUID().equals(jopPostingId))
                  .findFirst().orElse(null);
     }
-    public List<JobPosting> getJobPostingsByRecruiterId(UUID recruiterId) throws Exception {
-        if(recruiterId == null){
-            new Exception("recruiterId is null");
-        }
-        return allJobPostings.stream()
-                .filter(jobPosting -> jobPosting.getRecruiter().equals(recruiterId))
-                        .collect(Collectors.toList());
+//    public List<JobPosting> getJobPostingsByRecruiterId(UUID recruiterId) throws Exception {
+//        if(recruiterId == null){
+//            new Exception("recruiterId is null");
+//        }
+//        return allJobPostings.stream()
+//                .filter(jobPosting -> jobPosting.getRecruiter().getUserID().equals(recruiterId))
+//                        .collect(Collectors.toList());
+//
+//    }
+public List<JobPosting> getJobPostingsByRecruiterId(UUID recruiterId) throws Exception {
 
-    }
+    System.out.println("Looking for jobs for recruiter: " + recruiterId);
+
+    return allJobPostings.stream()
+            .peek(job -> System.out.println("Job Recruiter: " +
+                    (job.getRecruiter() == null ? "null" : job.getRecruiter().getUserID())))
+            .filter(job -> job.getRecruiter() != null)
+            .filter(job -> recruiterId.equals(job.getRecruiter().getUserID()))
+            .collect(Collectors.toList());
+}
+
+
 
 
 

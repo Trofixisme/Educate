@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import java.lang.instrument.IllegalClassFormatException;
 
 
+import static com.group.InternMap.Repo.RepositoryAccessors.allRoadmaps;
+
 @SpringBootApplication
 public class InternMapApplication {
 
