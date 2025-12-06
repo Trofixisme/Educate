@@ -81,45 +81,17 @@
 
     <div class="flex-button-container">
 
-        <div class="flex-button"
-             onclick="selectRole('[[@{/student-signup}]]')">
-            Student
+      <div class="flex-button-container">
+            <a th:href="@{/student/register}" style="text-decoration: none; color: black;">     <div class = "flex-button">  Student </div></a>
+          
+            <a th:href="@{/recruiter/register}" style="text-decoration: none; color: black;"><div class = "flex-button">Recruiter</div></a>
+          
+          <a th:href="@{/admin/register}" style="text-decoration: none; color: black;"><div class = "flex-button"> Admin </div></a>
         </div>
+        <br>
+        <div style=" justify-items: center;"><button id = "b2">Continue</button></div>
 
-        <div class="flex-button"
-             onclick="selectRole('[[@{/recruiter-signup}]]')">
-            Recruiter
-        </div>
 
-        <div class="flex-button"
-             onclick="selectRole('[[@{/admin-signup}]]')">
-            Admin
-        </div>
-
-    </div>
-
-    <br>
-
-    <div style="text-align:center;" onclick="goToSelected()">
-        <button id="b2">Continue</button>
-    </div>
-
-    <script>
-        let selectedLink = null;
-
-        function selectRole(link) {
-            selectedLink = link;
-            console.log("Selected:", selectedLink);
-        }
-
-        function goToSelected() {
-            if (selectedLink === null) {
-                alert("Please choose a role first.");
-            } else {
-                window.location.href = selectedLink;
-            }
-        }
-    </script>
 
 </body>
 
@@ -131,3 +103,4 @@
 </footer>
 
 </html>
+
