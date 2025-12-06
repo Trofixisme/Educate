@@ -26,8 +26,8 @@
 </header>
 
 <body>
+<h2 class="form-title">Sign In</h2>
 <div class="form-container">
-    <h2 class="form-title">Sign In</h2>
 
     <form th:action="@{/login}" th:object="${user}" method="post">
         <div th:if="${errorMessage}"
@@ -58,18 +58,7 @@
         <a th:href="@{/signup-choice}">Sign up</a>
     </p>
 </div>
+<div th:replace="~{fragments/footer}"></div>
 </body>
 
-<footer>
-    <div class="footer-content">
-        <div class="footer-brand">InternMap</div>
-        <div class="footer-links">
-            <ul class="footer-nav">
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/JobPostings}">Job Postings</a></li>
-                <li>About us</li>
-            </ul>
-        </div>
-    </div>
-</footer>
 </html>

@@ -1,33 +1,6 @@
-header {
-    #logo {
-        display: flex;
-        margin: 0 auto;
-        width: 162px;
-        height: 162px;
-        aspect-ratio: 1/1;
-    }
-
-
-    #b1 {
-        margin-left: auto;
-        margin-top: 20px;
-        margin-right: 20px;
-        display: flex;
-        padding: 10px 20px;
-        border-radius: 34px;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-        font-size: max(14px, 1vw);
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        background: #1883fd;
-        color: #ffffff;
-    }
-}
-
 body {
+
+    background-color: #FBFBFB;
 
     .vertical-container {
         display: flex;
@@ -46,7 +19,7 @@ body {
         aspect-ratio: 1/1;
         border-radius: 40px;
         border: none;
-        background: #fdfdfd;
+        background: #FBFBFB;
     }
 
     .flex-button:hover {

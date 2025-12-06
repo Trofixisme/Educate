@@ -11,25 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<header>
-    <div class="header-top">
-        <div class="header-brand">InternMap</div>
-        <nav class="header-nav">
-            <a th:href="@{/login}">
-                <button class="btn-header primary">login</button>
-            </a>
-        </nav>
-    </div>
-    <div class="header-hero">
-        <img class="logo" th:src="@{/images/Logo Glass.png}" alt="InternMap Logo">
-    </div>
-</header>
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
     <p th:text="${errorMessage}"></p></div>
 <body>
+<header th:replace="~{fragments/header}"></header>
+<h2 class="form-title">sign up as a student</h2>
 <div class="form-container">
-    <h2 class="form-title">Student Register</h2>
 <form  th:action="@{/student/register}" th:object="${user}" method="post">
     <div class="form-row">
     <div class="form-group">
@@ -93,10 +81,10 @@
     <button type="submit" class="form-submit">Student Sign In</button>
 </form>
 <p class="form-link">
-    Already have an account>
-    <a th:href="@{/login}">Sign up</a>
+    Already have an account?
+    <a th:href="@{/login}">Sign in</a>
 </p>
 </div>
-
+<div th:replace="~{fragments/footer}"></div>
 </body>
 </html>

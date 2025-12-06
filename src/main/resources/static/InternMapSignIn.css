@@ -752,10 +752,6 @@ body {
    HEADER STYLES
    =========================== */
 
-header {
-    background: #fff;
-}
-
 .header-top {
     display: flex;
     flex-direction: row;
@@ -861,10 +857,10 @@ header {
    =========================== */
 
 .section-header {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: flex;
     width: auto;
-    padding-top: 60px;
+    padding-top: 20px;
     flex-direction: column;
     align-items: center;
     gap: 36px;
@@ -918,7 +914,7 @@ header {
 
 /* Form Container */
 .form-container {
-    margin: 60px auto;
+    margin: 20px auto;
     display: flex;
     max-width: 800px;
     width: 90%;
@@ -1180,7 +1176,7 @@ header {
 .table-container {
     max-width: 1200px;
     margin: 40px auto;
-    background: white;
+    background: #FBFBFB;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -1244,16 +1240,49 @@ header {
    =========================== */
 
 footer {
-    width: auto;
-    min-height: 300px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, #3397FC 100%);
-    padding: 40px 20px;
-    margin-top: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .footer-content {
-    max-width: 1400px;
-    margin: 0 auto;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding-left: 40px;
+        padding-right: 40px;
+
+        .box {
+            display: flex;
+            width: auto;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 30px;
+
+        }
+
+        .box-item {
+            color: #2391FF;
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+        }
+
+        #home-hot-link {
+            color: rgb(0, 0, 0);
+            font-size: 20px;
+            background: transparent;
+            border: none;
+            padding-top: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            text-decoration: none;
+        }
 }
 
 .footer-brand {
@@ -1382,7 +1411,7 @@ footer {
 
     .form-container {
         padding: 30px 20px;
-        width: 95%;
+        width: 70%;
     }
 
     .form-input,

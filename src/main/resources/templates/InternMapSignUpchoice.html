@@ -49,16 +49,9 @@
 
 </head>
 
-<header>
-    <button id="b1">
-        <a th:href="@{/login}" style="text-decoration: none; color: #FFF;">Sign In</a>
-    </button>
-
-    <img id="logo" src="/images/Logo Glass.png" alt="Logo">
-</header>
 
 <body>
-
+<header th:replace="~{fragments/header}"></header>
 <div id="p1">Sign Up as...</div>
 
 <div class="flex-button-container">
@@ -93,16 +86,8 @@
     </div>
     <br>
 </div>
+<div th:replace="~{fragments/footer}"></div>
 </body>
-
-<footer>
-    <div class="box">
-        <div class="box-item">InternMap</div>
-        <div>
-            <button id="home-hot-link" th:href="@{/}">Home</button>
-        </div>
-    </div>
-</footer>
 
 </html>
 
