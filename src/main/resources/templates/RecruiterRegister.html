@@ -10,23 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<header>
-    <div class="header-top">
-        <div class="header-brand">InternMap</div>
-        <nav class="header-nav">
-            <a th:href="@{/login}">
-                <button class="btn-header primary">login</button>
-            </a>
-        </nav>
-    </div>
-    <div class="header-hero">
-        <img class="logo" th:src="@{/images/Logo Glass.png}" alt="InternMap Logo">
-    </div>
-</header>
 <div th:if="${errorMessage}"
      style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
     <p th:text="${errorMessage}"></p></div>
-<h2>Create a Recruiter Account</h2>
 
 <!-- Error message -->
 <div th:if="${errorMessage}"
@@ -40,8 +26,9 @@
     <p th:text="${success}"></p>
 </div>
 <body>
+<header th:replace="~{fragments/header}"></header>
+<h2 class="form-title">Sign up</h2>
 <div class="form-container">
-    <h2 class="form-title">Recruiter Register</h2>
 <form th:action="@{/recruiter/register}"
       th:object="${form}"
       method="post">
@@ -50,14 +37,14 @@
             <input type="text"
                    class="form-input"
                    th:field="*{user.fname}"
-                   placeholder="first name"
+                   placeholder="First name"
                    required />
         </div>
         <div class="form-group">
             <input type="text"
                    class="form-input"
                    th:field="*{user.lname}"
-                   placeholder="last name"
+                   placeholder="Last name"
                    required />
         </div>
         <div class="form-group">
@@ -76,28 +63,24 @@
         </div>
 
         <div class="form-group">
-            <input type="password"
-                   class="form-input"
-                   th:field="*{user.title}"
-                   placeholder="title"
-                   required />
+            <label>
+                <input type="password"
+                       class="form-input"
+                       th:field="*{user.title}"
+                       placeholder="Title"
+                       required />
+            </label>
         </div>
-
-    <hr />
-
-    <p>
-        Company (If your company already exists, enter the exact name.
-        If not, you will be redirected to register it.)
-    </p>
         <div class="form-group">
-            <input type="password"
-                   class="form-input"
-                   th:field="*{company.name}"
-                   placeholder="company name"
-                    >
+            <label>
+                <input type="password"
+                       class="form-input"
+                       th:field="*{company.name}"
+                       placeholder="Company's name">
+            </label>
         </div>
     </div>
-    <button type="submit" class="form-submit">Register</button>
+    <button type="submit" class="form-submit">Create Account</button>
 </form>
 
     <p class="form-link">
@@ -109,5 +92,6 @@
     </p>
 
 </div>
+<div th:replace="~{fragments/footer}"></div>
 </body>
 </html>
