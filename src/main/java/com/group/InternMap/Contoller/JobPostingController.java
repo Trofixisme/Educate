@@ -174,7 +174,7 @@ public String viewApplications(@RequestParam UUID jobId,
         model.addAttribute("jobPosting", job);
         model.addAttribute("applications", apps);
 
-        return "ViewApplications";  //i still dont have it but need to do it for clicking the view button
+        return "ViewApplicationDetail";  //i still dont have it but need to do it for clicking the view button
 
     } catch (Exception e) {
         redirectAttributes.addFlashAttribute("error", "Error loading applications");
