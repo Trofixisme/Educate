@@ -43,8 +43,7 @@ body {
 }
 
 footer {
-    position: absolute;
-    width: 100%;
+    position: page;
     padding-left: 40px;
     padding-right: 40px;
 
