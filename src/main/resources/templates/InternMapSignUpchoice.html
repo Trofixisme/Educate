@@ -3,10 +3,10 @@
 
 <head>
     <title>InternMapSignUp</title>
-    <link rel="icon" type="image/png" href="Logo Glass.png">
+    <link rel="icon" type="image/png" href="/images/Logo Glass.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="InternMapSignUpchoice.css">
+    <link rel="stylesheet" th:href="@{/InternMapSignUpchoice.css}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,8 +71,7 @@
     <button id="b1">
         <a th:href="@{/signin}" style="text-decoration: none; color: #FFF;">Sign In</a>
     </button>
-
-    <img id="logo" src="Logo Glass.png" alt="Logo">
+    <img id="logo" th:src="@{/images/Logo Glass.png}" alt="Logo">
 </header>
 
 <body>
@@ -89,8 +88,7 @@
           <a th:href="@{/admin/register}" style="text-decoration: none; color: black;"><div class = "flex-button"> Admin </div></a>
         </div>
         <br>
-        <div style=" justify-items: center;"><button id = "b2">Continue</button></div>
-
+    </div>
 
 
 </body>
