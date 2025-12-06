@@ -3,7 +3,6 @@ package com.group.InternMap.Dto;
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Model.Roadmap.Skill.Skill;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
