@@ -58,8 +58,7 @@ public class RoadmapController {
     }
     @PostMapping("/new")
     public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto, HttpSession session) {
-        Admin admin = (Admin) session.getAttribute("logged in");
-        if(admin == null){
+        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {
             return "redirect:/login";
         }
         Roadmap roadmap = dto.toRoadmap();
