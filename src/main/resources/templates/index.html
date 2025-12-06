@@ -88,7 +88,7 @@
     <a th:href="@{/roadmaps/new}"
        class="grid-button"
        style="cursor: pointer"
-    text="new roadmap">
+       text="new roadmap"></a>
     <a th:href="@{/roadmaps/{id}(id=${roadmap.roadmapID})}"
        class="grid-button"
        th:each="roadmap : ${roadmaps}"
