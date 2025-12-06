@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Recruiter Register</title>
+    <title>InternMap - Login</title>
+    <link rel="icon" type="image/png" th:href="@{/images/Logo Glass.png}">
+    <link rel="stylesheet" th:href="@{/InternMapSignIn.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-
+<header>
+    <div class="header-top">
+        <div class="header-brand">InternMap</div>
+        <nav class="header-nav">
+            <a th:href="@{/login}">
+                <button class="btn-header primary">login</button>
+            </a>
+        </nav>
+    </div>
+    <div class="header-hero">
+        <img class="logo" th:src="@{/images/Logo Glass.png}" alt="InternMap Logo">
+    </div>
+</header>
+<div th:if="${errorMessage}"
+     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
+    <p th:text="${errorMessage}"></p></div>
 <h2>Create a Recruiter Account</h2>
 
 <!-- Error message -->
@@ -19,23 +39,41 @@
      style="color:green;border:1px solid green;padding:10px;margin-bottom:15px;">
     <p th:text="${success}"></p>
 </div>
-
-<!-- FORM -->
+<body>
+<div class="form-container">
+    <h2 class="form-title">Recruiter Register</h2>
 <form th:action="@{/recruiter/register}"
       th:object="${form}"
       method="post">
-
-    <label for="fname">First Name:</label>
-    <input id="fname" type="text" th:field="*{user.fname}" />
-
-    <label for="lname">Last Name:</label>
-    <input id="lname" type="text" th:field="*{user.lname}" />
-
-    <label for="email">Email:</label>
-    <input id="email" type="email" th:field="*{user.email}" />
-
-    <label for="password">Password:</label>
-    <input id="password" type="password" th:field="*{user.plainPassword}" />
+    <div class="form-row">
+        <div class="form-group">
+            <input type="text"
+                   class="form-input"
+                   th:field="*{user.fname}"
+                   placeholder="first name"
+                   required />
+        </div>
+        <div class="form-group">
+            <input type="text"
+                   class="form-input"
+                   th:field="*{user.lname}"
+                   placeholder="last name"
+                   required />
+        </div>
+        <div class="form-group">
+            <input type="email"
+                   class="form-input"
+                   th:field="*{user.email}"
+                   placeholder="Email"
+                   required />
+        </div>
+        <div class="form-group">
+            <input type="password"
+                   class="form-input"
+                   th:field="*{user.plainPassword}"
+                   placeholder="Password"
+                   required />
+        </div>
 
     <label for="title">Your Title:</label>
     <input id="title" type="text" th:field="*{user.title}" />
