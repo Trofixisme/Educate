@@ -180,8 +180,23 @@ public String viewApplications(@PathVariable UUID jobId,
         return "redirect:/JobPostings";
     }
 }
-
-
+    @GetMapping("/cv/{email}")
+    public String viewCV(@PathVariable("email") String email, Model model, HttpSession session) {
+        try {
+            System.out.println(email);
+            Application application = recruiterService.findByEmail(email);
+            model.addAttribute("application", application);
+            return "profile";
+        }
+        catch(Exception e) {
+            model.addAttribute("error", "Error loading application");
+            return "ViewApplicationDetail";
+        }
+    }
 
 
 }
+
+
+
+

@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
+import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
+
 @Service
 public class RecruiterService extends UserService {
     //todo:need to create job postings
@@ -123,6 +126,13 @@ public class RecruiterService extends UserService {
         List<Application> applications = jobPosting.getApplication();
         applications.sort((a1, a2) -> a1.getApplicationDate().compareTo(a2.getApplicationDate()));
         return applications;
+    }
+    public static Application findByEmail(String email) throws Exception{
+        if (email == null || email.isBlank()) return null;
+        return   allApplications.stream()
+                .filter(c -> c.getEmail().equalsIgnoreCase(email))
+                .findFirst()
+                .orElseThrow(() -> new Exception("profile not found , please check the name again or create a new company"));
     }
 
 

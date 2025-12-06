@@ -603,7 +603,7 @@
                     <li>
                         <strong>CV:</strong>
                         <span th:if="${app.cv != null}">
-                            <a href="#" class="cv-link">View CV</a>
+                            <a th:href="@{/cv/{email}(email=${app.email})}" class="cv-link">View CV</a>
                         </span>
                         <span th:unless="${app.cv != null}">Not provided</span>
                     </li>
