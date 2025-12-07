@@ -1,5 +1,8 @@
 package com.group.InternMap.Contoller;
 
+import com.group.InternMap.Model.Job.FreeLanceProject;
+import com.group.InternMap.Model.Job.FullTime;
+import com.group.InternMap.Model.Job.Internship;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Services.JobPostingService;
@@ -16,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 
 //to do:application controller, and review HTML
@@ -53,10 +55,11 @@ public class JobPostingController {
         if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter recruiter)) {
             return "redirect:/login";
         }
-
         JobPosting jobPosting = new JobPosting();
-        jobPosting.setRecruiter(recruiter); // correctly assign recruiter
-
+        jobPosting.setFullTime(new FullTime());
+        jobPosting.setInternship(new Internship());
+        jobPosting.setFreeLanceProject(new FreeLanceProject());
+        jobPosting.setRecruiter(recruiter);
         model.addAttribute("jobPosting", jobPosting);
         return "JobPostingForm";
     }

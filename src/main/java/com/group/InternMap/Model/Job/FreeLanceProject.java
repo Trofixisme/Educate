@@ -1,4 +1,3 @@
-//Made By Ey
 package com.group.InternMap.Model.Job;
 
 import java.io.Serializable;
@@ -9,6 +8,10 @@ public class FreeLanceProject extends JobPosting implements Serializable {
     private double Duration;
     private int Payout;
     private String jobLocation;
+
+    public FreeLanceProject() {
+        super();
+    }
 
     public FreeLanceProject( String jobDescription, String jobName, String jobLocation, String jobRequirements, String jobTitle, PostingType jobPostingType, double Duration, int Payout) {
         super(jobDescription,jobName, jobRequirements, jobTitle,jobPostingType);

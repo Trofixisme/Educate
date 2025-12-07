@@ -70,6 +70,14 @@
                            placeholder="Website URL (e.g., https://example.com)" />
                 </label>
             </div>
+            <div class="form-group">
+                <label>
+                    <input type="url"
+                           class="form-input"
+                           th:field="*{location}"
+                           placeholder="company location" />
+                </label>
+            </div>
         </div>
 
         <button type="submit" class="form-submit">Create Company</button>

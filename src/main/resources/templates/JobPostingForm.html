@@ -33,7 +33,6 @@
         <p th:text="${success}" style="margin: 0;"></p>
     </div>
 
-    <!-- Error Message -->
     <div th:if="${errorMessage}"
          style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; margin-bottom: 20px; border-radius: 8px;">
         <p th:text="${errorMessage}" style="margin: 0;"></p>
@@ -84,22 +83,110 @@
 
             <div class="form-group">
                 <label>
-                    <select class="form-input" th:field="*{jobPostingType}" required>
-                        <option value="" disabled selected>Select Job Type</option>
-                        <option value="FullTime">Full Time</option>
-                        <option value="PartTime">Part Time</option>
-                        <option value="Internship">Internship</option>
-                        <option value="FreeLanceProject">Freelance Project</option>
+                    <select class="form-input" th:field="*{jobPostingType}" id="jobTypeSelect" onchange="toggleJobSpecificFields()" required >
+                        <option th:value="${T(com.group.InternMap.Model.User.UserRole).STUDENT}">Student</option>
+                        <option th:value="${T(com.group.InternMap.Model.User.UserRole).RECRUITER}">Recruiter</option>
+                        <option th:value="${T(com.group.InternMap.Model.User.UserRole).COMPANY}">Company</option>
                     </select>
                 </label>
+            </div>
+
+            <!-- Removed th:if, added id="fullTimeFields", set initial style="display: none;" -->
+            <div id="fullTimeFields" style="display: none;">
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{FullTime.benefits}"
+                               placeholder="benefits"
+                               required />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{FullTime.company.location}">
+                    </label>
+                </div>
+            </div>
+            <div id="internshipFields" style="display: none;">
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{Internship.duration}"
+                               placeholder="duration"
+                               required />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{Internship.company.location}">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Removed th:if, added id="freeLanceProjectFields", set initial style="display: none;" -->
+            <div id="freeLanceProjectFields" style="display: none;">
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{FreeLanceProject.duration}"
+                               placeholder="duration"
+                               required />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{FreeLanceProject.Payout}"
+                               placeholder="payout">
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="text"
+                               class="form-input"
+                               th:field="*{FreeLanceProject.jobLocation}"
+                               placeholder="location">
+                    </label>
+                </div>
             </div>
         </div>
 
         <button type="submit" class="form-submit">Add Job Posting</button>
     </form>
-
 </div>
-
 <div th:replace="~{fragments/footer}"></div>
 </body>
+<script>
+    function toggleJobSpecificFields() {
+        let selectElement = document.getElementById("jobTypeSelect");
+        let selectedValue = selectElement.value;
+        let fullTimeDiv = document.getElementById("fullTimeFields");
+        let internshipDiv = document.getElementById("internshipFields");
+        let freelanceDiv = document.getElementById("freeLanceProjectFields");
+
+        fullTimeDiv.style.display = "none";
+        internshipDiv.style.display = "none";
+        freelanceDiv.style.display = "none";
+        if (selectedValue === "FullTime") {
+            fullTimeDiv.style.display = "block";
+        } else if (selectedValue === "Internship") {
+            internshipDiv.style.display = "block";
+        } else if (selectedValue === "FreeLanceProject") {
+            freelanceDiv.style.display = "block";
+        }
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        toggleJobSpecificFields();
+    });
+</script>
+
+
 </html>

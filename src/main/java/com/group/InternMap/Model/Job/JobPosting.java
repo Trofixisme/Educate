@@ -1,6 +1,7 @@
 package com.group.InternMap.Model.Job;
 
 import com.group.InternMap.Model.User.Application;
+import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import java.io.Serializable;
 import java.time.Instant;
@@ -20,11 +21,11 @@ public class JobPosting implements Serializable {
     private PostingType jobPostingType;
     private String companyName;
     private Recruiter recruiter;
-    private ArrayList<Application> application;
+    private ArrayList<Application> application = new ArrayList<>();
+
 
     public JobPosting() {
         this.jobPostingUUID = UUID.randomUUID();
-        application = new ArrayList<>();
     }
 
     public JobPosting(String jobDescription,  String jobRequirements, String jobTitle, PostingType jobPostingType) {
@@ -132,6 +133,34 @@ public class JobPosting implements Serializable {
 
     public void deleteApplication(Application application) {
         this.application.remove(application);
+    }
+
+    public void setApplication(ArrayList<Application> application) {
+        this.application = application;
+    }
+
+    public Internship getInternship() {
+        return Internship;
+    }
+
+    public void setInternship(Internship internship) {
+        Internship = internship;
+    }
+
+    public FullTime getFullTime() {
+        return fullTime;
+    }
+
+    public void setFullTime(FullTime fullTime) {
+        this.fullTime = fullTime;
+    }
+
+    public FreeLanceProject getFreeLanceProject() {
+        return freeLanceProject;
+    }
+
+    public void setFreeLanceProject(FreeLanceProject freeLanceProject) {
+        this.freeLanceProject = freeLanceProject;
     }
 
     @Override

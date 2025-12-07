@@ -8,6 +8,10 @@ public class FullTime extends JobPosting implements Serializable {
     private String benefits;
     private Company company;
 
+    public FullTime() {
+        super();
+    }
+
     public FullTime(String JobDescription,  String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
         super(JobDescription, JobRequirements, JobTitle, jobPostingType);
         this.benefits = benefits;

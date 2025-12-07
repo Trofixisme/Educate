@@ -9,6 +9,10 @@ public class Internship extends JobPosting implements Serializable {
     private int duration;
     private Company company;
 
+    public Internship() {
+        super();
+    }
+
     public Internship(String JobDescription,String JobRequirements, String JobTitle, PostingType jobPostingType,  int duration,Company company) {
         super(JobDescription, JobRequirements, JobTitle, jobPostingType);
         this.duration = duration;
