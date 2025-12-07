@@ -68,7 +68,7 @@ public class UserService implements FilePaths {
 
     public User searchByEmail(String email) {
         try {
-            List<User> users = repo.findAll();
+            List<User> users = RepositoryAccessors.allUsers;
             for (User u : users) {
                 if (u.getEmail().equals(email)) {
                     return u;

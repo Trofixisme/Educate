@@ -11,17 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<!-- Error message -->
-<div th:if="${errorMessage}"
-     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
-    <p th:text="${errorMessage}"></p>
-</div>
-
-<!-- Success message -->
-<div th:if="${success}"
-     style="color:green;border:1px solid green;padding:10px;margin-bottom:15px;">
-    <p th:text="${success}"></p>
-</div>
 <body>
 <header th:replace="~{fragments/header}"></header>
 <h2 class="form-title">Sign up</h2>
@@ -88,7 +77,8 @@
         <a th:href="@{/company/register}">create a company</a>
     </p>
     <p class="form-link">
-        <a th:href="@{/login}">Already have an account?</a>
+        Already have an account?
+        <a th:href="@{/login}">Sign in</a>
     </p>
 
 </div>
