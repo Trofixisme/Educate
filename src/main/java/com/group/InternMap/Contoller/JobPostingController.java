@@ -89,9 +89,7 @@ public String AddJobPostingForm(Model model, HttpSession session) {
         }
 
         try {
-            jobPosting.setRecruiter(recruiter);
 
-            // Clean up: set unused objects to null based on type
             if (jobPosting.getJobPostingType() == PostingType.FullTime) {
                 jobPosting.setInternship(null);
                 jobPosting.setFreeLanceProject(null);
@@ -102,7 +100,7 @@ public String AddJobPostingForm(Model model, HttpSession session) {
                 jobPosting.setFullTime(null);
                 jobPosting.setInternship(null);
             }
-
+            jobPosting.setRecruiter(recruiter);
             allJobPostings.add(jobPosting);
 
             model.addAttribute("success", "Job posting created successfully!");

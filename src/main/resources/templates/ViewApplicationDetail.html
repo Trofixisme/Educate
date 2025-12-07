@@ -266,12 +266,11 @@
 
     <!-- Search and Action Buttons -->
     <div class="search-action-container">
-        <form th:action="@{/JobPostings/{id}/applications/search(id=${jobPosting.jobPostingUUID})}"
-              method="get"
-              class="search-form">
-            <input type="text" name="q" placeholder="Search applications by name or email" class="search-input"/>
+        <form th:action="@{/application/search(searchQuery=${searchQuery})}" method="post" class="search-form">
+            <input type="text" name="searchQuery" placeholder="Search by company name or job title" class="search-input"/>
             <button type="submit" class="search-button">Search</button>
         </form>
+
 
         <div class="action-buttons">
             <a th:href="@{/recruiter/jobpostings}" class="action-btn">

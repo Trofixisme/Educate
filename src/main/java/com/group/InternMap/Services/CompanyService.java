@@ -11,7 +11,7 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
 import static com.group.InternMap.Services.FilePaths.userPath;
 
 @Service
-@SuppressWarnings("unused")
+
 public class CompanyService {
 
     protected final BaseRepository<User> repo = new BaseRepository<>(User.class, userPath);

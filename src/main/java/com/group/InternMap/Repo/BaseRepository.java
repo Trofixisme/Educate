@@ -3,7 +3,7 @@ package com.group.InternMap.Repo;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class BaseRepository<T> extends FileManager {
+public  class BaseRepository<T> extends FileManager {
 
     private final String fileName;
     private final Class<T> type;

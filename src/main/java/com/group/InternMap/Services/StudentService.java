@@ -12,7 +12,6 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
 import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 
 @Service
-@SuppressWarnings("unused")
 public class StudentService extends UserService implements FilePaths {
     public void deleteApplication(Student student, JobPosting jobPosting,Application application) {
         if(allApplications.contains(application)){

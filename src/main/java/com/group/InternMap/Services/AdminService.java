@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings("unused")
+
 public class AdminService extends UserService implements FilePaths {
 
     public List<User> viewAllUsers() {
@@ -37,8 +37,6 @@ public class AdminService extends UserService implements FilePaths {
     public void deleteUser(String email) {
 
         List<User> users = RepositoryAccessors.allUsers;
-        //The u is the user, the method basically does the job of loop
-        //but safer and without causing run time error
         users.removeIf(u -> u.getEmail().equals(email));
     }
 

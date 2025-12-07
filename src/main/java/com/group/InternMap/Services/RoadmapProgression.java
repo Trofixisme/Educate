@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-@SuppressWarnings("unused")
+
 public class RoadmapProgression implements Serializable {
 
     private UUID uuid;
