@@ -20,7 +20,7 @@ import static com.group.InternMap.Repo.RepositoryAccessors.*;
 @RequestMapping("/roadmaps")
 public class RoadmapController {
 
-    private RoadmapService roadmapService = new RoadmapService();
+    private final RoadmapService roadmapService = new RoadmapService();
 
     //Display a specific roadmap with modules and skills
     @GetMapping("/{id}")
@@ -46,6 +46,7 @@ public class RoadmapController {
         if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {
             return "redirect:/login";
         }
+
         System.out.println(admin);
             RoadmapModuleSkill dto = new RoadmapModuleSkill();
             RoadmapModuleSkill.ModuleData module = new RoadmapModuleSkill.ModuleData();
@@ -55,6 +56,7 @@ public class RoadmapController {
             model.addAttribute("roadmaps", dto);
             return "roadmap/form";
     }
+
     @PostMapping("/new")
     public String createRoadmap(@ModelAttribute("roadmap") RoadmapModuleSkill dto, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {

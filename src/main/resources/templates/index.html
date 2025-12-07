@@ -21,10 +21,11 @@
             InternMap
         </div>
         <div id="s1" class="box-sign-buttons">
-            <button id="hb1" onclick="location.href='/login'">Sign in</button>
+            <button id="hb1" onclick="location.href='/login'" th:if="${isLoggedIn == false}">Sign in</button>
             <a th:href="@{/signup-choice}" style="text-decoration: none;"></a>
-                <button id="hb3" onclick="location.href='/signup-choice'">Sign up</button>
-            <button id="hb6" onclick="location.href='/profile'">
+                <button id="hb3" onclick="location.href='/signup-choice'" th:if="${isLoggedIn == false}">Sign up</button>
+                <form id="hb4" onclick="location.href='/logout';" th:if="${isLoggedIn == true}">Log out</form>
+            <button id="hb6" onclick="location.href='/profile'" th:if="${isLoggedIn == true}">
                 <img id="person-fill" src="/images/person_fill.png" alt="Profile" style="width: 25px; height: 26px; margin-left: 10px;">
             </button>
 
@@ -44,7 +45,7 @@
         Explore Roadmaps
     </div>
     <div id="bb2">
-        <button id="bu1"> Roadmaps</button>
+        <button id="bu1">Roadmaps</button>
         <button id="bu2" onclick="location.href = '/JobPostings'"> Positions</button>
     </div>
 </div>
@@ -70,12 +71,17 @@
 <!--</div>-->
 <div class="button-grid">
     <a th:href="@{/roadmaps/new}"
-       class="grid-button"><img src="/images/plus.png" alt="Create new Roadmap" width="46" height="46" id="grid-button-plus"></a>
+       class="grid-button" th:if="${isAdmin == true}"><img src="/images/plus.png" alt="Create new Roadmap" width="46" height="46" id="grid-button-plus"></a>
     <a th:href="@{/roadmaps/{id}(id=${roadmap.roadmapID})}"
        class="grid-button"
        th:each="roadmap : ${roadmaps}"
        th:text="${roadmap.name}"
        style="text-decoration: none;">
+    </a>
+
+    <a th:if="${roadmaps.isEmpty and isAdmin == false}"
+       style="text-decoration: none; font-size: 40px; font-weight: bold; color: #3e3e3e; display: flex; justify-content: center;">
+        No roadmaps to show.
     </a>
 </div>
 </body>

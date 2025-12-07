@@ -7,6 +7,7 @@ import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Services.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.actuate.web.exchanges.HttpExchange;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +24,21 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String showHomePage(Model model) {
-        System.out.println("home page accessed, without session ");
+    public String showHomePage(Model model, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") instanceof Admin) {
+            model.addAttribute("isLoggedIn", true);
+            model.addAttribute("isAdmin", true);
+        } else if (session.getAttribute("loggedInUser") == null) {
+            model.addAttribute("isLoggedIn", false);
+            model.addAttribute("isAdmin", false);
+        } else {
+            model.addAttribute("isLoggedIn", true);
+            model.addAttribute("isAdmin", false);
+        }
 
         model.addAttribute("roadmaps", allRoadmaps);
+
         return "index";
     }
     @GetMapping("/signup-choice")
@@ -94,13 +106,13 @@ public class HomeController {
 
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         // This removes the session and all attributes, including the "loggedInUser"
-        session.invalidate();
+        session.setAttribute("loggedInUser", null);
 
         // Redirect the user back to the login page
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 }
