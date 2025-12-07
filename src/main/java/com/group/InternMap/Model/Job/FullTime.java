@@ -3,30 +3,24 @@ package com.group.InternMap.Model.Job;
 import com.group.InternMap.Model.User.Company.Company;
 import java.io.Serializable;
 
-@SuppressWarnings("unused")
-public class FullTime extends JobPosting implements Serializable {
+@SuppressWarnings("unused")public class FullTime  implements Serializable {
     private String benefits;
     private Company company;
 
     public FullTime() {
-        super();
     }
 
-    public FullTime(String JobDescription,  String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
-        super(JobDescription, JobRequirements, JobTitle, jobPostingType);
+    public FullTime(String JobDescription, String JobRequirements, String JobTitle, PostingType jobPostingType, String benefits, Company company) {
         this.benefits = benefits;
-        this.company=company;
+        this.company=new Company();
     }
 
     public FullTime(String fullTimeID ,String JobDescription,  String JobRequirements, String JobTitle, PostingType jobPostingType,String benefits,Company company) {
-        super(fullTimeID ,JobDescription,JobRequirements, JobTitle,jobPostingType);
+
         this.benefits = benefits;
         this.company=company;
     }
 
-    public String getCompanyLocation(){
-        return company.getLocation();
-    }
 
     public String getBenefits() {
         return benefits;

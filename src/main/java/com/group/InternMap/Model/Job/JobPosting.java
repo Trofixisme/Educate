@@ -16,13 +16,14 @@ public class JobPosting implements Serializable {
     private Date datePosted = Date.from(Instant.now());
     private String jobRequirements;
     private String jobName;
-
     private final UUID jobPostingUUID;
     private PostingType jobPostingType;
     private String companyName;
     private Recruiter recruiter;
     private ArrayList<Application> application = new ArrayList<>();
-
+   private Internship internship;
+   private FreeLanceProject freeLanceProject;
+   private FullTime fullTime;
 
     public JobPosting() {
         this.jobPostingUUID = UUID.randomUUID();
@@ -140,11 +141,11 @@ public class JobPosting implements Serializable {
     }
 
     public Internship getInternship() {
-        return Internship;
+        return internship;
     }
 
     public void setInternship(Internship internship) {
-        Internship = internship;
+        this.internship = internship;
     }
 
     public FullTime getFullTime() {

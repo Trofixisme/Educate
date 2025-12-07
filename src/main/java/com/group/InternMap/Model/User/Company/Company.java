@@ -15,7 +15,8 @@ public class Company implements Serializable {
     private String name;
     private String websiteURL = "";
     private ArrayList<Recruiter> recruiters = new ArrayList<>();
-    private ArrayList<String> location = new ArrayList<>();
+//    private ArrayList<String> location = new ArrayList<>();
+    private String location;
 
     public Company() {
         companyID = UUID.randomUUID();
@@ -37,7 +38,7 @@ public class Company implements Serializable {
     }
 
     public String getLocation() {
-        return getLocation();
+        return location;
     }
 
     public String getIndustry() {

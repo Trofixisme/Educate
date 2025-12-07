@@ -5,22 +5,20 @@ import com.group.InternMap.Model.User.Company.Company;
 import java.io.Serializable;
 
 @SuppressWarnings("unused")
-public class Internship extends JobPosting implements Serializable {
+public class Internship  implements Serializable {
     private int duration;
     private Company company;
-
     public Internship() {
-        super();
+
     }
 
     public Internship(String JobDescription,String JobRequirements, String JobTitle, PostingType jobPostingType,  int duration,Company company) {
-        super(JobDescription, JobRequirements, JobTitle, jobPostingType);
+
         this.duration = duration;
-        this.company=company;
+        this.company=new Company();
     }
 
     public Internship(String internshipID, String jobDescription,  String jobRequirements, String jobTitle, PostingType jobPostingType, int duration, Company company) {
-        super(internshipID, jobDescription,jobRequirements, jobTitle, jobPostingType);
         this.duration = duration;
         this.company=company;
     }

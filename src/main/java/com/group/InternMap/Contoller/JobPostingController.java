@@ -1,14 +1,11 @@
 package com.group.InternMap.Contoller;
 
-import com.group.InternMap.Model.Job.FreeLanceProject;
-import com.group.InternMap.Model.Job.FullTime;
-import com.group.InternMap.Model.Job.Internship;
+import com.group.InternMap.Model.Job.*;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Services.JobPostingService;
 import com.group.InternMap.Services.UserService;
 import org.springframework.ui.Model;
-import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Services.RecruiterService;
 import jakarta.servlet.http.HttpSession;
@@ -50,38 +47,92 @@ public class JobPostingController {
         return "JobPosting"; // Thymeleaf template
     }
 
-    @GetMapping("/JobPostingForm")
-    public String AddJobPostingForm(Model model, HttpSession session) {
-        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter recruiter)) {
-            return "redirect:/login";
-        }
-        JobPosting jobPosting = new JobPosting();
-        jobPosting.setFullTime(new FullTime());
-        jobPosting.setInternship(new Internship());
-        jobPosting.setFreeLanceProject(new FreeLanceProject());
-        jobPosting.setRecruiter(recruiter);
-        model.addAttribute("jobPosting", jobPosting);
-        return "JobPostingForm";
+//    @GetMapping("/JobPostingForm")
+//    public String AddJobPostingForm(Model model, HttpSession session) {
+//        if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Recruiter recruiter)) {
+//            return "redirect:/login";
+//        }
+//        JobPosting jobPosting = new JobPosting();
+//        jobPosting.setFullTime(new FullTime());
+//        jobPosting.setInternship(new Internship());
+//        jobPosting.setFreeLanceProject(new FreeLanceProject());
+//        jobPosting.setRecruiter(recruiter);
+//        model.addAttribute("jobPosting", jobPosting);
+//        return "JobPostingForm";
+//    }
+@GetMapping("/JobPostingForm")
+public String AddJobPostingForm(Model model, HttpSession session) {
+    if (session.getAttribute("loggedInUser") == null ||
+            !(session.getAttribute("loggedInUser") instanceof Recruiter recruiter)) {
+        return "redirect:/login";
     }
 
+    JobPosting jobPosting = new JobPosting();
+
+    // IMPORTANT: Initialize all nested objects
+    jobPosting.setFullTime(new FullTime());
+    jobPosting.setInternship(new Internship());
+    jobPosting.setFreeLanceProject(new FreeLanceProject());
+
+    jobPosting.setRecruiter(recruiter);
+    model.addAttribute("jobPosting", jobPosting);
+    return "JobPostingForm";
+}
 
     @PostMapping("/JobPostingForm")
-    public String saveJobPosting(@ModelAttribute JobPosting jobposting, HttpSession session, Model model) {
-        if (session.getAttribute("loggedInUser") == null) {
+    public String AddJobPosting(@ModelAttribute JobPosting jobPosting,
+                                HttpSession session,
+                                Model model) {
+        if (session.getAttribute("loggedInUser") == null ||
+                !(session.getAttribute("loggedInUser") instanceof Recruiter recruiter)) {
             return "redirect:/login";
         }
-        Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
-        try { // link posting to recruiter
-            allJobPostings.add(jobposting);
-            jobposting.setRecruiter(user);
 
-            return "redirect:/JobPostings";
+        try {
+            jobPosting.setRecruiter(recruiter);
+
+            // Clean up: set unused objects to null based on type
+            if (jobPosting.getJobPostingType() == PostingType.FullTime) {
+                jobPosting.setInternship(null);
+                jobPosting.setFreeLanceProject(null);
+            } else if (jobPosting.getJobPostingType() == PostingType.Internship) {
+                jobPosting.setFullTime(null);
+                jobPosting.setFreeLanceProject(null);
+            } else if (jobPosting.getJobPostingType() == PostingType.FreeLanceProject) {
+                jobPosting.setFullTime(null);
+                jobPosting.setInternship(null);
+            }
+
+            allJobPostings.add(jobPosting);
+
+            model.addAttribute("success", "Job posting created successfully!");
+            return "redirect:/JobPostings"; // or return to form with success message
 
         } catch (Exception e) {
-            model.addAttribute("error", "Failed to add job posting");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            model.addAttribute("jobPosting", jobPosting);
             return "JobPostingForm";
         }
     }
+
+//
+//    @PostMapping("/JobPostingForm")
+//    public String saveJobPosting(@ModelAttribute JobPosting jobposting, HttpSession session, Model model) {
+//        if (session.getAttribute("loggedInUser") == null) {
+//            return "redirect:/login";
+//        }
+//        Recruiter user = (Recruiter) session.getAttribute("loggedInUser");
+//        try { // link posting to recruiter
+//            allJobPostings.add(jobposting);
+//            jobposting.setRecruiter(user);
+//
+//            return "redirect:/JobPostings";
+//
+//        } catch (Exception e) {
+//            model.addAttribute("error", "Failed to add job posting");
+//            return "JobPostingForm";
+//        }
+//    }
 
     @PostMapping("/JobPostings/search")
     public String searchJobPosting(@RequestParam("searchQuery") String searchQuery, @ModelAttribute JobPosting jobposting, Model model, HttpSession session) {
