@@ -9,6 +9,7 @@ import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
@@ -103,5 +104,16 @@ public class RecruiterService extends UserService {
                 .filter(c -> c.getEmail().equalsIgnoreCase(email))
                 .findFirst()
                 .orElseThrow(() -> new Exception("profile not found , please check the name again or create a new company"));
+    }
+    private final BaseRepository<Application> appRepo = new BaseRepository<>(Application.class, applicationPath);
+    public List<Application> searchApplication(String searchQuery) throws Exception {
+        return appRepo.search(app -> {
+            boolean matches = false;
+
+            if (searchQuery != null && !searchQuery.isBlank()) {
+                matches |= app.getEmail().toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT));
+            }
+            return matches;
+        });
     }
 }

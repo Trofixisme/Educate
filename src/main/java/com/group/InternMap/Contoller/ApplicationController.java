@@ -7,21 +7,25 @@ import com.group.InternMap.Model.User.CV;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Services.JobPostingService;
+import com.group.InternMap.Services.RecruiterService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.group.InternMap.Repo.RepositoryAccessors.*;
 
 @Controller
 public class ApplicationController {
+    private final RecruiterService recruiterService;
     JobPostingService jobPostingService;
-    ApplicationController(JobPostingService jobPostingService){
+    ApplicationController(JobPostingService jobPostingService, RecruiterService recruiterService){
         this.jobPostingService = jobPostingService;
+        this.recruiterService = recruiterService;
     }
 
     @GetMapping("/cv")
@@ -142,6 +146,20 @@ public class ApplicationController {
             return "redirect:/applications/new?jobId=" + jobId;
         }
 
+    }
+    @PostMapping("/application/search")
+    public String searchJobPosting(@RequestParam("searchQuery") String searchQuery, @ModelAttribute Application application, Model model, HttpSession session) {
+        try {
+            // Search dynamically using your service
+            List<Application> results = recruiterService.searchApplication(searchQuery.replaceFirst(",", ""));
+            // Add search results to the model
+            model.addAttribute("applications", results);
+            // Add the jobposting object to the model so form fields keep their values
+            model.addAttribute("applications", application);
+        } catch (Exception e) {
+            model.addAttribute("error", "Error searching application: " + e.getMessage());
+        }
+        return "ViewApplicationDetail"; // Thymeleaf template
     }
 
 }
