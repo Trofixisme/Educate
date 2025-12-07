@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class FileManager {
+abstract class FileManager {
 
     // For writing individual objects (varargs style)
     protected static <T> void write(String fileName, T... objects) throws Exception {

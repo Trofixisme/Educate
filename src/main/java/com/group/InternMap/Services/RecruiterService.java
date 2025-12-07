@@ -14,12 +14,11 @@ import java.util.stream.Collectors;
 import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
 
 @Service
-@SuppressWarnings("unused")
 public class RecruiterService extends UserService {
 
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
-    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, applicationPath);
-    private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
+//    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
+//    private final BaseRepository<Application> applicationRepo = new BaseRepository<>(Application.class, applicationPath);
+//    private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
     private final ApplicationEventPublisher eventPublisher;
 
     public RecruiterService(ApplicationEventPublisher eventPublisher) {
@@ -71,32 +70,29 @@ public class RecruiterService extends UserService {
         eventPublisher.publishEvent(new RecruiterAddedEvent(recruiter.getUserID(), company.getCompanyID().toString()));
     }
 
-    public List<Company> viewAllCompanies() throws Exception {
-        return companyRepo.findAll();
-    }
-
-    public List<Application> viewAllApplications() throws Exception {
-        return applicationRepo.findAll();
-    }
-
-    public Application searchApplication(UUID appId) throws Exception {
-        List<Application> applications = applicationRepo.findAll();
-        return applications.stream().filter(app -> app.getApplicationID().equals(appId)).findFirst().orElse(null);
-    }
-
-    public List<Application> filterApplication(UUID appId) throws Exception {
-        List<Application> applications = applicationRepo.findAll();
-        return applications.stream().filter(app -> app.getApplicationID().equals(appId)).collect(Collectors.toList());
-    }
+//    public List<Company> viewAllCompanies() throws Exception {
+//        return companyRepo.findAll();
+//    }
+//
+//    public List<Application> viewAllApplications() throws Exception {
+//        return applicationRepo.findAll();
+//    }
+//
+//    public Application searchApplication(UUID appId) throws Exception {
+//        List<Application> applications = allApplications.findAll();
+//        return applications.stream().filter(app -> app.getApplicationID().equals(appId)).findFirst().orElse(null);
+//    }
+//
+//    public List<Application> filterApplication(UUID appId) throws Exception {
+//        List<Application> applications = applicationRepo.findAll();
+//        return applications.stream().filter(app -> app.getApplicationID().equals(appId)).collect(Collectors.toList());
+//    }
 
     //function to display all applications for a specific jobPosting
     public List<Application> getApplicationsByJobPosting(JobPosting jobPosting) {
         if (jobPosting == null) {
             throw new IllegalArgumentException("Job posting cannot be null");
         }
-
-        // Get applications and sort by date
-        //also I already have a getter for all application submitted in my model
         List<Application> applications = jobPosting.getApplication();
         applications.sort((a1, a2) -> a1.getApplicationDate().compareTo(a2.getApplicationDate()));
         return applications;
