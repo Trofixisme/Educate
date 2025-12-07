@@ -1,6 +1,7 @@
 package com.group.InternMap.Repo.Deprecated;
 
 @Deprecated
+@SuppressWarnings("all")
 public class SkillRepository extends BaseRepository {
 
     public SkillRepository() {

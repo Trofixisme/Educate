@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
 import static com.group.InternMap.Repo.RepositoryAccessors.allUsers;
 
@@ -39,7 +38,10 @@ public class UserController {
     @PostMapping("/student/register")
     public String registerStudent(@ModelAttribute("user") Student user, Model model) {
         try {
-            userService.register(user);
+            var email = user.getEmail();
+            if (UserService.isEmailValid(email)) {
+                userService.register(user);
+            }
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             // Return the view name (DO NOT REDIRECT)
@@ -63,18 +65,18 @@ public class UserController {
         try {
             Company company = recruiterRegistrationDTO.getCompany();
             Recruiter user = recruiterRegistrationDTO.getUser();
+
             System.out.println(company);
             System.out.println(company);
-            if (company!= null) {
+            if (UserService.isEmailValid(user.getEmail())) {
                 userService.register(user);
-                recruiterService.addCompanyToRecruiter(user.getUserID(), company.getName());
-                System.out.println(allCompanies);
-                System.out.println(allUsers);
-            } else {
-                userService.register(user);
+                if (company != null) {
+                    recruiterService.addCompanyToRecruiter(user.getUserID(), company.getName());
+                    System.out.println(allCompanies);
+                    System.out.println(allUsers);
+                }
             }
             // exception here
-            System.out.println("After fix");
             return "redirect:/login";
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
@@ -110,7 +112,9 @@ public class UserController {
     @PostMapping("/admin/register")
     public String registerAdmin(@ModelAttribute("user") Admin user, Model model) {
         try {
-            userService.register(user);
+            if (UserService.isEmailValid(user.getEmail())) {
+                userService.register(user);
+            }
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             // Return the view name (DO NOT REDIRECT)

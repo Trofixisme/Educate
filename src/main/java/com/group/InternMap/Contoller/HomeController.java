@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.group.InternMap.Repo.RepositoryAccessors.allRoadmaps;
 
-
 @Controller
 public class HomeController {
     private final UserService userService;
@@ -31,8 +30,8 @@ public class HomeController {
         return "index";
     }
     @GetMapping("/signup-choice")
-    public String signupChoice() {// or whatever your object is
-        return "InternMapSignUpchoice"; // Note: no .html extension
+    public String signupChoice() { // or whatever your object is
+        return "InternMapSignUpchoice"; // Note: no .htm; extension
     }
 
     @GetMapping("/user/home")
@@ -58,20 +57,24 @@ public class HomeController {
         }
         model.addAttribute("user", loggedUser);
 
-        if (loggedUser instanceof Student) {
-            model.addAttribute("student", (Student) loggedUser);
-            model.addAttribute("type", "student");
-            return "profile";
-        }
-        if (loggedUser instanceof Recruiter) {
-            model.addAttribute("recruiter", (Recruiter) loggedUser);
-            model.addAttribute("type", "recruiter");
-            return "profile";
-        }
-        if (loggedUser instanceof Admin) {
-            model.addAttribute("admin", (Admin) loggedUser);
-            model.addAttribute("type", "admin");
-            return "profile";
+        switch (loggedUser) {
+            case Student _ -> {
+                model.addAttribute("student", loggedUser);
+                model.addAttribute("type", "student");
+                return "profile";
+            }
+            case Recruiter _ -> {
+                model.addAttribute("recruiter", loggedUser);
+                model.addAttribute("type", "recruiter");
+                return "profile";
+            }
+            case Admin _ -> {
+                model.addAttribute("admin", loggedUser);
+                model.addAttribute("type", "admin");
+                return "profile";
+            }
+            default -> {
+            }
         }
 
         return "index";

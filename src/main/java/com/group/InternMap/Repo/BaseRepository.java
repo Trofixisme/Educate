@@ -47,6 +47,4 @@ public class BaseRepository<T> extends FileManager {
         }
         return null;
     }
-
-
 }

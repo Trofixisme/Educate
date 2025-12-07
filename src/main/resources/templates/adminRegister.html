@@ -14,15 +14,13 @@
 <body>
 <header th:replace="~{fragments/header}"></header>
 
-<!-- Error message -->
-<div th:if="${errorMessage}"
-     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
-    <p th:text="${errorMessage}"></p>
-</div>
-
 <h2 class="form-title">Admin Sign Up</h2>
 
 <div class="form-container">
+    <div th:if="${errorMessage}"
+         style="color:red;border: 0 solid red;padding:2px;margin-bottom:15px; font-weight: 550;">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <form th:action="@{/admin/register}"
           th:object="${user}"
           method="post">

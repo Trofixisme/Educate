@@ -5,13 +5,13 @@ import com.group.InternMap.Model.Roadmap.Skill.UserSkillStatus;
 import com.group.InternMap.Model.Roadmap.Status;
 import com.group.InternMap.Model.User.Student;
 //import com.group.educate.Model.User.Student.StudentMajor;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class RoadmapProgression implements Serializable {
 
     private UUID uuid;

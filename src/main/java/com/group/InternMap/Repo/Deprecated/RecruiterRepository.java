@@ -5,6 +5,7 @@ import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Model.User.UserRole;
 
 @Deprecated
+@SuppressWarnings("all")
 public class RecruiterRepository extends BaseRepository {
 
     public RecruiterRepository() {

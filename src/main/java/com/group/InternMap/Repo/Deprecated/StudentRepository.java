@@ -8,6 +8,7 @@ import com.group.InternMap.Model.User.UserRole;
 import java.util.List;
 
 @Deprecated
+@SuppressWarnings("all")
 public class StudentRepository extends BaseRepository {
 
     public StudentRepository() {

@@ -49,7 +49,7 @@ body {
 
 footer {
 
-    position: static;
+    position: absolute;
 
     .box {
         display: flex;

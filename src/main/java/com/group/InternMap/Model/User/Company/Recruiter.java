@@ -4,7 +4,7 @@ import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Model.User.UserRole;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class Recruiter extends User implements Serializable {
     private String title;
@@ -55,11 +55,10 @@ public class Recruiter extends User implements Serializable {
                 "id=" + getUserID() +
                 ", companyIds=" + (companies != null && !companies.isEmpty() ?
                 companies.stream()
-                        .filter(company -> company != null) // Filter out any null companies
+                        .filter(Objects::nonNull) // Filter out any null companies
                         .map(Company::getCompanyID)
-                        .collect(Collectors.toList()) :
+                        .toList() :
                 "[]") +
                 "}";
     }
-
 }

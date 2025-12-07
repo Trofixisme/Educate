@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Deprecated
+@SuppressWarnings("all")
 public class CompanyRepository extends BaseRepository {
 
     public CompanyRepository() {

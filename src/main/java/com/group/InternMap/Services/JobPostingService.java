@@ -1,17 +1,13 @@
 package com.group.InternMap.Services;
 
 import com.group.InternMap.Model.Job.JobPosting;
-import com.group.InternMap.Model.User.Company.Recruiter;
-import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Repo.BaseRepository;
 import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 import static com.group.InternMap.Services.FilePaths.jobPostingPath;
-import static com.group.InternMap.Services.FilePaths.userPath;
 
 @Service
 public class JobPostingService {

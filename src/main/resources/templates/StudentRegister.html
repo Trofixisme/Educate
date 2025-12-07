@@ -11,27 +11,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<div th:if="${errorMessage}"
-     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
-    <p th:text="${errorMessage}"></p></div>
 <body>
 <header th:replace="~{fragments/header}"></header>
 <h2 class="form-title">Sign up</h2>
 <div class="form-container">
 <form  th:action="@{/student/register}" th:object="${user}" method="post">
+    <div th:if="${errorMessage}"
+         style="color:red;border:0 solid red;padding:2px;margin-bottom:15px; font-weight: 550;">
+        <p th:text="${errorMessage}"></p></div>
     <div class="form-row">
     <div class="form-group">
         <input type="text"
                class="form-input"
                th:field="*{fname}"
-               placeholder="first name"
+               placeholder="First name"
                required />
     </div>
     <div class="form-group">
         <input type="text"
                class="form-input"
                th:field="*{lname}"
-               placeholder="last name"
+               placeholder="Last name"
                required />
     </div>
     <div class="form-group">
@@ -67,14 +67,14 @@
         <input type="text"
                class="form-input"
                th:field="*{studentMajor}"
-               placeholder="student major"
+               placeholder="Major"
                required />
     </div>
     <div class="form-group">
         <input type="text"
                class="form-input"
                th:field="*{faculty}"
-               placeholder="faculty"
+               placeholder="Faculty"
                required />
     </div>
     </div>

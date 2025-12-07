@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.group.InternMap.Repo.FileManager.read;
-import static com.group.InternMap.Repo.FileManager.write;
-
 class FileManager {
 
     // For writing individual objects (varargs style)

@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class RoadmapModuleSkill {
     private String roadmapName;
     private List<ModuleData> modules = new ArrayList<>();

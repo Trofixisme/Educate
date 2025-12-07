@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<div th:if="${errorMessage}"
-     style="color:red;border:1px solid red;padding:10px;margin-bottom:15px;">
-    <p th:text="${errorMessage}"></p></div>
 
 <!-- Error message -->
 <div th:if="${errorMessage}"
@@ -29,6 +26,9 @@
 <header th:replace="~{fragments/header}"></header>
 <h2 class="form-title">Sign up</h2>
 <div class="form-container">
+    <div th:if="${errorMessage}"
+         style="color:red;border: 0 solid red;padding:2px;margin-bottom:15px; font-weight: 550;">
+        <p th:text="${errorMessage}"></p></div>
 <form th:action="@{/recruiter/register}"
       th:object="${form}"
       method="post">

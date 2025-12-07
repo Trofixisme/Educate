@@ -65,12 +65,13 @@ public class User implements Serializable {
     }
 
     public void setEmail(String email) {
-        if (email.contains("@") && email.contains(".")) {
-            this.email = email;
-        } else {
-            //I don't think we should be throwing errors in the servers,
-            throw new IllegalArgumentException("Provided email isn't valid");
-        }
+        this.email = email;
+//        if (email.contains("@") && email.contains(".")) {
+//            this.email = email;
+//        } else {
+//            //I don't think we should be throwing errors in the servers,
+//            throw new IllegalArgumentException("Provided email isn't valid");
+//        }
     }
     public UserRole getRole() {
         return role;

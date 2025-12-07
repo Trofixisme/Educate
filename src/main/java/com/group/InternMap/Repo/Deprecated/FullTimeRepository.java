@@ -5,6 +5,7 @@ import com.group.InternMap.Model.Job.FullTime;
 import java.util.List;
 
 @Deprecated
+@SuppressWarnings("all")
 public class FullTimeRepository extends BaseRepository {
     protected static final String path="data/FullTime.txt";
 

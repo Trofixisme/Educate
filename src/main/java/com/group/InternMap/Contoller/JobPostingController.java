@@ -18,7 +18,7 @@ import java.util.UUID;
 
 import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 
-//to do:application controller,and review html
+//to do:application controller, and review HTML
 @Controller
 public class JobPostingController {
     private final RecruiterService recruiterService;
@@ -38,7 +38,7 @@ public class JobPostingController {
             model.addAttribute("jobPostings", jobposting);
             System.out.println("after adding");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             model.addAttribute("error", "Failed to load job postings");
             System.out.println("entered catch");
         }
@@ -127,7 +127,7 @@ public String viewApplications(@PathVariable UUID jobId,
         List<Application> apps = recruiterService.getApplicationsByJobPosting(job);
         model.addAttribute("jobPosting", job);
         model.addAttribute("applications", apps);
-        return "ViewApplicationDetail";//i still dont have it but need to do it for clicking the view button
+        return "ViewApplicationDetail";//I still don't have it but need to do it for clicking the view button
 
     } catch (Exception e) {
         System.out.println("error");

@@ -6,27 +6,26 @@ import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Model.User.User;
 import com.group.InternMap.Model.User.UserRole;
-import com.group.InternMap.Repo.BaseRepository;
 import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
+@SuppressWarnings("unused")
 public class AdminService extends UserService implements FilePaths {
 
-    public List<User> viewAllUsers() throws Exception {
+    public List<User> viewAllUsers() {
         return RepositoryAccessors.allUsers;
     }
 
-    public List<Student> findAllStudents() throws Exception {
+    public List<Student> findAllStudents() {
         return RepositoryAccessors.allUsers.stream()
                 .filter(u -> u.getRole() == UserRole.STUDENT)
                 .map(u -> (Student) u)
                 .toList();
     }
 
-    public List<Recruiter> findAllRecruiters() throws Exception {
+    public List<Recruiter> findAllRecruiters() {
         return RepositoryAccessors.allUsers.stream()
                 .filter(u -> u.getRole() == UserRole.RECRUITER)
                 .map(u -> (Recruiter) u)
@@ -35,7 +34,7 @@ public class AdminService extends UserService implements FilePaths {
     //Deleting users
 
     //Doesn't matter which one since email is unique
-    public void deleteUser(String email) throws Exception {
+    public void deleteUser(String email) {
 
         List<User> users = RepositoryAccessors.allUsers;
         //The u is the user, the method basically does the job of loop
@@ -43,21 +42,21 @@ public class AdminService extends UserService implements FilePaths {
         users.removeIf(u -> u.getEmail().equals(email));
     }
 
-    public void addRoadmap(Roadmap roadmap) throws Exception {
+    public void addRoadmap(Roadmap roadmap) {
         List<Roadmap> roadmaps= RepositoryAccessors.allRoadmaps;
         roadmaps.add(roadmap);
     }
 
-    public void removeRoadmap(Roadmap roadmap) throws Exception {
+    public void removeRoadmap(Roadmap roadmap) {
         RepositoryAccessors.allRoadmaps.remove(roadmap);
     }
 
     //View all job posting
-    public List<JobPosting> viewAllJobPosting() throws Exception {
+    public List<JobPosting> viewAllJobPosting() {
         return RepositoryAccessors.allJobPostings;
     }
 
-    public void removeJobPosting(JobPosting jobPosting) throws Exception {
+    public void removeJobPosting(JobPosting jobPosting) {
         RepositoryAccessors.allJobPostings.remove(jobPosting);
     }
 

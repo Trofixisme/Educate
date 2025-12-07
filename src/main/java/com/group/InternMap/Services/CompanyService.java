@@ -6,19 +6,15 @@ import com.group.InternMap.Repo.BaseRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import com.group.InternMap.Model.User.Company.Company;
-
-import java.util.List;
 import java.util.UUID;
-
 import static com.group.InternMap.Repo.RepositoryAccessors.allCompanies;
-import static com.group.InternMap.Services.FilePaths.companyPath;
 import static com.group.InternMap.Services.FilePaths.userPath;
 
 @Service
+@SuppressWarnings("unused")
 public class CompanyService {
 
     protected final BaseRepository<User> repo = new BaseRepository<>(User.class, userPath);
-    private final BaseRepository<Company> companyRepo = new BaseRepository<>(Company.class, companyPath);
     public RecruiterService recruiterService;
 
     CompanyService(RecruiterService recruiterService) {
@@ -26,7 +22,7 @@ public class CompanyService {
     }
 
     @EventListener
-    public void handleRecruiterAddedEvent(RecruiterAddedEvent event) throws  Exception {
+    public void handleRecruiterAddedEvent(RecruiterAddedEvent event) {
         UUID recruiterId = event.getRecruiterId();
         String companyId = event.getCompanyId();
         Recruiter recruiter =recruiterService.findRecruiterById(recruiterId);
@@ -35,7 +31,7 @@ public class CompanyService {
         System.out.println("Company updated after recruiter was added.");
     }
 
-    public static Company findByName(String companyName) throws Exception{
+    public static Company findByName(String companyName) throws Exception {
         if (companyName == null || companyName.isBlank()) return null;
         return allCompanies.stream()
                 .filter(c -> c.getName().equalsIgnoreCase(companyName))

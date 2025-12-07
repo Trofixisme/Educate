@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Deprecated
+@SuppressWarnings("all")
 public abstract class BaseRepository {
     protected final String path;
 

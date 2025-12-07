@@ -95,5 +95,4 @@ public class Application implements Serializable,Comparable<Application> {
         }
         return 0;
     }
-
 }

@@ -4,7 +4,6 @@ import com.group.InternMap.Dto.RoadmapModuleSkill;
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Model.User.Admin;
-import com.group.InternMap.Model.User.Company.Recruiter;
 import com.group.InternMap.Services.RoadmapService;
 import com.group.InternMap.Model.Roadmap.Skill.Skill;
 import jakarta.servlet.http.HttpSession;
@@ -41,7 +40,7 @@ public class RoadmapController {
         }
     }
 
-    //Display form to create new roadmap
+    //Display form to create a new roadmap
     @GetMapping("/new")
     public String newRoadmap(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null || !(session.getAttribute("loggedInUser") instanceof Admin admin)) {

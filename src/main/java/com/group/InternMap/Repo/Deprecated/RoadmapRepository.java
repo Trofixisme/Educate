@@ -5,6 +5,7 @@ import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import java.util.Arrays;
 
 @Deprecated
+@SuppressWarnings("all")
 public class RoadmapRepository extends BaseRepository {
 
     public RoadmapRepository(String path) {

@@ -92,7 +92,7 @@ public class ApplicationController {
 
         model.addAttribute("jobId", jobPostingId);
         model.addAttribute("applicationandCVDTO", new ApplicationandCVDTO());
-        model.addAttribute("jobPosting", jobPosting); // Add job details to display
+        model.addAttribute("jobPosting", jobPosting); // Add job details for displaying
         return "Application";
     }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class Company implements Serializable {
 
     private UUID companyID;
@@ -102,7 +103,3 @@ public class Company implements Serializable {
         return Objects.hash(companyID);
     }
 }
-
-
-
-

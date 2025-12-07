@@ -3,6 +3,7 @@ package com.group.InternMap.Model.Job;
 import com.group.InternMap.Model.User.Company.Company;
 import java.io.Serializable;
 
+@SuppressWarnings("unused")
 public class FullTime extends JobPosting implements Serializable {
     private String benefits;
     private Company company;

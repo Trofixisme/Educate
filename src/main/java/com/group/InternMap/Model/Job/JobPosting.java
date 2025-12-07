@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class JobPosting implements Serializable {
 
     private String jobDescription;

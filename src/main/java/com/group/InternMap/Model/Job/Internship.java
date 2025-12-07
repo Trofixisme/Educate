@@ -4,6 +4,7 @@ import com.group.InternMap.Model.User.Company.Company;
 
 import java.io.Serializable;
 
+@SuppressWarnings("unused")
 public class Internship extends JobPosting implements Serializable {
     private int duration;
     private Company company;

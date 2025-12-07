@@ -6,7 +6,7 @@ import com.group.InternMap.Repo.RepositoryAccessors;
 import java.util.UUID;
 
 public class RoadmapService {
-    public Roadmap findRoadmapbyId(UUID roadmapId) throws Exception{
+    public Roadmap findRoadmapbyId(UUID roadmapId) {
         if (roadmapId == null) {
             throw new IllegalArgumentException("Roadmap must be provided");
         }
