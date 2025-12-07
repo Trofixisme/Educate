@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,8 @@ public class JobPostingController {
         this.recruiterService = recruiterService;
         this.jobPostingService = jobPostingService;
     }
-   //JobPostings
+
+    //JobPostings
     @GetMapping("/JobPostings")
     public String getAllJobPostings(Model model, ArrayList<JobPosting> jobposting, HttpSession session) {
         try {
@@ -61,7 +63,7 @@ public class JobPostingController {
 
 
     @PostMapping("/JobPostingForm")
-    public String saveJobPosting(@ModelAttribute JobPosting jobposting, HttpSession session,Model model) {
+    public String saveJobPosting(@ModelAttribute JobPosting jobposting, HttpSession session, Model model) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
@@ -72,8 +74,7 @@ public class JobPostingController {
 
             return "redirect:/JobPostings";
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             model.addAttribute("error", "Failed to add job posting");
             return "JobPostingForm";
         }
@@ -94,47 +95,48 @@ public class JobPostingController {
         return "JobPosting"; // Thymeleaf template
     }
 
-@GetMapping("/recruiter/jobpostings")
-public String getRecruiterJobPostings(Model model, HttpSession session) throws Exception {
-    Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
-    if (recruiter == null) {
-        return "redirect:/login";
-    }
-    List<JobPosting> myJobs = jobPostingService.getJobPostingsByRecruiterId(recruiter.getUserID());
-    model.addAttribute("myJobs", myJobs);
-    return "recruiter-jobpostings";
+    @GetMapping("/recruiter/jobpostings")
+    public String getRecruiterJobPostings(Model model, HttpSession session) throws Exception {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
+        if (recruiter == null) {
+            return "redirect:/login";
+        }
+        List<JobPosting> myJobs = jobPostingService.getJobPostingsByRecruiterId(recruiter.getUserID());
+        model.addAttribute("myJobs", myJobs);
+        return "recruiter-jobpostings";
     }
 
-@GetMapping("/JobPostings/{jobId}/applications")
-public String viewApplications(@PathVariable UUID jobId,
-                               Model model,
-                               HttpSession session,
-                               RedirectAttributes redirectAttributes) {
+    @GetMapping("/JobPostings/{jobId}/applications")
+    public String viewApplications(@PathVariable UUID jobId,
+                                   Model model,
+                                   HttpSession session,
+                                   RedirectAttributes redirectAttributes) {
         System.out.println("before");
-    Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
-    if (recruiter == null) {
-        return "redirect:/login";
-    }
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
+        if (recruiter == null) {
+            return "redirect:/login";
+        }
 
-    try {
-        JobPosting job = jobPostingService.findByID(jobId);
-        if (job == null) {
-            System.out.println("job is null");
-            redirectAttributes.addFlashAttribute("error", "Job not found");
+        try {
+            JobPosting job = jobPostingService.findByID(jobId);
+            if (job == null) {
+                System.out.println("job is null");
+                redirectAttributes.addFlashAttribute("error", "Job not found");
+                return "redirect:/JobPostings";
+            }
+            System.out.println("after");
+            List<Application> apps = recruiterService.getApplicationsByJobPosting(job);
+            model.addAttribute("jobPosting", job);
+            model.addAttribute("applications", apps);
+            return "ViewApplicationDetail";//I still don't have it but need to do it for clicking the view button
+
+        } catch (Exception e) {
+            System.out.println("error");
+            redirectAttributes.addFlashAttribute("error", "Error loading applications");
             return "redirect:/JobPostings";
         }
-        System.out.println("after");
-        List<Application> apps = recruiterService.getApplicationsByJobPosting(job);
-        model.addAttribute("jobPosting", job);
-        model.addAttribute("applications", apps);
-        return "ViewApplicationDetail";//I still don't have it but need to do it for clicking the view button
-
-    } catch (Exception e) {
-        System.out.println("error");
-        redirectAttributes.addFlashAttribute("error", "Error loading applications");
-        return "redirect:/JobPostings";
     }
-}
+
     @GetMapping("/cv/{email}")
     public String viewCV(@PathVariable("email") String email, Model model, HttpSession session) {
         try {
@@ -143,8 +145,7 @@ public String viewApplications(@PathVariable UUID jobId,
             model.addAttribute("student", retrievedStudent);
             model.addAttribute("type", "student");
             return "profile";
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             model.addAttribute("error", "Error loading application");
             return "ViewApplicationDetail";
         }

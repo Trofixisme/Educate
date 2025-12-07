@@ -113,7 +113,7 @@
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Companies</label>
-                <div th:if="${recruiter.companies != null and !recruiter.companies.isEmpty()}">
+                <div th:if="${recruiter.companies.get(0) != null and !recruiter.companies.isEmpty()}">
                     <table class="table table-sm">
                         <thead>
                         <tr>
@@ -129,9 +129,9 @@
                         </tbody>
                     </table>
                 </div>
-                <p th:if="${recruiter.companies == null or recruiter.companies.isEmpty()}"
+                <p th:if="${recruiter.companies.get(0) == null or recruiter.companies.isEmpty()}"
                    class="form-control-plaintext text-muted">
-                    No companies
+                    - You're not working for any company.
                 </p>
             </div>
 

@@ -67,21 +67,22 @@ public class HomeController {
         if (loggedUser == null) {
             return "redirect:/login";
         }
+
         model.addAttribute("user", loggedUser);
 
         switch (loggedUser) {
             case Student _ -> {
-                model.addAttribute("student", loggedUser);
+                model.addAttribute("student", (Student) loggedUser);
                 model.addAttribute("type", "student");
                 return "profile";
             }
             case Recruiter _ -> {
-                model.addAttribute("recruiter", loggedUser);
+                model.addAttribute("recruiter", (Recruiter) loggedUser);
                 model.addAttribute("type", "recruiter");
                 return "profile";
             }
             case Admin _ -> {
-                model.addAttribute("admin", loggedUser);
+                model.addAttribute("admin", (Admin) loggedUser);
                 model.addAttribute("type", "admin");
                 return "profile";
             }
