@@ -1,6 +1,6 @@
 package com.group.InternMap.Model.Roadmap.Skill;
 
-import com.group.InternMap.Services.RoadmapProgression;
+import com.group.InternMap.Repo.Deprecated.RoadmapProgression;
 import com.group.InternMap.Model.Roadmap.Status;
 import com.group.InternMap.Model.User.Student;
 

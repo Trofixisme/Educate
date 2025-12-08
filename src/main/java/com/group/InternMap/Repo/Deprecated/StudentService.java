@@ -1,10 +1,12 @@
-package com.group.InternMap.Services;
+package com.group.InternMap.Repo.Deprecated;
 
 import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.Job.PostingType;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Repo.RepositoryAccessors;
+import com.group.InternMap.Services.FilePaths;
+import com.group.InternMap.Services.UserService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +14,7 @@ import static com.group.InternMap.Repo.RepositoryAccessors.allApplications;
 import static com.group.InternMap.Repo.RepositoryAccessors.allJobPostings;
 
 @Service
+@Deprecated
 public class StudentService extends UserService implements FilePaths {
     public void deleteApplication(Student student, JobPosting jobPosting,Application application) {
         if(allApplications.contains(application)){

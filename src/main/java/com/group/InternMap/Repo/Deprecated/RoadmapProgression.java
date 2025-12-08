@@ -1,4 +1,4 @@
-package com.group.InternMap.Services;
+package com.group.InternMap.Repo.Deprecated;
 
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.Skill.UserSkillStatus;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-
+@Deprecated
 public class RoadmapProgression implements Serializable {
 
     private UUID uuid;
