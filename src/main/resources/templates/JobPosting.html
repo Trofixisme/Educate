@@ -143,24 +143,60 @@
 <!--    </div>-->
 <!--</header>-->
 
+<header>
+    <div id="h1">
+        <div id="T1" class="box-title" onclick="location.href = '/'" style="cursor: pointer">
+            InternMap
+        </div>
+        <div id="s1" class="box-sign-buttons">
+            <button id="hb1" onclick="location.href='/login'" th:if="${isLoggedIn == false}">Sign in</button>
+            <a th:href="@{/signup-choice}" style="text-decoration: none;"></a>
+            <button id="hb3" onclick="location.href='/signup-choice'" th:if="${isLoggedIn == false}">Sign up</button>
+            <form id="hb4" onclick="location.href='/logout';" th:if="${isLoggedIn == true}">Log out</form>
+            <button id="hb6" onclick="location.href='/profile'" th:if="${isLoggedIn == true}">
+                <img id="person-fill" src="/images/person_fill.png" alt="Profile" style="width: 25px; height: 26px; margin-left: 10px;">
+            </button>
+
+        </div>
+    </div>
+
+    <div id="l1">
+        <img id="logo" src="/images/Logo Glass.png" alt="This didn't load successfuly >:(" onclick="location.href = '/';" style="cursor: pointer">
+        <span id="p1">InternMap</span>
+        <span id="p2">Welcome to the platform that sets your future for you</span>
+    </div>
+</header>
+
 <body>
-<header th:replace="~{fragments/indexHeader}"></header>
-<!-- Search and Action Section -->
+
 <div class="search-action-container">
-    <h1>All Job Postings</h1>
+    <div id="bb1" class="no-longer-a-box">
+        <div id="bh">
+            Explore Job Postings
+        </div>
+        <div id="bb2">
+            <button id="bu1" onclick="location.href = '/'">Roadmaps</button>
+            <button id="bu2"> Positions</button>
+        </div>
+    </div>
     <form th:action="@{/JobPostings/search(searchQuery=${searchQuery})}" method="post" class="search-form">
             <input type="text" name="searchQuery" placeholder="Search by company name or job title" class="search-input"/>
         <button type="submit" class="search-button">Search</button>
     </form>
 
     <div class="action-buttons">
-        <a th:href="@{/JobPostingForm}">
-            <button class="action-btn">Add a Job Posting</button>
+        <a th:href="@{/JobPostingForm}" th:if="${isRecruiter == true}">
+            <button class="action-btn">Add a job posting</button>
         </a>
-        <a th:href="@{/recruiter/jobpostings}">
-            <button class="action-btn">View Your Job Postings</button>
+        <a th:href="@{/recruiter/jobpostings}" th:if="${isRecruiter == true}">
+            <button class="action-btn">View Your job postings</button>
         </a>
-
+    </div>
+    <div style="margin-top: 70px; margin-bottom: -90px;">
+        <a th:if="${jobPostings.isEmpty()}"
+           style="text-decoration: none; font-size: 40px; font-weight: bold; color: #3e3e3e; display: flex; justify-content: center;">
+            No job postings to show.
+        </a>
     </div>
 </div>
 
@@ -182,7 +218,7 @@
                     <li>Requirements: <span th:text="${job.jobRequirements}">Requirements</span></li>
                     <li>Job ID: <span th:text="${job.jobPostingUUID}">UUID</span></li>
                 </ul>
-                <div id="bottom" style="justify-items: right; -webkit-align-content: center;">
+                <div id="bottom" style="justify-items: right; display: flex; justify-content: flex-end">
                     <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}">
                         <button id="apply-button">Apply</button>
                     </a>
@@ -191,10 +227,25 @@
         </div>
     </div>
 </div>
-
-<a th:href="@{/}">
-    <button class="action-btn secondary">Back to Home</button>
-</a>
-
 </body>
+
+<br><br><br><br><br><br><br>
+<footer>
+    <div>
+        <!--    <img id="footer-image" src="/images/Footer image.png">-->
+        <div id="footer">
+            <div id="ft1" class="can-we-stop-with-the-boxes-please">
+                InternMap
+            </div>
+            <div id="ft2">
+                <ul class="quick-links">
+                    <li>Home</li>
+                    <li>RoadMaps</li>
+                    <li>JobPosting</li>
+                    <li>About us</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 </html>

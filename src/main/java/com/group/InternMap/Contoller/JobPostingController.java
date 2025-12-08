@@ -1,6 +1,7 @@
 package com.group.InternMap.Contoller;
 
 import com.group.InternMap.Model.Job.*;
+import com.group.InternMap.Model.User.Admin;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Student;
 import com.group.InternMap.Services.JobPostingService;
@@ -34,10 +35,26 @@ public class JobPostingController {
     public String getAllJobPostings(Model model, ArrayList<JobPosting> jobposting, HttpSession session) {
         try {
             // Fetch all job postings from the service
+            if (session.getAttribute("loggedInUser") instanceof Admin) {
+                model.addAttribute("isLoggedIn", true);
+                model.addAttribute("isAdmin", true);
+                model.addAttribute("isRecruiter", false);
+            } else if (session.getAttribute("loggedInUser") == null) {
+                model.addAttribute("isLoggedIn", false);
+                model.addAttribute("isAdmin", false);
+                model.addAttribute("isRecruiter", false);
+            } else if (session.getAttribute("loggedInUser") instanceof Recruiter) {
+                model.addAttribute("isLoggedIn", true);
+                model.addAttribute("isAdmin", false);
+                model.addAttribute("isRecruiter", true);
+            } else {
+                model.addAttribute("isLoggedIn", true);
+                model.addAttribute("isAdmin", false);
+                model.addAttribute("isRecruiter", false);
+            }
+
             jobposting = (ArrayList<JobPosting>) jobPostingService.getAllJobPostings();
-            System.out.println("before adding");
             model.addAttribute("jobPostings", jobposting);
-            System.out.println("after adding");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             model.addAttribute("error", "Failed to load job postings");

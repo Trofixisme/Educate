@@ -267,7 +267,9 @@
     <!-- Search and Action Buttons -->
     <div class="search-action-container">
         <form th:action="@{/application/search(searchQuery=${searchQuery})}" method="post" class="search-form">
-            <input type="text" name="searchQuery" placeholder="Search by company name or job title" class="search-input"/>
+            <label>
+                <input type="text" name="searchQuery" placeholder="Search by company name or job title" class="search-input"/>
+            </label>
             <button type="submit" class="search-button">Search</button>
         </form>
 
