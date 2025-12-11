@@ -737,6 +737,7 @@
 
 /* Reset and Base Styles */
 * {
+    zoom: 0.97;
     font-family: 'Inter';
     margin: 0;
     padding: 0;

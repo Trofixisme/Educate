@@ -34,9 +34,8 @@
     </div>
 
     <div th:if="${errorMessage}"
-         style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; margin-bottom: 20px; border-radius: 8px;">
-        <p th:text="${errorMessage}" style="margin: 0;"></p>
-    </div>
+         style="color:red;border:0 solid red;padding:2px;margin-bottom:5px; font-weight: 550;">
+        <p th:text="${errorMessage}"></p></div>
 
     <form th:action="@{/JobPostingForm}" method="post">
         <input type="hidden" name="jobPostingType" id="jobPostixngTypeHidden" value="">

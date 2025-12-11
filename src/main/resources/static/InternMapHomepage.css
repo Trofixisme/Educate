@@ -116,7 +116,7 @@ body {
             padding: 9px;
             border-color: transparent;
             border-radius: 60px;
-            background: rgba(246, 246, 246, 0.8);
+            background: rgba(237, 239, 241, 0.8);
 
             #bu1, #bu2 {
                 border-color: transparent;
@@ -169,7 +169,7 @@ body {
         justify-items: center;
         align-items: center;
         border-radius: 75px;
-        background: rgba(236, 236, 236, 0.8);
+        background: rgba(237, 239, 241, 0.8);
         padding: 35px;
         margin: 10px max(10px, 5vw);
     }
