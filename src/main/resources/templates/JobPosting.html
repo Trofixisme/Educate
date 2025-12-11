@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title> InternMap </title>
     <link rel="icon" type="image/png" href="/images/Logo Glass Large.png">
@@ -36,8 +36,8 @@
             flex: 1;
             padding: 12px 20px;
             border-radius: 34px;
-            border: 2px solid rgba(35, 145, 255, 0.3);
-            background: rgba(248, 248, 250, 0.8);
+            border: 2px #d54e4e;
+            background: rgba(246, 246, 246, 0.8);
             font-size: 16px;
             font-weight: 500;
             outline: none;
@@ -45,8 +45,8 @@
         }
 
         .search-input:focus {
-            border-color: #2391FF;
-            background: #fff;
+            border-color: #ededed;
+            background: #ededed;
         }
 
         .search-button {
@@ -181,7 +181,7 @@
     </div>
     <form th:action="@{/JobPostings/search(searchQuery=${searchQuery})}" method="post" class="search-form">
             <input type="text" name="searchQuery" placeholder="Search by company name or job title" class="search-input"/>
-        <button type="submit" class="search-button">Search</button>
+        <button type="submit" class="search-button"><img src="/images/magnifying_glass.png" alt="Magnifying glass" style="width: 22px; height: 22px"></button>
     </form>
 
     <div class="action-buttons">
