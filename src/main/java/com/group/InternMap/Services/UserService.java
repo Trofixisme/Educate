@@ -51,12 +51,11 @@ public class UserService implements FilePaths {
 
         for (User u : users) {
 
-            if (u.getEmail().equals(email)) {
+            if (u.getEmail().strip().equalsIgnoreCase(email.strip())) {
 
                 if (u.getPlainPassword().equals(password)) {
                     return u;
-                }
-                else if(!u.getPlainPassword().equals(password)) {
+                } else if(!u.getPlainPassword().equals(password)) {
                     throw new Exception("Provided password is incorrect.");
                 }
             }
