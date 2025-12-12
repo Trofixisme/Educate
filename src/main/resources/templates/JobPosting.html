@@ -219,7 +219,7 @@
                     <li>Job ID: <span th:text="${job.jobPostingUUID}">UUID</span></li>
                 </ul>
                 <div id="bottom" style="justify-items: right; display: flex; justify-content: flex-end">
-                    <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" style="text-decoration: none" th:if="${isRecruiter == false}">
+                    <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" style="text-decoration: none" th:if="${isRecruiter == false && isAdmin == false}">
                         <button id="apply-button">Apply</button>
                     </a>
                 </div>
