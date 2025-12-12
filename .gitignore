@@ -32,10 +32,10 @@ build/
 ### VS Code ###
 .vscode/
 
-### Persistence ###
-/data/applications.txt
-/data/companies.txt
-/data/jobs.txt
-/data/roadmaps.txt
-/data/skills.txt
-/data/users.txt
+#### Persistence ###
+#/data/applications.txt
+#/data/companies.txt
+#/data/jobs.txt
+#/data/roadmaps.txt
+#/data/skills.txt
+#/data/users.txt
