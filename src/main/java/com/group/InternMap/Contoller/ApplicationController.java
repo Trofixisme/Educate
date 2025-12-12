@@ -147,6 +147,7 @@ public class ApplicationController {
         }
 
     }
+
     @PostMapping("/application/search")
     public String searchJobPosting(@RequestParam("searchQuery") String searchQuery, @ModelAttribute Application application, Model model, HttpSession session) {
         try {
@@ -155,11 +156,12 @@ public class ApplicationController {
             // Add search results to the model
             model.addAttribute("applications", results);
             // Add the jobposting object to the model so form fields keep their values
-            model.addAttribute("applications", application);
+            model.addAttribute("application", application);
+            model.addAttribute("jobPosting", null);
         } catch (Exception e) {
             model.addAttribute("error", "Error searching application: " + e.getMessage());
         }
-        return "ViewApplicationDetail"; // Thymeleaf template
+        return "ViewApplicationDetail";
     }
 
 }

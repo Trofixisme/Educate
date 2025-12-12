@@ -12,9 +12,9 @@ import static com.group.InternMap.Services.FilePaths.jobPostingPath;
 @Service
 public class JobPostingService {
 
-    private final BaseRepository<JobPosting> jobRepo = new BaseRepository<>(JobPosting.class, jobPostingPath);
+    private final ArrayList<JobPosting> jobRepo = RepositoryAccessors.allJobPostings;
     public List<JobPosting> searchJobPostings(String searchQuery) throws Exception {
-        return jobRepo.search(job -> {
+        return jobRepo.stream().filter(job -> {
             boolean matches = false;
 
             if (searchQuery != null && !searchQuery.isBlank()) {
@@ -23,7 +23,7 @@ public class JobPostingService {
             }
 
             return matches;
-        });
+        }).toList();
     }
 
     public List<JobPosting> getAllJobPostings() throws Exception {

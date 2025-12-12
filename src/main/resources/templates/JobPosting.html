@@ -219,7 +219,7 @@
                     <li>Job ID: <span th:text="${job.jobPostingUUID}">UUID</span></li>
                 </ul>
                 <div id="bottom" style="justify-items: right; display: flex; justify-content: flex-end">
-                    <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}">
+                    <a th:href="@{/applications/new(jobId=${job.jobPostingUUID})}" style="text-decoration: none" th:if="${isRecruiter == false}">
                         <button id="apply-button">Apply</button>
                     </a>
                 </div>
@@ -240,10 +240,10 @@
             <div id="ft2">
                 <ul class="quick-links">
                     <li>
-                        <a th:href="@{/}" >Home </a>
+                        <a onclick="location.href = '/'" style="cursor: pointer">Home </a>
                     </li>
-                    <li><a th:href="@{/roadmaps}" >RoadMaps</a></li>
-                    <li><a th:href="@{/JobPostings}" >JobPosting</a></li>
+                    <li><a onclick="location.href = '/'" style="cursor: pointer">RoadMaps</a></li>
+                    <li><a onclick="location.href = '/JobPostings'" style="cursor: pointer" >JobPostings</a></li>
                 </ul>
             </div>
         </div>

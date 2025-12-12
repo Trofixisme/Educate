@@ -211,13 +211,13 @@ body {
     }
 
     .box {
-        padding: 20px;
         display: flex;
         flex-direction: column;
         border-radius: 45px;
         background: rgba(248, 248, 250, 0.8);
         width: 345px;
-        height: 425px;
+        /*height: 425px;*/
+        padding: 20px 20px 15px;
     }
 }
 

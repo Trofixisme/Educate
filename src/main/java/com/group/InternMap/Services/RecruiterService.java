@@ -8,6 +8,8 @@ import com.group.InternMap.Repo.BaseRepository;
 import com.group.InternMap.Repo.RepositoryAccessors;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -98,6 +100,7 @@ public class RecruiterService extends UserService {
         applications.sort((a1, a2) -> a1.getApplicationDate().compareTo(a2.getApplicationDate()));
         return applications;
     }
+
     public static Application findByEmail(String email) throws Exception{
         if (email == null || email.isBlank()) return null;
         return   allApplications.stream()
@@ -105,15 +108,18 @@ public class RecruiterService extends UserService {
                 .findFirst()
                 .orElseThrow(() -> new Exception("profile not found , please check the name again or create a new company"));
     }
-    private final BaseRepository<Application> appRepo = new BaseRepository<>(Application.class, applicationPath);
+
+    private final ArrayList<Application> appRepo = RepositoryAccessors.allApplications;
     public List<Application> searchApplication(String searchQuery) throws Exception {
-        return appRepo.search(app -> {
+        return appRepo.stream().filter(app -> {
             boolean matches = false;
 
             if (searchQuery != null && !searchQuery.isBlank()) {
                 matches |= app.getEmail().toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT));
+                matches |= app.getFname().toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT));
+                matches |= app.getLname().toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT));
             }
             return matches;
-        });
+        }).toList();
     }
 }

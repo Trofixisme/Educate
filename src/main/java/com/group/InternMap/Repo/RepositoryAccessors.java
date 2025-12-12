@@ -18,8 +18,8 @@ public final class RepositoryAccessors {
     public static final ArrayList<Roadmap> allRoadmaps = (ArrayList<Roadmap>) (new BaseRepository<>(Roadmap.class, FilePaths.roadmapPath)).findAll();
     public static final ArrayList<JobPosting> allJobPostings = (ArrayList<JobPosting>) (new BaseRepository<>(JobPosting.class, FilePaths.jobPostingPath)).findAll();
     public static final ArrayList<Application> allApplications = (ArrayList<Application>) (new BaseRepository<>(Application.class, FilePaths.applicationPath)).findAll();
-    public static final ArrayList<Skill> allskills=(ArrayList<Skill>) (new BaseRepository<>(Skill.class, FilePaths.skillPath)).findAll();
-    public static final ArrayList<RoadmapModule> allmodules=(ArrayList<RoadmapModule>)  (new BaseRepository<>(RoadmapModule.class, FilePaths.modulePath)).findAll();
+    public static final ArrayList<Skill> allskills = (ArrayList<Skill>) (new BaseRepository<>(Skill.class, FilePaths.skillPath)).findAll();
+    public static final ArrayList<RoadmapModule> allmodules = (ArrayList<RoadmapModule>) (new BaseRepository<>(RoadmapModule.class, FilePaths.modulePath)).findAll();
 
 
     public static void saveAll() {

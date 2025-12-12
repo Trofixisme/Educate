@@ -1,7 +1,6 @@
 package com.group.InternMap.Model.Job;
 
 import com.group.InternMap.Model.User.Application;
-import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;
 import java.io.Serializable;
 import java.time.Instant;

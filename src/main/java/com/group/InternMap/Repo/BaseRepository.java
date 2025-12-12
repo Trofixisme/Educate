@@ -33,7 +33,7 @@ public  class BaseRepository<T> extends FileManager {
     public void saveAll(List<T> items) throws Exception {
         writeList(fileName, items);  // Use writeList instead of write
     }
-    public List<T> search(Predicate<T> condition) throws Exception {
+    public List<T> search(Predicate<T> condition){
         return  findAll().stream()
                 .filter(condition)
                 .toList();

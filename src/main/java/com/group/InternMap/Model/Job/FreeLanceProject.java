@@ -1,7 +1,6 @@
 package com.group.InternMap.Model.Job;
 
 import java.io.Serializable;
-import java.lang.instrument.IllegalClassFormatException;
 
 public class FreeLanceProject  implements Serializable {
 

@@ -152,11 +152,9 @@ public String AddJobPostingForm(Model model, HttpSession session) {
     @PostMapping("/JobPostings/search")
     public String searchJobPosting(@RequestParam("searchQuery") String searchQuery, @ModelAttribute JobPosting jobposting, Model model, HttpSession session) {
         try {
-            // Search dynamically using your service
             List<JobPosting> results = jobPostingService.searchJobPostings(searchQuery.replaceFirst(",", ""));
             // Add search results to the model
             model.addAttribute("jobPostings", results);
-            // Add the jobposting object to the model so form fields keep their values
             model.addAttribute("jobposting", jobposting);
         } catch (Exception e) {
             model.addAttribute("error", "Error searching job postings: " + e.getMessage());
@@ -193,11 +191,10 @@ public String AddJobPostingForm(Model model, HttpSession session) {
                 redirectAttributes.addFlashAttribute("error", "Job not found");
                 return "redirect:/JobPostings";
             }
-            System.out.println("after");
             List<Application> apps = recruiterService.getApplicationsByJobPosting(job);
             model.addAttribute("jobPosting", job);
             model.addAttribute("applications", apps);
-            return "ViewApplicationDetail";//I still don't have it but need to do it for clicking the view button
+            return "ViewApplicationDetail"; //I still don't have it but need to do it for clicking the view button
 
         } catch (Exception e) {
             System.out.println("error");
