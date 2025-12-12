@@ -32,7 +32,6 @@ public final class RepositoryAccessors {
             new BaseRepository<>(Skill.class, FilePaths.skillPath).saveAll(allskills);
 
             System.out.println("\u001B[32mSaved all repositories successfully.\u001B[0m");
-
         } catch (Exception e) {
             System.out.println("\u001B[31mFailed to save one or more repositories:\u001B[0m");
             e.printStackTrace(); // better debugging output
