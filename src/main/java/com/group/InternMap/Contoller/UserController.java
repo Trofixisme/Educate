@@ -139,7 +139,7 @@ public class UserController {
             model.addAttribute("errorMessage", e.getMessage());
             return "login";
         }
-        System.out.println("user logged in");
+        System.out.println("User's logged in");
         return "redirect:/";
     }
 }

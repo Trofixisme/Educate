@@ -106,7 +106,7 @@ public class RecruiterService extends UserService {
         return   allApplications.stream()
                 .filter(c -> c.getEmail().equalsIgnoreCase(email))
                 .findFirst()
-                .orElseThrow(() -> new Exception("profile not found , please check the name again or create a new company"));
+                .orElseThrow(() -> new Exception("Profile could not be found, please check the name again or create a new company."));
     }
 
     private final ArrayList<Application> appRepo = RepositoryAccessors.allApplications;

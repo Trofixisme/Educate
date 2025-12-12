@@ -58,9 +58,7 @@ public class JobPostingController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             model.addAttribute("error", "Failed to load job postings");
-            System.out.println("entered catch");
         }
-        System.out.println("before returning");
         return "JobPosting"; // Thymeleaf template
     }
 
@@ -178,7 +176,6 @@ public String AddJobPostingForm(Model model, HttpSession session) {
                                    Model model,
                                    HttpSession session,
                                    RedirectAttributes redirectAttributes) {
-        System.out.println("before");
         Recruiter recruiter = (Recruiter) session.getAttribute("loggedInUser");
         if (recruiter == null) {
             return "redirect:/login";
@@ -187,7 +184,7 @@ public String AddJobPostingForm(Model model, HttpSession session) {
         try {
             JobPosting job = jobPostingService.findByID(jobId);
             if (job == null) {
-                System.out.println("job is null");
+                System.out.println("Job is null.");
                 redirectAttributes.addFlashAttribute("error", "Job not found");
                 return "redirect:/JobPostings";
             }
@@ -197,7 +194,7 @@ public String AddJobPostingForm(Model model, HttpSession session) {
             return "ViewApplicationDetail"; //I still don't have it but need to do it for clicking the view button
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("Error");
             redirectAttributes.addFlashAttribute("error", "Error loading applications");
             return "redirect:/JobPostings";
         }

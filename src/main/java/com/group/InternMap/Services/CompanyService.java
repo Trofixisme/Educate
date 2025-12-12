@@ -36,6 +36,6 @@ public class CompanyService {
         return allCompanies.stream()
                 .filter(c -> c.getName().equalsIgnoreCase(companyName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Company not found , please check the name again or create a new company"));
+                .orElseThrow(() -> new Exception("Company could not be found, please check the name again or create a new company."));
     }
 }

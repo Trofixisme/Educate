@@ -48,7 +48,7 @@ public class HomeController {
 
     @GetMapping("/user/home")
     public String showHomePage(Model model, ArrayList<Roadmap> roadmaps, HttpSession session) {
-        System.out.println("home page accessed, with session ");
+        System.out.println("Home page accessed, but without an active session ");
         // Retrieve the User object from the session
         User user = (User) session.getAttribute("loggedInUser");
         // 2. If no user is found in the session, redirect to the login page

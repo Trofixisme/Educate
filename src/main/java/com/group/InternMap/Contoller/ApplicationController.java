@@ -105,7 +105,6 @@ public class ApplicationController {
                                   @ModelAttribute ApplicationandCVDTO applicationandCVDTO,
                                   Model model, HttpSession session,
                                   RedirectAttributes redirectAttributes)  {
-        System.out.println("Inside saveApplication");
 
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
@@ -113,9 +112,8 @@ public class ApplicationController {
 
 
 //        Application application = applicationandCVDTO.getApplication();
-        System.out.println("Before user line 116");
         Student user = (Student) session.getAttribute("loggedInUser");
-        if(user.getCv()==null){
+        if(user.getCv() == null){
             redirectAttributes.addFlashAttribute("error","CV not found");
             return "redirect:/cv";
         }
@@ -128,7 +126,6 @@ public class ApplicationController {
             System.out.println(jobPosting);
             if(jobPosting==null){
                 redirectAttributes.addFlashAttribute("error","Job posting not found");
-                System.out.println("Inside saveApplication");
                 return "redirect:/JobPostings";
 
             }
