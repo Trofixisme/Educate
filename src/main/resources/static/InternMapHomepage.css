@@ -1,5 +1,6 @@
 * {
     font-family: Inter, system-ui;
+    transition: all 0.3s ease-in-out;
 }
 
 html {
@@ -75,15 +76,14 @@ header {
         #logo {
             display: flex;
             margin: 0 auto;
-            width: 162px;
-            height: 162px;
+            width: clamp(128px, 10vw , 162px);
             aspect-ratio: 1/1;
         }
 
         #p1 {
             color: #000;
             text-align: center;
-            font-size: clamp(32px, 5vw , 64px);
+            font-size: clamp(32px, 10vw , 64px);
             font-style: normal;
             font-weight: 700;
             line-height: normal;
@@ -93,7 +93,7 @@ header {
         #p2 {
             color: #000;
             text-align: center;
-            font-size: clamp(12px, 5vw , 24px);
+            font-size: clamp(12px, 3vw , 24px);
             margin-left: 20px;
             margin-right: 20px;
             font-style: normal;
@@ -117,7 +117,7 @@ body {
 
         #bh {
             color: #000;
-            font-size: clamp(32px, 5vw, 56px);
+            font-size: clamp(24px, 7vw, 56px);
             font-style: normal;
             font-weight: 700;
             line-height: normal;
@@ -176,9 +176,14 @@ body {
         border-radius: 40px;
     }
 
+    #grid-button-plus:hover {
+        transform: scale(1.2);
+
+    }
+
     .button-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+        grid-template-columns: repeat(auto-fit, max(310px, min(310px, 100%)));
         gap: 20px;
         justify-items: center;
         align-items: center;
@@ -193,8 +198,9 @@ body {
         height: 110px;
         background: linear-gradient(180deg, rgb(79, 161, 255) 0%, #1883fd 100%);
         border: none;
-        border-radius: 40px;
-        color: #FFF;
+        border-radius: 38px;
+        color: rgba(255, 255, 255, 0.9);
+        text-transform: capitalize;
         font-size: 20px;
         font-weight: 700;
         align-content: center;
@@ -203,8 +209,21 @@ body {
     }
 
     .grid-button:hover {
-        background-color: #70c1ff;
+        transition: all 0.2s linear;
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(15, 149, 255, 0.4);
+        font-weight: 750;
+        font-size: 21px;
+        #grid-button-plus {
+            transform: scale(1.2);
+            transition: all 0.2s linear;
+        }
     }
+
+    /*.grid-button:active {*/
+    /*    transform: translateY(20px);*/
+    /*    box-shadow: none;*/
+    /*}*/
 }
 
 footer {
