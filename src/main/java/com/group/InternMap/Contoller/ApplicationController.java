@@ -1,6 +1,6 @@
 package com.group.InternMap.Contoller;
 
-import com.group.InternMap.Dto.ApplicationandCVDTO;
+import com.group.InternMap.DTO.ApplicationandCVDTO;
 import com.group.InternMap.Model.Job.JobPosting;
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.CV;

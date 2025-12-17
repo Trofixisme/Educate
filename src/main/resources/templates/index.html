@@ -9,8 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/InternMapHomepage.css}">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -18,7 +16,6 @@
 <header th:replace="~{fragments/indexHeader}"></header>
 
 <body>
-
 <div id="bb1" class="box">
     <div id="bh">
         Explore Roadmaps
@@ -51,6 +48,31 @@
 <div class="button-grid">
     <a th:href="@{/roadmaps/new}"
        class="grid-button" th:if="${isAdmin == true}"><img src="/images/plus.png" alt="Create new Roadmap" width="46" height="46" id="grid-button-plus"></a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Frontend Development</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Backend Development</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">iOS</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Android</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Machine Learning</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Mobile Development</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Game Development</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Web Development</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Software Testing</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Operating Systems</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Cybersecruity</a>
+    <a th:href="@{/roadmaps/new}"
+       class="grid-button" style="text-decoration: none">Networking</a>
+
     <a th:href="@{/roadmaps/{id}(id=${roadmap.roadmapID})}"
        class="grid-button"
        th:each="roadmap : ${roadmaps}"

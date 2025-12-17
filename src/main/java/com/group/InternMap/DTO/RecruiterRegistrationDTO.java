@@ -1,4 +1,4 @@
-package com.group.InternMap.Dto;
+package com.group.InternMap.DTO;
 
 import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;

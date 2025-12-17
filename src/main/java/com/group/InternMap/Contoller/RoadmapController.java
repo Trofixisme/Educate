@@ -1,6 +1,6 @@
 package com.group.InternMap.Contoller;
 
-import com.group.InternMap.Dto.RoadmapModuleSkill;
+import com.group.InternMap.DTO.RoadmapModuleSkill;
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;
 import com.group.InternMap.Model.User.Admin;

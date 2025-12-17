@@ -1,6 +1,6 @@
 package com.group.InternMap.Contoller;
 
-import com.group.InternMap.Dto.RecruiterRegistrationDTO;
+import com.group.InternMap.DTO.RecruiterRegistrationDTO;
 import com.group.InternMap.Model.User.Admin;
 import com.group.InternMap.Model.User.Company.Company;
 import com.group.InternMap.Model.User.Company.Recruiter;

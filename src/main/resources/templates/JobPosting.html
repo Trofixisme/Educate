@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
+<!--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Search and Action Buttons Styling */
@@ -37,7 +37,14 @@
             padding: 12px 20px;
             border-radius: 34px;
             border: 2px #d54e4e;
-            background: rgba(246, 246, 246, 0.8);
+            @media (prefers-color-scheme: dark) {
+                color: white;
+                background: rgba(43, 43, 43, 0.8);
+            }
+            @media (prefers-color-scheme: light) {
+                color: white;
+                background: rgba(246, 246, 246, 0.8);
+            }
             font-size: 16px;
             font-weight: 500;
             outline: none;
@@ -46,7 +53,12 @@
 
         .search-input:focus {
             border-color: #ededed;
-            background: #ededed;
+            @media (prefers-color-scheme: light) {
+                background: #ededed;
+            }
+            @media (prefers-color-scheme: dark) {
+                background: #2e2e2e;
+            }
         }
 
         .search-button {
@@ -229,7 +241,7 @@
 </div>
 </body>
 
-<br><br><br><br><br><br><br>
+<!--<br><br><br><br><br><br><br>-->
 <footer>
     <div>
         <!--    <img id="footer-image" src="/images/Footer image.png">-->

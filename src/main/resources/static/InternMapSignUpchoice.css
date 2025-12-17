@@ -4,8 +4,23 @@ html, body {
     padding: 0;
 }
 
+@media (prefers-color-scheme: dark) {
+
+    body {
+        background-color: rgba(6, 6, 6, 0.96);
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    background-color: rgba(0, 0, 0, 0.96);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+@media (prefers-color-scheme: light) {
+    /*background-color: #FBFBFB;*/
+    color: rgba(0, 0, 0, 0.80);
+}
+
 body {
-    background-color: #FBFBFB;
 
     .vertical-container {
         display: flex;
@@ -16,7 +31,12 @@ body {
     }
 
     .flex-button {
-        box-shadow: 1px 4px 50px 0 rgba(0, 0, 0, 0.20);
+        @media (prefers-color-scheme: light) {
+            box-shadow: 1px 4px 50px 0 rgba(0, 0, 0, 0.20);
+        }
+        @media (prefers-color-scheme: dark) {
+            box-shadow: 1px 4px 50px 0 rgba(39, 39, 39, 0.2);
+        }
         margin-top: 20px;
         font-size: 25px;
         width: 220px;
@@ -24,11 +44,15 @@ body {
         aspect-ratio: 1/1;
         border-radius: 40px;
         border: none;
-        background: #FBFBFB;
     }
 
     .flex-button:hover {
-        border: 8px solid #000;
+        @media (prefers-color-scheme: light) {
+            border: 8px solid #000;
+        }
+        @media (prefers-color-scheme: dark) {
+            border: 8px solid #404040;
+        }
         animation: pulse 1s infinite;
     }
 
@@ -70,7 +94,10 @@ footer {
     }
 
     #home-hot-link {
-        color: rgb(0, 0, 0);
+        /*color: rgb(0, 0, 0);*/
+        @media (prefers-color-scheme: dark) {
+            color: rgba(255, 255, 255, 0.95);
+        }
         font-size: 20px;
         background: transparent;
         border: none;

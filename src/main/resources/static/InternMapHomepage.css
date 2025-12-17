@@ -1,16 +1,31 @@
 * {
     font-family: Inter, system-ui;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 html {
     height: 100%;
 }
 
-html body {
+html, body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    body {
+        background-color: rgba(0, 0, 0, 0.96);
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    color: rgba(255, 255, 255, 0.95);
+
+}
+
+@media (prefers-color-scheme: light) {
+    color: rgba(0, 0, 0, 0.80);
 }
 
 header {
@@ -28,7 +43,6 @@ header {
         }
 
         #T1 {
-            color: #000;
             font-size: 40px;
             font-style: normal;
             font-weight: 700;
@@ -46,7 +60,6 @@ header {
                 cursor: pointer;
                 text-align: center;
                 font-size: max(14px, 1vw);
-                font-style: normal;
                 font-weight: 700;
                 line-height: normal;
             }
@@ -54,7 +67,9 @@ header {
             #hb1, #hb6 {
                 background: transparent;
                 border: transparent;
-                color: #000000;
+                @media (prefers-color-scheme: dark) {
+                    color: white;
+                }
             }
 
             #hb3, #hb4 {
@@ -63,7 +78,9 @@ header {
             }
 
             #person-fill {
-                filter: invert(100%);
+                @media (prefers-color-scheme: light) {
+                    filter: invert(100%);
+                }
             }
         }
     }
@@ -81,7 +98,6 @@ header {
         }
 
         #p1 {
-            color: #000;
             text-align: center;
             font-size: clamp(32px, 10vw , 64px);
             font-style: normal;
@@ -91,7 +107,6 @@ header {
         }
 
         #p2 {
-            color: #000;
             text-align: center;
             font-size: clamp(12px, 3vw , 24px);
             margin-left: 20px;
@@ -116,7 +131,7 @@ body {
         gap: 26px;
 
         #bh {
-            color: #000;
+            /*color: #000;*/
             font-size: clamp(24px, 7vw, 56px);
             font-style: normal;
             font-weight: 700;
@@ -130,31 +145,57 @@ body {
             padding: 9px;
             border-color: transparent;
             border-radius: 60px;
-            background: rgba(237, 239, 241, 0.8);
+            backdrop-filter: blur(10px);
+            @media (prefers-color-scheme: light) {
+                background: rgba(237, 239, 241, 0.8);
+            }
+            @media (prefers-color-scheme: dark) {
+                background: rgba(43, 43, 43, 0.8);
+            }
 
             #bu1, #bu2 {
                 border-color: transparent;
                 background: transparent;
-                color: rgba(0, 0, 0, 0.80);
+                @media (prefers-color-scheme: dark) {
+                    color: white;
+                }
+                @media (prefers-color-scheme: light) {
+                    color: rgba(0, 0, 0, 0.80);
+                }
                 text-align: center;
                 font-size: 22px;
                 font-style: normal;
                 font-weight: 640;
                 line-height: normal;
-                padding: 6px 25px;
+                padding: 8px 25px;
+                margin: 2px;
+            }
+
+            #bu2:hover {
+                border-radius: 60px;
+                @media (prefers-color-scheme: dark) {
+                    background: rgba(57, 57, 57, 0.2);
+                }
+                @media (prefers-color-scheme: light) {
+                    background: rgba(133, 133, 133, 0.1);
+                }
             }
 
             #bu1 {
-                background: #ffffff;
+                @media (prefers-color-scheme: light) {
+                    background: #ffffff;
+                }
+                @media (prefers-color-scheme: dark) {
+                    background: rgba(96, 96, 96, 0.8);
+                }
                 border-radius: 34px;
                 cursor: initial;
-                color: rgba(0, 0, 0, 0.80);
             }
         }
+
     }
 
     #roadmap-card-title, #roadmap-card-title2, #roadmap-card-title3 {
-        color: #000000;
         font-size: 32px;
         font-style: normal;
         font-weight: 700;
@@ -185,12 +226,18 @@ body {
         display: grid;
         grid-template-columns: repeat(auto-fit, max(310px, min(310px, 100%)));
         gap: 20px;
-        justify-items: center;
+        justify-items: stretch;
         align-items: center;
         border-radius: 75px;
-        background: rgba(237, 239, 241, 0.8);
+        @media (prefers-color-scheme: light) {
+            background: rgba(237, 239, 241, 0.8);
+        }
+        @media (prefers-color-scheme: dark) {
+            background: rgba(43, 43, 43, 0.8);
+        }
         padding: 35px;
-        margin: 10px max(10px, 5vw);
+        align-self: center;
+        max-width: clamp(0px, 95vw, 1380px);
     }
 
     .grid-button {
@@ -199,6 +246,7 @@ body {
         background: linear-gradient(180deg, rgb(79, 161, 255) 0%, #1883fd 100%);
         border: none;
         border-radius: 38px;
+        corner-shape: 100%;
         color: rgba(255, 255, 255, 0.9);
         text-transform: capitalize;
         font-size: 20px;
@@ -220,6 +268,12 @@ body {
         }
     }
 
+    #separator {
+        width: 100px;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
     /*.grid-button:active {*/
     /*    transform: translateY(20px);*/
     /*    box-shadow: none;*/
@@ -229,7 +283,12 @@ body {
 footer {
     width: auto;
     height: min-content;
-    background: linear-gradient(180deg, rgba(88, 171, 255, 0.60) 0%, #3397FC 100%);
+    @media (prefers-color-scheme: light) {
+        background: linear-gradient(180deg, rgba(88, 171, 255, 0.60) 0%, #3397FC 100%);
+    }
+    @media (prefers-color-scheme: dark) {
+        background: linear-gradient(180deg, rgba(52, 155, 255, 0.9), rgba(0, 134, 251, 0.8) 100%  100%);
+    }
 
     .quick-links {
         display: grid;
@@ -260,5 +319,9 @@ footer {
         font-weight: 700;
         padding-top: 20px;
         padding-bottom: 20px;
+    }
+
+    #ft2:hover {
+        translate: 2px;
     }
 }

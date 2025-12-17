@@ -1,4 +1,4 @@
-package com.group.InternMap.Dto;
+package com.group.InternMap.DTO;
 
 import com.group.InternMap.Model.Roadmap.Roadmap;
 import com.group.InternMap.Model.Roadmap.RoadmapModule;

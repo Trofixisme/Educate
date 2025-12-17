@@ -1,4 +1,4 @@
-package com.group.InternMap.Dto;
+package com.group.InternMap.DTO;
 
 import com.group.InternMap.Model.User.Application;
 import com.group.InternMap.Model.User.Student;
