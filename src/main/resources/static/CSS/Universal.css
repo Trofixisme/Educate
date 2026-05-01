@@ -6,10 +6,10 @@
     --primary-color: #1582ef;
     --primary-color-hover: #0771dc;
     --form-background-color: linear-gradient(0deg, #f6f6f6, #f7f7f7);
-    --background-color: #ffffff;
-    --secondary-background-color: rgba(172, 180, 184, 0.11);
+    --page-background: #ffffff;
+    --container-secondary: rgba(172, 180, 184, 0.11);
     --border-color: #2c2c2c;
-    --text-color: #000000;
+    --text-primary: #000000;
     --text-color-2: #0771dc;
 }
 
@@ -18,9 +18,9 @@
         --primary-color: #1582ef;
         --primary-color-hover: #0771dc;
         --form-background-color: linear-gradient(180deg, #252525, #242424);
-        --background-color: #0c0c0c;
+        --page-background: #0c0c0c;
         --border-color: #ededed;
-        --text-color: #ffffff;
+        --text-primary: #ffffff;
         --text-color-2: #ffffff;
     }
 }
@@ -35,7 +35,7 @@ header[class="header"] {
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--background-color);
+    background-color: var(--page-background);
 }
 
 footer {
@@ -48,13 +48,13 @@ footer {
     }
 
     .small-text {
-        color: var(--text-color);
+        color: var(--text-primary);
         text-decoration: none;
     }
 
     width: 100%;
     height: min-content;
-    background-color: var(--secondary-background-color);
+    background-color: var(--container-secondary);
 }
 
 label {
@@ -65,7 +65,7 @@ label {
 section.section {
     display: flex;
     align-items: center;
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 section.wide {
@@ -123,7 +123,7 @@ img.logo-mono {
 
     background: transparent;
     border: transparent;
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .for-icon {
@@ -140,9 +140,9 @@ input[type=password], input[type=email], input[type=text] {
     border-radius: 45px;
     box-sizing: border-box;
 
-    background-color: var(--background-color);
+    background-color: var(--page-background);
 
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 input[type=submit] {
@@ -177,9 +177,9 @@ input[type=submit] {
     border-radius: 45px;
     box-sizing: border-box;
 
-    background-color: var(--background-color);
+    background-color: var(--page-background);
 
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .submit-button {
@@ -202,7 +202,7 @@ input[type=submit] {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    color: var(--text-color);
+    color: var(--text-primary);
     font-size: 36px;
     font-weight: 700;
     line-height: normal;
@@ -230,7 +230,7 @@ input[type=submit] {
     height: fit-content;
     min-height: fit-content;
 
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .container-full-width {
@@ -244,7 +244,7 @@ input[type=submit] {
         box-shadow: 0 0 80px rgba(206, 206, 206, 0.962);
     }
 
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .full-width, .container-full-width {

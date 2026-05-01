@@ -43,29 +43,29 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
             <div className="flex flex-col items-center justify-center gap-3">
               <div className="flex justify-center justify-self-center flex-row items-center text-4xl font-bold mb-4 gap-3">
                 Explore
-                  <ComboBox onSelectionChange={(key) => setSelectedKey(key)} defaultValue="Roadmaps" className="w-full max-w-46">
-                  <ComboBox.InputGroup>
-                      <Input defaultValue="Roadmaps" className="text-2xl" style={{boxShadow: "none", paddingLeft: "27px", caretColor: "transparent"}} />
-                      <ComboBox.Trigger />
-                  </ComboBox.InputGroup>
-                  <ComboBox.Popover>
-                      <ListBox>
-                          <ListBox.Item id="Roadmaps" textValue="Roadmaps" >
-                              Roadmaps
-                          </ListBox.Item>
-                          <ListBox.Item id="Jobs" textValue="Jobs">
-                              Jobs
-                          </ListBox.Item>
-                      </ListBox>
-                  </ComboBox.Popover>
-              </ComboBox>
+                  <ComboBox onSelectionChange={(key) => setSelectedKey(key)} defaultValue="Roadmaps">
+                      <ComboBox.InputGroup>
+                          <Input defaultValue="Roadmaps" style={{paddingLeft: "27px"}} />
+                          <ComboBox.Trigger />
+                      </ComboBox.InputGroup>
+                      <ComboBox.Popover>
+                          <ListBox>
+                              <ListBox.Item id="Roadmaps" textValue="Roadmaps">
+                                  Roadmaps
+                              </ListBox.Item>
+                              <ListBox.Item id="Jobs" textValue="Jobs">
+                                  Jobs
+                              </ListBox.Item>
+                          </ListBox>
+                      </ComboBox.Popover>
+                  </ComboBox>
               </div>
 
                 <div className="flex justify-center self-center-safe items-center w-2/6 gap-3">
-                    <SearchField name="search" variant="secondary" className="w-full">
-                        <SearchField.Group className="rounded-4xl pt-6 pb-6">
-                            <SearchField.SearchIcon style={{height: "18px", width: "18px", marginLeft: "14px"}} />
-                            <SearchField.Input className="w-full" style={{fontSize: "15px"}} placeholder="Search..." />
+                    <SearchField name="search" variant="primary">
+                        <SearchField.Group>
+                            <SearchField.SearchIcon/>
+                            <SearchField.Input placeholder="Search..." />
                             <SearchField.ClearButton />
                         </SearchField.Group>
                     </SearchField>
@@ -78,7 +78,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                     <>
                         {constRoadmaps.length != 0 && (<div style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
                             <label className="container-label">Recents</label>
-                            <Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" onClick={() => {
+                            <Button style={{width: "32px", height: "32px", background: "var(--component-secondary)"}} className="dark" onClick={() => {
                                 setRecentsExpanded(!isRecentsExpanded)
                                 document.getElementById("recents-chevron")?.classList.toggle("rotate-270")
 
@@ -97,10 +97,10 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                     <Disclosure.Content className="overflow-visible">
                                         <Disclosure.Body className="overflow-visible">
 
-                                        <div className="container-padded" style={{display: "grid", justifyContent: "start", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: "50px", borderRadius: "50px"}}>
+                                        <div className="container-padded" style={{display: "grid", justifyContent: "start", gridTemplateColumns: "repeat(auto-fit, minmax(285px, 1fr))", gap: "50px", borderRadius: "65px"}}>
                                 {recentRoadmaps.map((roadmap: Roadmap) => (
-                                    <div className="roadmap-button min-w-72" key={roadmap.id} >
-                                        <a href={`/roadmaps/${roadmap.id}`}>
+                                    <div onClick={() => location.href = `/roadmaps/${roadmap.id}`} className="roadmap-button min-w-72" key={roadmap.id} >
+                                        <a>
                                             {roadmap.name}
                                         </a>
                                     </div>
@@ -117,7 +117,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
                         {constRoadmaps.length != 0 && (<div style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
                             <label className="container-label">All Roadmaps</label>
-                            <Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" onClick={() => {
+                            <Button style={{width: "32px", height: "32px", background: "var(--component-secondary)"}} className="dark" onClick={() => {
                                 setAllExpanded(!isAllExpanded)
                                 document.getElementById("all-chevron")?.classList.toggle("rotate-270")
                             }} isIconOnly>
@@ -156,7 +156,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
                         {jobPostings.map((posting: JobPosting) => (
                             <div className="container">
-                                <div>{posting.jobname}</div>
+                                <div>{posting.jobName}</div>
                                 <h2 style={{lineClamp: 1, display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical", overflow: "hidden"}}>
                                     {posting.jobDescription}
                                 </h2>

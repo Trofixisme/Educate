@@ -2,12 +2,15 @@
 
 .roadmap-button {
     border-radius: 80px;
-    padding: 20px 100px 20px 20px;
+    padding: 27px 25px;
 
     p, h1, h2, h3, h4, h5, h6, a {
+        align-items: center;
+        align-content: center;
+        align-self: center;
         color: white;
         font-weight: 600;
-        font-size: clamp(0.5rem, 0.82rem, 1.25rem);
+        font-size: clamp(0.8rem, 0.93rem, 1.25rem);
     }
 
     background: var(--primary-color);

@@ -42,18 +42,18 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             <p>{userDetails.email}</p>
                         </section>
                         <div className="flex items-center gap-4 flex-row">
-                            <Chip style={{gap: "4px"}} size="lg" >
+                            <Chip size="lg" >
                                 <img src="/images/assets/calendar@4x.png" alt="calendar"
                                      style={{width: "17px", filter: "invert(0.8)"}}/>
                                 <Chip.Label>{userDetails.createdAt.toString().substring(0, 4)}</Chip.Label>
                             </Chip>
-                            <Chip style={{gap: "4px"}} size="lg">
+                            <Chip size="lg">
                                 <img src="/images/assets/person.fill@4x.png" alt="person"
                                      style={{width: "15px", filter: "invert(0.8)"}}/>
                                 <Chip.Label>{userDetails.role.charAt(0) + userDetails.role.toLowerCase().substring(1, userDetails.role.length)}</Chip.Label>
                             </Chip>
                             {userDetails.role == "RECRUITER" && (
-                            <Chip style={{gap: "4px"}} size="lg">
+                            <Chip size="lg">
                               <img src="/images/assets/suitcase.fill@4x.png" alt="suitcase"
                                    style={{width: "15px", filter: "invert(0.8)"}}/>
                                 <Chip.Label className="auto-capitalise">{(userDetails as Recruiter).title}</Chip.Label>

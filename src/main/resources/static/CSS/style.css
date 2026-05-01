@@ -6,9 +6,9 @@
   --primary-color: #1582ef;
   --primary-color-hover: #0771dc;
   --form-background-color: linear-gradient(0deg, #f6f6f6, #f7f7f7);
-  --background-color: #ffffff;
+  --page-background: #ffffff;
   --border-color: #fafafa;
-  --text-color: #000000;
+  --text-primary: #dc0000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,9 +16,9 @@
     --primary-color: #1582ef;
     --primary-color-hover: #0771dc;
     --form-background-color: linear-gradient(180deg, #252525, #242424);
-    --background-color: #151515;
+    --page-background: #151515;
     --border-color: #1d1d1d;
-    --text-color: #ffffff;
+    --text-primary: #ffffff;
   }
 }
 
@@ -43,7 +43,7 @@ form {
   justify-content: center;
   align-items: center;
 
-  color: var(--text-color);
+  color: var(--text-primary);
 }
 
 h1 {
@@ -58,7 +58,7 @@ input[type=submit]:hover {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
+  background-color: var(--page-background);
 }
 
 .horizontally-centered-container {
