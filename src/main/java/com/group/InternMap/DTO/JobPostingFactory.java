@@ -1,21 +1,23 @@
 package com.group.InternMap.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.group.InternMap.Company.Company;
-import com.group.InternMap.Job.FreelanceProject;
-import com.group.InternMap.Job.FullTime;
-import com.group.InternMap.Job.Internship;
-import com.group.InternMap.Job.JobPosting;
+import com.group.InternMap.Job.*;
 
 public class JobPostingFactory {
-
+    @JsonProperty("jobPosting")
     private final JobPosting jobPosting = new JobPosting();
     private final FullTime fullTime = new FullTime();
     private final Internship internship = new Internship();
     private final FreelanceProject freelanceProject = new FreelanceProject();
+    @JsonProperty("company")
     private Company company ;
+    @JsonProperty("jobType")
     private String jobType;
-
+    public JobPostingFactory() {}
     public Internship toInternship() {
+        internship.setType(PostingType.Internship);
         internship.setRecruiter(jobPosting.getRecruiter());
         internship.setJobName(jobPosting.getJobName());
         internship.setJobDescription(jobPosting.getJobDescription());
@@ -25,6 +27,7 @@ public class JobPostingFactory {
     }
 
     public FreelanceProject toFreelanceProject() {
+        freelanceProject.setType(PostingType.FreeLanceProject);
         freelanceProject.setRecruiter(jobPosting.getRecruiter());
         freelanceProject.setJobName(jobPosting.getJobName());
         freelanceProject.setJobDescription(jobPosting.getJobDescription());
@@ -34,6 +37,7 @@ public class JobPostingFactory {
     }
 
     public FullTime toFullTime() {
+        fullTime.setType(PostingType.FullTime);
         fullTime.setRecruiter(jobPosting.getRecruiter());
         fullTime.setJobName(jobPosting.getJobName());
         fullTime.setJobDescription(jobPosting.getJobDescription());
@@ -73,5 +77,6 @@ public class JobPostingFactory {
     public void setJobType(String jobType) {
         this.jobType = jobType;
     }
+
 
 }

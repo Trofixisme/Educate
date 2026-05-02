@@ -22,7 +22,7 @@ public class Company implements Serializable {
 
     @ManyToMany(mappedBy = "companies")
     private List<Recruiter> recruiters = new ArrayList<>();
-
+    public Company() {}
     public String getLocationOfHQ() {
         return locationOfHQ;
     }

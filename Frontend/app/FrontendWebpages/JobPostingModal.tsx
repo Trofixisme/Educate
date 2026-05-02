@@ -30,7 +30,7 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
             freelance: "FreeLanceProject",
         };
 
-        const body = {
+        {/* const body = {
             type: typeMap[Array.from(selected)[0]],
             date_posted: new Date().toISOString().split("T")[0],
             job_name: formData.get("job_name"),
@@ -42,9 +42,33 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
             payout: formData.get("payout"),
             company_name: formData.get("company"), // ← flat, not nested
 
+        }; */}
+        const body = {
+            jobType: typeMap[Array.from(selected)[0]],
+            company: {
+                name: formData.get("company"),
+            },
+            jobPosting: {
+                jobName: formData.get("job_name"),
+                jobDescription: formData.get("job_description"),
+                jobRequirements: formData.get("job_requirements"),
+                jobLocation: formData.get("job_location"),
+            },
+            fullTime: {
+                benefits: formData.get("benefits") ?? "",
+            },
+            internship: {
+                duration: formData.get("duration") ?? "",
+                jobLocation: formData.get("job_location") ?? "",
+            },
+            freelanceProject: {
+                duration: formData.get("duration") ?? "",
+                payout: formData.get("payout") ?? "",
+                jobLocation: formData.get("job_location") ?? "",
+            },
         };
 
-        const res = await fetch(`http://localhost:8000/api/jobposting/new`, {
+        const res = await fetch(`http://localhost:8050/api/jobposting/new`, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -52,14 +76,13 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
         });
-
+        console.log("body:", JSON.stringify(body));
         console.log("testing");
         if (!res.ok) {
             const errorBody = await res.json(); // ← ADD THIS
             console.error("Submission failed:", res.status, errorBody);
         } else {
-            const successBody = await res.json();
-            console.log("Success:", successBody);
+            console.log("Success:");
             navigate("/");
         }
     }

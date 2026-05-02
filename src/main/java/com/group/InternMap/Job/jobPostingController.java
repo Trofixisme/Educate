@@ -38,7 +38,7 @@ public class jobPostingController {
 
     @PostMapping("/new")
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    public void AddJobPosting(@RequestBody JobPostingFactory jobPostingFactory, Principal principal, Authentication authentication) {
+    public ResponseEntity<String> AddJobPosting(@RequestBody JobPostingFactory jobPostingFactory, Principal principal, Authentication authentication) {
 
         if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.RECRUITER + "]")) {
             jobPostingFactory.setCompany(companyService.findByName(jobPostingFactory.getCompany().getName()));
@@ -46,13 +46,14 @@ public class jobPostingController {
             jobPostingFactory.getJobPosting().setCompany(companyService.findByName(jobPostingFactory.getCompany().getName()));
             jobPostingFactory.getJobPosting().setRecruiter((Recruiter) userService.searchByEmail(principal.getName()).get());
             switch (jobPostingFactory.getJobType()) {
-                case "FullTime" -> jobPostingService.save(jobPostingFactory.toInternship());
-                case "FreelanceProject" -> jobPostingService.save(jobPostingFactory.toFullTime());
-                case "Internship" -> jobPostingService.save(jobPostingFactory.toFreelanceProject());
+                case "FullTime" -> jobPostingService.save(jobPostingFactory.toFullTime());
+                case "FreelanceProject" -> jobPostingService.save(jobPostingFactory.toFreelanceProject());
+                case "Internship" -> jobPostingService.save(jobPostingFactory.toInternship());
             }
         } else {
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "User must be of role RECRUITER to proceed");
         }
+        return ResponseEntity.ok("success");
     }
 
     @GetMapping("/jobform")

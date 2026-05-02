@@ -205,7 +205,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                 </div>
                                 <div style={{display: "flex", gap: "8px"}}>
                                     <button style={{width: 40, height: 40, borderRadius: 40}}>
-                                        <img style={{width: 20}} src="http://localhost:8000/images/jinx.png"/>
+                                        <img style={{width: 20}} src="/images/assets/profile.png"/>
                                     </button>
                                     <button
                                         onClick={() => { setActivePostingId(posting.id); ApplicationFormOverlayState.toggle(); }}
