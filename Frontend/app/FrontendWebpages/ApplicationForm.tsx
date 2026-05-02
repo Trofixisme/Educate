@@ -1,7 +1,6 @@
-import "~/CSS/jobPosting.css"
-import "~/CSS/InternMapHomepage.css";
-import {IndexFooter, IndexHeader} from "./fragments/IndexHeaderAndFooter";
-import {Tabs} from "@heroui/react";
+import "../CSS/jobPosting.css"
+import "../CSS/InternMapHomepage.css";
+import {IndexFooter, IndexHeader} from './fragments/IndexHeaderAndFooter';
 import {
     Button,
     Description,
@@ -11,130 +10,98 @@ import {
     Form,
     Input,
     Label,
-    TextArea,
-    TextField,
+    Modal,
+    TextField, type UseOverlayStateReturn
 } from "@heroui/react";
+import {useParams} from "react-router";
 
-// @ts-ignore
-export default function ApplicationForm({ jobPostings}) {
-    const jobId = new URL(window.location.href).searchParams.get("jobId");
+export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn ,jobId: number | null}) {
 
-    // @ts-ignore
-    async function handleSubmit(e) {
+    const onApplicationState = overlayState;
+
+
+    async function handleSubmit(e: any) {
         e.preventDefault();
-
         const formData = new FormData(e.currentTarget);
-
         const params = new URLSearchParams({
-            jobId: jobId ?? "",
-            fname: formData.get("fname") as string,
-            lname: formData.get("lname") as string,
-            phone: formData.get("phone") as string,
+            jobId: String(jobId),
+            fname: formData.get("f_name") as string,
+            lname: formData.get("l_name") as string,
+            phone: formData.get("phone_number") as string,
             email: formData.get("email") as string,
         });
-
-        const res = await fetch(
-            `http://localhost:8050/api/application/apply/submit?${params}`,
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        console.log("sending:", params.toString());
+        const res = await fetch(`http://localhost:8050/api/application/apply/submit?${params.toString()}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+        });
 
         if (!res.ok) {
             const errorText = await res.text();
-            console.error("Failed to submit application", res.status, errorText);
+            console.error("Failed", res.status, errorText);
             return;
         }
-
         console.log("Application submitted!");
     }
 
     return (
-
         <>
-            <IndexHeader/>
-<div className="wrapper">
-            <div  align="center" >
+            <br/><br/><br/><br/><br/><br/>
+            <div className="wrapper">
+                <div align="center">
+                    <Modal isOpen={onApplicationState.isOpen}>
+                        <Modal.Backdrop className="dark" variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
+                            <Modal.Container>
+                                <Modal.Dialog className="sm:max-w-90 rounded-4xl">
+                                    <Modal.CloseTrigger onClick={() => onApplicationState.close()} />
+                                    <Modal.Header>
+                                        <img src="/images/navi/Navi%20Beta.png" alt="Logo" style={{height: "60px", width: "60px"}}/>
+                                        <Modal.Heading>Welcome to Internmap!</Modal.Heading>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Form method="post" className="w-full max-w-96" onSubmit={handleSubmit}>
+                                            <Fieldset>
+                                                <Description>Apply to Application!</Description>
+                                                <FieldGroup>
+                                                    <TextField isRequired name="f_name" validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
+                                                        <Label>First Name</Label>
+                                                        <Input placeholder="John" />
+                                                        <FieldError />
+                                                    </TextField>
+                                                    <TextField isRequired name="l_name" validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
+                                                        <Label>Last Name</Label>
+                                                        <Input placeholder="Doe" />
+                                                        <FieldError />
+                                                    </TextField>
+                                                    <TextField isRequired name="phone_number" validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
+                                                        <Label>Phone</Label>
+                                                        <Input placeholder="+201xxxxxxxxx" />
+                                                        <FieldError />
+                                                    </TextField>
+                                                    <TextField isRequired name="email" type="email">
+                                                        <Label>Email</Label>
+                                                        <Input placeholder="john@example.com" />
+                                                        <FieldError />
+                                                    </TextField>
+                                                </FieldGroup>
+                                                <Fieldset.Actions>
+                                                    <Button type="submit" >Apply</Button>
+                                                    <Button type="reset" variant="secondary">Reset</Button>
+                                                </Fieldset.Actions>
+                                            </Fieldset>
+                                        </Form>
+                                    </Modal.Body>
+                                </Modal.Dialog>
+                            </Modal.Container>
+                        </Modal.Backdrop>
+                    </Modal>
 
-                <Form method="post" className="w-full max-w-96" onSubmit={handleSubmit}>
-                    <input
-                        type="hidden"
-                        name="jobId"
-                        value={new URL(window.location.href).searchParams.get("jobId") ?? ""}
-                    />
-                    <Fieldset>
-                        <Description>Apply to Application!</Description>
-                        <FieldGroup>
-                            <TextField
-                                isRequired
-                                name="fname"
-                                validate={(value) => {
-                                    if (value.length < 3) {
-                                        return "Name must be at least 3 characters";
-                                    }
-                                    return null;
-                                }}>
-
-
-                                <Label>fname</Label>
-                                <Input placeholder="John Doe" />
-                                <FieldError />
-                            </TextField>
-                            <TextField
-                                isRequired
-                                name="lname"
-                                validate={(value) => {
-                                    if (value.length < 3) {
-                                        return "Name must be at least 3 characters";
-                                    }
-                                    return null;
-                                }}>
-
-
-                                <Label>lname</Label>
-                                <Input placeholder="John Doe" />
-                                <FieldError />
-                            </TextField>
-                            <TextField
-                                isRequired
-                                name="phone"
-                                validate={(value) => {
-                                    if (value.length < 3) {
-                                        return "Name must be at least 3 characters";
-                                    }
-                                    return null;
-                                }}>
-
-
-                                <Label>phone</Label>
-                                <Input placeholder="+201xxxxxxxxx" />
-                                <FieldError />
-                            </TextField>
-                            <TextField isRequired name="email" type="email">
-                                <Label>Email</Label>
-                                <Input placeholder="john@example.com" />
-                                <FieldError />
-                            </TextField>
-
-                        </FieldGroup>
-                        <Fieldset.Actions>
-                            <Button type="submit" onSubmit={handleSubmit} >
-                                Apply
-
-                            </Button>
-                            <Button type="reset" variant="secondary">
-                                Reset
-                            </Button>
-                        </Fieldset.Actions>
-                    </Fieldset>
-                </Form>
-            </div>
+                </div>
             </div>
 
-            <IndexFooter/>
         </>
     );
 }

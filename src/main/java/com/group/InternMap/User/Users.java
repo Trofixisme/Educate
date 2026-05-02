@@ -88,7 +88,7 @@ public class Users implements Serializable {
 
     public Date getCreatedAt() {
         return createdAt;
-    }
+   }
 
     public Long getId() {
         return id;

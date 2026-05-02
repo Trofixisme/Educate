@@ -59,7 +59,7 @@ public class JobPosting implements Serializable {
         this.jobName = jobName;
     }
 
-    public Date getPostingDate() {
+    public Date getDatePosted() {
         return datePosted;
     }
 

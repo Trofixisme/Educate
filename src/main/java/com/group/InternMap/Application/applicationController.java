@@ -87,8 +87,6 @@
                 notificationService.sendToUser(recruiterEmail, authentication.getName() + " has applied to " + applicationAndCVDTO.getApplication().getJobPosting().getJobName());
                 return ResponseEntity.ok("works");
 
-
-
         }
 
         @GetMapping
