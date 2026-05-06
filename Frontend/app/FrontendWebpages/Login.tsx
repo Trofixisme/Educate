@@ -1,4 +1,4 @@
-import React, {use, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Alert, CloseButton, Spinner} from "@heroui/react";
 
 export default function Login() {
@@ -64,7 +64,7 @@ export default function Login() {
                             <Alert.Content>
                                 <Alert.Title>
                                     <p className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
-                                        Your Email &/or Password may be incorrect
+                                        {errorMessage}
                                     </p>
                                 </Alert.Title>
                             </Alert.Content>

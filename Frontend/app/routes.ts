@@ -10,5 +10,6 @@ export default [
     route("/apply", "routes/applicationForm.tsx"),
     route("/roadmaps", "routes/roadMapView.tsx"),
     route("/roadmap/create", "routes/roadMapCreate.tsx"),
+    route("/myJobPostings", "routes/myJobPostings.tsx"),
     route("/jobform", "routes/jobPosting.tsx"),
 ] satisfies RouteConfig;

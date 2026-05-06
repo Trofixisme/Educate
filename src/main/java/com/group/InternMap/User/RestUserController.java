@@ -60,6 +60,11 @@ public class RestUserController {
         return results;
     }
 
+    @GetMapping("/getRole")
+    public String getRole(Authentication authentication) {
+        return (authentication != null ? authentication.getAuthorities().toString() : "none");
+    }
+
     @PostMapping("/JobPostings/{jobId}/applications/search")
     public List<Application> searchApplication(@PathVariable Long jobId, @RequestParam("searchQuery") String searchQuery, Model model) {
         List<Application> results = applicationService.searchApplication(searchQuery);

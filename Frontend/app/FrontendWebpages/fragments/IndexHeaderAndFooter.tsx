@@ -1,7 +1,8 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {AlertDialog, Button, Dropdown, Header, Kbd, Label, Modal, Separator, toast, Toast, useOverlayState} from "@heroui/react";
 import {notification} from "~/FrontendWebpages/fragments/Notification";
 import {useLocation} from "react-router";
+import JobPostingModal from "~/FrontendWebpages/JobPostingModal";
 
 export function IndexHeader() {
 
@@ -22,7 +23,22 @@ export function IndexHeader() {
         onBoardingState.close()
     }
 
+    const jobPostingFormOverlayState = useOverlayState({defaultOpen: false});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [role, setRole] = useState("none");
+
+    async function fetchRole() {
+        setRole(await (await fetch(`http://localhost:8050/REST/getRole`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+            },
+        })).text())
+
+        console.log("role:", role)
+    }
 
     function logout() {
         location.href = "/logout";
@@ -34,6 +50,7 @@ export function IndexHeader() {
             setIsLoggedIn(true);
         }
 
+        fetchRole();
     }, []);
 
     notification()
@@ -75,7 +92,18 @@ export function IndexHeader() {
             {!isLoggedIn ? <section className="section wide">
                 <button className="button-secondary" onClick={() => location.href = '/login'}>Sign in</button>
                 <button className="button-prominant" onClick={() => location.href = '/signup'}>Sign up</button>
-            </section> : <section>
+            </section> : <section className="section wide">
+
+                {role == "[ROLE_RECRUITER]" && (
+                    <>
+                        <Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} isIconOnly onClick={() => jobPostingFormOverlayState.open()}>
+                            <img src="/images/assets/plus-black@4x.png" className="theme-adaptive-icon" style={{width: "20px"}} alt="add a job posting"/>
+                        </Button>
+                        <Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} isIconOnly onClick={() => location.href = '/myJobpostings'}>
+                            <img src="/images/assets/list.bullet.clipboard.fill@4x.png" className="theme-adaptive-icon" style={{width: "20px"}} alt="all job postings"/>
+                        </Button>
+                    </>
+                )}
 
                 <Dropdown>
                     <Button isIconOnly aria-label="Menu" variant="ghost">
@@ -150,45 +178,45 @@ export function IndexHeader() {
                     </Dropdown.Popover>
                 </Dropdown>
 
-                <AlertDialog isOpen={signOutAlertState.isOpen} >
-                    <AlertDialog.Backdrop variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
-                        <AlertDialog.Container>
-                            <AlertDialog.Dialog>
-                                <AlertDialog.Header>
-                                    <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
-                                    <AlertDialog.Heading>Sign out?</AlertDialog.Heading>
-                                </AlertDialog.Header>
-                                <AlertDialog.Body>
-                                    <p>Are you sure you want to sign out? You will not be able to track your progression across roadmaps or apply to jobs... </p>
-                                </AlertDialog.Body>
-                                <AlertDialog.Footer>
-                                    <Button slot="close" variant="tertiary" onClick={() => signOutAlertState.close()} >
-                                        Cancel
-                                    </Button>
+                    <AlertDialog isOpen={signOutAlertState.isOpen}>
+                        <AlertDialog.Backdrop variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
+                            <AlertDialog.Container>
+                                <AlertDialog.Dialog>
+                                    <AlertDialog.Header>
+                                        <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
+                                        <AlertDialog.Heading>Sign out?</AlertDialog.Heading>
+                                    </AlertDialog.Header>
+                                    <AlertDialog.Body>
+                                        <p>Are you sure you want to sign out? You will not be able to track your progression across roadmaps or apply to jobs... </p>
+                                    </AlertDialog.Body>
+                                    <AlertDialog.Footer>
+                                        <Button slot="close" variant="tertiary" onClick={() => signOutAlertState.close()} >
+                                            Cancel
+                                        </Button>
 
-                                    <Button slot="close" onClick={() => logout()} variant="danger">
+                                        <Button slot="close" onClick={() => logout()} variant="danger">
 
-                                        {/*  Works but makes clicking Enter after dismissing the dialog to log you out either way */}
-                                        {/*  I could remove the event listener upon dismissing the dialog, but I'm not very sure about the efficiency of doing so  */}
+                                            {/*  Works but makes clicking Enter after dismissing the dialog to log you out either way */}
+                                            {/*  I could remove the event listener upon dismissing the dialog, but I'm not very sure about the efficiency of doing so  */}
 
-                                        {/*{document.addEventListener("keydown", e => {*/}
-                                        {/*    if (e.key == 'Enter') {*/}
-                                        {/*        logout()*/}
-                                        {/*    }*/}
-                                        {/*} , false)}*/}
+                                            {/*{document.addEventListener("keydown", e => {*/}
+                                            {/*    if (e.key == 'Enter') {*/}
+                                            {/*        logout()*/}
+                                            {/*    }*/}
+                                            {/*} , false)}*/}
 
-                                        Sign out
-                                    </Button>
-                                </AlertDialog.Footer>
-                            </AlertDialog.Dialog>
-                        </AlertDialog.Container>
-                    </AlertDialog.Backdrop>
-                </AlertDialog>
+                                            Sign out
+                                        </Button>
+                                    </AlertDialog.Footer>
+                                </AlertDialog.Dialog>
+                            </AlertDialog.Container>
+                        </AlertDialog.Backdrop>
+                    </AlertDialog>
 
             </section>}
 
+            <JobPostingModal overlayState={jobPostingFormOverlayState} />
             <Toast.Provider placement="top end"/>
-
         </header>
     )
 }

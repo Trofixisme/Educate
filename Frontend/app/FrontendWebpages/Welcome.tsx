@@ -4,9 +4,7 @@ import {IndexHeader} from "./fragments/IndexHeaderAndFooter";
 import {Button, ComboBox, Disclosure, Input, ListBox, SearchField, Separator, useOverlayState} from "@heroui/react";
 import React, {useState} from "react";
 import type {Key} from "node:readline";
-import JobPostingModal from "./JobPostingModal";
 import ApplicationForm from "./ApplicationForm";
-
 
 let constJobPostings: JobPosting[] = [];
 let constRoadmaps: Roadmap[] = [];
@@ -22,9 +20,8 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
     const [isAllExpanded, setAllExpanded] = useState(true);
     const [isRecentsExpanded, setRecentsExpanded] = useState(true);
-    const jobPostingFormOverlayState = useOverlayState({defaultOpen: false});
     const ApplicationFormOverlayState = useOverlayState({defaultOpen: false});
-    const [activePostingId, setActivePostingId] = useState<number | null>(null);
+    const [activePostingId, setActivePostingId] = useState<bigint | null>(null);
     let recentRoadmaps: Roadmap[] = [];
 
     roadmaps.reverse();
@@ -48,7 +45,9 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
             <div className="flex flex-col items-center justify-center gap-3">
               <div className="flex justify-center justify-self-center flex-row items-center text-4xl font-bold mb-4 gap-3">
                 Explore
-                  <ComboBox onSelectionChange={(key) => setSelectedKey(key)} defaultValue="Roadmaps">
+                  <ComboBox onSelectionChange={// @ts-ignore
+                      (key) => setSelectedKey(key)
+                  } defaultValue="Roadmaps">
                       <ComboBox.InputGroup>
                           <Input defaultValue="Roadmaps" style={{paddingLeft: "27px"}} />
                           <ComboBox.Trigger />
@@ -78,8 +77,8 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                 <br/>
             </div>
 
-
-            {selectedKey == "Roadmaps" ? (
+            {// @ts-ignore
+                selectedKey == "Roadmaps" ? (
                     <>
                         {constRoadmaps.length != 0 && (<div style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
                             <label className="container-label">Recents</label>
@@ -157,69 +156,105 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                     </>
                 ) : (
 
-                <div style={{display: "grid", justifyContent: "start", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: "50px"}}>
-                    <button
-                        onClick={() => jobPostingFormOverlayState.toggle()}
-                        style={{width: 93, height: 40, borderRadius: 75, background: "#0E81EC", color: "white", fontSize: 18, fontWeight: 700, border: "none", cursor: "pointer"}}
-                    >
-                        create Job Posting
-                    </button>
+                    <div style={{
+                        display: "grid",
+                        justifyContent: "start",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+                        gap: "50px"
+                    }}>
 
-                    {jobPostings.map((posting: JobPosting) => (
-                        <div
-                            key={posting.id}
-                            style={{width: "100%", background: "var(--Container-Secondary, rgba(255,255,255,0.85))", boxShadow: "0px 0px 40px rgba(0,0,0,0.17)", borderRadius: 45, backdropFilter: "blur(20px)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: "16px"}}
-                        >
-                            <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "12px"}}>
-                                <div style={{display: "flex", alignItems: "center", gap: "12px"}}>
-                                    <img style={{width: 40, height: 40, borderRadius: 200, objectFit: "cover"}} src="http://localhost:8000/images/jinx.png" />
-                                    <div>
-                                        <div style={{fontSize: 22, fontWeight: 700}}>
-                                            <a href={`/postings/${posting.id}`}>{posting.recruiter?.fName}</a>
+                        {jobPostings.map((posting: JobPosting) => (
+                            <div
+                                key={posting.id}
+                                style={{
+                                    width: "100%",
+                                    background: "var(--Container-Secondary, rgba(255,255,255,0.85))",
+                                    boxShadow: "0px 0px 40px rgba(0,0,0,0.17)",
+                                    borderRadius: 45,
+                                    backdropFilter: "blur(20px)",
+                                    padding: "24px 32px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "16px"
+                                }}
+                            >
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    gap: "12px"
+                                }}>
+                                    <div style={{display: "flex", alignItems: "center", gap: "12px"}}>
+                                        <img style={{width: 40, height: 40, borderRadius: 200, objectFit: "cover"}}
+                                             src="http://localhost:8000/images/jinx.png"/>
+                                        <div>
+                                            <div style={{fontSize: 22, fontWeight: 700}}>
+                                                <a href={`/postings/${posting.id}`}>{posting.recruiter?.fname}</a>
+                                            </div>
+                                            <div style={{fontSize: 15, fontWeight: 600, color: "rgba(0,0,0,0.4)"}}>
+                                                <a href={`/postings/${posting.id}`}>{posting.company?.name}</a>
+                                            </div>
                                         </div>
-                                        <div style={{fontSize: 15, fontWeight: 600, color: "rgba(0,0,0,0.4)"}}>
-                                            <a href={`/postings/${posting.id}`}>{posting.company?.name}</a>
-                                        </div>
+                                    </div>
+
+                                    <div style={{
+                                        padding: "4px 12px",
+                                        background: "linear-gradient(180deg, rgba(8, 109, 250, 0.52) 0%, rgba(27, 155, 254, 0.52) 100%)",
+                                        borderRadius: 75,
+                                        outline: "2px rgba(255, 255, 255, 0.20) solid",
+                                        outlineOffset: "-2px",
+                                        backdropFilter: "blur(20px)",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}>
+                                    <span style={{
+                                        color: "white",
+                                        fontSize: 13,
+                                        fontFamily: "Inter",
+                                        fontWeight: 800,
+                                        whiteSpace: "nowrap"
+                                    }}>
+                                        <a href={`/postings/${posting.id}`}>{// @ts-ignore
+                                            posting.type}</a>
+                                    </span>
                                     </div>
                                 </div>
 
-                                <div style={{padding: "4px 12px", background: "linear-gradient(180deg, rgba(8, 109, 250, 0.52) 0%, rgba(27, 155, 254, 0.52) 100%)", borderRadius: 75, outline: "2px rgba(255, 255, 255, 0.20) solid", outlineOffset: "-2px", backdropFilter: "blur(20px)", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                    <span style={{color: "white", fontSize: 13, fontFamily: "Inter", fontWeight: 800, whiteSpace: "nowrap"}}>
-                                        <a href={`/postings/${posting.id}`}>{posting.type}</a>
-                                    </span>
+                                <div>
+                                    <div style={{fontSize: 24, fontWeight: 700}}>
+                                        <a href={`/posting/${posting.id}`}>{posting.jobName}</a>
+                                    </div>
+                                    <div style={{fontSize: 15, fontWeight: 500}}>
+                                        <a href={`/posting/${posting.id}`}>{posting.jobDescription}</a>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <div style={{fontSize: 24, fontWeight: 700}}>
-                                    <a href={`/posting/${posting.id}`}>{posting.jobName}</a>
-                                </div>
-                                <div style={{fontSize: 15, fontWeight: 500}}>
-                                    <a href={`/posting/${posting.id}`}>{posting.jobDescription}</a>
+                                <div style={{display: "flex", justifyContent: "space-between"}}>
+                                    <div style={{fontSize: 13, fontWeight: 600}}>
+                                        <a href={`/postings/${posting.id}`}>{posting.jobName}</a>
+                                    </div>
+                                    <div style={{display: "flex", gap: "8px"}}>
+                                        <button style={{width: 40, height: 40, borderRadius: 40}}>
+                                            <img style={{width: 20}} src="/images/navi/Navi%20Sad.png"
+                                                 alt="placeholder profile picture"/>
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setActivePostingId(posting.id);
+                                                ApplicationFormOverlayState.toggle();
+                                            }}
+                                            className="button-prominant">
+                                            Apply
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                        ))}
+                    </div>
+                )}
 
-                            <div style={{display: "flex", justifyContent: "space-between"}}>
-                                <div style={{fontSize: 13, fontWeight: 600}}>
-                                    <a href={`/postings/${posting.id}`}>{posting.jobName}</a>
-                                </div>
-                                <div style={{display: "flex", gap: "8px"}}>
-                                    <button style={{width: 40, height: 40, borderRadius: 40}}>
-                                        <img style={{width: 20}} src="/images/assets/profile.png"/>
-                                    </button>
-                                    <button
-                                        onClick={() => { setActivePostingId(posting.id); ApplicationFormOverlayState.toggle(); }}
-                                        style={{width: 93, height: 40, borderRadius: 75, background: "#0E81EC", color: "white", fontSize: 18, fontWeight: 700, border: "none", cursor: "pointer"}}
-                                    >
-                                        Apply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-            <JobPostingModal overlayState={jobPostingFormOverlayState} />
             <ApplicationForm overlayState={ApplicationFormOverlayState} jobId={activePostingId} />
         </>
     );

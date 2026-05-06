@@ -1,7 +1,6 @@
 import "../CSS/jobPosting.css"
 import "../CSS/InternMapHomepage.css";
 import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, Label, Modal, TextField } from "@heroui/react";
-import type { Selection } from "@heroui/react";
 import { Dropdown, Header } from "@heroui/react";
 import {useState} from "react";
 import {useNavigate} from "react-router";
@@ -100,36 +99,25 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                         <Modal.Dialog className="sm:max-w-90 rounded-4xl">
                             <Modal.CloseTrigger onClick={() => onJobPostingState.close()} />
                             <Modal.Header>
-                                <img src="/images/navi/Navi%20Beta.png" alt="Logo" style={{height: "60px", width: "60px"}}/>
-                                <Modal.Heading>Welcome to Internmap!</Modal.Heading>
+                                <Modal.Heading>Compose a Job</Modal.Heading>
                             </Modal.Header>
                             <Modal.Body>
                                 <Form method="post" className="w-full max-w-96" onSubmit={handleSubmit}>
                                     <Fieldset>
-                                        <Description>Apply to Application!</Description>
                                         <FieldGroup>
                                             <Dropdown
-                                                label="Job Type Selector"
-                                                selectedKeys={selected}
-                                                onSelectionChange={(keys: string | Iterable<unknown> | ArrayLike<unknown>) => {
-                                                    if (keys === "all") return;
-                                                    setSelected(new Set(Array.from(keys).map(String)));
-                                                }}
-                                            >
+                                                aria-label="Job Type Selector">
+
                                                 <Button aria-label="Menu" variant="secondary">
                                                     {labels[selectedValue as string] ?? "Select job type"}
                                                 </Button>
                                                 <Dropdown.Popover className="min-w-[256px]">
 
-                                                    <Dropdown.Menu
-                                                        aria-label="Job type"
-                                                        selectedKeys={selected}
-                                                        selectionMode="single"
-                                                        onSelectionChange={(keys) => {
-                                                            if (keys === "all") return;
-                                                            setSelected(new Set(Array.from(keys).map(String)));
-                                                        }}
-                                                    >
+                                                    <Dropdown.Menu aria-label="Job type" selectedKeys={selected} selectionMode="single" onSelectionChange={(keys) => {
+                                                        if (keys === "all")
+                                                            return
+                                                        setSelected(new Set(Array.from(keys).map(String)))
+                                                    }}>
                                                         <Dropdown.Section>
                                                             <Header>Select a fruit</Header>
                                                             <Dropdown.Item id="intern" textValue="Internship">

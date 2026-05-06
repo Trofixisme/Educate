@@ -10,11 +10,13 @@
     --primary-color-hover: #0771dc;
     --form-background-color: linear-gradient(0deg, #ffffff, #ffffff);
     --page-background: #ffffff;
-    --component-secondary: rgba(191, 191, 191, 0.14);
+    --component-secondary: rgba(191, 191, 191, 0.058);
     --container-secondary: rgba(255, 255, 255, 0.85);
     --component-tertiary: var(--page-background);
+    --component-quaternary: rgba(220, 220, 220, 0.2);
     --border-color: #2c2c2c;
     --text-primary: #000000;
+    --text-primary-inverted: #ffffff;
     --text-secondary: rgba(0, 0, 0, 0.4);
     --text-white: #ffffff;
     --text-black: #000000;
@@ -27,10 +29,11 @@
         --primary-color-hover: #0771dc;
         --form-background-color: linear-gradient(180deg, #252525, #242424);
         --page-background: #101010;
-        --container-secondary: rgba(44, 44, 44, 0.14);
+        --container-secondary: rgba(44, 44, 44, 0.5);
         --component-tertiary: var(--component-secondary);
         --border-color: #ededed;
         --text-primary: #ffffff;
+        --text-primary-inverted: #000000;
         --text-secondary: rgba(212, 212, 212, 0.4);
         --text-color-2: #ffffff;
     }
@@ -153,7 +156,7 @@ input[type=password], input[type=email], input[type=text] {
     border-radius: 45px;
     box-sizing: border-box;
 
-    background-color: var(--container-secondary);
+    background-color: var(--component-secondary);
 
     color: var(--text-primary);
 }

@@ -41,37 +41,94 @@ public class UserService implements FilePaths {
 
     public void register(Users u) {
         try {
-            if (isEmailValid(u.getEmail())) {
-                u.setPassword(passwordEncoder.encode(u.getPassword()));
+                if (isEmailValid(u.getEmail())) {
+                if (isPasswordValid(u.getPassword())) {
+                    u.setPassword(passwordEncoder.encode(u.getPassword()));
+                }
                 userRepo.save(u);
             }
         } catch (DataIntegrityViolationException e) {
-            if (!e.getMessage().contains("could")) {
+            if (e.getMessage().contains("could")) {
                 throw new DataIntegrityViolationException("User with this email already exists.");
             } else {
                 throw new DataIntegrityViolationException("Required Data Missing");
             }
-
         }
+    }
+
+    public static boolean isPasswordValid(String password) {
+        if (password.length() < 12) {
+            throw new IllegalArgumentException("Password is too short. It must be at least 8 characters long.");
+        }
+
+        boolean hasUpperCase = false;
+        boolean hasSpecialChar = false;
+        boolean hasDigit = false;
+        boolean hasLowerCase = false;
+
+        for (int i = 0; i < password.length(); i++) {
+
+            if (Character.isUpperCase(password.charAt(i))) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(password.charAt(i))) {
+                hasLowerCase = true;
+            } else if (Character.isDigit(password.charAt(i))) {
+                hasDigit = true;
+            } else if (!Character.isLetterOrDigit(password.charAt(i)) && (!Character.isSpaceChar(password.charAt(i)) || !Character.isEmoji(password.charAt(i)))) {
+                hasSpecialChar = true;
+            }
+        }
+
+        String badPasswordMessage = "Password is too weak. ";
+
+        if (!hasUpperCase) {
+            throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one uppercase letter");
+        } else if (!hasLowerCase) {
+            throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one lowercase letter");
+        } else if (!hasDigit) {
+            throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one digit");
+        } else if (!hasSpecialChar) {
+            throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one special character");
+        }
+
+        return true;
     }
 
     public static boolean isEmailValid(String email) {
         if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty.");
+            throw new IllegalArgumentException("Email cannot be empty");
         }
 
-        boolean startsWithAt = false;
+        int atSymbolCount = 0;
+        int dotCount = 0;
+
+        if (!Character.isLetterOrDigit(email.charAt(0))) {
+            throw new IllegalArgumentException("Email must start with a letter or digit");
+        }
+
         for (int i = 0; i < email.length(); i++) {
-            if (!startsWithAt && email.charAt(i) == '.' && !email.contains(".") && (email.startsWith("@") && email.startsWith("."))) {
-                throw new IllegalArgumentException("Email must in the following format: name@example.com");
-            } else {
-                startsWithAt = true;
-            }
-            if (((email.charAt(i) == '@' && (Character.isAlphabetic(email.charAt(i + 1)) || Character.isDigit(email.charAt(i + 1)))))) {
-                if (Character.isSpaceChar(email.charAt(i)) || Character.isEmoji(email.charAt(i))) {
-                    throw new IllegalArgumentException("Email cannot contain spaces or emojis.");
+                if (!Character.isDigit(email.charAt(i))  && ((Character.isSpaceChar(email.charAt(i))) || Character.isEmoji(email.charAt(i)))) {
+                    throw new IllegalArgumentException("Email cannot contain spaces or emojis");
+                } else if (email.charAt(i) == '.' || email.charAt(i) == '@') {
+                    atSymbolCount += (email.charAt(i) == '@') ? 1 : 0;
+                    dotCount += (email.charAt(i) == '.') ? 1 : 0;
+
+                    try {
+                        if (!Character.isLetterOrDigit(email.charAt(i + 1))) {
+                            if (email.charAt(i) == '@') {
+                                throw new IllegalArgumentException("Email must contain at least one letter or digit after the '@'");
+                            }
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new IllegalArgumentException("Email must contain at least one letter or digit after the '.'");
+                    }
+
+                    if (atSymbolCount > 1 || dotCount > 1) {
+                        throw new IllegalArgumentException("Email cannot contain more than one '@' or '.'");
+                    }
+                } else if (!Character.isLetterOrDigit(email.charAt(i)) && email.charAt(i) != '-' && email.charAt(i) != '_') {
+                    throw new IllegalArgumentException("Email cannot contain any special characters");
                 }
-            }
         }
         return true;
     }

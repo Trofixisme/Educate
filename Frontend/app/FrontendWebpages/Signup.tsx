@@ -1,6 +1,109 @@
-import {Tabs} from "@heroui/react";
+import {Alert, CloseButton, Spinner, Tabs} from "@heroui/react";
+import React, {useState} from "react";
+import {redirect} from "react-router";
 
 export default function Signup() {
+
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null as string | null);
+
+    async function handleRecruiterRegister( e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setErrorMessage(null);
+        setLoading(true);
+        const formData = new FormData(e.currentTarget);
+
+        try {
+            const sendableData = Object.fromEntries(formData.entries()) as unknown as Recruiter;
+
+            const response = await fetch("http://localhost:8050/api/recruiter/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(sendableData),
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                setErrorMessage(data.detail);
+                return;
+            }
+
+        } catch (error) {
+            console.error(error);
+            setErrorMessage("Server error or connection issue");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function handleStudentRegister(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setErrorMessage(null);
+        setLoading(true);
+        const formData = new FormData(e.currentTarget);
+
+        try {
+            const sendableData = Object.fromEntries(formData.entries()) as unknown as Student;
+
+            const response = await fetch("http://localhost:8050/api/student/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(sendableData),
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                console.log(data);
+                setErrorMessage(data.detail);
+                return;
+            }
+
+        } catch (error) {
+            console.error(error);
+            setErrorMessage("Server error or connection issue");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function handleAdminRegister( e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setErrorMessage(null);
+        setLoading(true);
+        const formData = new FormData(e.currentTarget);
+
+        try {
+            const sendableData = Object.fromEntries(formData.entries()) as unknown as Admin;
+            sendableData.PermissionLevel = 0;
+
+            const response = await fetch("http://localhost:8050/api/admin/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(sendableData),
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                setErrorMessage(data.detail);
+                return;
+            }
+
+        } catch (error) {
+            console.error(error);
+            setErrorMessage("Server error or connection issue");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="centered">
@@ -10,12 +113,31 @@ export default function Signup() {
             <br/>
 
             <div className="container">
-                <div /*th:if="${errorMessage}"*/
-                    style={{color: "red", border: "0 solid red", padding: "2px", marginBottom: "15px", fontWeight: "550"}}>
-                    <p /*th:text="${errorMessage}"*/></p>
-                </div>
 
-                <h1 className="font-bold text-3xl">Sign Up</h1>
+                {errorMessage && (
+                    <>
+                        <br/>
+                        <Alert className="dark rounded-4xl" style={{background: "var(--container-secondary)"}} status="danger">
+                            <Alert.Indicator>
+                                <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Logo" style={{width: "20px", height: "20px", aspectRatio: "1/1"}}/>
+                            </Alert.Indicator>
+                            <Alert.Content>
+                                <Alert.Title>
+                                    <p className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
+                                        {errorMessage}
+                                    </p>
+                                </Alert.Title>
+                            </Alert.Content>
+                            <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
+                        </Alert>
+                    </>
+                )}
+
+                {!errorMessage && (
+                    <>
+                        <h1 className="font-bold text-3xl" style={{paddingTop: "25px"}}>Sign in</h1>
+                    </>
+                )}
 
                 <br/><br/>
                 <Tabs className="full-width " style={{margin: "-20px"}} defaultSelectedKey={"student"}>
@@ -41,7 +163,7 @@ export default function Signup() {
                     <Tabs.Panel id="admin" style={{padding: 0}}>
 
                         {/*ADMIN Sign in VIEW*/}
-                        <form className="full-width" action="http://localhost:8050/admin/register}" method="post">
+                        <form className="full-width" method="post" onSubmit={handleAdminRegister}>
 
                             <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
                                 <label htmlFor="admin-first-name">First Name:</label>
@@ -49,9 +171,9 @@ export default function Signup() {
                             </div>
 
                             <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
-                                <input type="text" id="admin-first-name" className="text-sm" name="*{FName}"
+                                <input type="text" id="admin-first-name" className="text-sm" name="*{fname}"
                                        placeholder="First name" required autoComplete="given-name"/>
-                                <input type="text" id="admin-last-name" className="text-sm" name="*{LName}"
+                                <input type="text" id="admin-last-name" className="text-sm" name="*{lname}"
                                        placeholder="Last name" required autoComplete="family-name"/>
                             </div>
                             <br/><br/>
@@ -66,7 +188,7 @@ export default function Signup() {
                                    placeholder="Password" required autoComplete="new-password"/>
                             <br/><br/>
 
-                            <input type="submit" className="form-submit" value="Create Account"/>
+                            { loading ? <Spinner size="lg" color="current" /> : <input className="text-lg" type="submit" value="Create Account"/>}
                         </form>
 
                     </Tabs.Panel>
@@ -74,7 +196,7 @@ export default function Signup() {
                     <Tabs.Panel id="student" style={{padding: 0}}>
 
                         {/*STUDENT Sign in VIEW*/}
-                        <form className="full-width" action="http://localhost:8050/api/student/register" method="post">
+                        <form className="full-width" method="post" onSubmit={handleStudentRegister}>
 
                             <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
                                 <label htmlFor="student-first-name">First Name:</label>
@@ -82,9 +204,9 @@ export default function Signup() {
                             </div>
 
                             <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
-                                <input className="text-sm" type="text" id="student-first-name" name="FName" placeholder="Intern" required
+                                <input className="text-sm" type="text" id="student-first-name" name="fname" placeholder="Intern" required
                                        autoComplete="given-name"/>
-                                <input className="text-sm" type="text" id="student-last-name" name="LName" placeholder="Map" required
+                                <input className="text-sm" type="text" id="student-last-name" name="lname" placeholder="Map" required
                                        autoComplete="family-name"/>
                             </div>
                             <br/><br/>
@@ -116,7 +238,7 @@ export default function Signup() {
                             <input className="text-sm" type="text" id="faculty" name="faculty" placeholder="Arts & Design" required/>
                             <br/><br/>
 
-                            <input type="submit" className="form-submit" value="Create Account"/>
+                            { loading ? <Spinner size="lg" color="current" /> : <input className="text-lg" type="submit" value="Create Account"/>}
                         </form>
 
                     </Tabs.Panel>
@@ -124,7 +246,7 @@ export default function Signup() {
                     <Tabs.Panel id="recruiter" style={{padding: 0}}>
 
                         {/*RECRUITER Sign in VIEW*/}
-                        <form className="full-width" action="http://localhost:8050/api/recruiter/register" method="post">
+                        <form className="full-width" method="post" onSubmit={handleRecruiterRegister}>
 
                             <div style={{display: "grid", gridGap: "20px", gridTemplateColumns: "1fr 1fr"}}>
                                 <label htmlFor="recruiter-first-name">First Name:</label>
@@ -132,9 +254,9 @@ export default function Signup() {
                             </div>
 
                             <div style={{display: "grid", gridGap: "20px", gridTemplateColumns: "1fr 1fr", gap: "20px"}}>
-                                <input className="text-sm" type="text" id="recruiter-first-name" name="*user.FName" placeholder="Intern"
+                                <input className="text-sm" type="text" id="recruiter-first-name" name="*user.fname" placeholder="Intern"
                                        required autoComplete="given-name"/>
-                                <input className="text-sm" type="text" id="recruiter-last-name" name="user.LName" placeholder="Map"
+                                <input className="text-sm" type="text" id="recruiter-last-name" name="user.lname" placeholder="Map"
                                        required autoComplete="family-name"/>
                             </div>
                             <br/><br/>
@@ -158,8 +280,7 @@ export default function Signup() {
                             <input className="text-sm" type="text" id="Company's Name" name="*{company.name}" placeholder="InternMap"/>
                             <br/><br/>
 
-                            <input type="submit" className="form-submit" value="Create Account"/>
-
+                            { loading ? <Spinner size="lg" color="current" /> : <input className="text-lg" type="submit" value="Create Account"/>}
                         </form>
 
                     </Tabs.Panel>

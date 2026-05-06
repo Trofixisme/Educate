@@ -20,7 +20,7 @@ import {useState} from "react";
 export default function JobPosting({ jobPostings }) {
     const [selected, setSelected] = useState<Selection>(new Set(["apple"]));
 
-    async function handleSubmit(e) {
+    async function handleSubmit(e: any) {
 
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -45,7 +45,8 @@ export default function JobPosting({ jobPostings }) {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
 
                 },
-            });
+            })
+
             console.log("testing")
             if (!res.ok) console.error( "Submission failed:", res.status);
         } catch (err) {
@@ -61,13 +62,13 @@ export default function JobPosting({ jobPostings }) {
 
             <div className="wrapper">
 
-                <div  align="center" >
+                <div>
 
                     <Form method="post" className="w-full max-w-96" onSubmit={handleSubmit}>
                         <Fieldset>
                             <Description>Apply to Application!</Description>
                             <FieldGroup>
-                                <Dropdown style>
+                                <Dropdown>
                                     <Button aria-label="Menu" variant="secondary">
                                         InternShip
                                     </Button>
@@ -149,7 +150,7 @@ export default function JobPosting({ jobPostings }) {
 
                             </FieldGroup>
                             <Fieldset.Actions>
-                                <Button type="submit" onSubmit={handleSubmit} >
+                                <Button type="submit" onClick={() => handleSubmit} >
                                     Apply
 
                                 </Button>

@@ -104,11 +104,11 @@ public class jobPostingController {
         }
     }
 
-    @GetMapping("/jobpostings")
+    @GetMapping("/")
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public List<JobPosting> getRecruiterJobPostings(Principal principal, Authentication authentication) {
 
-        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.STUDENT + "]")) {
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.RECRUITER + "]")) {
             return jobPostingService.getJobPostingsByRecruiterId((userService.searchByEmail(principal.getName()).get()).getId());
         } else {
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "User must be of role RECRUITER to proceed");
