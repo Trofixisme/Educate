@@ -3,6 +3,7 @@ import { IndexHeader } from "./fragments/IndexHeaderAndFooter";
 import {Button, Chip} from "@heroui/react";
 import "../app.css";
 import "../CSS/Universal.css";
+import type {Application} from "~/Model/Application";
 
 export default function MyJobApplicants({ applications }: { applications: Application[] }) {
     // since its a list of application array and i need each of them to need its own useState
@@ -52,7 +53,7 @@ export default function MyJobApplicants({ applications }: { applications: Applic
                             <div key={String(app.id)} style={{borderRadius: "60px", background: "var(--container-secondary)", boxShadow: "0 0 40px 0 rgba(0, 0, 0, 0.17)", backdropFilter: "blur(30px)", padding: "20px 28px", marginBottom: "12px", display: "flex", justifyContent: "space-between", gap: "16px",}}>
                                 <div>
                                     <p style={{fontWeight: 600, fontSize: "16px", margin: "0 0 6px" }}>
-                                        {app.f_name} {app.l_name}
+                                        {app.fName} {app.lName}
                                     </p>
                                     <div style={{display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
 
@@ -61,7 +62,7 @@ export default function MyJobApplicants({ applications }: { applications: Applic
                                         </span>
 
                                         <span style={{fontSize: "13px", color: "var(--text-secondary)" }}>
-                                            {app.phone_number}
+                                            {app.phoneNumber}
                                         </span>
 
                                         {decided && (

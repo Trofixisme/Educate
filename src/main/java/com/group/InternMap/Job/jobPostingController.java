@@ -82,7 +82,7 @@ public class jobPostingController {
     @GetMapping("/{jobId}/applications")
     public List<Application> viewApplications(@PathVariable long jobId, Authentication authentication) {
 
-        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.STUDENT + "]")) {
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.RECRUITER + "]")) {
             JobPosting job = jobPostingService.findJobPostingByID(jobId);
             if (job == null) {
                 logger.warn("Job with ID {} not found", jobId);

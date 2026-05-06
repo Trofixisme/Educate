@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public enum ApplicationStatus implements Serializable {
 
-    Accepted(1),
-    Rejected(2),
-    InProgress(3);
+    ACCEPTED(1),
+    REJECTED(2),
+    PENDING(3);
 
     private final int id;
 

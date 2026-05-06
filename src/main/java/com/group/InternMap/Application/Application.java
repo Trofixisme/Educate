@@ -40,6 +40,9 @@ public class Application implements Serializable, Comparable<Application> {
     @JoinColumn(name = "job_id")
     private JobPosting jobPosting;
 
+    @Column
+    private ApplicationStatus status;
+
     public Application() {}
 
     public Application(String fName, String lName, String email, String phoneNumber) {
