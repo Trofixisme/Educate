@@ -22,6 +22,7 @@ export async function clientLoader() {
         },
     });
 
+
     const json = await data.json();
 
     if (!data.ok) {
