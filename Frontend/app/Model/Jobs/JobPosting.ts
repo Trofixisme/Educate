@@ -1,4 +1,7 @@
-class JobPosting {
+import {Recruiter} from "~/Model/Users/Recruiter";
+import {Company} from "~/Model/Company";
+
+export class JobPosting {
 
     id: bigint;
     jobDescription: String;

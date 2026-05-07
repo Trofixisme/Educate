@@ -1,6 +1,6 @@
 import {Alert, CloseButton, Spinner, Tabs} from "@heroui/react";
 import React, {useState} from "react";
-import {redirect} from "react-router";
+import type { RecruiterRegistrationDTO } from "~/Model/DTO/RecruiterRegistrationDTO";
 
 export default function Signup() {
 
@@ -14,7 +14,23 @@ export default function Signup() {
         const formData = new FormData(e.currentTarget);
 
         try {
-            const sendableData = Object.fromEntries(formData.entries()) as unknown as Recruiter;
+            const sendableData: any = {
+                user: {},
+                company: {}
+            };
+
+            formData.forEach((value, key) => {
+                if (key.startsWith("user.")) {
+                    const field = key.split(".")[1];
+                    // Mapping 'fname' and 'lname' to backend 'fName' and 'lName'
+                    sendableData.user[field] = value;
+                } else if (key.startsWith("company.")) {
+                    const field = key.split(".")[1];
+                    sendableData.company[field] = value;
+                } else {
+                    sendableData[key] = value;
+                }
+            });
 
             const response = await fetch("http://localhost:8050/api/recruiter/register", {
                 method: "POST",

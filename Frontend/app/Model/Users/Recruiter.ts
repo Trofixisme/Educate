@@ -1,4 +1,7 @@
-class Recruiter extends User {
+import { User } from "~/Model/Users/User";
+import type {Company} from "~/Model/Company";
+
+export class Recruiter extends User {
 
     title: string
     companies: Company[]

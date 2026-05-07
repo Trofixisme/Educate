@@ -29,6 +29,7 @@ public class Recruiter extends Users implements Serializable {
     private List<Company> companies = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruiter")
+    @JsonIgnore
     private Collection<JobPosting> jobPosting;
 
     public Collection<JobPosting> getJobPosting() {

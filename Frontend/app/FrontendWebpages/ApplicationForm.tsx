@@ -15,7 +15,7 @@ import {
 } from "@heroui/react";
 import {useParams} from "react-router";
 
-export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn ,jobId: bigint | null}) {
+export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn, jobId: bigint | null}) {
 
     const onApplicationState = overlayState;
 

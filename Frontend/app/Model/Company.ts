@@ -1,4 +1,4 @@
-class Company {
+export class Company {
 
     id: bigint;
     industry: String;

@@ -4,7 +4,7 @@ import {IndexFooter, IndexHeader} from "./fragments/IndexHeaderAndFooter";
 import {Button, ComboBox, Disclosure, Input, ListBox, SearchField, useOverlayState} from "@heroui/react";
 import React, {useEffect, useState} from "react";
 import ApplicationForm from "./ApplicationForm";
-import { useNavigate } from "react-router";
+import type {JobPosting} from "~/Model/Jobs/JobPosting";
 
 export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], jobPostings: JobPosting[]}) {
     const [search, setSearch] = useState("");
@@ -41,7 +41,21 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
     const [role, setRole] = useState("none");
 
-    const navigate = useNavigate();
+    async function fetchRole() {
+        setRole(await (await fetch(`http://localhost:8050/REST/getRole`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+            },
+        })).text())
+    }
+
+    useEffect(() => {
+        fetchRole();
+    })
+
     const sortedRoadmaps = [...roadmaps].reverse();
     const filteredRoadmaps = sortedRoadmaps.filter((roadmap) =>
         roadmap.name.toLowerCase().includes(search.toLowerCase())
@@ -287,7 +301,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                         />
                                         <div>
                                             <div style={{fontSize: 20, fontWeight: 700}}>
-                                                <a href={`/postings/${posting.id}`}>{posting.recruiter?.fname}</a>
+                                                <a href={`/postings/${posting.id}`}>{posting.recruiter?.fname + " " + posting.recruiter?.lname}</a>
                                             </div>
                                             <div className="text-xs font-medium text-gray-400">
                                                 <a href={`/postings/${posting.id}`}>{posting.company?.name}</a>
@@ -341,7 +355,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                     </div>
                                     <div className="flex gap-2 items-center align-middle">
                                         <Button
-                                            isDisabled={role !== "ROLE_STUDENT"}
+                                            isDisabled={role !== "[ROLE_STUDENT]"}
                                             onClick={() => {
                                                 setActivePostingId(posting.id);
                                                 ApplicationFormOverlayState.toggle();

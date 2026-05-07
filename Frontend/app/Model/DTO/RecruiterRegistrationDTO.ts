@@ -1,10 +1,13 @@
-class RecruiterRegistrationDTO {
+import type { Recruiter } from "../Users/Recruiter";
+import { Company } from "../Company";
+
+export class RecruiterRegistrationDTO {
 
     user: Recruiter;
     company: Company;
 
-    constructor(recruiter: user, company: Company) {
-        this.user = recruiter;
+    constructor(user: Recruiter, company: Company) {
+        this.user = user;
         this.company = company;
     }
 }

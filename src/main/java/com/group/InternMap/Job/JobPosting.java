@@ -33,7 +33,7 @@ public class JobPosting implements Serializable {
     private PostingType type;
 
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     private Recruiter recruiter;
 
     @ManyToOne
