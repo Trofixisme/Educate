@@ -12,7 +12,7 @@ public class InternMapApplication {
 
     public static ApplicationContext context;
 
-    static void main(String[] args) {
+     static void main(String[] args) {
         context = SpringApplication.run(InternMapApplication.class, args);
 //        ShutDownSaver.registerShutdownHook();
     }
@@ -24,7 +24,10 @@ public class InternMapApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/REST/**").allowedOrigins("http://localhost:5173");
-                registry.addMapping("/api/**").allowedOrigins("http://localhost:5173");
+                registry.addMapping("/api/**")
+                        .allowedOrigins("http://localhost:5173")
+                        .allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE")
+                        .allowedHeaders("*");
             }
         };
     }
