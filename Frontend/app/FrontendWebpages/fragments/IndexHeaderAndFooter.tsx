@@ -178,40 +178,31 @@ export function IndexHeader() {
                     </Dropdown.Popover>
                 </Dropdown>
 
-                    <AlertDialog isOpen={signOutAlertState.isOpen}>
-                        <AlertDialog.Backdrop variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
-                            <AlertDialog.Container>
-                                <AlertDialog.Dialog>
-                                    <AlertDialog.Header>
-                                        <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
-                                        <AlertDialog.Heading>Sign out?</AlertDialog.Heading>
-                                    </AlertDialog.Header>
-                                    <AlertDialog.Body>
-                                        <p>Are you sure you want to sign out? You will not be able to track your progression across roadmaps or apply to jobs... </p>
-                                    </AlertDialog.Body>
-                                    <AlertDialog.Footer>
-                                        <Button slot="close" variant="tertiary" onClick={() => signOutAlertState.close()} >
-                                            Cancel
-                                        </Button>
+                        <AlertDialog isOpen={signOutAlertState.isOpen}>
+                            <AlertDialog.Backdrop variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
+                                <AlertDialog.Container>
+                                    <AlertDialog.Dialog>
+                                        <AlertDialog.Header>
+                                            <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
+                                            <AlertDialog.Heading>Sign out?</AlertDialog.Heading>
+                                        </AlertDialog.Header>
+                                        <AlertDialog.Body>
+                                            <p>Are you sure you want to sign out? You will not be able to track your progression across roadmaps or apply to jobs... </p>
+                                        </AlertDialog.Body>
+                                        <AlertDialog.Footer className="flex justify-end gap-4 mt-8">
+                                            <Button className="full-width p-3" slot="close" variant="tertiary" onClick={() => signOutAlertState.close()} >
+                                                Cancel
+                                            </Button>
 
-                                        <Button slot="close" onClick={() => logout()} variant="danger">
+                                            <Button className="full-width p-3" slot="close" onClick={() => logout()} variant="danger">
 
-                                            {/*  Works but makes clicking Enter after dismissing the dialog to log you out either way */}
-                                            {/*  I could remove the event listener upon dismissing the dialog, but I'm not very sure about the efficiency of doing so  */}
-
-                                            {/*{document.addEventListener("keydown", e => {*/}
-                                            {/*    if (e.key == 'Enter') {*/}
-                                            {/*        logout()*/}
-                                            {/*    }*/}
-                                            {/*} , false)}*/}
-
-                                            Sign out
-                                        </Button>
-                                    </AlertDialog.Footer>
-                                </AlertDialog.Dialog>
-                            </AlertDialog.Container>
-                        </AlertDialog.Backdrop>
-                    </AlertDialog>
+                                                Sign out
+                                            </Button>
+                                        </AlertDialog.Footer>
+                                    </AlertDialog.Dialog>
+                                </AlertDialog.Container>
+                            </AlertDialog.Backdrop>
+                        </AlertDialog>
 
             </section>}
 

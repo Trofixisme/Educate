@@ -30,6 +30,12 @@ public class RestUserController {
         this.applicationService=applicationService;
     }
 
+    @DeleteMapping("/user/delete")
+    public void deleteUser(Authentication authentication) {
+
+        userService.deleteByEmail(authentication.getName());
+    }
+
     // Display a specific roadmap with modules and skills
     @GetMapping("/{id:[0-9]+}")
     public Roadmap viewRoadmap(@PathVariable long id, Model model, Authentication authentication) {

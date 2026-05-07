@@ -7,9 +7,11 @@ import React, {useState} from "react";
 
 export default function Profile({userDetails}: { userDetails: User}) {
 
-    let UserDetails = userDetails;
+    let referenceEmail = userDetails.email;
 
     const [isEditOpen, setIsEditOpen] = useState(false);
+    const deleteAccountAlert = useOverlayState({defaultOpen: false});
+
     const [editForm, setEditForm] = useState(userDetails);
     const [editLoading, setEditLoading] = useState(false);
 
@@ -18,6 +20,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
     async function saveProfile() {
         console.log("called it");
         setEditLoading(true);
+        setErrorMessage(null);
 
         let sendableData;
         let to;
@@ -52,14 +55,39 @@ export default function Profile({userDetails}: { userDetails: User}) {
             setEditLoading(false);
             return;
         } else {
-            if (json.token != null) {
-                localStorage.setItem("token", json.token);
+            if (referenceEmail != userDetails.email) {
+                localStorage.removeItem("token");
             }
         }
 
         setEditLoading(false);
         setIsEditOpen(false);
         window.location.reload();
+    }
+
+    async function deleteAccount() {
+
+        setEditLoading(true)
+        setErrorMessage(null);
+
+        const response = await fetch("http://localhost:8050/REST/user/delete", {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.ok) {
+            localStorage.removeItem("token");
+            setEditLoading(false)
+            window.location.href = "/";
+        } else {
+            console.error("Failed to delete account");
+            setEditLoading(false)
+            setErrorMessage("Failed to delete account: " + (await response.json()).detail);
+        }
     }
 
     console.log(userDetails);
@@ -383,7 +411,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
                                     {userDetails.role === "RECRUITER" && (
                                         <div>
-                                            <label className="flex label-small mb-1">Title</label>
+                                            <label className="flex label-small mb-1">Work Title</label>
                                             <input
                                                 type="text"
                                                 className="text-sm"
@@ -393,6 +421,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                         </div>
                                     )}
 
+                                    <Button className="full-width p-3" variant="danger-soft" onClick={() => deleteAccountAlert.open()}>Delete Account</Button>
                                 </div>
                             </Modal.Body>
                             <Modal.Footer className="flex justify-end gap-6 mt-8">
@@ -407,6 +436,31 @@ export default function Profile({userDetails}: { userDetails: User}) {
                     </Modal.Container>
                 </Modal.Backdrop>
             </Modal>
+
+            <AlertDialog isOpen={deleteAccountAlert.isOpen && errorMessage == null}>
+                <AlertDialog.Backdrop variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
+                    <AlertDialog.Container>
+                        <AlertDialog.Dialog>
+                            <AlertDialog.Header>
+                                <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
+                                <AlertDialog.Heading>Delete account?</AlertDialog.Heading>
+                            </AlertDialog.Header>
+                            <AlertDialog.Body>
+                                <p>Are you sure you want to <b>delete your account</b>? All data associated with you will be deleted with <b>no way to recover them</b>.</p>
+                            </AlertDialog.Body>
+                            <AlertDialog.Footer className="flex justify-end gap-4 mt-8">
+                                <Button className="full-width p-3" slot="close" variant="tertiary" onClick={() => deleteAccountAlert.close()} >
+                                    Cancel
+                                </Button>
+
+                                <Button className="full-width p-3" slot="close" onClick={() => deleteAccount()} variant="danger" isDisabled={editLoading}>
+                                    {editLoading ? "Deleting..." : "Delete & sign out"}
+                                </Button>
+                            </AlertDialog.Footer>
+                        </AlertDialog.Dialog>
+                    </AlertDialog.Container>
+                </AlertDialog.Backdrop>
+            </AlertDialog>
 
             <CVForm overlayState={CVFormOverlayState}/>
         </>

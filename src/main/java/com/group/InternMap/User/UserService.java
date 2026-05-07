@@ -2,10 +2,12 @@ package com.group.InternMap.User;
 
 import com.group.InternMap.Admin.Admin;
 import com.group.InternMap.FilePaths;
+import com.group.InternMap.Job.JobRepo;
 import com.group.InternMap.Recruiter.Recruiter;
 import com.group.InternMap.Recruiter.RecruiterRepo;
 import com.group.InternMap.Student.Student;
 import com.group.InternMap.Student.StudentRepo;
+import com.group.InternMap.cv.CVRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +31,21 @@ public class UserService implements FilePaths {
     private StudentRepo studentRepo;
     private RecruiterRepo recruiterRepo;
 
+    CVRepo cvRepo;
+    JobRepo jobRepo;
+
     public UserService() {
     }
 
     @Autowired
-    public UserService(UserRepo userRepo, StudentRepo studentRepo, RecruiterRepo recruiterRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+    public UserService(UserRepo userRepo, StudentRepo studentRepo, CVRepo cvRepo, JobRepo jobRepo, RecruiterRepo recruiterRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.studentRepo = studentRepo;
         this.recruiterRepo = recruiterRepo;
+        this.cvRepo = cvRepo;
+        this.jobRepo = jobRepo;
     }
 
     public void register(Users u, HttpServletRequest request) throws ServletException {
@@ -222,6 +229,14 @@ public class UserService implements FilePaths {
     public void deleteByEmail(String email) {
         Optional<Users> user = userRepo.findByEmail(email);
         if (user.isPresent()) {
+            if (user.get().getRole() == UserRole.STUDENT) {
+               cvRepo.delete(studentRepo.findByEmail(email).getCv());
+               studentRepo.delete(studentRepo.findByEmail(email));
+            } else if (user.get().getRole() == UserRole.RECRUITER) {
+                jobRepo.deleteAll(recruiterRepo.findByEmail(email).getJobPosting());
+                recruiterRepo.delete(recruiterRepo.findByEmail(email));
+            }
+
             userRepo.delete(user.get());
         } else {
             throw new IllegalArgumentException("No user found with that email.");
