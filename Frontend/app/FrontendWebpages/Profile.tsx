@@ -139,7 +139,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             <Chip size="lg" >
                                 <img src="/images/assets/calendar@4x.png" alt="calendar"
                                      style={{width: "17px", filter: "invert(1)"}}/>
-                                <Chip.Label>{userDetails.createdAt.toString().substring(0, 4)}</Chip.Label>
+                                <Chip.Label>{userDetails.createdAt?.toString().substring(0, 4)}</Chip.Label>
                             </Chip>
                             <Chip size="lg">
                                 <img className="chip_icon" src="/images/assets/person.fill@4x.png" alt="person"
