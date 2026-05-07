@@ -15,7 +15,7 @@ public class Company implements Serializable {
 
     private String industry;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
     private String websiteURL;
     private String locationOfHQ;
@@ -23,6 +23,7 @@ public class Company implements Serializable {
     @ManyToMany(mappedBy = "companies")
     private List<Recruiter> recruiters = new ArrayList<>();
     public Company() {}
+
     public String getLocationOfHQ() {
         return locationOfHQ;
     }

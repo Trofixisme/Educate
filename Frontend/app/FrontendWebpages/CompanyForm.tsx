@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 import {Alert, CloseButton, Spinner} from "@heroui/react";
 
 // @ts-ignore
 export default function RegisterCompany() {
-    //const [success, setSuccess] = useState("");
-    //const [errors, setErrors] = useState([]);
+
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(null as string | null);
 
-
     // @ts-ignore
-    async function handleSubmit(e) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 
         e.preventDefault();
         setErrorMessage(null);
@@ -20,38 +16,35 @@ export default function RegisterCompany() {
 
         const formData = new FormData(e.currentTarget);
 
-        try{
+        try {
             const token = localStorage.getItem("token");
-            const res = await fetch(
-                "http://localhost:8050/api/company/new",
-                {
+            const res = await fetch("http://localhost:8050/api/company/new", {
                     method: "POST",
                     headers: {
+                        "Content-Type": "application/json",
                         "Accept": "application/json",
                         "Authorization": `Bearer ${token}`,
                     },
-                    body:formData,
+                    body: JSON.stringify(Object.fromEntries(formData.entries())),
                 }
             );
-            const data = await res.json();
 
+            setLoading(false);
 
             if (!res.ok) {
+                const data = await res.json();
                 console.log(data);
-                setErrorMessage(data.message || "Regitration failed");
+                setErrorMessage(data.detail || "Regitration failed");
                 return;
-            }else{
-                navigate("/");
+            } else {
+                history.go(-1);
             }
-        }catch (error) {
+        } catch (error) {
             console.error(error);
             setErrorMessage("Server error or connection issue");
         } finally {
             setLoading(false);
         }
-
-
-
     }
 
     return (
@@ -70,18 +63,18 @@ export default function RegisterCompany() {
                 {errorMessage && (
                     <>
                         <br/>
-                        <Alert className="dark rounded-4xl" style={{background: "var(--secondary-background-color)"}} status="danger">
+                        <Alert className="dark rounded-4xl" style={{background: "var(--component-secondary)"}} status="danger">
                             <Alert.Indicator className="pr-0">
                                 <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Logo" style={{width: "20px", height: "20px"}}/>
                             </Alert.Indicator>
                             <Alert.Content>
                                 <Alert.Title>
-                                <span className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
-                                    Registration failed
-                                </span>
+                                <div className="font-bold center" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
+                                    {errorMessage}
+                                </div>
                                 </Alert.Title>
                             </Alert.Content>
-                            <CloseButton style={{background: "var(--tertiary-background-color)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
+                            <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
                         </Alert>
                         <br/>
                     </>
@@ -95,64 +88,31 @@ export default function RegisterCompany() {
                 )}
 
                 <label>Company name:</label>
-                <input
-                    className="text-sm"
-                    type="text"
-                    name="name"
-                    placeholder="eg.Orange"
-                //    onChange={(e) => set(e.target.value)}
-                    required
-                />
+                <input className="text-sm" type="text" name="name" placeholder="ex. InternMap" required/>
 
                 <br/>
                 <br/>
 
                 <label>industry:</label>
-                <input
-                    className="text-sm"
-                    type="text"
-                    placeholder="eg.tech"
-                    name="industry"
-                    //onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <input className="text-sm" type="text" placeholder="ex. tech" name="industry" required/>
 
-                <br />
+                <br/>
                 <br/>
 
                 <label>Location:</label>
-                <input
-                    className="text-sm"
-                    type="text"
-                    name="location_ofhq"
-                    placeholder="eg.Cairo"
-                    //onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <input className="text-sm" type="text" name="locationOfHQ" placeholder="ex. Zalun, Burma" required/>
 
-                <br />
+                <br/>
                 <br/>
 
                 <label>Website:</label>
-                <input
-                    className="text-sm"
-                    type="text"
-                    name="websiteurl"
-                    placeholder="eg.https:/orange.com"
-                    //onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <input className="text-sm" type="text" name="websiteURL" placeholder="https://InternMap.com"/>
 
-                <br />
+                <br/>
                 <label>Company Logo:</label>
-                <input
-                    type="file"
-                    name="logo"
-                    accept="image/*"
-                    placeholder="Put your logo here"
-                />
+                <input type="file" name="logo" accept="image/*" placeholder="Put your logo here"/>
 
-                <br />
+                <br/>
 
 
                 { loading ? <Spinner size="lg" color="current" /> : <><br /> <input className="text-lg" type="submit" value="Register Company" /></>}

@@ -6,7 +6,7 @@ import React, {useMemo, useState} from "react";
 import {Button, Alert} from "@heroui/react";
 import {useFetcher} from "react-router";
 import {AlertDialog} from "@heroui/react";
-import type {Roadmap} from "../../Model/Roadmap";
+import type {Roadmap} from "~/Model/Roadmap/Roadmap";
 import {Icon} from "@iconify/react";
 import RoadMapEdit from "../FrontendWebpages/RoadMapUpdate";
 import {IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";

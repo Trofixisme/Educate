@@ -64,8 +64,8 @@ export function IndexHeader() {
                         <Modal.Dialog>
                             <Modal.CloseTrigger onClick={() => closeOnboarding()} />
                             <Modal.Header>
-                                <img src="/images/navi/Navi%20Beta.png" alt="Logo" style={{height: "60px", width: "60px"}}/>
-                                <Modal.Heading>Welcome to Internmap!</Modal.Heading>
+                                <img src="/images/navi/Navi%20Beta.png" alt="Logo" style={{height: "50px", width: "50px"}}/>
+                                <Modal.Heading className="text-lg">Welcome to Internmap!</Modal.Heading>
                             </Modal.Header>
                             <Modal.Body>
                                 <p>
@@ -94,20 +94,26 @@ export function IndexHeader() {
                 <button className="button-prominant" onClick={() => location.href = '/signup'}>Sign up</button>
             </section> : <section className="section wide">
 
+                {role == "[ROLE_ADMIN]" && !useLocation().pathname.includes("/roadmap/create") && (
+                        <Button variant="ghost" style={{width: "18px", height: "18px"}} isIconOnly onClick={() => location.href = "/roadmap/create"}>
+                        <img src="/images/assets/plus-black@4x.png" className="theme-adaptive-icon" alt="add a job posting"/>
+                    </Button>
+                )}
+
                 {role == "[ROLE_RECRUITER]" && (
                     <>
-                        <Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} isIconOnly onClick={() => jobPostingFormOverlayState.open()}>
-                            <img src="/images/assets/plus-black@4x.png" className="theme-adaptive-icon" style={{width: "20px"}} alt="add a job posting"/>
+                        <Button variant="ghost" style={{width: "18px", height: "18px"}} isIconOnly onClick={() => jobPostingFormOverlayState.open()}>
+                            <img src="/images/assets/plus-black@4x.png" className="theme-adaptive-icon" alt="add a job posting"/>
                         </Button>
-                        <Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} isIconOnly onClick={() => location.href = '/myJobpostings'}>
-                            <img src="/images/assets/list.bullet.clipboard.fill@4x.png" className="theme-adaptive-icon" style={{width: "20px"}} alt="all job postings"/>
+                        <Button variant="ghost" style={{width: "18px", height: "18px"}} isIconOnly onClick={() => location.href = '/myJobpostings'}>
+                            <img src="/images/assets/list.bullet.clipboard.fill@4x.png" className="theme-adaptive-icon" alt="all job postings"/>
                         </Button>
                     </>
                 )}
 
                 <Dropdown>
-                    <Button isIconOnly aria-label="Menu" variant="ghost">
-                        <img src="/images/assets/ellipsis@4x.png" className="theme-adaptive-icon" alt="ellipsis" style={{height: "5px"}}/>
+                    <Button isIconOnly variant="ghost" style={{width: "18px", height: "18px"}}>
+                        <img src="/images/assets/ellipsis@4x.png" className="theme-adaptive-icon" alt="ellipsis"/>
                     </Button>
                     <Dropdown.Popover className="w-60">
                         <Dropdown.Menu>
@@ -115,7 +121,7 @@ export function IndexHeader() {
                                     <Dropdown.Section>
                                         <Dropdown.Item id="profile" textValue="Profile" onAction={() => location.href = '/profile' }>
                                             <div className="">
-                                                <img src="/images/person_fill.png" style={{width: "14px", filter: "invert(1)"}} alt="Profile"/>
+                                                <img className="chip_icon" src="/images/assets/person.fill@4x.png" style={{width: "14px", filter: "invert(1)"}} alt="Profile"/>
                                             </div>
                                             <div>
                                                 <Label>Profile</Label>

@@ -17,8 +17,7 @@ export default function CVForm({overlayState, student = null}: {overlayState: Us
 
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(
-                "http://localhost:8050/api/cv/",
+            const res = await fetch("http://localhost:8050/api/cv/",
                 {
                     method: "POST",
                     headers: {
