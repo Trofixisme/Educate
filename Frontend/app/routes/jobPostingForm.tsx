@@ -1,4 +1,3 @@
-import type { UseOverlayStateReturn } from "@heroui/react";
 import type { Route } from "./+types/home";
 import Loading from "~/FrontendWebpages/fragments/Loading";
 import JobPostingModal from "~/FrontendWebpages/JobPostingModal";
@@ -19,4 +18,3 @@ export default function JobPostingForm() {
     const overlayState = useOverlayTriggerState({ defaultOpen: true });
     return <JobPostingModal overlayState={overlayState} />;
 }
-//JobPostingModal({overlayState}: {overlayState: UseOverlayStateReturn})
