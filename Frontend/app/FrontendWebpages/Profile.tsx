@@ -7,6 +7,8 @@ import React, {useState} from "react";
 
 export default function Profile({userDetails}: { userDetails: User}) {
 
+    let UserDetails = userDetails;
+
     const [isEditOpen, setIsEditOpen] = useState(false);
     const [editForm, setEditForm] = useState(userDetails);
     const [editLoading, setEditLoading] = useState(false);
@@ -332,13 +334,14 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                     </div>
 
                                     <div>
-                                        <label className="flex label-small mb-1">Email</label>
+                                        <label className="flex label-small">Email</label>
                                         <input
                                             type="email"
-                                            className="text-sm"
+                                            className="text-sm pb-2"
                                             value={editForm.email}
                                             onChange={e => setEditForm(p => ({ ...p, email: e.target.value }))}
                                         />
+                                        <div className="text-xs pt-2">- Changing your email address will force you to be <b>logged out</b></div>
                                     </div>
 
                                     {userDetails.role === "STUDENT" && (

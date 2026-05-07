@@ -65,6 +65,10 @@ public class RecruiterService extends UserService {
 
         recruiterToUpdate.setTitle(recruiterToUpdateWith.getTitle());
 
-        recruiterRepo.save(recruiterToUpdate);
+        try {
+            recruiterRepo.save(recruiterToUpdate);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Could not upsdate profile because a user with this email already exists.");
+        }
     }
 }

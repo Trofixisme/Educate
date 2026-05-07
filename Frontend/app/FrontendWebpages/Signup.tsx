@@ -31,6 +31,8 @@ export default function Signup() {
                 return;
             }
 
+            location.href = "/login";
+
         } catch (error) {
             console.error(error);
             setErrorMessage("Server error or connection issue");
@@ -64,6 +66,8 @@ export default function Signup() {
                 return;
             }
 
+            location.href = "/login";
+
         } catch (error) {
             console.error(error);
             setErrorMessage("Server error or connection issue");
@@ -82,7 +86,7 @@ export default function Signup() {
             const sendableData = Object.fromEntries(formData.entries()) as unknown as Admin;
             sendableData.PermissionLevel = 0;
 
-            const response = await fetch("http://localhost:8050/api/admin/register", {
+            const response = await fetch("http://localhost:8050/api/admin/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -96,6 +100,8 @@ export default function Signup() {
                 setErrorMessage(data.detail);
                 return;
             }
+
+            location.href = "/login";
 
         } catch (error) {
             console.error(error);
@@ -171,9 +177,9 @@ export default function Signup() {
                             </div>
 
                             <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
-                                <input type="text" id="admin-first-name" className="text-sm" name="*{fname}"
+                                <input type="text" id="admin-first-name" className="text-sm" name="fname"
                                        placeholder="First name" required autoComplete="given-name"/>
-                                <input type="text" id="admin-last-name" className="text-sm" name="*{lname}"
+                                <input type="text" id="admin-last-name" className="text-sm" name="lname"
                                        placeholder="Last name" required autoComplete="family-name"/>
                             </div>
                             <br/><br/>
