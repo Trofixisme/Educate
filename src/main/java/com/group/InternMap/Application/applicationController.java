@@ -77,6 +77,7 @@
                 application.setFName(fname);
                 application.setLName(lname);
                 application.setPhoneNumber(phone);
+                application.setStatus(ApplicationStatus.PENDING);
                 System.out.println(application);
                 applicationRepo.save(application);
                 ApplicationAndCVDTO applicationAndCVDTO = new ApplicationAndCVDTO();
