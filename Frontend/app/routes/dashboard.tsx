@@ -1,6 +1,7 @@
 import Dashboard from "~/FrontendWebpages/Dashboard";
 import type { Route } from "../+types/root";
 import {useLoaderData} from "react-router";
+import type {User} from "~/Model/Users/User";
 // step one delete whatever the first line was
 // step two create the webpage and get the clientLoader to fetch the data from the controller and pass it to the webpage
 // and then create the dashboard function that will return the webpage with the data from the clientLoader and then create the clientAction function that will handle the delete action and then create the meta function that will set the title and description of the page
@@ -14,19 +15,32 @@ export function meta() {
 
 export async function clientLoader() {
 
-    const idk = await fetch("http://localhost:8050/api/admin/dashboard", {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-    });
+    const [dashboardRes, profileRes] = await Promise.all([
+        fetch("http://localhost:8050/api/admin/dashboard", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        }),
+        fetch("http://localhost:8050/REST/profile", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+    ]);
 
-    if(!idk.ok) {
-        throw new Response("Failed to fetch dashboard data", { status: idk.status });
+    if (!dashboardRes.ok) {
+        throw new Response("Failed to fetch dashboard data", { status: dashboardRes.status });
     }
 
-    return await idk.json()
-}
+    if (!profileRes.ok) {
+        throw new Response("Failed to fetch profile data", { status: profileRes.status });
+    }
 
+    const dashboard = await dashboardRes.json();
+    const userDetails = await profileRes.json();
+
+    return { ...dashboard, userDetails };
+}
 // @ts-ignore
 export async function clientAction({ request }) {
     const formData = await request.formData();
@@ -56,12 +70,14 @@ export async function clientAction({ request }) {
     return { success: true };
 }
 
-export default function dashboard({ }: Route.ComponentProps) {
+export default function dashboard({}: Route.ComponentProps) {
     const loaderData = useLoaderData();
 
     return (
         <Dashboard
             users={loaderData.users}
             roadmaps={loaderData.roadmaps}
+            userDetails={loaderData.userDetails}
         />
-    );}
+    );
+}
