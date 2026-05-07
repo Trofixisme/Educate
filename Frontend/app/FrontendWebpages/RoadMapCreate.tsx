@@ -13,11 +13,12 @@ import {
     Label,
     TextField,
 } from "@heroui/react";
+import { useNavigate } from "react-router";
 
 // @ts-ignore
 export default function RoadMapCreate({ }) {
     const jobId = new URL(window.location.href).searchParams.get("jobId");
-
+    const navigate = useNavigate();
     const [modules, setModules] = useState([
         { skills: [{}] }
     ]);
@@ -82,6 +83,7 @@ export default function RoadMapCreate({ }) {
             }
 
             console.log("Roadmap created!");
+            navigate("/");
         }
 
     return (
