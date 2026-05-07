@@ -13,16 +13,17 @@ import {
     Modal,
     TextField, type UseOverlayStateReturn
 } from "@heroui/react";
+import {useNavigate} from "react-router";
 import {useParams} from "react-router";
 
-export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn, jobId: bigint | null}) {
+export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn ,jobId: bigint | null}) {
 
     const onApplicationState = overlayState;
-
-
+    const navigate = useNavigate();
     async function handleSubmit(e: any) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+
         const params = new URLSearchParams({
             jobId: String(jobId),
             fname: formData.get("f_name") as string,
@@ -43,10 +44,13 @@ export default function ApplicationForm({overlayState, jobId}: {overlayState: Us
             const errorText = await res.text();
             console.error("Failed", res.status, errorText);
             return;
+        }else{
+            onApplicationState.close();
+            navigate("/");
+            console.log("Application submitted!");
         }
-        console.log("Application submitted!");
-    }
 
+    }
     return (
         <>
             <Modal isOpen={onApplicationState.isOpen}>

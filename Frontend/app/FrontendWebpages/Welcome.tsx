@@ -50,8 +50,9 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
             },
         })).text())
-    }
 
+        console.log("role:", role)
+    }
     useEffect(() => {
         fetchRole();
     })
@@ -301,7 +302,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                         />
                                         <div>
                                             <div style={{fontSize: 20, fontWeight: 700}}>
-                                                <a href={`/postings/${posting.id}`}>{posting.recruiter?.fname + " " + posting.recruiter?.lname}</a>
+                                                <a href={`/postings/${posting.id}`}>{posting.recruiter?.fname}</a>
                                             </div>
                                             <div className="text-xs font-medium text-gray-400">
                                                 <a href={`/postings/${posting.id}`}>{posting.company?.name}</a>

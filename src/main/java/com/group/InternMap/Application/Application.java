@@ -105,6 +105,14 @@ public class Application implements Serializable, Comparable<Application> {
         this.email = email;
     }
 
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
+
     public JobPosting getJobPosting() {
         return jobPosting;
     }
