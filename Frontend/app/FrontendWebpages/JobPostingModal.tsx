@@ -16,7 +16,7 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
     const labels: Record<string, string> = {
         intern: "Internship",
         fulltime: "Full Time",
-        freelance: "FreeLanceProject",
+        freelance: "FreeLance",
     };
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -26,7 +26,7 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
         const typeMap: Record<string, string> = {
             intern: "Internship",
             fulltime: "FullTime",
-            freelance: "FreeLanceProject",
+            freelance: "FreelanceProject",
         };
 
         const body = {
