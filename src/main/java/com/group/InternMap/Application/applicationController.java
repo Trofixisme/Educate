@@ -19,6 +19,8 @@
 
     import java.security.Principal;
     import java.util.List;
+    import java.util.Map;
+
     @RestController
     @RequestMapping("/api/application")
     public class applicationController {
@@ -36,6 +38,16 @@
             this.jobPostingService=jobPostingService;
             this.notificationService=notificationService;
             this.userService=userService;
+        }
+        @PatchMapping("/{applicationId}/status")
+        public ResponseEntity<?> updateApplicationStatus(@PathVariable long applicationId, @RequestBody Map<String, String> body, Authentication authentication) {
+            Application app = applicationRepo.findById(applicationId).orElse(null);
+            if (app == null) {
+                return ResponseEntity.notFound().build();
+            }
+            app.setStatus(ApplicationStatus.valueOf(body.get("status")));
+            applicationRepo.save(app);
+            return ResponseEntity.ok().build();
         }
 
 

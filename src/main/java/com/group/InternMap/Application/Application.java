@@ -1,8 +1,6 @@
 package com.group.InternMap.Application;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.group.InternMap.Job.JobPosting;
 import com.group.InternMap.Student.Student;
 import jakarta.persistence.*;
@@ -38,9 +36,11 @@ public class Application implements Serializable, Comparable<Application> {
 
     @ManyToOne
     @JoinColumn(name = "job_id")
+    @JsonIgnoreProperties({"applications", "recruiter", "hibernateLazyInitializer", "handler"})
     private JobPosting jobPosting;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
 
     public Application() {}
@@ -61,6 +61,7 @@ public class Application implements Serializable, Comparable<Application> {
         this.student = student;
     }
 
+    @JsonProperty("id")
     public Long getApplicationID() {
         return id;
     }
