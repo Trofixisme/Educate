@@ -1,6 +1,11 @@
 package com.group.InternMap.User;
 
+import com.group.InternMap.Admin.Admin;
 import com.group.InternMap.FilePaths;
+import com.group.InternMap.Recruiter.Recruiter;
+import com.group.InternMap.Recruiter.RecruiterRepo;
+import com.group.InternMap.Student.Student;
+import com.group.InternMap.Student.StudentRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +26,19 @@ public class UserService implements FilePaths {
 
     private PasswordEncoder passwordEncoder;
     private UserRepo userRepo;
+    private StudentRepo studentRepo;
+    private RecruiterRepo recruiterRepo;
 
     public UserService() {
     }
 
     @Autowired
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+    public UserService(UserRepo userRepo, StudentRepo studentRepo, RecruiterRepo recruiterRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.studentRepo = studentRepo;
+        this.recruiterRepo = recruiterRepo;
     }
 
     public void register(Users u, HttpServletRequest request) throws ServletException {
@@ -148,6 +157,53 @@ public class UserService implements FilePaths {
             return user;
         } else {
             throw new Exception("Provided password is incorrect.");
+        }
+    }
+
+    public void updateUser(Users userToUpdate, Users userToUpdateWith) {
+
+        if (userToUpdate.getRole() == UserRole.STUDENT) {
+            Student student = studentRepo.findByEmail(userToUpdate.getEmail());
+
+            student.setFName(userToUpdateWith.getFName());
+            student.setLName(userToUpdateWith.getLName());
+
+            if (isEmailValid(userToUpdateWith.getEmail())) {
+                userToUpdate.setEmail(userToUpdateWith.getEmail());
+            }
+
+            if (userToUpdateWith instanceof Student studentToUpdateWith) {
+                student.setStudentMajor(studentToUpdateWith.getStudentMajor());
+                student.setFaculty(studentToUpdateWith.getFaculty());
+                student.setUniName(studentToUpdateWith.getUniName());
+                student.setGraduatingYear(studentToUpdateWith.getGraduatingYear());
+            }
+
+            studentRepo.save(student);
+        } else if (userToUpdate.getRole() == UserRole.RECRUITER) {
+            Recruiter recruiter = recruiterRepo.findByEmail(userToUpdate.getEmail());
+
+            recruiter.setFName(userToUpdateWith.getFName());
+            recruiter.setLName(userToUpdateWith.getLName());
+
+            if (isEmailValid(userToUpdateWith.getEmail())) {
+                userToUpdate.setEmail(userToUpdateWith.getEmail());
+            }
+
+            if (userToUpdateWith instanceof Recruiter recruiterToUpdateWith) {
+                recruiter.setTitle(recruiterToUpdateWith.getTitle());
+            }
+
+            recruiterRepo.save(recruiter);
+        } else if (userToUpdate.getRole() == UserRole.ADMIN) {
+            userToUpdate.setFName(userToUpdateWith.getFName());
+            userToUpdate.setLName(userToUpdateWith.getLName());
+
+            if (isEmailValid(userToUpdateWith.getEmail())) {
+                userToUpdate.setEmail(userToUpdateWith.getEmail());
+            }
+        } else {
+            throw new IllegalArgumentException("Unkown user type??? How did that happen?");
         }
     }
 

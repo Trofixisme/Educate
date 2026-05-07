@@ -56,4 +56,15 @@ public class RecruiterService extends UserService {
             System.out.println(e);
         }
     }
+
+    public void updateRecruiter(Recruiter recruiterToUpdate, Recruiter recruiterToUpdateWith) {
+
+        if (isEmailValid(recruiterToUpdate.getEmail())) {
+            recruiterToUpdate.setEmail(recruiterToUpdateWith.getEmail());
+        }
+
+        recruiterToUpdate.setTitle(recruiterToUpdateWith.getTitle());
+
+        recruiterRepo.save(recruiterToUpdate);
+    }
 }

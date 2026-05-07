@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 public interface RecruiterRepo extends JpaRepository<Recruiter, Long> {
        Recruiter findRecruiterById(Long id);
 
+       Recruiter findByEmail(String email);
+
        List<Recruiter> findRecruiterByfName(String fName);
 
        List<Recruiter> findRecruiterBylName(String lName);

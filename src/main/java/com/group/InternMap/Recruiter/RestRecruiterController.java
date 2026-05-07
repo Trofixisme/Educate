@@ -20,12 +20,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -38,15 +40,18 @@ public class RestRecruiterController {
     JobPostingService jobPostingService;
     ApplicationRepo applicationRepo;
 
+    RecruiterRepo recruiterRepo;
+
     Logger logger = LoggerFactory.getLogger(RecruiterController.class);
 
     @Autowired
-    public RestRecruiterController(RecruiterService recruiterService, CompanyService companyService, UserService userService, JobPostingService jobPostingService, ApplicationRepo appRepo) {
+    public RestRecruiterController(RecruiterService recruiterService, CompanyService companyService, UserService userService, JobPostingService jobPostingService, ApplicationRepo appRepo, RecruiterRepo recruiterRepo) {
         this.recruiterService = recruiterService;
         this.userService = userService;
         this.companyService = companyService;
         this.jobPostingService = jobPostingService;
         this.applicationRepo = appRepo;
+        this.recruiterRepo = recruiterRepo;
     }
 
     @PostMapping("/register")
@@ -54,4 +59,14 @@ public class RestRecruiterController {
         recruiterService.registerRecruiter(recruiterRegistrationDTO, request);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> updateRecruiter(@RequestBody Recruiter recruiter, Authentication authentication) {
+
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.RECRUITER + "]")) {
+            Recruiter recruiterToUpdate = recruiterRepo.findByEmail(authentication.getName());
+            recruiterService.updateRecruiter(recruiterToUpdate, recruiter);
+        }
+
+        return ResponseEntity.ok(Map.of("token", ""));
+    }
 }

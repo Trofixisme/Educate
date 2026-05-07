@@ -1,7 +1,68 @@
 import {IndexFooter, IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";
-import {Button, Chip, Table} from "@heroui/react";
+import {Alert, AlertDialog, Button, Chip, CloseButton, Modal, Table, useOverlayState} from "@heroui/react";
+import type {Application} from "~/Model/Application";
+import CVForm from "~/FrontendWebpages/CV";
+import {useNavigate} from "react-router";
+import React, {useState} from "react";
 
 export default function Profile({userDetails}: { userDetails: User}) {
+
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [editForm, setEditForm] = useState(userDetails);
+    const [editLoading, setEditLoading] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState(null as string | null);
+
+    async function saveProfile() {
+        console.log("called it");
+        setEditLoading(true);
+
+        let sendableData;
+        let to;
+
+        if (userDetails.role == "STUDENT") {
+            sendableData = JSON.stringify(editForm as Student);
+            to = "student";
+            console.log(sendableData);
+        } else if (userDetails.role == "RECRUITER") {
+            sendableData = JSON.stringify(editForm as Recruiter);
+            to = "recruiter";
+        } else {
+            sendableData = JSON.stringify(editForm as Admin);
+        }
+
+        const response = await fetch("http://localhost:8050/api/" + to + "/update", {
+            method: "POST", // ⚠️ use POST (Laravel handles file uploads better)
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: sendableData,
+        });
+
+        const json = await response.json();
+        console.log(json);
+
+        if (!response.ok) {
+            setErrorMessage(json.detail);
+            console.log(json.detail);
+            setEditLoading(false);
+            return;
+        } else {
+            if (json.token != null) {
+                localStorage.setItem("token", json.token);
+            }
+        }
+
+        setEditLoading(false);
+        setIsEditOpen(false);
+        window.location.reload();
+    }
+
+    console.log(userDetails);
+
+    const CVFormOverlayState = useOverlayState({defaultOpen: false});
 
     let applicationList: Application[] = (userDetails as Student).applications ? (userDetails as Student).applications : [];
 
@@ -44,7 +105,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                         <div className="flex items-center gap-4 flex-row">
                             <Chip size="lg" >
                                 <img src="/images/assets/calendar@4x.png" alt="calendar"
-                                     style={{width: "17px"}}/>
+                                     style={{width: "17px", filter: "invert(1)"}}/>
                                 <Chip.Label>{userDetails.createdAt.toString().substring(0, 4)}</Chip.Label>
                             </Chip>
                             <Chip size="lg">
@@ -59,44 +120,17 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                 <Chip.Label className="auto-capitalise">{(userDetails as Recruiter).title}</Chip.Label>
                             </Chip>
                             )}
+                            <Button
+                                style={{ width: "32px", height: "32px", background: "var(--secondary-background-color)" }}
+                                className="dark"
+                                isIconOnly
+                                onClick={() => setIsEditOpen(true)}>
+                                <img src="/images/assets/pencil@4x.png" style={{ width: "16px", filter: "invert(0.3)" }} alt="pencil"/>
+                            </Button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/*<div className="grid grid-cols-2">*/}
-                {/*<div className="">*/}
-                {/*    <Tabs className="" orientation="vertical">*/}
-                {/*        <Tabs.ListContainer>*/}
-                {/*            <Tabs.List aria-label="Options">*/}
-                {/*                <Tabs.Tab*/}
-                {/*                    href="/docs/react/getting-started"*/}
-                {/*                    id="getting-started"*/}
-                {/*                    */}
-                {/*                >*/}
-                {/*                    Getting Started*/}
-                {/*                    <Tabs.Indicator />*/}
-                {/*                </Tabs.Tab>*/}
-                {/*                <Tabs.Tab*/}
-                {/*                    href="/docs/react/components"*/}
-                {/*                    id="components"*/}
-                {/*                    */}
-                {/*                >*/}
-                {/*                    Components*/}
-                {/*                    <Tabs.Indicator />*/}
-                {/*                </Tabs.Tab>*/}
-                {/*                <Tabs.Tab*/}
-                {/*                    href="/docs/react/releases"*/}
-                {/*                    id="releases"*/}
-                {/*                >*/}
-                {/*                    Releases*/}
-                {/*                    <Tabs.Indicator />*/}
-                {/*                </Tabs.Tab>*/}
-                {/*            </Tabs.List>*/}
-                {/*        </Tabs.ListContainer>*/}
-                {/*    </Tabs>*/}
-                {/*</div>*/}
-
                 <div>
 
                     <br/><br/>
@@ -246,7 +280,132 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
                     <br/><br/>
             </div>
-            {/*<IndexFooter/>*/}
+
+            {/*-------------profile edit-----------------*/}
+            <Modal isOpen={isEditOpen} onOpenChange={setIsEditOpen}>
+                <Modal.Backdrop variant="blur" isDismissable={true}>
+                    <Modal.Container>
+                        <Modal.Dialog className="max-w-xl">
+                            <Modal.CloseTrigger onClick={() => setIsEditOpen(false)}/>
+                            <Modal.Header>
+                                <Modal.Heading>Edit Profile</Modal.Heading>
+                                {errorMessage && (
+                                    <>
+                                        <Alert className="dark rounded-4xl" style={{background: "var(--container-secondary)"}} status="danger">
+                                            <Alert.Indicator>
+                                                <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Logo" style={{width: "20px", height: "20px", aspectRatio: "1/1"}}/>
+                                            </Alert.Indicator>
+                                            <Alert.Content>
+                                                <Alert.Title>
+                                                    <p className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
+                                                        {errorMessage}
+                                                    </p>
+                                                </Alert.Title>
+                                            </Alert.Content>
+                                            <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
+                                        </Alert>
+                                    </>
+                                )}
+                            </Modal.Header>
+                            <Modal.Body className="space-y-4" style={{paddingTop: "20px"}}>
+                                <div className="full-width flex flex-col gap-6">
+
+                                    <div className="flex flex-row gap-4">
+                                        <div className="full-width">
+                                            <label className="flex label-small mb-1">First Name</label>
+                                            <input
+                                                type="text"
+                                                className="text-sm"
+                                                value={editForm.fname}
+                                                onChange={e => setEditForm(p => ({ ...p, fname: e.target.value }))}
+                                            />
+                                        </div>
+                                        <div className="full-width">
+                                            <label className="flex label-small mb-1">Last Name</label>
+                                            <input
+                                                type="text"
+                                                className="text-sm"
+                                                value={editForm.lname}
+                                                onChange={e => setEditForm(p => ({ ...p, lname: e.target.value }))}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="flex label-small mb-1">Email</label>
+                                        <input
+                                            type="email"
+                                            className="text-sm"
+                                            value={editForm.email}
+                                            onChange={e => setEditForm(p => ({ ...p, email: e.target.value }))}
+                                        />
+                                    </div>
+
+                                    {userDetails.role === "STUDENT" && (
+                                        <>
+                                            <div>
+                                                <label className="flex label-small mb-1">Major</label>
+                                                <input
+                                                    type="text"
+                                                    value={(editForm as Student).studentMajor}
+                                                    onChange={e => setEditForm(p => ({ ...p, studentMajor: e.target.value }))}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="flex label-small mb-1">Faculty</label>
+                                                <input
+                                                    type="text"
+                                                    value={(editForm as Student).faculty}
+                                                    onChange={e => setEditForm(p => ({ ...p, faculty: e.target.value }))}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="flex label-small mb-1">University</label>
+                                                <input
+                                                    type="text"
+                                                    value={(editForm as Student).uniName}
+                                                    onChange={e => setEditForm(p => ({ ...p, uniName: e.target.value }))}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="flex label-small mb-1">Graduating Year</label>
+                                                <input
+                                                    type="text"
+                                                    value={(editForm as Student).graduatingYear}
+                                                    onChange={e => setEditForm(p => ({ ...p, graduatingYear: e.target.value }))}
+                                                />
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {userDetails.role === "RECRUITER" && (
+                                        <div>
+                                            <label className="flex label-small mb-1">Title</label>
+                                            <input
+                                                type="text"
+                                                className="text-sm"
+                                                value={(editForm as Recruiter).title}
+                                                onChange={e => setEditForm(p => ({ ...p, title: e.target.value }))}
+                                            />
+                                        </div>
+                                    )}
+
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer className="flex justify-end gap-6 mt-8">
+                                <Button className="full-width p-3" slot="close" variant="tertiary" onClick={() => setIsEditOpen(false)}>
+                                    Cancel
+                                </Button>
+                                <Button className="full-width p-3" onClick={() => saveProfile()} isDisabled={editLoading}>
+                                    {editLoading ? "Saving..." : "Save"}
+                                </Button>
+                            </Modal.Footer>
+                        </Modal.Dialog>
+                    </Modal.Container>
+                </Modal.Backdrop>
+            </Modal>
+
+            <CVForm overlayState={CVFormOverlayState}/>
         </>
     )
 }

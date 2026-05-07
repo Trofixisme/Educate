@@ -86,8 +86,6 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
         }
     }
     console.log("selectedValue:", selectedValue);
-    console.log("TOKEN:", localStorage.getItem("token"));
-    console.log("token:", localStorage.getItem("token"));
 
     // @ts-ignore
     return (
