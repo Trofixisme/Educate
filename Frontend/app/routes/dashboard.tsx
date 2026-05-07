@@ -35,8 +35,8 @@ export async function clientAction({ request }) {
 
     if (emails.length > 0) {
         for (const email of emails) {
-            const response = await fetch(`http://localhost:8050/api/admin/dashboard/delete?email=${email}`, {
-                method: "POST",
+            const response = await fetch(`http://localhost:8050/api/admin/dashboard/delete/${email}`, {
+                method: "DELETE",
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             });
             if (!response.ok) throw new Response(`Failed to delete user: ${email}`, { status: response.status });
@@ -45,8 +45,8 @@ export async function clientAction({ request }) {
 
     if (roadmaps.length > 0) {
         for (const id of roadmaps) {
-            const response = await fetch(`http://localhost:8050/api/admin/dashboard/delete/roadmap?id=${id}`, {
-                method: "POST",
+            const response = await fetch(`http://localhost:8050/api/admin/dashboard/delete/roadmap/${id}`, {
+                method: "DELETE",
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             });
             if (!response.ok) throw new Response(`Failed to delete roadmap: ${id}`, { status: response.status });

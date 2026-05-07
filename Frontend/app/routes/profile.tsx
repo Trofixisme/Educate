@@ -27,6 +27,11 @@ export async function clientLoader() {
         return Response.redirect("/login", 302);
     }
 
+    const user = await data.json(); //
+    if (user.role === "ADMIN") {
+        return Response.redirect("/dashboard", 302);
+    }
+
     return await data.json()
 }
 

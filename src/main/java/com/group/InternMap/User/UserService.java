@@ -233,13 +233,20 @@ public class UserService implements FilePaths {
         Optional<Users> user = userRepo.findByEmail(email);
         if (user.isPresent()) {
             if (user.get().getRole() == UserRole.STUDENT) {
-               cvRepo.delete(studentRepo.findByEmail(email).getCv());
-               studentRepo.delete(studentRepo.findByEmail(email));
+                Student student = studentRepo.findByEmail(email);
+                if (student != null) {
+                    if (student.getCv() != null) {
+                        cvRepo.delete(student.getCv());  // added this because it throws an error incase student didn't have a cv
+                    }
+                    studentRepo.delete(student);
+                }
             } else if (user.get().getRole() == UserRole.RECRUITER) {
-                jobRepo.deleteAll(recruiterRepo.findByEmail(email).getJobPosting());
-                recruiterRepo.delete(recruiterRepo.findByEmail(email));
+                Recruiter recruiter = recruiterRepo.findByEmail(email);
+                if (recruiter != null) {
+                    jobRepo.deleteAll(recruiter.getJobPosting());
+                    recruiterRepo.delete(recruiter);
+                }
             }
-
             userRepo.delete(user.get());
         } else {
             throw new IllegalArgumentException("No user found with that email.");

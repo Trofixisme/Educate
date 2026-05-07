@@ -65,17 +65,15 @@ public class RestAdminController {
         return new DashboardResponse(users, roadmaps);
     }
 
-    @PostMapping("/dashboard/delete")
-    public void deleteUser(@RequestParam String email) {
+    @DeleteMapping("/dashboard/delete/{email}")
+    public void deleteUser(@PathVariable String email) {
         userService.deleteByEmail(email);
     }
 
-    @PostMapping("/dashboard/delete/roadmap")
-    public void deleteUser(@RequestParam long id) {
+    @DeleteMapping("/dashboard/delete/roadmap/{id}")
+    public void deleteRoadmap(@PathVariable Long id) {
         roadmapRepo.deleteById(id);
     }
-
-
 
     @GetMapping("/roadmap/create")
     public List<Roadmap> getRoadmaps() {

@@ -13,7 +13,9 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
     useEffect(() => {
             if (!roadmapId) return;
         async function fetchRoadmap() {
-            const res = await fetch(`/api/roadmap/${roadmapId}/`);
+            const res = await fetch(`http://localhost:8050/api/roadmap/${roadmapId}`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            });
             const data = await res.json();
 
             setTitle(data.name);
@@ -108,14 +110,12 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
 
         console.log("UPDATE BODY:", body);
 
-        const res = await fetch(`http://localhost:8000/api/roadmap/${roadmapId}/`, {
-            method: "PUT",
+        const res = await fetch(`http://localhost:8050/api/roadmap/${roadmapId}`, {
+            method: "POST",  // was PUT, your backend uses @PostMapping
             headers: {
                 "Content-Type": "application/json",
-                // Authorization: `Bearer ${localStorage.getItem("token")}`,
-                "Accept": "application/json", // ✅ CRITICAL FIX
+                "Accept": "application/json",
                 Authorization: `Bearer ${token}`,
-
             },
             body: JSON.stringify(body),
         });
