@@ -41,6 +41,22 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
     const [role, setRole] = useState("none");
 
+    async function fetchRole() {
+        setRole(await (await fetch(`http://localhost:8050/REST/getRole`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+            },
+        })).text())
+
+        console.log("role:", role)
+    }
+    useEffect(() => {
+        fetchRole();
+    })
+
     const navigate = useNavigate();
     const sortedRoadmaps = [...roadmaps].reverse();
     const filteredRoadmaps = sortedRoadmaps.filter((roadmap) =>
@@ -341,7 +357,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                     </div>
                                     <div className="flex gap-2 items-center align-middle">
                                         <Button
-                                            isDisabled={role !== "ROLE_STUDENT"}
+                                            isDisabled={role !== "[ROLE_STUDENT]"}
                                             onClick={() => {
                                                 setActivePostingId(posting.id);
                                                 ApplicationFormOverlayState.toggle();
