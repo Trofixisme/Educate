@@ -1,61 +1,44 @@
 import "../CSS/jobPosting.css"
 import "../CSS/InternMapHomepage.css";
-import { Button, Description, FieldError, FieldGroup, Fieldset, Form, Input, Label, Modal, TextField } from "@heroui/react";
+import { Button, FieldError, FieldGroup, Fieldset, Input, Label, Modal, TextField } from "@heroui/react";
 import { Dropdown, Header } from "@heroui/react";
-import {useState} from "react";
-import {useNavigate} from "react-router";
+import type { UseOverlayStateReturn } from "@heroui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
-// @ts-ignore
-export default function JobPostingModal({overlayState}: {overlayState: UseOverlayStateReturn}) {
+export default function JobPostingModal({ overlayState }: { overlayState: UseOverlayStateReturn }) {
 
     const [selected, setSelected] = useState<Set<string>>(new Set());
-
     const selectedValue = selected.values().next().value ?? "";
     const onJobPostingState = overlayState;
+    const navigate = useNavigate();
+
     const labels: Record<string, string> = {
         intern: "Internship",
         fulltime: "Full Time",
         freelance: "FreeLanceProject",
     };
-    const navigate = useNavigate();
 
-    async function handleSubmit(e: any) {
-
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+
         const typeMap: Record<string, string> = {
             intern: "Internship",
             fulltime: "FullTime",
             freelance: "FreeLanceProject",
         };
 
-        {/* const body = {
-            type: typeMap[Array.from(selected)[0]],
-            date_posted: new Date().toISOString().split("T")[0],
-            job_name: formData.get("job_name"),
-            job_description: formData.get("job_description"),
-            job_requirements: formData.get("job_requirements"),
-            duration: formData.get("duration"),
-            job_location: formData.get("job_location"),
-            benefits: formData.get("benefits"),
-            payout: formData.get("payout"),
-            company_name: formData.get("company"), // ← flat, not nested
-
-        }; */}
         const body = {
             jobType: typeMap[Array.from(selected)[0]],
-            company: {
-                name: formData.get("company"),
-            },
+            company: { name: formData.get("company") },
             jobPosting: {
                 jobName: formData.get("job_name"),
                 jobDescription: formData.get("job_description"),
                 jobRequirements: formData.get("job_requirements"),
                 jobLocation: formData.get("job_location"),
             },
-            fullTime: {
-                benefits: formData.get("benefits") ?? "",
-            },
+            fullTime: { benefits: formData.get("benefits") ?? "" },
             internship: {
                 duration: formData.get("duration") ?? "",
                 jobLocation: formData.get("job_location") ?? "",
@@ -67,29 +50,29 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
             },
         };
 
-        const res = await fetch(`http://localhost:8050/api/jobposting/new`, {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
-        console.log("body:", JSON.stringify(body));
-        console.log("testing");
-        if (!res.ok) {
-            const errorBody = await res.json(); // ← ADD THIS
-            console.error("Submission failed:", res.status, errorBody);
-        } else {
-            console.log("Success:");
-            navigate("/");
+        try {
+            const res = await fetch("http://localhost:8050/api/jobposting/new", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify(body),
+            });
+            if (!res.ok) {
+                const errorBody = await res.json();
+                console.error("Submission failed:", res.status, errorBody);
+            } else {
+                console.log("Success!");
+                onJobPostingState.close();
+                navigate("/");
+            }
+        } catch (err) {
+            console.error("Network error:", err);
         }
     }
-    console.log("selectedValue:", selectedValue);
 
-    // @ts-ignore
     return (
-
         <>
             <Modal isOpen={onJobPostingState.isOpen}>
                 <Modal.Backdrop className="dark" variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
@@ -100,31 +83,31 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                                 <Modal.Heading>Compose a Job</Modal.Heading>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form method="post" className="w-full max-w-96" onSubmit={handleSubmit}>
+                                <form className="w-full max-w-96" onSubmit={handleSubmit}>
                                     <Fieldset>
                                         <FieldGroup>
-                                            <Dropdown
-                                                aria-label="Job Type Selector">
-
+                                            <Dropdown aria-label="Job Type Selector">
                                                 <Button aria-label="Menu" variant="secondary">
-                                                    {labels[selectedValue as string] ?? "Select job type"}
+                                                    {labels[selectedValue] ?? "Select job type"}
                                                 </Button>
                                                 <Dropdown.Popover className="min-w-[256px]">
-
-                                                    <Dropdown.Menu aria-label="Job type" selectedKeys={selected} selectionMode="single" onSelectionChange={(keys) => {
-                                                        if (keys === "all")
-                                                            return
-                                                        setSelected(new Set(Array.from(keys).map(String)))
-                                                    }}>
+                                                    <Dropdown.Menu
+                                                        aria-label="Job type"
+                                                        selectedKeys={selected}
+                                                        selectionMode="single"
+                                                        onSelectionChange={(keys) => {
+                                                            if (keys === "all") return;
+                                                            setSelected(new Set(Array.from(keys).map(String)));
+                                                        }}>
                                                         <Dropdown.Section>
-                                                            <Header>Select a fruit</Header>
+                                                            <Header>Select job type</Header>
                                                             <Dropdown.Item id="intern" textValue="Internship">
                                                                 <Dropdown.ItemIndicator />
                                                                 <Label>Internship</Label>
                                                             </Dropdown.Item>
                                                             <Dropdown.Item id="fulltime" textValue="fulltime">
                                                                 <Dropdown.ItemIndicator />
-                                                                <Label>fullTime</Label>
+                                                                <Label>Full Time</Label>
                                                             </Dropdown.Item>
                                                             <Dropdown.Item id="freelance" textValue="freelance">
                                                                 <Dropdown.ItemIndicator />
@@ -134,58 +117,34 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                                                     </Dropdown.Menu>
                                                 </Dropdown.Popover>
                                             </Dropdown>
-                                            <TextField
-                                                isRequired
-                                                name="job_name"
-                                                validate={(value) => {
-                                                    if (value.length < 3) {
-                                                        return "Name must be at least 3 characters";
-                                                    }
-                                                    return null;
-                                                }}>
 
-
+                                            <TextField isRequired name="job_name"
+                                                       validate={(value) => value.length < 3 ? "Name must be at least 3 characters" : null}>
                                                 <Label>Job Title</Label>
                                                 <Input placeholder="Professional pro player" />
                                                 <FieldError />
                                             </TextField>
 
-                                            <TextField
-                                                isRequired
-                                                name="job_description"
-                                                validate={(value) => {
-                                                    if (value.length < 3) {
-                                                        return "Name must be at least 3 characters";
-                                                    }
-                                                    return null;
-                                                }}>
-
-
+                                            <TextField isRequired name="job_description"
+                                                       validate={(value) => value.length < 3 ? "Must be at least 3 characters" : null}>
                                                 <Label>Job Description</Label>
                                                 <Input placeholder="Have no life" />
                                                 <FieldError />
                                             </TextField>
-                                            <TextField
-                                                isRequired
-                                                name="job_requirements"
-                                                validate={(value) => {
-                                                    if (value.length < 3) {
-                                                        return "Name must be at least 3 characters";
-                                                    }
-                                                    return null;
-                                                }}>
 
-
+                                            <TextField isRequired name="job_requirements"
+                                                       validate={(value) => value.length < 3 ? "Must be at least 3 characters" : null}>
                                                 <Label>Job Requirement</Label>
                                                 <Input placeholder="idk nothing" />
                                                 <FieldError />
                                             </TextField>
-                                            <TextField  name="company" type="text">
+
+                                            <TextField name="company" type="text">
                                                 <Label>Company Name</Label>
                                                 <Input placeholder="RIOOOOOOOOOOOT" />
                                                 <FieldError />
                                             </TextField>
-                                            {/* Internship fields */}
+
                                             {selectedValue === "intern" && (
                                                 <>
                                                     <TextField name="duration" type="text">
@@ -198,7 +157,7 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                                                     </TextField>
                                                 </>
                                             )}
-                                            {/* freelance fields */}
+
                                             {selectedValue === "freelance" && (
                                                 <>
                                                     <TextField name="duration" type="text">
@@ -207,7 +166,7 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                                                     </TextField>
                                                     <TextField name="job_location" type="text">
                                                         <Label>Location:</Label>
-                                                        <Input placeholder="Cairo " />
+                                                        <Input placeholder="Cairo" />
                                                     </TextField>
                                                     <TextField name="payout" type="text">
                                                         <Label>Pay out:</Label>
@@ -216,7 +175,6 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
                                                 </>
                                             )}
 
-                                            {/* full time fields */}
                                             {selectedValue === "fulltime" && (
                                                 <>
                                                     <TextField name="benefits" type="text">
@@ -228,22 +186,13 @@ export default function JobPostingModal({overlayState}: {overlayState: UseOverla
 
                                         </FieldGroup>
                                         <Fieldset.Actions>
-                                            <Button type="submit">
-                                                add
-
-                                            </Button>
-                                            <Button type="reset" variant="secondary">
-                                                Reset
-                                            </Button>
+                                            <Button type="submit">Add</Button>
+                                            <Button type="reset" variant="secondary">Reset</Button>
                                         </Fieldset.Actions>
                                     </Fieldset>
-                                </Form>
+                                </form>
                             </Modal.Body>
-                            <Modal.Footer>
-                                {/*<Button className="w-full" onClick={() => closeOnboarding() } slot="close">*/}
-                                {/*    Continue*/}
-                                {/*</Button>*/}
-                            </Modal.Footer>
+                            <Modal.Footer />
                         </Modal.Dialog>
                     </Modal.Container>
                 </Modal.Backdrop>
