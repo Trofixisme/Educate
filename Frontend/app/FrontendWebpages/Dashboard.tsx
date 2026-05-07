@@ -9,6 +9,8 @@ import {Button , Alert} from "@heroui/react";
 import type {Key} from "node:readline";
 import {useFetcher} from "react-router";
 import {AlertDialog} from "@heroui/react";
+import type {User} from "~/Model/Users/User";
+import type {Roadmap} from "~/Model/Roadmap/Roadmap";
 
 
 export default function Dashboard({users , roadmaps}: {users : User[], roadmaps : Roadmap[]}) {
@@ -72,7 +74,7 @@ export default function Dashboard({users , roadmaps}: {users : User[], roadmaps 
                                                         className="min-w-[600px]"
                                                         selectedKeys={selectedKeys}
                                                         selectionMode="multiple"
-                                                        onSelectionChange={setSelectedKeys}>
+                                                        onSelectionChange={() => setSelectedKeys}>
                                                         <Table.Header>
                                                             <Table.Column className="pr-0">
                                                                 <Checkbox aria-label="Select all" slot="selection">
@@ -207,7 +209,7 @@ export default function Dashboard({users , roadmaps}: {users : User[], roadmaps 
                                                         className="min-w-[600px]"
                                                         selectedKeys={selectedRoadmapKeys}
                                                         selectionMode="multiple"
-                                                        onSelectionChange={setSelectedRoadmapKeys}>
+                                                        onSelectionChange={() => setSelectedRoadmapKeys}>
                                                         <Table.Header>
                                                             <Table.Column className="pr-0">
                                                                 <Checkbox aria-label="Select all" slot="selection">

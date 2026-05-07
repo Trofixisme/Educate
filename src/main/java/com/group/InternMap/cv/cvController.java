@@ -44,8 +44,8 @@ public class cvController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Void> saveCV(@ModelAttribute("cv") CV cv,
+    @PostMapping("/")
+    public ResponseEntity<Void> saveCV(@RequestBody CV cv,
                                        Principal principal,
                                        Authentication authentication) {
         // Better authority check

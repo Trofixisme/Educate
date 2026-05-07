@@ -20,16 +20,10 @@ export default function RegisterCompany() {
 
         const formData = new FormData(e.currentTarget);
 
-        // const payload = {
-        //     industry: formData.get("industry") as string,
-        //     location_ofhq: formData.get("location_ofhq") as string,
-        //     name: formData.get("name") as string,
-        //     websiteurl: formData.get("websiteurl") as string,
-        // };
         try{
             const token = localStorage.getItem("token");
             const res = await fetch(
-                "http://127.0.0.1:8000/api/company/new",
+                "http://localhost:8050/api/company/new",
                 {
                     method: "POST",
                     headers: {

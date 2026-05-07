@@ -5,8 +5,12 @@ import {Button, ComboBox, Disclosure, Input, ListBox, SearchField, useOverlaySta
 import React, {useEffect, useState} from "react";
 import ApplicationForm from "./ApplicationForm";
 import type {JobPosting} from "~/Model/Jobs/JobPosting";
+import type {Roadmap} from "~/Model/Roadmap/Roadmap";
 
 export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], jobPostings: JobPosting[]}) {
+
+    jobPostings = [...jobPostings].reverse();
+
     const [search, setSearch] = useState("");
 
     const getTimeAgo = (date: string | Date) => {

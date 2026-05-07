@@ -3,6 +3,7 @@ import {Button, Chip} from "@heroui/react";
 import "../app.css";
 import "../CSS/Universal.css";
 import {useNavigate} from "react-router";
+import type {JobPosting} from "~/Model/Jobs/JobPosting";
 
 export default function MyJobPostings({ jobPostings }: { jobPostings: JobPosting[] }) {
     const navigate = useNavigate();

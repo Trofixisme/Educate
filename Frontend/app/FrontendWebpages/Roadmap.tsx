@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react";
 import {Card} from "@heroui/react";
 
 
@@ -12,7 +11,6 @@ return(
                     {roadmap.name}
                 </Card.Title>
             </Card.Header>
-
     </Card>
     </div>
 );

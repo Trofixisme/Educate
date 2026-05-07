@@ -1,4 +1,7 @@
-class Student extends User {
+import {User} from "~/Model/Users/User";
+import type {Application} from "~/Model/Application";
+
+export class Student extends User {
 
     graduatingYear: number;
     studentMajor: String;

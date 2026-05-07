@@ -1,33 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import {Alert, Button, CloseButton, Description, FieldError, FieldGroup, Fieldset, Form, Input, Label, Modal, TextField} from "@heroui/react";
+import {Alert, Button, CloseButton, FieldError, FieldGroup, Fieldset, Form, Input, Label, Modal, TextField} from "@heroui/react";
 
 // @ts-ignore
-export default function CVForm({overlayState}: {overlayState: UseOverlayStateReturn}) {
+export default function CVForm({overlayState, student = null}: {overlayState: UseOverlayStateReturn, student: Student}) {
 
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(null as string | null);
     const onCVState = overlayState;
 
-    // @ts-ignore
-    async function handleSubmit(e) {
+    const [cvState, setCv] = useState(student.cv)
+
+    async function handleSubmit(e: any) {
         e.preventDefault();
         setErrorMessage(null);
         setLoading(true);
 
-
-        const formData = new FormData(e.currentTarget);
-
-        const payload = {
-            description: formData.get("description") as string,
-            past_experiences: formData.get("past_experiences") as string,
-            projects: formData.get("projects") as string,
-        };
-        try{
+        try {
             const token = localStorage.getItem("token");
             const res = await fetch(
-                "http://127.0.0.1:8000/cv/create",
+                "http://localhost:8050/api/cv/",
                 {
                     method: "POST",
                     headers: {
@@ -35,19 +26,22 @@ export default function CVForm({overlayState}: {overlayState: UseOverlayStateRet
                         "Accept": "application/json",
                         "Authorization": `Bearer ${token}`,
                     },
-                    body: JSON.stringify(payload),
+                    body: JSON.stringify(cvState),
                 }
             );
-            const data = await res.json();
+
+            setLoading(false);
 
             if (!res.ok) {
+                const data = await res.json();
                 console.log(data);
                 setErrorMessage(data.message || "CV creation failed");
                 return;
             } else {
-                navigate("/profile");
+                location.reload();
             }
-        }catch (error) {
+
+        } catch (error) {
             console.error(error);
             setErrorMessage("Server error or connection issue");
         } finally {
@@ -65,21 +59,19 @@ export default function CVForm({overlayState}: {overlayState: UseOverlayStateRet
                             <Modal.Heading>Compose a CV</Modal.Heading>
                             {errorMessage && (
                                 <>
-                                    <br/>
-                                    <Alert className="dark rounded-4xl" style={{background: "var(--secondary-background-color)"}} status="danger">
+                                    <Alert className="dark rounded-4xl" style={{background: "var(--component-secondary)"}} status="danger">
                                         <Alert.Indicator className="pr-0">
                                             <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Logo" style={{width: "20px", height: "20px"}}/>
                                         </Alert.Indicator>
                                         <Alert.Content>
                                             <Alert.Title>
                                             <span className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
-                                                Failed to save your CV
+                                                {errorMessage}
                                             </span>
                                             </Alert.Title>
                                         </Alert.Content>
-                                        <CloseButton style={{background: "var(--tertiary-background-color)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
+                                        <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
                                     </Alert>
-                                    <br/>
                                 </>
                             )}
 
@@ -88,29 +80,26 @@ export default function CVForm({overlayState}: {overlayState: UseOverlayStateRet
                             <Form method="post" className="w-full" onSubmit={handleSubmit}>
                                 <Fieldset>
                                     <FieldGroup>
-                                        <TextField isRequired name="description" validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
+                                        <TextField isRequired name="description" value={cvState?.description} validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
                                             <Label>About</Label>
-                                            <Input placeholder="ex. Laravel & PHP expert" />
+                                            <Input placeholder="ex. Laravel & PHP expert" onChange={e => setCv((p: any) => ({...p, description: e.target.value}))}  />
                                             <FieldError />
                                         </TextField>
-                                        <TextField isRequired name="past_experiences" validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
+                                        <TextField isRequired name="past_experiences" value={cvState?.pastExperiences} validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
                                             <Label>Your past experiences</Label>
-                                            <Input placeholder="Worked on..." />
+                                            <Input placeholder="Worked on..." onChange={e => setCv((p: any) => ({...p, pastExperiences: e.target.value}))} />
                                             <FieldError />
                                         </TextField>
-                                        <TextField isRequired name="projects" validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
+                                        <TextField isRequired name="projects" value={cvState?.projects} validate={(v) => v.length < 3 ? "Min 3 characters" : null}>
                                             <Label>Your projects</Label>
-                                            <Input placeholder="Made InternMap" />
-                                            <FieldError />
-                                        </TextField>
-                                        <TextField isRequired name="email" type="email">
-                                            <Label>Email</Label>
-                                            <Input placeholder="benjamin@internmap.com" />
+                                            <Input placeholder="Made InternMap" onChange={e => setCv((p: any) => ({...p, projects: e.target.value}))} />
                                             <FieldError />
                                         </TextField>
                                     </FieldGroup>
                                     <Fieldset.Actions>
-                                        <Button className="full-width p-4 font-bold rounded-4xl" type="submit" onClick={() => onCVState.close()} slot="close">Save</Button>
+                                        <Button className="full-width p-4" type="submit" isDisabled={loading}>
+                                            {loading ? "Saving..." : "Save"}
+                                        </Button>
                                     </Fieldset.Actions>
                                 </Fieldset>
                             </Form>

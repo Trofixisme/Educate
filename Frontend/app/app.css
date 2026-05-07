@@ -286,6 +286,12 @@ body {
     }
 }
 
+.chip_icon {
+    @media (prefers-color-scheme: dark) {
+        filter: invert(1);
+    }
+}
+
 .module {
     background: white;
     border-radius: 60px;

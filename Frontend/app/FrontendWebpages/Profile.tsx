@@ -1,10 +1,12 @@
-import {IndexFooter, IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";
+import {IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";
 import {Alert, AlertDialog, Button, Chip, CloseButton, Modal, Table, useOverlayState} from "@heroui/react";
 import type {Application} from "~/Model/Application";
 import CVForm from "~/FrontendWebpages/CV";
-import {useNavigate} from "react-router";
 import React, {useState} from "react";
 import type {User} from "~/Model/Users/User";
+import type {Recruiter} from "~/Model/Users/Recruiter";
+import type {Company} from "~/Model/Company";
+import type {Student} from "~/Model/Users/Student";
 
 export default function Profile({userDetails}: { userDetails: User}) {
 
@@ -27,14 +29,14 @@ export default function Profile({userDetails}: { userDetails: User}) {
         let to;
 
         if (userDetails.role == "STUDENT") {
-            sendableData = JSON.stringify(editForm as Student);
+            sendableData = JSON.stringify(editForm as unknown as Student);
             to = "student";
             console.log(sendableData);
         } else if (userDetails.role == "RECRUITER") {
             sendableData = JSON.stringify(editForm as Recruiter);
             to = "recruiter";
         } else {
-            sendableData = JSON.stringify(editForm as Admin);
+            sendableData = JSON.stringify(editForm as unknown as Admin);
         }
 
         const response = await fetch("http://localhost:8050/api/" + to + "/update", {
@@ -95,7 +97,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
     const CVFormOverlayState = useOverlayState({defaultOpen: false});
 
-    let applicationList: Application[] = (userDetails as Student).applications ? (userDetails as Student).applications : [];
+    let applicationList: Application[] = (userDetails as unknown as Student).applications ? (userDetails as unknown as Student).applications : [];
 
     if (applicationList != null) {
         applicationList.sort((e, f) => {
@@ -133,26 +135,26 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             <p className="auto-capitalise text-3xl font-bold">{userDetails.fname + " " + userDetails.lname}</p>
                             <p>{userDetails.email}</p>
                         </section>
-                        <div className="flex items-center gap-4 flex-row">
+                        <div className="flex items-center gap-3 flex-row">
                             <Chip size="lg" >
                                 <img src="/images/assets/calendar@4x.png" alt="calendar"
                                      style={{width: "17px", filter: "invert(1)"}}/>
-                                <Chip.Label>{userDetails.created_at?.toString().substring(0, 4)}</Chip.Label>
+                                <Chip.Label>{userDetails.createdAt.toString().substring(0, 4)}</Chip.Label>
                             </Chip>
                             <Chip size="lg">
-                                <img src="/images/assets/person.fill@4x.png" alt="person"
-                                     style={{width: "15px", filter: "invert(1)"}}/>
+                                <img className="chip_icon" src="/images/assets/person.fill@4x.png" alt="person"
+                                     style={{width: "15px"}}/>
                                 <Chip.Label>{userDetails.role.charAt(0) + userDetails.role.toLowerCase().substring(1, userDetails.role.length)}</Chip.Label>
                             </Chip>
                             {userDetails.role == "RECRUITER" && (
                             <Chip size="lg">
-                              <img src="/images/assets/suitcase.fill@4x.png" alt="suitcase"
+                              <img className="chip_icon" src="/images/assets/suitcase.fill@4x.png" alt="suitcase"
                                    style={{width: "15px"}}/>
                                 <Chip.Label className="auto-capitalise">{(userDetails as Recruiter).title}</Chip.Label>
                             </Chip>
                             )}
                             <Button
-                                style={{ width: "32px", height: "32px", background: "var(--secondary-background-color)" }}
+                                style={{ width: "32px", height: "32px", background: "var(--container-secondary)" }}
                                 className="dark"
                                 isIconOnly
                                 onClick={() => setIsEditOpen(true)}>
@@ -174,17 +176,17 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             <div className="container-padded">
                                 <div>
                                     <label className="label-small">Major</label>
-                                    <p className="auto-capitalise">{(userDetails as Student).studentMajor}</p>
+                                    <p className="auto-capitalise">{(userDetails as unknown as Student).studentMajor}</p>
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="label-small">Year</label>
-                                    <p className="auto-capitalise">{(userDetails as Student).graduatingYear}</p>
+                                    <p className="auto-capitalise">{(userDetails as unknown as Student).graduatingYear}</p>
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="label-small">University</label>
-                                    <p className="auto-capitalise">{(userDetails as Student).uniName}</p>
+                                    <p className="auto-capitalise">{(userDetails as unknown as Student).uniName}</p>
                                 </div>
                             </div>
 
@@ -194,30 +196,30 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             {/*// <!-- CV Section -->*/}
                             <div style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
                             <h4 className="container-label">Circulmn Vitae</h4>
-                                {(userDetails as Student).cv ? (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly>
+                                {(userDetails as unknown as Student).cv ? (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly onClick={() => CVFormOverlayState.open()}>
                                     <img src="/images/assets/pencil@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
-                                </Button>) : (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly>
+                                </Button>) : (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly onClick={() => CVFormOverlayState.open()}>
                                     <img src="/images/assets/plus@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
                                 </Button>)}
 
                             </div>
 
                             <div className="container-padded">
-                            {(userDetails as Student).cv ? (
+                            {(userDetails as unknown as Student).cv ? (
                                 <>
                                     <div>
                                         <label className="label-small">Professional Summary</label>
-                                        <p className="auto-capitalise">{(userDetails as Student).cv.description}</p>
+                                        <p className="auto-capitalise">{(userDetails as unknown as Student).cv.description}</p>
                                     </div>
 
                                     <div>
                                         <label className="label-small">Past Experiences</label>
-                                        <p style={{whiteSpace: "pre-wrap"}}>{(userDetails as Student).cv.pastExperiences}</p>
+                                        <p style={{whiteSpace: "pre-wrap"}}>{(userDetails as unknown as Student).cv.pastExperiences}</p>
                                     </div>
 
                                     <div>
                                         <label className="label-small">Projects</label>
-                                        <p style={{whiteSpace: "pre-wrap"}}>{(userDetails as Student).cv.projects}</p>
+                                        <p style={{whiteSpace: "pre-wrap"}}>{(userDetails as unknown as Student).cv.projects}</p>
                                     </div>
                                 </>
                             ) : (
@@ -232,7 +234,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
                             <div className="container-padded">
                                 <div className="full-width" style={{display: "grid", justifyContent: "start", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 0.2fr))", gap: "50px"}}>
-                            {(userDetails as Student).applications.length == 0 ? (
+                            {(userDetails as unknown as Student).applications.length == 0 ? (
                                 <h2 className="text-xl font-bold text-gray-400">You haven't applied for anything.</h2>
                             ): (
                                 applicationList.map((application: Application) => {
@@ -273,7 +275,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                     <>
                                     <Table variant="secondary">
                                         <Table.ResizableContainer>
-                                            <Table.Content aria-label="Team members" className="min-w-[600px]">
+                                            <Table.Content aria-label="Team members" className="min-w-150">
                                                 <Table.Header>
                                                     <Table.Column isRowHeader>Name<Table.ColumnResizer/></Table.Column>
                                                     <Table.Column>Industry<Table.ColumnResizer/></Table.Column>
@@ -379,7 +381,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                 <label className="flex label-small mb-1">Major</label>
                                                 <input
                                                     type="text"
-                                                    value={(editForm as Student).studentMajor}
+                                                    value={(editForm as unknown as Student).studentMajor}
                                                     onChange={e => setEditForm(p => ({ ...p, studentMajor: e.target.value }))}
                                                 />
                                             </div>
@@ -387,7 +389,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                 <label className="flex label-small mb-1">Faculty</label>
                                                 <input
                                                     type="text"
-                                                    value={(editForm as Student).faculty}
+                                                    value={(editForm as unknown as Student).faculty}
                                                     onChange={e => setEditForm(p => ({ ...p, faculty: e.target.value }))}
                                                 />
                                             </div>
@@ -395,7 +397,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                 <label className="flex label-small mb-1">University</label>
                                                 <input
                                                     type="text"
-                                                    value={(editForm as Student).uniName}
+                                                    value={(editForm as unknown as Student).uniName}
                                                     onChange={e => setEditForm(p => ({ ...p, uniName: e.target.value }))}
                                                 />
                                             </div>
@@ -403,7 +405,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                 <label className="flex label-small mb-1">Graduating Year</label>
                                                 <input
                                                     type="text"
-                                                    value={(editForm as Student).graduatingYear}
+                                                    value={(editForm as unknown as Student).graduatingYear}
                                                     onChange={e => setEditForm(p => ({ ...p, graduatingYear: e.target.value }))}
                                                 />
                                             </div>
@@ -463,7 +465,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                 </AlertDialog.Backdrop>
             </AlertDialog>
 
-            <CVForm overlayState={CVFormOverlayState}/>
+            <CVForm overlayState={CVFormOverlayState} student={(userDetails as unknown as Student)}/>
         </>
     )
 }

@@ -1,6 +1,6 @@
 import {Alert, CloseButton, Spinner, Tabs} from "@heroui/react";
 import React, {useState} from "react";
-import type { RecruiterRegistrationDTO } from "~/Model/DTO/RecruiterRegistrationDTO";
+import type {Student} from "~/Model/Users/Student";
 
 export default function Signup() {
 
@@ -130,7 +130,7 @@ export default function Signup() {
     return (
         <div className="centered">
             <a href={"/"} style={{borderRadius: "200px"}} inert>
-                <img src="/images/navi/Navi%20Unique.png" alt="Logo" width="100px" height="100px"/>
+                <img src="/images/navi/Navi%20Unique.png" alt="Logo" style={{width: "100px"}}/>
             </a>
             <br/>
 

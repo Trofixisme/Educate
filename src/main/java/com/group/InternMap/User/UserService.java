@@ -7,6 +7,7 @@ import com.group.InternMap.Recruiter.Recruiter;
 import com.group.InternMap.Recruiter.RecruiterRepo;
 import com.group.InternMap.Student.Student;
 import com.group.InternMap.Student.StudentRepo;
+import com.group.InternMap.cv.CV;
 import com.group.InternMap.cv.CVRepo;
 import groovy.util.ResourceException;
 import jakarta.servlet.ServletException;
@@ -233,7 +234,11 @@ public class UserService implements FilePaths {
         Optional<Users> user = userRepo.findByEmail(email);
         if (user.isPresent()) {
             if (user.get().getRole() == UserRole.STUDENT) {
-               cvRepo.delete(studentRepo.findByEmail(email).getCv());
+                CV cv = studentRepo.findByEmail(email).getCv();
+                if (cv != null) {
+                    cvRepo.delete(cv);
+               }
+
                studentRepo.delete(studentRepo.findByEmail(email));
             } else if (user.get().getRole() == UserRole.RECRUITER) {
                 jobRepo.deleteAll(recruiterRepo.findByEmail(email).getJobPosting());

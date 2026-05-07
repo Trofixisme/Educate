@@ -165,7 +165,7 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
                                                                                 {skill.resourceLinks.map((linkObj, idx) => (
                                                                                     <a
                                                                                         key={idx}
-                                                                                        href={linkObj}
+                                                                                        href={linkObj as string}
                                                                                         target="_blank"
                                                                                         rel="noreferrer"
                                                                                         className="block text-xs"

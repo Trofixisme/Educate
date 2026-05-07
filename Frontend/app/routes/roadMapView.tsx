@@ -33,6 +33,5 @@ export function HydrateFallback() {
 }
 
 export default function roadMapView({loaderData}: Route.ComponentProps) {
-    const roadmap: Roadmap = loaderData as Roadmap;
-    return <RoadMapView roadmap={roadmap} />;
+    return <RoadMapView roadmap={loaderData as unknown as Roadmap} />;
 }
