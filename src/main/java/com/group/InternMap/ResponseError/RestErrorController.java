@@ -1,5 +1,6 @@
 package com.group.InternMap.ResponseError;
 
+import groovy.util.ResourceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.ErrorResponse;
@@ -17,7 +18,7 @@ public class RestErrorController {
         return ErrorResponse.create(e, HttpStatus.BAD_GATEWAY, e.getMessage());
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class, ResourceException.class})
     public ErrorResponse processFailed(Exception e) {
         return ErrorResponse.create(e, HttpStatus.BAD_REQUEST, e.getMessage());
     }
@@ -34,6 +35,6 @@ public class RestErrorController {
 
     @ExceptionHandler(Exception.class)
     public ErrorResponse generalException(Exception e) {
-        return ErrorResponse.create(e, HttpStatus.NOT_FOUND, e.getMessage());
+        return ErrorResponse.create(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 }

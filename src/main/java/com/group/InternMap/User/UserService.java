@@ -8,6 +8,7 @@ import com.group.InternMap.Recruiter.RecruiterRepo;
 import com.group.InternMap.Student.Student;
 import com.group.InternMap.Student.StudentRepo;
 import com.group.InternMap.cv.CVRepo;
+import groovy.util.ResourceException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import java.util.Optional;
 //Create, Read, Update, Delete
 @Service
 public class UserService implements FilePaths {
+
+    private static final int MIN_PASSWORD_LENGTH = 12;
 
     AuthenticationManager authenticationManager;
 
@@ -73,8 +76,8 @@ public class UserService implements FilePaths {
     }
 
     public static boolean isPasswordValid(String password) {
-        if (password.length() < 12) {
-            throw new IllegalArgumentException("Password is too short. It must be at least 8 characters long.");
+        if (password.length() < MIN_PASSWORD_LENGTH) {
+            throw new IllegalArgumentException("Password is too short. It must be at least " + MIN_PASSWORD_LENGTH + " characters long.");
         }
 
         boolean hasUpperCase = false;
@@ -104,7 +107,7 @@ public class UserService implements FilePaths {
         } else if (!hasDigit) {
             throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one digit");
         } else if (!hasSpecialChar) {
-            throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one special character");
+            throw new IllegalArgumentException(badPasswordMessage + "Password must contain at least one special character followed by a letter or digit");
         }
 
         return true;
@@ -156,7 +159,7 @@ public class UserService implements FilePaths {
 
         Optional<Users> optionalUser = userRepo.findByEmail(email);
         if (optionalUser.isEmpty()) {
-            throw new Exception("No user found with that email.");
+            throw new ResourceException("No user found with that email.");
         }
 
         Users user = optionalUser.get();

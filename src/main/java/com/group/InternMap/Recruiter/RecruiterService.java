@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.naming.InsufficientResourcesException;
+
 @Service
 public class RecruiterService extends UserService {
 
@@ -29,15 +31,19 @@ public class RecruiterService extends UserService {
         this.userService = userService;
     }
 
-    public void registerRecruiter(RecruiterRegistrationDTO recruiterRegistrationDTO, HttpServletRequest servletRequest) throws DataIntegrityViolationException, ServletException {
-        recruiterRegistrationDTO.setCompany(companyRepo.findCompanyByName(recruiterRegistrationDTO.getCompany().getName()));
-        Company company = recruiterRegistrationDTO.getCompany();
-        Recruiter user = recruiterRegistrationDTO.getUser();
-        user.setRole(UserRole.RECRUITER);
-        userService.register(user, servletRequest);
-        if (company != null) {
-            addCompanyToRecruiter(user.getId(), company.getId());
-            recruiterRepo.save(user);
+    public void registerRecruiter(RecruiterRegistrationDTO recruiterRegistrationDTO, HttpServletRequest servletRequest) throws ServletException {
+        try {
+            recruiterRegistrationDTO.setCompany(companyRepo.findCompanyByName(recruiterRegistrationDTO.getCompany().getName()));
+            Company company = recruiterRegistrationDTO.getCompany();
+            Recruiter user = recruiterRegistrationDTO.getUser();
+            user.setRole(UserRole.RECRUITER);
+            userService.register(user, servletRequest);
+            if (company != null) {
+                addCompanyToRecruiter(user.getId(), company.getId());
+                recruiterRepo.save(user);
+            }
+        } catch (Exception e) {
+            throw new ServletException("Could not register recruiter: " + e.getMessage());
         }
     }
 

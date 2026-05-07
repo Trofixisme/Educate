@@ -7,7 +7,7 @@ export default function Signup() {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null as string | null);
 
-    async function handleRecruiterRegister( e: React.FormEvent<HTMLFormElement>) {
+    async function handleRecruiterRegister(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setErrorMessage(null);
         setLoading(true);
@@ -260,7 +260,7 @@ export default function Signup() {
                             </div>
 
                             <div style={{display: "grid", gridGap: "20px", gridTemplateColumns: "1fr 1fr", gap: "20px"}}>
-                                <input className="text-sm" type="text" id="recruiter-first-name" name="*user.fname" placeholder="Intern"
+                                <input className="text-sm" type="text" id="recruiter-first-name" name="user.fname" placeholder="Intern"
                                        required autoComplete="given-name"/>
                                 <input className="text-sm" type="text" id="recruiter-last-name" name="user.lname" placeholder="Map"
                                        required autoComplete="family-name"/>
@@ -268,22 +268,22 @@ export default function Signup() {
                             <br/><br/>
 
                             <label htmlFor="recruiter-email">Email:</label>
-                            <input className="text-sm" type="email" id="recruiter-email" name="*{user.email}"
+                            <input className="text-sm" type="email" id="recruiter-email" name="user.email"
                                    placeholder="example@intern.com" required autoComplete="email"/>
                             <br/><br/>
 
                             <label htmlFor="recruiter-password">Password:</label>
-                            <input className="text-sm" type="password" id="recruiter-password" name="*{user.password}"
+                            <input className="text-sm" type="password" id="recruiter-password" name="user.password"
                                    placeholder="Enter your password" required autoComplete="new-password"/>
                             <br/><br/>
 
                             <label htmlFor="Title">Job Title:</label>
-                            <input className="text-sm" type="text" id="Title" name="*{user.title}" placeholder="Chief Executive Officer"
+                            <input className="text-sm" type="text" id="Title" name="user.title" placeholder="Chief Executive Officer"
                                    required/>
                             <br/><br/>
 
                             <label htmlFor="Company's Name">Company's Name:</label>
-                            <input className="text-sm" type="text" id="Company's Name" name="*{company.name}" placeholder="InternMap"/>
+                            <input className="text-sm" type="text" id="Company's Name" name="company.name" placeholder="InternMap"/>
                             <br/><br/>
 
                             { loading ? <Spinner size="lg" color="current" /> : <input className="text-lg" type="submit" value="Create Account"/>}
