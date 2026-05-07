@@ -1,6 +1,7 @@
 import type { Route } from "./+types/login";
 import Loading from "~/FrontendWebpages/fragments/Loading";
 import Profile from "~/FrontendWebpages/Profile";
+import type {User} from "~/Model/Users/User";
 
 export function meta({}: Route.MetaArgs) {
     return [

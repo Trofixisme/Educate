@@ -1,6 +1,5 @@
 import "../CSS/jobPosting.css"
 import "../CSS/InternMapHomepage.css";
-import {IndexFooter, IndexHeader} from './fragments/IndexHeaderAndFooter';
 import {
     Button,
     Description,
@@ -14,7 +13,6 @@ import {
     TextField, type UseOverlayStateReturn
 } from "@heroui/react";
 import {useNavigate} from "react-router";
-import {useParams} from "react-router";
 
 export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn ,jobId: bigint | null}) {
 
