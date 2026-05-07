@@ -230,21 +230,25 @@ public class UserService implements FilePaths {
         return userRepo.findAll();
     }
 
-    public void deleteByEmail(String email) {
+    public void deleteByEmail(String email) { // DO NOT OVER WRITE THIS FLIPING FUNCTION MY DASHBOARD IS NOT GONNA WORKK
         Optional<Users> user = userRepo.findByEmail(email);
         if (user.isPresent()) {
             if (user.get().getRole() == UserRole.STUDENT) {
-                CV cv = studentRepo.findByEmail(email).getCv();
-                if (cv != null) {
-                    cvRepo.delete(cv);
-               }
-
-               studentRepo.delete(studentRepo.findByEmail(email));
+                Student student = studentRepo.findByEmail(email);
+                if (student != null) {
+                    CV cv = student.getCv();
+                    if (cv != null) {
+                        cvRepo.delete(cv);
+                    }
+                    studentRepo.delete(student);
+                }
             } else if (user.get().getRole() == UserRole.RECRUITER) {
-                jobRepo.deleteAll(recruiterRepo.findByEmail(email).getJobPosting());
-                recruiterRepo.delete(recruiterRepo.findByEmail(email));
+                Recruiter recruiter = recruiterRepo.findByEmail(email);
+                if (recruiter != null) {
+                    jobRepo.deleteAll(recruiter.getJobPosting());
+                    recruiterRepo.delete(recruiter);
+                }
             }
-
             userRepo.delete(user.get());
         } else {
             throw new IllegalArgumentException("No user found with that email.");
