@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -30,10 +31,11 @@ public class jobPostingController {
 
     Logger logger = LoggerFactory.getLogger(RecruiterController.class);
 
-    jobPostingController(CompanyService companyService, UserService userService, JobPostingService jobPostingService) {
+    jobPostingController(CompanyService companyService, UserService userService, JobPostingService jobPostingService, ApplicationRepo applicationRepo) {
         this.companyService = companyService;
         this.userService = userService;
         this.jobPostingService = jobPostingService;
+        this.applicationRepo = applicationRepo;
     }
 
     @PostMapping("/new")

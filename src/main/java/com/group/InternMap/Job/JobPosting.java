@@ -2,6 +2,7 @@ package com.group.InternMap.Job;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.group.InternMap.Application.Application;
 import com.group.InternMap.Company.Company;
@@ -40,7 +41,7 @@ public class JobPosting implements Serializable {
     private Company company;
 
     @OneToMany(mappedBy = "jobPosting")
-    @JsonIgnore
+    @JsonIgnoreProperties({"jobPosting", "handler"})
     private List<Application> applications = new ArrayList<>();
 
     public void setJobDescription(String jobDescription) {

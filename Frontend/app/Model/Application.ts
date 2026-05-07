@@ -1,4 +1,5 @@
 import type {ApplicationStatus} from "~/Model/ApplicationStatus";
+import type { JobPosting } from "./Jobs/JobPosting";
 
 export class Application {
 
@@ -13,7 +14,7 @@ export class Application {
     student:Student
 
     constructor(id: bigint, fName: string, lName: string, email: string, phoneNumber: string, applicationDate: Date, jobPosting: JobPosting, status: ApplicationStatus,student:Student) {
-        this.id = id;
+        this.id= id;
         this.fName = fName;
         this.lName = lName;
         this.email = email;
