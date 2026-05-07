@@ -32,7 +32,7 @@ export async function clientLoader() {
         return Response.redirect("/dashboard", 302);
     }
 
-    return await data.json()
+    return user;
 }
 
 export function HydrateFallback() {
