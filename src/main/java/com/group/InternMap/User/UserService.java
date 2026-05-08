@@ -212,7 +212,10 @@ public class UserService implements FilePaths {
 
             if (isEmailValid(userToUpdateWith.getEmail())) {
                 userToUpdate.setEmail(userToUpdateWith.getEmail());
+
             }
+            userRepo.save(userToUpdate);
+
         } else {
             throw new IllegalArgumentException("Unkown user type??? How did that happen?");
         }

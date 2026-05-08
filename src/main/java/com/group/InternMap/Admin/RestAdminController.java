@@ -25,6 +25,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -85,6 +86,16 @@ public class RestAdminController {
         roadmapRepo.save(roadmap);
         System.out.println(roadmap.getName());
         return ResponseEntity.ok("It works");
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateAdmin(@RequestBody Admin admin, Authentication authentication) {
+            Users adminToUpdate = userService.searchByEmail(authentication.getName())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+            userService.updateUser(adminToUpdate, admin);
+
+
+        return ResponseEntity.ok("bonk");
     }
 
     }

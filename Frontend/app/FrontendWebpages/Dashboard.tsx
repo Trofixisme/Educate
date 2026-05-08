@@ -10,6 +10,8 @@ import type {Roadmap} from "../../Model/Roadmap";
 import {Icon} from "@iconify/react";
 import RoadMapEdit from "../FrontendWebpages/RoadMapUpdate";
 import {IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";
+import type {Recruiter} from "~/Model/Users/Recruiter";
+import {Modal, Alert as HeroAlert, CloseButton} from "@heroui/react";
 
 function SortableColumnHeader({children, sortDirection}: { children: React.ReactNode; sortDirection?: "ascending" | "descending"; }) {
     return (
@@ -38,6 +40,37 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
     const [selectedRoadmapKeys, setSelectedRoadmapKeys] = useState<"all" | Set<Key>>(new Set());
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({column: "fname", direction: "ascending"});
     const [showAdminError, setShowAdminError] = useState(false);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [editForm, setEditForm] = useState(userDetails);
+    const [editLoading, setEditLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    async function saveProfile() {
+        setEditLoading(true);
+        setErrorMessage(null);
+
+        const response = await fetch("http://localhost:8050/api/admin/update", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editForm),
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setErrorMessage(json.detail);
+            setEditLoading(false);
+            return;
+        }
+
+        setEditLoading(false);
+        setIsEditOpen(false);
+        window.location.reload();
+    }
 
     const sortedUsers = useMemo(() => {
         return [...users].sort((a, b) => {
@@ -91,6 +124,13 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                     <Chip.Label className="auto-capitalise">{(userDetails as Recruiter).title}</Chip.Label>
                                 </Chip>
                             )}
+                            <Button
+                                style={{width: "32px", height: "32px", background: "var(--container-secondary)"}}
+                                className="dark"
+                                isIconOnly
+                                onClick={() => setIsEditOpen(true)}>
+                                <img src="/images/assets/pencil@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -388,7 +428,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                         : Array.from(selectedRoadmapKeys as Set<string>);
                                                     const formData = new FormData();
                                                     selectedRoadmaps.forEach(id => formData.append("roadmaps", id));
-                                                    fetcher.submit(formData, {method: "POST", action: "/profile"});
+                                                    fetcher.submit(formData, {method: "POST", action: "/dashboard"});
                                                     setSelectedRoadmapKeys(new Set());
                                                 }}>Smite!</Button>
                                             </AlertDialog.Footer>
@@ -431,6 +471,77 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                     </Tabs>
                 </div>
             </div>
+
+            {/* Edit Profile Modal */}
+            <Modal isOpen={isEditOpen} onOpenChange={setIsEditOpen}>
+                <Modal.Backdrop variant="blur" isDismissable={true}>
+                    <Modal.Container>
+                        <Modal.Dialog className="max-w-xl">
+                            <Modal.CloseTrigger onClick={() => setIsEditOpen(false)}/>
+                            <Modal.Header>
+                                <Modal.Heading>Edit Profile</Modal.Heading>
+                                {errorMessage && (
+                                    <Alert className="dark rounded-4xl" style={{background: "var(--container-secondary)"}} status="danger">
+                                        <Alert.Indicator>
+                                            <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Logo" style={{width: "20px", height: "20px"}}/>
+                                        </Alert.Indicator>
+                                        <Alert.Content>
+                                            <Alert.Title>
+                                                <p className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
+                                                    {errorMessage}
+                                                </p>
+                                            </Alert.Title>
+                                        </Alert.Content>
+                                        <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)}/>
+                                    </Alert>
+                                )}
+                            </Modal.Header>
+                            <Modal.Body className="space-y-4" style={{paddingTop: "20px"}}>
+                                <div className="full-width flex flex-col gap-6">
+                                    <div className="flex flex-row gap-4">
+                                        <div className="full-width">
+                                            <label className="flex label-small mb-1">First Name</label>
+                                            <input
+                                                type="text"
+                                                className="text-sm"
+                                                value={editForm.fname}
+                                                onChange={e => setEditForm(p => ({...p, fname: e.target.value}))}
+                                            />
+                                        </div>
+                                        <div className="full-width">
+                                            <label className="flex label-small mb-1">Last Name</label>
+                                            <input
+                                                type="text"
+                                                className="text-sm"
+                                                value={editForm.lname}
+                                                onChange={e => setEditForm(p => ({...p, lname: e.target.value}))}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="flex label-small">Email</label>
+                                        <input
+                                            type="email"
+                                            className="text-sm pb-2"
+                                            value={editForm.email}
+                                            onChange={e => setEditForm(p => ({...p, email: e.target.value}))}
+                                        />
+                                        <div className="text-xs pt-2">- Changing your email address will force you to be <b>logged out</b></div>
+                                    </div>
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer className="flex justify-end gap-6 mt-8">
+                                <Button className="full-width p-3" slot="close" variant="tertiary" onClick={() => setIsEditOpen(false)}>
+                                    Cancel
+                                </Button>
+                                <Button className="full-width p-3" onClick={() => saveProfile()} isDisabled={editLoading}>
+                                    {editLoading ? "Saving..." : "Save"}
+                                </Button>
+                            </Modal.Footer>
+                        </Modal.Dialog>
+                    </Modal.Container>
+                </Modal.Backdrop>
+            </Modal>
 
             <RoadMapEdit overlayState={roadmapFormOverlayState} roadmapId={selectedRoadmapId}/>
         </>
