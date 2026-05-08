@@ -271,7 +271,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
                                     <div className="mb-3">
                                         <label className="label-small">Job Position</label>
-                                        <p className="auto-capitalise">{application.jobPosting.jobName + " - " + application.jobPosting.company.name}</p>
+                                        <p className="auto-capitalise">{application.jobPosting.jobName + " - " + application.jobPosting.company?.name}</p>
                                     </div>
 
                                     <div className="mb-3">
