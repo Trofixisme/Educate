@@ -1,6 +1,9 @@
 import {Button, Modal, Tooltip, type UseOverlayStateReturn} from "@heroui/react";
 import type {JobPosting} from "~/Model/Jobs/JobPosting";
 import React from "react";
+import type {Internship} from "~/Model/Jobs/Internship";
+import type {FullTime} from "~/Model/Jobs/FullTime";
+import type {FreelanceProject} from "~/Model/Jobs/FreelanceProject";
 
 export default function JobModal({overlayState, job, action, role}: {overlayState:UseOverlayStateReturn, job: JobPosting|null, action: {}, role: string}) {
 
@@ -84,6 +87,26 @@ export default function JobModal({overlayState, job, action, role}: {overlayStat
                                             <label className="label-large font-semibold">Work location</label>
                                             <p className="auto-capitalise mt-2 ml-2 font-medium" style={{color: "var(--text-primary)"}}> - {job?.jobLocation ? job?.jobLocation : <a className="text-muted">Undefined</a>}</p>
                                         </div>
+
+                                        {job?.type == "Internship" && (
+                                        <div>
+                                            <label className="text-lg font-semibold">Duration {(job as Internship).duration}</label>
+                                        </div>
+                                        )}
+
+                                        {job?.type == "FullTime" && (
+                                            <div>
+                                                <label className="label-large font-semibold">Benefits</label>
+                                                <p className="auto-capitalise mt-2 ml-1 font-medium" style={{color: "var(--text-primary)"}}>{(job as FullTime).benefits}</p>
+                                            </div>
+                                        )}
+
+                                        {job?.type == "FreeLanceProject" && (
+                                            <div>
+                                                <label className="label-large font-semibold">Payout</label>
+                                                <p className="auto-capitalise mt-2 ml-1" style={{color: "var(--text-primary)"}}>{(job as FreelanceProject).payout}</p>
+                                            </div>
+                                        )}
 
                                     </div>
 

@@ -2,7 +2,7 @@ import type { Company } from "../Company";
 import type { Recruiter } from "../Users/Recruiter";
 import { JobPosting } from "./JobPosting";
 
-class FreelanceProject extends JobPosting {
+export class FreelanceProject extends JobPosting {
 
     duration: number;
     payout: number;

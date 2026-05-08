@@ -2,7 +2,7 @@ import type { Company } from "../Company";
 import type { Recruiter } from "../Users/Recruiter";
 import { JobPosting } from "./JobPosting";
 
-class Internship extends JobPosting {
+export class Internship extends JobPosting {
 
     duration: number;
     jobLocation: String;
