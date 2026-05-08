@@ -26,4 +26,16 @@ public class FileUploadController {
         System.out.println("UPLOAD PATH: " + targetPath.toAbsolutePath());
         return "logos/" + filename;
     }
+
+    @PostMapping("/upload/profile-picture")
+    public String uploadProfilePicture(@RequestParam("profilePicture") MultipartFile file) throws IOException {
+        Path uploadDir = Paths.get(System.getProperty("user.dir"), "uploads", "profile-pictures");
+        Files.createDirectories(uploadDir);
+
+        String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path targetPath = uploadDir.resolve(filename);
+        file.transferTo(targetPath.toAbsolutePath());
+
+        return "profile-pictures/" + filename;
+    }
 }

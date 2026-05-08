@@ -19,6 +19,7 @@ public class Company implements Serializable {
     private String name;
     private String websiteURL;
     private String locationOfHQ;
+
     @Column(nullable = true)
     private String logo;
 
@@ -74,13 +75,5 @@ public class Company implements Serializable {
             this.websiteURL = websiteURL;
     }
 
-// public void addRecruiter(Recruiter recruiter) {
-//     if (recruiter == null) return;
-//     if (!recruiters.contains(recruiter)) recruiters.add(recruiter);
-// }
-
-// public void removeRecruiter(Recruiter recruiter) {
-//     recruiters.remove(recruiter);
-// }
 
 }
