@@ -19,7 +19,7 @@ export default function RegisterCompany() {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:8080/api/company/new", {
+            const res = await fetch("http://localhost:8050/api/company/new", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`, // 👈 you forgot this
@@ -66,9 +66,9 @@ export default function RegisterCompany() {
                             </Alert.Indicator>
                             <Alert.Content>
                                 <Alert.Title>
-                                <div className="font-bold center" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
+                                <span className="font-bold center" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
                                     {errorMessage}
-                                </div>
+                                </span>
                                 </Alert.Title>
                             </Alert.Content>
                             <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
@@ -111,7 +111,7 @@ export default function RegisterCompany() {
                     type="file"
                     name="logo"
                     accept="image/*"
-                    onChange={(e) => console.log(e.target.files?.[0]?.name)}
+
                 />
 
                 <br/>
