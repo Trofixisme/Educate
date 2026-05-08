@@ -124,6 +124,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
     console.log(applicationList);
 
+    // @ts-ignore
     return (
         <>
             <IndexHeader/>
@@ -338,7 +339,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                                 <img
                                                                     src={
                                                                         company.logo
-                                                                            ? `http://localhost:8080/uploads/${company.logo}`
+                                                                            ? `http://localhost:8050/uploads/${company.logo}`
                                                                             : "/images/navi/Navi Beta.png"
                                                                     }
                                                                     style={{ width: "40px", height: "40px", objectFit: "contain" }}
