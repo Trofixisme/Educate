@@ -25,7 +25,7 @@ public class RoadmapService {
 
     public int countTotalModules(Roadmap roadmap) {
         return roadmap.getAllModules().stream()
-                .mapToInt(module -> module.getAllSkills() != null ? module.getAllSkills().size() : 0)
+                .mapToInt(module -> module.getSkills() != null ? module.getSkills().size() : 0)
                 .sum();
     }
 
@@ -33,7 +33,7 @@ public class RoadmapService {
         Roadmap roadmap;
         if (roadmapId == null) {
             throw new IllegalArgumentException("Roadmap must be provided");
-        } else{
+        } else {
             roadmap = roadmapRepo.findById(roadmapId).orElseThrow(() -> new RuntimeException("Roadmap not found"));
             //this line gets the roadmap if exists. If not, throws exception
         }

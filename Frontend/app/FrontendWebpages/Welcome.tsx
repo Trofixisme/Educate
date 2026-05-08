@@ -62,10 +62,13 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
     })
 
     const sortedRoadmaps = [...roadmaps].reverse();
+
     const filteredRoadmaps = sortedRoadmaps.filter((roadmap) =>
         roadmap.name.toLowerCase().includes(search.toLowerCase())
     );
+
     const sortedJobPostings = [...jobPostings];
+
     const filteredJobs = sortedJobPostings.filter((job) => {
         const q = search.toLowerCase();
         return (
@@ -73,9 +76,10 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
             job.company?.name?.toLowerCase().includes(q)
         );
     });
+
     const isSearching = search.trim().length > 0;
 
-    const [activePostingId, setActivePostingId] = useState<number | null>(null);
+    const [activePosting, setActivePosting] = useState<JobPosting | null>(null);
 
     const [isAllExpanded, setAllExpanded] = useState(true);
     const [isRecentsExpanded, setRecentsExpanded] = useState(true);
@@ -295,15 +299,12 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
                                     {/* Left - image + name */}
                                     <div className={"flex gap-2 items-center"}>
-                                        <img
-                                            style={{width: 50, borderRadius: 40}}
+                                        <img style={{width: 50, borderRadius: 40}}
                                             src={
                                                 posting.company?.logo
                                                     ? `http://127.0.0.1:8000/storage/${posting.company.logo}`
                                                     : "/images/navi/Navi%20Beta.png"
-                                            }
-                                            alt={posting.company?.name || "Company"}
-                                        />
+                                            } alt={posting.company?.name || "Company"}/>
                                         <div>
                                             <div style={{fontSize: 20, fontWeight: 700}}>
                                                 <a href={`/postings/${posting.id}`}>{posting.recruiter?.fname + " " + posting.recruiter?.lname}</a>
@@ -359,14 +360,22 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                         {getTimeAgo(posting.datePosted)}
                                     </div>
                                     <div className="flex gap-2 items-center align-middle">
+                                        <Button variant="secondary" isIconOnly style={{width: 40, height: 40}}>
+                                            <img
+                                                className="theme-adaptive-icon"
+                                                style={{width: 16}}
+                                                src="/images/assets/arrow.up.left.and.arrow.down.right@4x.png"
+                                                alt="expand"
+                                            />
+                                        </Button>
+
                                         <Button
                                             isDisabled={role !== "[ROLE_STUDENT]"}
                                             onClick={() => {
-                                                setActivePostingId(posting.id);
+                                                setActivePosting(posting);
                                                 ApplicationFormOverlayState.toggle();
                                             }}
-                                            style={{width: 93, height: 40, borderRadius: 75, background: "var(--primary-color)", color: "white", fontSize: 18, fontWeight: 700, border: "none", cursor: "pointer"}}
-                                        >
+                                            style={{width: 93, height: 40, borderRadius: 75, background: "var(--primary-color)", color: "white", fontSize: 18, fontWeight: 700, border: "none", cursor: "pointer"}}>
                                             Apply
                                         </Button>
                                     </div>
@@ -380,7 +389,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
             <br/><br/>
             <IndexFooter/>
 
-            <ApplicationForm overlayState={ApplicationFormOverlayState} jobId={activePostingId}/>
+            <ApplicationForm overlayState={ApplicationFormOverlayState} job={activePosting}/>
         </>
     );
 }

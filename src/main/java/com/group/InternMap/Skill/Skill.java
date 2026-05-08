@@ -15,7 +15,7 @@ public class Skill implements Serializable {
     private String name;
 
     @ElementCollection
-    private final List<String> resourceLinks = new ArrayList<>();
+    private List<String> resourceLinks = new ArrayList<>();
 
     private String description;
 
@@ -67,5 +67,9 @@ public class Skill implements Serializable {
     public void setLinks(List<String> links) {
         this.resourceLinks.clear();
         this.resourceLinks.addAll(links);
+    }
+
+    public List<String> getResourceLinks() {
+        return resourceLinks;
     }
 }

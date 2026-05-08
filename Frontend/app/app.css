@@ -8,7 +8,7 @@
 }
 
 :root {
-    --hover: rgba(83, 83, 83, 0.1);
+    --hover: rgba(69, 69, 69, 0.1);
 }
 
 html,
@@ -297,7 +297,7 @@ body {
 
         .table__cell {
             color: var(--text-primary);
-            background: var(--component-quaternary);
+            background: var(--component-tertiary);
             border: none;
         }
     }
@@ -308,15 +308,23 @@ body {
         border: none;
     }
 
-    .table__row:hover {
-        background: var(--component-quaternary);
-    }
-
     .checkbox__control {
-        /*background: var(--component-secondary);*/
+        background: var(--component-secondary);
         /*border: none;*/
     }
 
+
+    .table__row[data-hovered="true"] {
+
+        @media (prefers-color-scheme: light) {
+            background: var(--hover);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background: black;
+            filter: brightness(0.8);
+        }
+    }
 }
 
 .chip_icon {

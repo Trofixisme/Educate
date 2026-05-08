@@ -1,7 +1,7 @@
 import type { Route } from "./+types/login";
 import Loading from "../FrontendWebpages/fragments/Loading";
-import Profile from "../FrontendWebpages/Profile";
 import MyJobPostings from "../FrontendWebpages/MyJobPostings";
+import type {JobPosting} from "~/Model/Jobs/JobPosting";
 
 export function meta({}: Route.MetaArgs) {
     return [

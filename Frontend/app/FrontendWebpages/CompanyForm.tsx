@@ -84,14 +84,15 @@ export default function RegisterCompany() {
                     </>
                 )}
 
-                <label>Company name:</label>
-                <input className="text-sm" type="text" name="name" placeholder="ex. InternMap" required/>
+                <div className="full-width" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
+                    <label>Company name:</label>
+                    <label>industry:</label>
+                </div>
 
-                <br/>
-                <br/>
-
-                <label>industry:</label>
-                <input className="text-sm" type="text" placeholder="ex. tech" name="industry" required/>
+                <div className="full-width" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gridGap: "20px"}}>
+                    <input className="text-sm" type="text" name="name" placeholder="ex. InternMap" required/>
+                    <input className="text-sm" type="text" placeholder="ex. tech" name="industry" required/>
+                </div>
 
                 <br/>
                 <br/>
@@ -106,20 +107,20 @@ export default function RegisterCompany() {
                 <input className="text-sm" type="text" name="websiteURL" placeholder="https://InternMap.com"/>
 
                 <br/>
+                <br/>
                 <label>Company Logo:</label>
                 <input
                     type="file"
                     name="logo"
-                    accept="image/*"
-
-                />
+                    accept="image/*"/>
 
                 <br/>
 
 
-                { loading ? <Spinner size="lg" color="current" /> : <><br /> <input className="text-lg" type="submit" value="Register Company" /></>}
+                { loading ? <Spinner size="lg" color="current" /> : <><br /> <input className="text-lg" type="submit" value="Create company" /></>}
                 <br/>
             </form>
+            <br/>
         </div>
     );
 }

@@ -6,12 +6,12 @@ export class RoadmapModule {
     name: String;
     description: String;
 
-    allSkills: Skill[];
+    skills: Skill[];
 
     constructor(id: bigint, name: String, description: String, skills: Skill[]) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.allSkills = skills;
+        this.skills = skills;
     }
 }

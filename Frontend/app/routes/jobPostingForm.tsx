@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
 import Loading from "~/FrontendWebpages/fragments/Loading";
 import JobPostingModal from "~/FrontendWebpages/JobPostingModal";
-import { useOverlayTriggerState } from "@react-stately/overlays";
+import {useOverlayTriggerState} from "react-stately";
 
 export function meta({}: Route.MetaArgs) {
     return [

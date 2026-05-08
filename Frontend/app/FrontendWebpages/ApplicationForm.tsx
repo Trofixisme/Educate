@@ -15,8 +15,9 @@ import {
 } from "@heroui/react";
 import {useNavigate} from "react-router";
 import React, {useState} from "react";
+import type {JobPosting} from "~/Model/Jobs/JobPosting";
 
-export default function ApplicationForm({overlayState, jobId}: {overlayState: UseOverlayStateReturn ,jobId: bigint | null}) {
+export default function ApplicationForm({overlayState, job}: {overlayState: UseOverlayStateReturn ,job: JobPosting | null}) {
 
     const onApplicationState = overlayState;
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function ApplicationForm({overlayState, jobId}: {overlayState: Us
         setErrorMessage(null);
 
         const params = new URLSearchParams({
-            jobId: String(jobId),
+            jobId: String(job?.id),
             fname: formData.get("f_name") as string,
             lname: formData.get("l_name") as string,
             phone: formData.get("phone_number") as string,
@@ -40,6 +41,7 @@ export default function ApplicationForm({overlayState, jobId}: {overlayState: Us
         });
 
         console.log("sending:", params.toString());
+
         const res = await fetch(`http://localhost:8050/api/application/apply/submit?${params.toString()}`, {
             method: "POST",
             headers: {
@@ -62,7 +64,7 @@ export default function ApplicationForm({overlayState, jobId}: {overlayState: Us
                     variant: "tertiary",
                 },
                 indicator: <img src="/images/assets/checkmark@4x.png" alt="checkmark" width={15} height={15}/>,
-                description: "successfully applied to ",
+                description: "successfully applied to " + job?.jobName,
                 variant: "success",
             })
             console.log("Application submitted!");

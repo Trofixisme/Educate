@@ -7,7 +7,7 @@ import {Button, FieldError, FieldGroup, Fieldset, Form, Input, Label, TextField,
 import { useNavigate } from "react-router";
 
 // @ts-ignore
-export default function RoadMapCreate() {
+export default function RoadmapCreate() {
 
     const navigate = useNavigate();
 
