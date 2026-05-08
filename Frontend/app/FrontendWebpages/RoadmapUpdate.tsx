@@ -80,7 +80,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
             if (i !== moduleIndex) return mod;
             return {
                 ...mod,
-                skills: [...(mod.skills || []), { name: "", description: "", links: [""] }],
+                skills: [...(mod.skills || []), { name: "", description: "", resourceLinks: [""] }],
             };
         });
         setModules(updated);
@@ -128,7 +128,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                     id: skill.id,
                     name: skill.name,
                     description: skill.description,
-                    links: skill.links || [""],
+                    resourceLinks: skill.resourceLinks || [""],
                     _deleted: skill._deleted || false,
                 })),
             })),
@@ -293,7 +293,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                                                                         </TextField>
 
                                                                         <br/>
-                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].links[0]`}
+                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].resourceLinks[0]`}
                                                                                    type="text"
                                                                                    validationBehavior="aria"
                                                                         >
@@ -306,7 +306,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                                                                                     updateSkillField(
                                                                                         moduleIndex,
                                                                                         skillIndex,
-                                                                                        "links",
+                                                                                        "resourceLinks",
                                                                                         [e.target.value]
                                                                                     )
                                                                                 }
