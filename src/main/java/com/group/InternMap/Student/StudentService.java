@@ -24,6 +24,7 @@ public class StudentService extends UserService {
         studentToUpdate.setFaculty(studentToUpdateWith.getFaculty());
         studentToUpdate.setUniName(studentToUpdateWith.getUniName());
         studentToUpdate.setGraduatingYear(studentToUpdateWith.getGraduatingYear());
+        studentToUpdate.setProfilePicture(studentToUpdateWith.getProfilePicture());
 
         try {
             studentRepo.save(studentToUpdate);
