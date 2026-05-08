@@ -11,7 +11,7 @@ import {Icon} from "@iconify/react";
 import RoadMapEdit from "../FrontendWebpages/RoadMapUpdate";
 import {IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";
 import type {Recruiter} from "~/Model/Users/Recruiter";
-import {Modal, Alert as HeroAlert, CloseButton} from "@heroui/react";
+import {Modal, CloseButton} from "@heroui/react";
 import type { User } from "~/Model/Users/User";
 
 function SortableColumnHeader({children, sortDirection}: { children: React.ReactNode; sortDirection?: "ascending" | "descending"; }) {
@@ -149,8 +149,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                 </Alert>
             )}
 
-            <div className="wrapper">
-                <div id="bb1">
+            <div className="wrapper p-14">
                     <Tabs className="max-w">
                         <Tabs.ListContainer>
                             <Tabs.List aria-label="View Selector">
@@ -234,7 +233,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                                             setUserToSmite(user);
                                                                             setIsDialogOpen(true);
                                                                         }}>
-                                                                    <Icon className="size-4" icon="gravity-ui:trash-bin"/>
+                                                                    <img className="w-3.5" src="/images/assets/trash.fill@4x.png" alt="Warn"/>
                                                                 </Button>
                                                             </div>
                                                         </Table.Cell>
@@ -246,24 +245,27 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                 </Table>
                             )}
 
-                            <p className="text-sm text-muted">
+                            <br/>
+                            <p className="text-sm text-muted font-bold">
                                 Users Selected:{" "}
                                 <span className="font-medium">
                                     {selectedKeys === "all" ? "All" : (selectedKeys as Set<Key>).size > 0 ? (selectedKeys as Set<Key>).size : "None"}
                                 </span>
                             </p>
 
+                            <br/>
+
                             {/* Bulk delete */}
                             <AlertDialog>
-                                <Button variant="danger" isDisabled={selectedKeys !== "all" && (selectedKeys as Set<Key>).size === 0}>
+                                <Button className="full-width p-3.5" variant="danger" isDisabled={selectedKeys !== "all" && (selectedKeys as Set<Key>).size === 0}>
                                     Delete Selection
                                 </Button>
                                 <AlertDialog.Backdrop>
                                     <AlertDialog.Container>
-                                        <AlertDialog.Dialog className="sm:max-w-[400px]">
+                                        <AlertDialog.Dialog className="sm:max-w-100">
                                             <AlertDialog.CloseTrigger/>
                                             <AlertDialog.Header>
-                                                <AlertDialog.Icon status="danger"/>
+                                                <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
                                                 <AlertDialog.Heading>Delete selected users permanently?</AlertDialog.Heading>
                                             </AlertDialog.Header>
                                             <AlertDialog.Body>
@@ -272,8 +274,8 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                     {" "}and all of their data. This action cannot be undone.</p>
                                             </AlertDialog.Body>
                                             <AlertDialog.Footer>
-                                                <Button slot="close" variant="tertiary">Cancel</Button>
-                                                <Button slot="close" variant="danger" onPress={() => {
+                                                <Button className="full-width p-2" slot="close" variant="tertiary">Cancel</Button>
+                                                <Button className="full-width p-2" slot="close" variant="danger" onPress={() => {
                                                     const selectedUsers = selectedKeys === "all"
                                                         ? users
                                                         : users.filter(u => (selectedKeys as Set<string>).has(u.email));
@@ -297,10 +299,10 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                             <AlertDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
                                 <AlertDialog.Backdrop>
                                     <AlertDialog.Container>
-                                        <AlertDialog.Dialog className="sm:max-w-[400px]">
+                                        <AlertDialog.Dialog className="sm:max-w-90">
                                             <AlertDialog.CloseTrigger/>
                                             <AlertDialog.Header>
-                                                <AlertDialog.Icon status="danger"/>
+                                                <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
                                                 <AlertDialog.Heading>Delete user permanently?</AlertDialog.Heading>
                                             </AlertDialog.Header>
                                             <AlertDialog.Body>
@@ -309,8 +311,8 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                     {" "}and all of their data. This action cannot be undone.</p>
                                             </AlertDialog.Body>
                                             <AlertDialog.Footer>
-                                                <Button slot="close" variant="tertiary">Cancel</Button>
-                                                <Button slot="close" variant="danger" onPress={() => {
+                                                <Button className="full-width p-2" slot="close" variant="tertiary">Cancel</Button>
+                                                <Button className="full-width p-2" slot="close" variant="danger" onPress={() => {
                                                     if (!userToSmite) return;
                                                     if (userToSmite.role === "ADMIN") {
                                                         setShowAdminError(true);
@@ -340,7 +342,6 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                     <Table.ScrollContainer style={{maxHeight: "600px", overflow: "auto"}}>
                                         <Table.Content
                                             aria-label="Table with selection"
-                                            className="min-w-[600px]"
                                             selectedKeys={selectedRoadmapKeys}
                                             selectionMode="multiple"
                                             sortDescriptor={roadmapSortDescriptor}
@@ -377,14 +378,14 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                                             setSelectedRoadmapId(roadmap.id);
                                                                             roadmapFormOverlayState.open();
                                                                         }}>
-                                                                    <Icon className="size-4" icon="gravity-ui:pencil"/>
+                                                                    <img className="w-3.5" src="/images/assets/pencil@4x.png" alt="Warn"/>
                                                                 </Button>
                                                                 <Button isIconOnly size="sm" variant="danger-soft"
                                                                         onPress={() => {
                                                                             setRoadmapToSmite(roadmap);
                                                                             setIsRoadmapDialogOpen(true);
                                                                         }}>
-                                                                    <Icon className="size-4" icon="gravity-ui:trash-bin"/>
+                                                                    <img className="w-3.5" src="/images/assets/trash.fill@4x.png" alt="Warn"/>
                                                                 </Button>
                                                             </div>
                                                         </Table.Cell>
@@ -413,7 +414,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                         <AlertDialog.Dialog className="sm:max-w-[400px]">
                                             <AlertDialog.CloseTrigger/>
                                             <AlertDialog.Header>
-                                                <AlertDialog.Icon status="danger"/>
+                                                <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
                                                 <AlertDialog.Heading>Delete selected roadmaps permanently?</AlertDialog.Heading>
                                             </AlertDialog.Header>
                                             <AlertDialog.Body>
@@ -422,8 +423,8 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                     {" "}and all of their data. This action cannot be undone.</p>
                                             </AlertDialog.Body>
                                             <AlertDialog.Footer>
-                                                <Button slot="close" variant="tertiary">Cancel</Button>
-                                                <Button slot="close" variant="danger" onPress={() => {
+                                                <Button className="full-width p-2" slot="close" variant="tertiary">Cancel</Button>
+                                                <Button className="full-width p-2" slot="close" variant="danger" onPress={() => {
                                                     const selectedRoadmaps = selectedRoadmapKeys === "all"
                                                         ? roadmaps.map(r => String(r.id))
                                                         : Array.from(selectedRoadmapKeys as Set<string>);
@@ -442,10 +443,10 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                             <AlertDialog isOpen={isRoadmapDialogOpen} onOpenChange={setIsRoadmapDialogOpen}>
                                 <AlertDialog.Backdrop>
                                     <AlertDialog.Container>
-                                        <AlertDialog.Dialog className="sm:max-w-[400px]">
+                                        <AlertDialog.Dialog className="sm:max-w-100">
                                             <AlertDialog.CloseTrigger/>
                                             <AlertDialog.Header>
-                                                <AlertDialog.Icon status="danger"/>
+                                                <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
                                                 <AlertDialog.Heading>Delete roadmap permanently?</AlertDialog.Heading>
                                             </AlertDialog.Header>
                                             <AlertDialog.Body>
@@ -454,8 +455,8 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                     {" "}and all of its data. This action cannot be undone.</p>
                                             </AlertDialog.Body>
                                             <AlertDialog.Footer>
-                                                <Button slot="close" variant="tertiary">Cancel</Button>
-                                                <Button slot="close" variant="danger" onPress={() => {
+                                                <Button className="full-width p-2" slot="close" variant="tertiary">Cancel</Button>
+                                                <Button className="full-width p-2" slot="close" variant="danger" onPress={() => {
                                                     if (!roadmapToSmite) return;
                                                     const formData = new FormData();
                                                     formData.append("roadmaps", String(roadmapToSmite.id));
@@ -471,7 +472,6 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                         </Tabs.Panel>
                     </Tabs>
                 </div>
-            </div>
 
             {/* Edit Profile Modal */}
             <Modal isOpen={isEditOpen} onOpenChange={setIsEditOpen}>

@@ -4,7 +4,7 @@ import "../CSS/InternMapHomepage.css";
 import "../CSS/Universal.css";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { IndexHeader } from "./fragments/IndexHeaderAndFooter";
+import {IndexFooter, IndexHeader} from "./fragments/IndexHeaderAndFooter";
 import type {Roadmap} from "~/Model/Roadmap/Roadmap";
 
 export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
@@ -43,7 +43,8 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
             <h1 className="text-4xl font-bold text-center mb-10">
                 {roadmap.name}
             </h1>
-            <div className="container">
+            <div className="pl-10 pr-10">
+            <div className="container-full-width">
                 <div style={{ paddingTop: "90px" }}>
                     <div className="w-full flex justify-center">
                         <div
@@ -194,6 +195,10 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
                     </div>
                 </div>
             </div>
+            </div>
+            <br/>
+            <br/>
+            <IndexFooter/>
         </>
     );
 }

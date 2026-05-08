@@ -17,7 +17,7 @@ public class RoadmapModule implements Serializable {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     //@JoinTable(name = "roadmap_module_skills", joinColumns = @JoinColumn(name = "roadmap_module_id"), inverseJoinColumns = @JoinColumn(name = "skills_id"))
-    private final List<Skill> skills = new ArrayList<>();
+    private List<Skill> skills = new ArrayList<>();
 
     public RoadmapModule() {}
 
@@ -66,6 +66,10 @@ public class RoadmapModule implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
 
     public void addSkills(Skill... skills) {

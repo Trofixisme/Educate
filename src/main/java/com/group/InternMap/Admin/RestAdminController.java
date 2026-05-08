@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +37,6 @@ public class RestAdminController {
     RoadmapModuleRepo roadmapModuleRepo;
     UserService userService;
     RoadmapService roadmapService;
-    JobPostingService jobPostingService;
-    Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     @Autowired
     public RestAdminController(RoadmapRepo roadmapRepo, SkillRepo skillRepo, RoadmapModuleRepo roadmapModuleRepo, UserService userService, RoadmapService roadmapService) {
@@ -55,9 +54,9 @@ public class RestAdminController {
     }
 
     @GetMapping("/dashboard")
-    public DashboardResponse getAdminDashboard(Authentication authentication ) {
-        if (authentication == null || !authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
-            throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "Access denied");
+    public DashboardResponse getAdminDashboard(Authentication authentication ) throws AccessDeniedException {
+         if (authentication == null || !authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
+            throw new AccessDeniedException("Access denied");
         }
 
         List<Users> users = userService.findall();
@@ -67,36 +66,41 @@ public class RestAdminController {
     }
 
     @DeleteMapping("/dashboard/delete/{email}")
-    public void deleteUser(@PathVariable String email) {
-        userService.deleteByEmail(email);
+    public void deleteUser(@PathVariable String email, Authentication authentication) throws AccessDeniedException {
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
+            userService.deleteByEmail(email);
+        } else {
+            throw new AccessDeniedException("Access denied, you are not an admin");
+        }
     }
 
     @DeleteMapping("/dashboard/delete/roadmap/{id}")
-    public void deleteRoadmap(@PathVariable Long id) {
-        roadmapRepo.deleteById(id);
+    public void deleteRoadmap(@PathVariable Long id, Authentication authentication) {
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
+            roadmapRepo.deleteById(id);
+        } else {
+            throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "Access denied, you are not an admin");
+        }
     }
 
-    @GetMapping("/roadmap/create")
-    public List<Roadmap> getRoadmaps() {
-        return roadmapService.findAll();
-    }
-
-    @PostMapping("/roadmap/create/submit")
-    public ResponseEntity<String> createRoadmap(@RequestBody Roadmap roadmap) {
-        roadmapRepo.save(roadmap);
-        System.out.println(roadmap.getName());
-        return ResponseEntity.ok("It works");
+    @PostMapping("/roadmap/create/")
+    public void createRoadmap(@RequestBody Roadmap roadmap, Authentication authentication) throws AccessDeniedException {
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
+            roadmapRepo.save(roadmap);
+        } else {
+            throw new AccessDeniedException("Access denied, you are not an admin");
+        }
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> updateAdmin(@RequestBody Admin admin, Authentication authentication) {
+    public void updateAdmin(@RequestBody Admin admin, Authentication authentication) throws AccessDeniedException {
+        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
+            assert authentication != null;
             Users adminToUpdate = userService.searchByEmail(authentication.getName())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
             userService.updateUser(adminToUpdate, admin);
-
-
-        return ResponseEntity.ok("bonk");
+        } else {
+            throw new AccessDeniedException("Access denied, you are not an admin");
+        }
     }
-
-    }
-
+}

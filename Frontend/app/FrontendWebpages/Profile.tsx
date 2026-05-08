@@ -297,7 +297,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                     <>
                                     <Table variant="secondary">
                                         <Table.ResizableContainer>
-                                            <Table.Content aria-label="Team members" className="min-w-150">
+                                            <Table.Content className="min-w-150">
 
                                                 <Table.Header>
                                                     <Table.Column isRowHeader>Logo<Table.ColumnResizer/></Table.Column>

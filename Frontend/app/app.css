@@ -284,6 +284,39 @@ body {
     .input {
         box-shadow: none;
     }
+
+    .table__header {
+        color: var(--text-primary);
+        background: none;
+        border-radius: 56px;
+    }
+
+    .table-root--primary {
+        background: var(--component-secondary);
+        border: none;
+
+        .table__cell {
+            color: var(--text-primary);
+            background: var(--component-quaternary);
+            border: none;
+        }
+    }
+
+    .table__cell {
+        color: var(--text-primary);
+        /*background: var(--component-quaternary);*/
+        border: none;
+    }
+
+    .table__row:hover {
+        background: var(--component-quaternary);
+    }
+
+    .checkbox__control {
+        /*background: var(--component-secondary);*/
+        /*border: none;*/
+    }
+
 }
 
 .chip_icon {

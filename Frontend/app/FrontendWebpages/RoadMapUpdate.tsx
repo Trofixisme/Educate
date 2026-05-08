@@ -3,7 +3,8 @@ import "../CSS/InternMapHomepage.css";
 import { useEffect, useState } from "react";
 import {Button, FieldError, FieldGroup, Fieldset, Form, IconPlus, Input, Label, Modal, TextField, type UseOverlayStateReturn,} from "@heroui/react";
 import {useNavigate} from "react-router";
-//sorry i had to bring thm here because the models .ts were not working propely
+
+//sorry I had to bring them here because the models .ts were not working properly
 type SkillData = {
     id?: number;
     name: string;
@@ -19,6 +20,7 @@ type ModuleData = {
     skills: SkillData[];
     _deleted?: boolean;
 };
+
 // pass roadmapId as prop
 export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseOverlayStateReturn, roadmapId: number|null}) {
     const [title, setTitle] = useState("");

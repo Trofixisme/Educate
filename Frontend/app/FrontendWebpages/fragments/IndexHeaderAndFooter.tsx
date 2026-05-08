@@ -14,10 +14,6 @@ export function IndexHeader() {
         defaultOpen: false
     })
 
-    if ((localStorage.getItem("showOnboarding") == null || localStorage.getItem("showOnboarding") == "true") && !onBoardingState.isOpen) {
-        onBoardingState.open()
-    }
-
     function closeOnboarding() {
         localStorage.setItem("showOnboarding", "false");
         onBoardingState.close()
@@ -45,6 +41,10 @@ export function IndexHeader() {
     }
 
     useEffect(() => {
+        if ((localStorage.getItem("showOnboarding") == null || localStorage.getItem("showOnboarding") == "true") && !onBoardingState.isOpen) {
+            onBoardingState.open()
+        }
+
         const key = localStorage.getItem("token");
         if (key != null && key.trim() !== "") {
             setIsLoggedIn(true);
