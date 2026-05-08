@@ -19,6 +19,8 @@ public class Company implements Serializable {
     private String name;
     private String websiteURL;
     private String locationOfHQ;
+    @Column(nullable = true)
+    private String logo;
 
     @ManyToMany(mappedBy = "companies")
     private List<Recruiter> recruiters = new ArrayList<>();
@@ -26,6 +28,14 @@ public class Company implements Serializable {
 
     public String getLocationOfHQ() {
         return locationOfHQ;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public Long getId() {
@@ -43,6 +53,10 @@ public class Company implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public void setLocationOfHQ(String locationOfHQ) {
+        this.locationOfHQ = locationOfHQ;
     }
 
     public void setName(String name) {

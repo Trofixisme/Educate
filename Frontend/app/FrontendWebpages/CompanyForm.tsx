@@ -9,36 +9,33 @@ export default function RegisterCompany() {
 
     // @ts-ignore
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-
         e.preventDefault();
         setErrorMessage(null);
         setLoading(true);
 
-        const formData = new FormData(e.currentTarget);
+        const form = e.currentTarget;
+        const formData = new FormData(form); // 👈 THIS is the key
 
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:8050/api/company/new", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(Object.fromEntries(formData.entries())),
-                }
-            );
 
-            setLoading(false);
+            const res = await fetch("http://localhost:8080/api/company/new", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`, // 👈 you forgot this
+                },
+                body: formData,
+            });
 
             if (!res.ok) {
                 const data = await res.json();
                 console.log(data);
-                setErrorMessage(data.detail || "Regitration failed");
+                setErrorMessage(data.detail || "Registration failed");
                 return;
-            } else {
-                history.go(-1);
             }
+
+            history.go(-1);
+
         } catch (error) {
             console.error(error);
             setErrorMessage("Server error or connection issue");
@@ -110,7 +107,12 @@ export default function RegisterCompany() {
 
                 <br/>
                 <label>Company Logo:</label>
-                <input type="file" name="logo" accept="image/*" placeholder="Put your logo here"/>
+                <input
+                    type="file"
+                    name="logo"
+                    accept="image/*"
+                    onChange={(e) => console.log(e.target.files?.[0]?.name)}
+                />
 
                 <br/>
 

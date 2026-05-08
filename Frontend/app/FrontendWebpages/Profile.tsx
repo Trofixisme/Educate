@@ -298,22 +298,36 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                     <Table variant="secondary">
                                         <Table.ResizableContainer>
                                             <Table.Content aria-label="Team members" className="min-w-150">
+
                                                 <Table.Header>
-                                                    <Table.Column isRowHeader>Name<Table.ColumnResizer/></Table.Column>
+                                                    <Table.Column isRowHeader>Logo<Table.ColumnResizer/></Table.Column>
+                                                    <Table.Column>Name<Table.ColumnResizer/></Table.Column>
                                                     <Table.Column>Industry<Table.ColumnResizer/></Table.Column>
                                                     <Table.Column>Page<Table.ColumnResizer/></Table.Column>
                                                     <Table.Column>Address<Table.ColumnResizer/></Table.Column>
                                                 </Table.Header>
+
                                                 <Table.Body>
                                                     {(userDetails as Recruiter).companies.map((company: Company, index: number) => (
                                                         <Table.Row key={index}>
+                                                            <Table.Cell>
+                                                                <img
+                                                                    src={
+                                                                        company.logo
+                                                                            ? `http://localhost:8080/uploads/${company.logo}`
+                                                                            : "/images/navi/Navi Beta.png"
+                                                                    }
+                                                                    style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                                                                />
+                                                            </Table.Cell>
                                                             <Table.Cell>{company.name}</Table.Cell>
                                                             <Table.Cell>{company.industry}</Table.Cell>
-                                                            <Table.Cell>{company.websiteURL.toString()}</Table.Cell>
+                                                            <Table.Cell>{company.websiteURL}</Table.Cell>
                                                             <Table.Cell>{company.locationOfHQ}</Table.Cell>
                                                         </Table.Row>
                                                     ))}
                                                 </Table.Body>
+
                                             </Table.Content>
                                         </Table.ResizableContainer>
                                     </Table>
