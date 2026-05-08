@@ -178,6 +178,7 @@ public class UserService implements FilePaths {
 
             student.setFName(userToUpdateWith.getFName());
             student.setLName(userToUpdateWith.getLName());
+            student.setProfilePicture(userToUpdateWith.getProfilePicture());
 
             if (isEmailValid(userToUpdateWith.getEmail())) {
                 userToUpdate.setEmail(userToUpdateWith.getEmail());
@@ -196,6 +197,7 @@ public class UserService implements FilePaths {
 
             recruiter.setFName(userToUpdateWith.getFName());
             recruiter.setLName(userToUpdateWith.getLName());
+            recruiter.setProfilePicture(userToUpdateWith.getProfilePicture());
 
             if (isEmailValid(userToUpdateWith.getEmail())) {
                 userToUpdate.setEmail(userToUpdateWith.getEmail());
@@ -209,6 +211,7 @@ public class UserService implements FilePaths {
         } else if (userToUpdate.getRole() == UserRole.ADMIN) {
             userToUpdate.setFName(userToUpdateWith.getFName());
             userToUpdate.setLName(userToUpdateWith.getLName());
+            userToUpdate.setProfilePicture(userToUpdateWith.getProfilePicture());
 
             if (isEmailValid(userToUpdateWith.getEmail())) {
                 userToUpdate.setEmail(userToUpdateWith.getEmail());

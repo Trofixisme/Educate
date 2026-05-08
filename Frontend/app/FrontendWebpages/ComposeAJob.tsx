@@ -6,7 +6,7 @@ import type { UseOverlayStateReturn } from "@heroui/react";
 import React, { useState } from "react";
 import {Form, useNavigate } from "react-router";
 
-export default function JobPostingModal({ overlayState }: { overlayState: UseOverlayStateReturn }) {
+export default function ComposeAJob({ overlayState }: { overlayState: UseOverlayStateReturn }) {
 
     const [selected, setSelected] = useState<Set<string>>(new Set());
     const selectedValue = selected.values().next().value ?? "";

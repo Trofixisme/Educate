@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {AlertDialog, Button, Dropdown, Header, Kbd, Label, Modal, Separator, toast, Toast, useOverlayState} from "@heroui/react";
 import {notification} from "~/FrontendWebpages/fragments/Notification";
 import {useLocation} from "react-router";
-import JobPostingModal from "~/FrontendWebpages/JobPostingModal";
+import ComposeAJob from "~/FrontendWebpages/ComposeAJob";
 
 export function IndexHeader() {
 
@@ -212,7 +212,7 @@ export function IndexHeader() {
 
             </section>}
 
-            <JobPostingModal overlayState={jobPostingFormOverlayState} />
+            <ComposeAJob overlayState={jobPostingFormOverlayState} />
             <Toast.Provider placement="top end"/>
         </header>
     )

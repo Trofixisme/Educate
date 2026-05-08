@@ -68,8 +68,8 @@ public class RecruiterService extends UserService {
         if (isEmailValid(recruiterToUpdate.getEmail())) {
             recruiterToUpdate.setEmail(recruiterToUpdateWith.getEmail());
         }
-
         recruiterToUpdate.setTitle(recruiterToUpdateWith.getTitle());
+        recruiterToUpdate.setProfilePicture(recruiterToUpdateWith.getProfilePicture());
 
         try {
             recruiterRepo.save(recruiterToUpdate);

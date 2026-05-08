@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import ApplicationForm from "./ApplicationForm";
 import type {JobPosting} from "~/Model/Jobs/JobPosting";
 import type {Roadmap} from "~/Model/Roadmap/Roadmap";
+import JobModal from "~/FrontendWebpages/JobModal";
 
 export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], jobPostings: JobPosting[]}) {
 
@@ -89,6 +90,8 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
     // @ts-ignore
     const [selectedKey, setSelectedKey] = useState<Key | null>("Roadmaps");
+
+    const jobModalOverlayState = useOverlayState({defaultOpen: false});
 
     return (
         <>
@@ -360,7 +363,11 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
                                         {getTimeAgo(posting.datePosted)}
                                     </div>
                                     <div className="flex gap-2 items-center align-middle">
-                                        <Button variant="secondary" isIconOnly style={{width: 40, height: 40}}>
+                                        <Button variant="secondary" isIconOnly style={{width: 40, height: 40}}
+                                        onClick={() => {
+                                            jobModalOverlayState.open();
+                                            setActivePosting(posting);
+                                        }}>
                                             <img
                                                 className="theme-adaptive-icon"
                                                 style={{width: 16}}
@@ -390,6 +397,10 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
             <IndexFooter/>
 
             <ApplicationForm overlayState={ApplicationFormOverlayState} job={activePosting}/>
+            <JobModal overlayState={jobModalOverlayState} job={activePosting} action={() => {
+                jobModalOverlayState.close()
+                ApplicationFormOverlayState.open()
+            }} role={role} />
         </>
     );
 }

@@ -1,9 +1,4 @@
-<div align="center" id="trendradar">
+<img width="100" height="100" alt="Navi Beta" src="https://github.com/user-attachments/assets/9fe1a21a-a27c-44c6-a471-ee91c82a81ee" />
+<h1>Internmap</h1>
 
-<a title="Hello">
-  <img src="https://github.com/users-attachments/assets/586ded87-7325-46d8-ae8a-a813fe75fe69" alt="Hello" width="90%">
-</a>
-
-
-# InternMap
 ### WIP
