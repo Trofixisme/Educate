@@ -43,7 +43,8 @@ public class CompanyService {
         companyRepo.delete(company);
     }
 
-    public void save(Company company) {
+    public Company save(Company company) {
         companyRepo.save(company);
+        return company;
     }
 }

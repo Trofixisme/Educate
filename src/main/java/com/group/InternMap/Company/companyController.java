@@ -1,9 +1,12 @@
 package com.group.InternMap.Company;
 
+import com.group.InternMap.Recruiter.Recruiter;
+import com.group.InternMap.Recruiter.RecruiterRepo;
 import com.group.InternMap.User.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
+import java.nio.file.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,10 +17,12 @@ import java.io.IOException;
 @RequestMapping("/api/company")
 public class companyController {
     CompanyService companyService;
+    RecruiterRepo recruiterRepo;
 
     @Autowired
-    companyController(CompanyService companyService){
+    companyController(CompanyService companyService, RecruiterRepo recruiterRepo ) {
         this.companyService=companyService;
+        this.recruiterRepo=recruiterRepo;
     }
 
     @PostMapping("/new")
@@ -41,18 +46,24 @@ public class companyController {
         company.setWebsiteURL(websiteURL);
         company.setLocationOfHQ(locationOfHQ);
 
-        // ✅ Handle logo upload
+
         if (logo != null && !logo.isEmpty()) {
-            String uploadDir = "uploads/logos/";
-            File folder = new File(uploadDir);
-            if (!folder.exists()) folder.mkdirs();
+            Path uploadPath = Paths.get(System.getProperty("user.dir"), "uploads", "logos");
+            Files.createDirectories(uploadPath);
 
             String filename = System.currentTimeMillis() + "_" + logo.getOriginalFilename();
-            logo.transferTo(new File(uploadDir + filename));
-
-            company.setLogo("logos/" + filename); // 👈 IMPORTANT
+            Path targetPath = uploadPath.resolve(filename);
+            logo.transferTo(targetPath.toAbsolutePath());
+            company.setLogo("logos/" + filename);
         }
 
-        companyService.save(company);
+        Company savedCompany = companyService.save(company);
+
+        Recruiter recruiter = recruiterRepo.findByEmail(authentication.getName());
+        if (recruiter == null) {
+            throw new RuntimeException("Recruiter not found");
+        }
+        recruiter.addCompany(savedCompany);
+        recruiterRepo.save(recruiter);
     }
 }

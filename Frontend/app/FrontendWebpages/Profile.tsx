@@ -7,8 +7,10 @@ import type {User} from "~/Model/Users/User";
 import type {Recruiter} from "~/Model/Users/Recruiter";
 import type {Company} from "~/Model/Company";
 import type {Student} from "~/Model/Users/Student";
+import {useNavigate} from "react-router";
 
 export default function Profile({userDetails}: { userDetails: User}) {
+    const navigate=useNavigate();
 
     let referenceEmail = userDetails.email;
 
@@ -122,6 +124,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
     console.log(applicationList);
 
+    // @ts-ignore
     return (
         <>
             <IndexHeader/>
@@ -289,7 +292,29 @@ export default function Profile({userDetails}: { userDetails: User}) {
                     {/*// <!-- Recruiter Fields -->*/}
                     {userDetails.role == "RECRUITER" && (
                         <>
-                            <h4 className="container-label">Works At</h4>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <h4 className="container-label" style={{ margin: 0 }}>
+                                    Works At
+                                </h4>
+
+                                <Button
+                                    style={{
+                                        width: "32px",
+                                        height: "32px",
+                                        background: "var(--secondary-background-color)"
+                                    }}
+                                    isIconOnly
+                                    onClick={() => navigate("/company/register")}
+                                >
+                                    <img
+                                        src="/images/assets/plus-black@4x.png"
+                                        className="theme-adaptive-icon"
+                                        style={{ width: "20px" }}
+                                        alt="add company"
+                                    />
+                                </Button>
+                            </div>
+
 
                             <div className="container-padded">
                                 {/*// <!-- If a recruiter has one or more companies -->*/}
@@ -314,7 +339,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                                 <img
                                                                     src={
                                                                         company.logo
-                                                                            ? `http://localhost:8080/uploads/${company.logo}`
+                                                                            ? `http://localhost:8050/uploads/${company.logo}`
                                                                             : "/images/navi/Navi Beta.png"
                                                                     }
                                                                     style={{ width: "40px", height: "40px", objectFit: "contain" }}

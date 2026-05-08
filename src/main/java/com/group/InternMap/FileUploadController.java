@@ -3,6 +3,7 @@ package com.group.InternMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
@@ -11,15 +12,18 @@ import java.nio.file.*;
 public class FileUploadController {
 
     private final String uploadDir = "uploads/logos/";
-
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) throws IOException {
+    public String upload(@RequestParam("logo") MultipartFile file) throws IOException {
+
+        Path uploadDir = Paths.get(System.getProperty("user.dir"), "uploads", "logos");
+        Files.createDirectories(uploadDir); // ensure folder exists
+
         String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path targetPath = uploadDir.resolve(filename);
 
-        Path path = Paths.get(uploadDir + filename);
-        Files.createDirectories(path.getParent());
-        Files.write(path, file.getBytes());
+        file.transferTo(targetPath.toAbsolutePath()); // ← key fix: absolute path
 
+        System.out.println("UPLOAD PATH: " + targetPath.toAbsolutePath());
         return "logos/" + filename;
     }
 }
