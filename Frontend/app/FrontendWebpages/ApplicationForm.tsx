@@ -1,9 +1,7 @@
 import "../CSS/jobPosting.css"
 import "../CSS/InternMapHomepage.css";
 import {
-    Alert,
-    Button, CloseButton,
-    Description,
+    Alert, CloseButton,
     FieldError,
     FieldGroup,
     Fieldset,
@@ -13,15 +11,12 @@ import {
     Modal, Spinner,
     TextField, toast, type UseOverlayStateReturn
 } from "@heroui/react";
-import {useNavigate} from "react-router";
 import React, {useState} from "react";
 import type {JobPosting} from "~/Model/Jobs/JobPosting";
 
 export default function ApplicationForm({overlayState, job}: {overlayState: UseOverlayStateReturn ,job: JobPosting | null}) {
 
     const onApplicationState = overlayState;
-    const navigate = useNavigate();
-
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null as string | null);
 

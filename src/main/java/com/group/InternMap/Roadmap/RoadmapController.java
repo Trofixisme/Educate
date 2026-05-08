@@ -1,7 +1,6 @@
 package com.group.InternMap.Roadmap;
 
 import com.group.InternMap.DTO.RoadmapModuleSkill;
-import com.group.InternMap.Skill.Skill;
 import com.group.InternMap.User.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
