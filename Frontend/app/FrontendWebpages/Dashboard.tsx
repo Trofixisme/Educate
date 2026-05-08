@@ -12,6 +12,7 @@ import RoadMapEdit from "../FrontendWebpages/RoadMapUpdate";
 import {IndexHeader} from "~/FrontendWebpages/fragments/IndexHeaderAndFooter";
 import type {Recruiter} from "~/Model/Users/Recruiter";
 import {Modal, Alert as HeroAlert, CloseButton} from "@heroui/react";
+import type { User } from "~/Model/Users/User";
 
 function SortableColumnHeader({children, sortDirection}: { children: React.ReactNode; sortDirection?: "ascending" | "descending"; }) {
     return (
@@ -405,7 +406,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                             {/* Bulk delete */}
                             <AlertDialog>
                                 <Button variant="danger" isDisabled={selectedRoadmapKeys !== "all" && (selectedRoadmapKeys as Set<Key>).size === 0}>
-                                    Smite Selected
+                                    Delete selection
                                 </Button>
                                 <AlertDialog.Backdrop>
                                     <AlertDialog.Container>
