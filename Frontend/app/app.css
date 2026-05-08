@@ -325,6 +325,13 @@ body {
             filter: brightness(0.8);
         }
     }
+
+    .tooltip {
+        background-color: var(--container-secondary);
+        color: var(--text-primary);
+        backdrop-filter: blur(80px);
+        border-radius: 80px;
+    }
 }
 
 .chip_icon {
