@@ -1,4 +1,4 @@
-import RoadMapCreate  from "~/FrontendWebpages/RoadMapCreate";
+import RoadmapCreate  from "~/FrontendWebpages/RoadmapCreate";
 import {useLoaderData} from "react-router";
 
 // step one delete whatever the first line was
@@ -31,5 +31,5 @@ export function meta() {
 // }
 
 export default function ApplyRoute() {
-    return <RoadMapCreate />;
+    return <RoadmapCreate />;
 }

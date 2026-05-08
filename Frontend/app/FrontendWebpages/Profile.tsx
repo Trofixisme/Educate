@@ -131,8 +131,15 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
             <div className="pl-17 pt-8">
                 <div className="flex items-center gap-4 flex-row">
-                    <img src="/images/navi/Navi%20Beta.png"
-                         style={{display: "flex", width: "100px", height: "100px", borderRadius: "100%"}} alt="Unstable Logo"/>
+                    <img
+                        src={
+                            userDetails.profilePicture
+                                ? `http://localhost:8050/uploads/${userDetails.profilePicture}`
+                                : "/images/navi/Navi%20Beta.png"
+                        }
+                        style={{ display: "flex", width: "100px", height: "100px", borderRadius: "100%", objectFit: "cover" }}
+                        alt="Profile Picture"
+                    />
                     <div style={{gap: "7px", display: "flex", flexDirection: "column"}}>
                         <section>
                             <p className="auto-capitalise text-3xl font-bold">{userDetails.fname + " " + userDetails.lname}</p>

@@ -2,6 +2,7 @@ import RoadMapView from "../FrontendWebpages/RoadMapView";
 import type { Route } from "../+types/root";
 import { Roadmap } from "~/Model/Roadmap/Roadmap";
 import Loading from "~/FrontendWebpages/fragments/Loading";
+import type {User} from "~/Model/Users/User";
 
 //  step one delete whatever the first line was
 // step two create the webpage and get the clientLoader to fetch the data from the controller and pass it to the webpage
@@ -22,10 +23,10 @@ export async function clientLoader({ params }) {
         throw new Response("Failed to fetch roadmap", { status: res.status });
     }
 
-    const json = await res.json();
-    console.log(json);
+    const res2 = res.json()
+    console.log(res2);
 
-    return json;
+    return res2;
 }
 
 export function HydrateFallback() {
@@ -33,5 +34,7 @@ export function HydrateFallback() {
 }
 
 export default function roadMapView({loaderData}: Route.ComponentProps) {
-    return <RoadMapView roadmap={loaderData as unknown as Roadmap} />;
+    const roadmap: Roadmap = loaderData as Roadmap;
+
+    return <RoadMapView roadmap={roadmap} />;
 }

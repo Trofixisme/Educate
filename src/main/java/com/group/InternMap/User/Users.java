@@ -28,9 +28,12 @@ public class Users implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    @Column(nullable = true)
+    private String profilePicture;
 
     @Column(nullable = false)
     private final Date createdAt  = Date.from(Instant.now());
+
 
     public Users() {}
 
@@ -39,6 +42,14 @@ public class Users implements Serializable {
         this.lName = lName;
         this.email = email;
         this.password = password;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public UserRole getRole() {

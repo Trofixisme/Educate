@@ -258,8 +258,8 @@
 <!--                    <div class="module-toggle"></div>-->
                 </div>
 
-                <div class="skills-grid" th:if="${module.allSkills != null and !module.allSkills.isEmpty()}">
-                    <div class="skill-card" th:each="skill : ${module.allSkills}">
+                <div class="skills-grid" th:if="${module.skills != null and !module.skills.isEmpty()}">
+                    <div class="skill-card" th:each="skill : ${module.skills}">
                         <div class="skill-name" th:text="${skill.name}">Skill Name</div>
                         <div class="skill-description" th:text="${skill.description}">Skill Description</div>
 

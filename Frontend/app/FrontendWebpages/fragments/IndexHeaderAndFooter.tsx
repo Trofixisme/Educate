@@ -90,8 +90,8 @@ export function IndexHeader() {
             </section>
 
             {!isLoggedIn ? <section className="section wide">
-                <button className="button-secondary" onClick={() => location.href = '/login'}>Sign in</button>
-                <button className="button-prominant" onClick={() => location.href = '/signup'}>Sign up</button>
+                <Button variant="ghost" className="font-semibold" style={{color: "var(--text-primary)"}} onClick={() => location.href = '/login'}>Sign in</Button>
+                <Button variant="primary" className="font-bold" onClick={() => location.href = '/signup'}>Sign up</Button>
             </section> : <section className="section wide">
 
                 {role == "[ROLE_ADMIN]" && !useLocation().pathname.includes("/roadmap/create") && (

@@ -47,26 +47,11 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
             <div className="container-full-width">
                 <div style={{ paddingTop: "90px" }}>
                     <div className="w-full flex justify-center">
-                        <div
-                            className="relative"
-                            style={{
-                                width,
-                                height: totalHeight,
-                            }}
-                        >
+                        <div className="relative" style={{width, height: totalHeight,}}>
 
-                            <svg
-                                className="absolute top-0 left-0 w-full pointer-events-none"
-                                height={totalHeight}
-                            >
-                                <path
-                                    d={pathD}
-                                    fill="none"
-                                    stroke="var(--stroke-color)"
-                                    strokeWidth="5"
-                                    strokeLinecap="round"
-                                    strokeDasharray="10 10"
-                                />
+                            <svg className="absolute top-0 left-0 w-full pointer-events-none" height={totalHeight}>
+                                <path d={pathD} fill="none" stroke="var(--stroke-color)" strokeWidth="5" strokeLinecap="round" strokeDasharray="10 10"/>
+
                                 {points.map((p, i) => (
                                     <circle key={i} cx={p.x} cy={p.y} r="6" fill="var(--node-fill)" />
                                 ))}
@@ -76,79 +61,38 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
                                 const { x, y } = points[i];
 
                                 return (
-                                    <div
-                                        key={module.id ?? i}
-                                        className="absolute flex flex-col items-center"
-                                        style={{
-                                            left: x,
-                                            top: y,
-                                            transform: "translate(-50%, -50%)",
-                                            zIndex: 10,
-                                        }}
-                                    >
-                                        <motion.div
-                                            initial={{ scale: 0.8, opacity: 0 }}
+                                    <div key={module.id ?? i} className="absolute flex flex-col items-center"
+                                        style={{left: x, top: y, transform: "translate(-50%, -50%)", zIndex: 10,}}>
+
+                                        <motion.div initial={{ scale: 0.8, opacity: 0 }}
                                             animate={{ scale: 1, opacity: 1 }}
                                             className="shadow-xl rounded-2xl px-6 py-3 text-center"
-                                            style={{
-                                                backgroundColor: "var(--card-bg)",
-                                                color: "var(--text-primary)",
-                                                minWidth: "140px",
-                                                maxWidth: "240px",
-                                            }}
-                                        >
+                                            style={{backgroundColor: "var(--card-bg)", color: "var(--text-primary)", minWidth: "140px", maxWidth: "240px",}}>
+
                                             {module.name}
                                         </motion.div>
 
                                         <div className="mt-4 flex flex-col items-center gap-2">
-                                            {module.allSkills?.map((skill, si) => {
+                                            {module.skills?.map((skill, si) => {
                                                 const key = `${i}-${si}`;
                                                 const isOpen = openSkill === key;
 
                                                 return (
                                                     <div key={key} className="flex flex-col items-center">
-                                                        <div
-                                                            onClick={() =>
-                                                                setOpenSkill(isOpen ? null : key)
-                                                            }
-                                                            className="cursor-pointer rounded-full px-3 py-1 text-sm"
-                                                            style={{
-                                                                backgroundColor: "var(--card-bg-secondary)",
-                                                            }}
-                                                        >
-                                                            {skill.name}
-                                                        </div>
+                                                        <div onClick={() => setOpenSkill(isOpen ? null : key)} className="cursor-pointer rounded-full px-3 py-1 text-sm" style={{backgroundColor: "var(--card-bg-secondary)",}}>{skill.name}</div>
 
                                                         {isOpen && (
-                                                            <motion.div
-                                                                initial={{ opacity: 0, y: 10 }}
-                                                                animate={{ opacity: 1, y: 0 }}
-                                                                className="mt-2 z-50"
-                                                            >
+                                                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-2 z-50">
                                                                 <div
                                                                     className="rounded-xl p-3 space-y-2 shadow-lg"
-                                                                    style={{
-                                                                        backgroundColor: "var(--card-bg)",
-                                                                        color: "var(--text-primary)",
-                                                                        minWidth: "200px",
-                                                                        maxWidth: "300px",
-                                                                        width: "max-content",
-                                                                        wordBreak: "break-word",
-                                                                        whiteSpace: "normal",
-                                                                    }}
-                                                                >
+                                                                    style={{backgroundColor: "var(--card-bg)", color: "var(--text-primary)", minWidth: "200px", maxWidth: "300px", width: "max-content", wordBreak: "break-word", whiteSpace: "normal",
+                                                                    }}>
                                                                     {skill.description && (
                                                                         <>
-                                                                            <p
-                                                                                className="text-xs font-medium"
-                                                                                style={{ color: "var(--text-secondary)" }}
-                                                                            >
+                                                                            <p className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
                                                                                 Skill Description:
                                                                             </p>
-                                                                            <div
-                                                                                className="text-xs rounded px-2 py-1"
-                                                                                style={{ lineHeight: "1.5" }}
-                                                                            >
+                                                                            <div className="text-xs rounded px-2 py-1" style={{ lineHeight: "1.5" }}>
                                                                                 {skill.description}
                                                                             </div>
                                                                         </>
@@ -157,25 +101,15 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
                                                                     {skill.resourceLinks &&
                                                                         skill.resourceLinks.length > 0 && (
                                                                             <>
-                                                                                <p
-                                                                                    className="text-xs font-medium"
-                                                                                    style={{ color: "var(--text-secondary)" }}>
-                                                                                    Resources
-                                                                                </p>
+                                                                                <p className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}> Resources</p>
 
                                                                                 {skill.resourceLinks.map((linkObj, idx) => (
-                                                                                    <a
-                                                                                        key={idx}
-                                                                                        href={linkObj as string}
-                                                                                        target="_blank"
-                                                                                        rel="noreferrer"
-                                                                                        className="block text-xs"
+                                                                                    <a key={idx} href={linkObj as string} target="_blank" rel="noreferrer" className="block text-xs"
                                                                                         style={{
-                                                                                            color: "var(--text-color-2)",
+                                                                                            color: "var(--primary-color)",
                                                                                             wordBreak: "break-all",
                                                                                             lineHeight: "1.4",
-                                                                                        }}
-                                                                                    >
+                                                                                        }}>
                                                                                         {linkObj.replace(/^https?:\/\//, "")}
                                                                                     </a>
                                                                                 ))}

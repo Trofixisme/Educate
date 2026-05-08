@@ -80,7 +80,7 @@ public class RoadmapModule implements Serializable {
         }
     }
 
-    public List<Skill> getAllSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
