@@ -1,10 +1,10 @@
 import "../CSS/jobPosting.css"
 import "../CSS/InternMapHomepage.css";
-import { Button, FieldError, FieldGroup, Fieldset, Input, Label, Modal, TextField } from "@heroui/react";
-import { Dropdown, Header } from "@heroui/react";
+import {Alert, Button, CloseButton, FieldError, FieldGroup, Fieldset, Input, Label, Modal, Spinner, TextField} from "@heroui/react";
+import { Dropdown} from "@heroui/react";
 import type { UseOverlayStateReturn } from "@heroui/react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
+import {Form, useNavigate } from "react-router";
 
 export default function JobPostingModal({ overlayState }: { overlayState: UseOverlayStateReturn }) {
 
@@ -12,6 +12,9 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
     const selectedValue = selected.values().next().value ?? "";
     const onJobPostingState = overlayState;
     const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null as string | null);
 
     const labels: Record<string, string> = {
         intern: "Internship",
@@ -22,6 +25,9 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+
+        setLoading(true);
+        setErrorMessage(null);
 
         const typeMap: Record<string, string> = {
             intern: "Internship",
@@ -59,14 +65,19 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
                 },
                 body: JSON.stringify(body),
             });
+
+            setLoading(false);
+
             if (!res.ok) {
                 const errorBody = await res.json();
+                setErrorMessage(errorBody.detail || "Failed to Compose");
                 console.error("Submission failed:", res.status, errorBody);
             } else {
                 console.log("Success!");
                 onJobPostingState.close();
                 navigate("/");
             }
+
         } catch (err) {
             console.error("Network error:", err);
         }
@@ -77,74 +88,123 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
             <Modal isOpen={onJobPostingState.isOpen}>
                 <Modal.Backdrop className="dark" variant="blur" isKeyboardDismissDisabled={false} isDismissable={true}>
                     <Modal.Container>
-                        <Modal.Dialog className="sm:max-w-90 rounded-4xl">
-                            <Modal.CloseTrigger onClick={() => onJobPostingState.close()} />
+                        <Modal.Dialog className="max-w-xl">
+                            <Modal.CloseTrigger style={{height: "35px", width: "35px", borderRadius: "80px"}} onClick={() => onJobPostingState.close()} />
                             <Modal.Header>
-                                <Modal.Heading>Compose a Job</Modal.Heading>
+                                <Modal.Heading className="text-2xl font-bold">Compose a Job</Modal.Heading>
                             </Modal.Header>
-                            <Modal.Body>
-                                <form className="w-full max-w-96" onSubmit={handleSubmit}>
+                            <Modal.Body className="space-y-4" style={{paddingTop: "20px"}}>
+                                {errorMessage && (
+                                    <>
+                                        <Alert className="dark rounded-4xl" style={{background: "var(--container-secondary)"}} status="danger">
+                                            <Alert.Indicator>
+                                                <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Logo" style={{width: "20px", height: "20px", aspectRatio: "1/1"}}/>
+                                            </Alert.Indicator>
+                                            <Alert.Content>
+                                                <Alert.Title>
+                                                    <p className="font-bold" style={{marginTop: "2.2px", color: "rgb(225, 66, 69)"}}>
+                                                        {errorMessage}
+                                                    </p>
+                                                </Alert.Title>
+                                            </Alert.Content>
+                                            <CloseButton style={{background: "var(--component-tertiary)", marginTop: "2.2px"}} onClick={() => setErrorMessage(null)} />
+                                        </Alert>
+                                        <br/>
+                                    </>
+                                )}
+
+                                <Form method="post" className="w-full" onSubmit={handleSubmit}>
                                     <Fieldset>
                                         <FieldGroup>
-                                            <Dropdown aria-label="Job Type Selector">
-                                                <Button aria-label="Menu" variant="secondary">
-                                                    {labels[selectedValue] ?? "Select job type"}
-                                                </Button>
-                                                <Dropdown.Popover className="min-w-[256px]">
-                                                    <Dropdown.Menu
-                                                        aria-label="Job type"
-                                                        selectedKeys={selected}
-                                                        selectionMode="single"
-                                                        onSelectionChange={(keys) => {
-                                                            if (keys === "all") return;
-                                                            setSelected(new Set(Array.from(keys).map(String)));
-                                                        }}>
-                                                        <Dropdown.Section>
-                                                            <Header>Select job type</Header>
-                                                            <Dropdown.Item id="intern" textValue="Internship">
-                                                                <Dropdown.ItemIndicator />
-                                                                <Label>Internship</Label>
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item id="fulltime" textValue="fulltime">
-                                                                <Dropdown.ItemIndicator />
-                                                                <Label>Full Time</Label>
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item id="freelance" textValue="freelance">
-                                                                <Dropdown.ItemIndicator />
-                                                                <Label>Freelance</Label>
-                                                            </Dropdown.Item>
-                                                        </Dropdown.Section>
-                                                    </Dropdown.Menu>
-                                                </Dropdown.Popover>
-                                            </Dropdown>
+                                            <div className="flex flex-row gap-5 items-start">
+                                                <TextField
+                                                    className="full-width"
+                                                    isRequired
+                                                    name="job_name"
+                                                    validate={(value) => {
+                                                        if (value.length < 3) {
+                                                            return "Name must be at least 3 characters";
+                                                        }
+                                                        return null;
+                                                    }}>
 
-                                            <TextField isRequired name="job_name"
-                                                       validate={(value) => value.length < 3 ? "Name must be at least 3 characters" : null}>
-                                                <Label>Job Title</Label>
-                                                <Input placeholder="Professional pro player" />
-                                                <FieldError />
-                                            </TextField>
+                                                    <Label>Job Title</Label>
+                                                    <Input placeholder="ex. Software Engineer" />
+                                                    <FieldError />
+                                                </TextField>
 
-                                            <TextField isRequired name="job_description"
-                                                       validate={(value) => value.length < 3 ? "Must be at least 3 characters" : null}>
+                                                <div className="flex flex-col gap-1 full-width items-center">
+                                                    <label className="label-small" style={{fontSize: "14px", fontWeight: 500}}>Type</label>
+                                                    <Dropdown>
+                                                        <Button className="flex full-width items-start p-3.5" style={{background: "var(--component-secondary)", marginBottom: "25px", color: "var(--text-primary)"}} variant="ghost">
+                                                            <div className="flex w-full items-center justify-between gap-2.5 pl-2">
+                                                                {labels[selectedValue as string] ?? "Job Type"}
+                                                                <img className="icon" src="/images/assets/chevron@4x.png" alt="chevron" style={{width: "10px", marginRight: "10px"}}/>
+                                                            </div>
+                                                        </Button>
+                                                        <Dropdown.Popover className="min-w-[256px]">
+                                                            <Dropdown.Menu
+                                                                aria-label="Job type"
+                                                                selectedKeys={selected}
+                                                                defaultSelectedKeys={selected}
+                                                                selectionMode="single"
+                                                                onSelectionChange={(keys) => {
+                                                                    if (keys === "all") return;
+                                                                    setSelected(new Set(Array.from(keys).map(String)));
+                                                                }}>
+                                                                <Dropdown.Section>
+                                                                    <Dropdown.Item id="intern" textValue="Internship">
+                                                                        <h1 style={{color: "var(--text-primary)"}} className="label-small font-semibold">Internship</h1>
+                                                                    </Dropdown.Item>
+                                                                    <Dropdown.Item id="fulltime" textValue="fulltime">
+                                                                        <h1 style={{color: "var(--text-primary)"}} className="font-semibold label-small">Full time</h1>
+                                                                    </Dropdown.Item>
+                                                                    <Dropdown.Item id="freelance" textValue="freelance">
+                                                                        <h1 style={{color: "var(--text-primary)"}} className="font-semibold label-small">Freelance</h1>
+                                                                    </Dropdown.Item>
+                                                                </Dropdown.Section>
+                                                            </Dropdown.Menu>
+                                                        </Dropdown.Popover>
+                                                    </Dropdown>
+                                                </div>
+                                            </div>
+
+                                            <TextField
+                                                isRequired
+                                                name="job_description"
+                                                validate={(value) => {
+                                                    if (value.length < 3) {
+                                                        return "Name must be at least 3 characters";
+                                                    }
+                                                    return null;
+                                                }}>
+
+
                                                 <Label>Job Description</Label>
-                                                <Input placeholder="Have no life" />
+                                                <Input placeholder="Create wonderful things" />
                                                 <FieldError />
                                             </TextField>
+                                            <TextField
+                                                isRequired
+                                                name="job_requirements"
+                                                validate={(value) => {
+                                                    if (value.length < 3) {
+                                                        return "Name must be at least 3 characters";
+                                                    }
+                                                    return null;
+                                                }}>
 
-                                            <TextField isRequired name="job_requirements"
-                                                       validate={(value) => value.length < 3 ? "Must be at least 3 characters" : null}>
-                                                <Label>Job Requirement</Label>
-                                                <Input placeholder="idk nothing" />
+
+                                                <Label>Job Requirements</Label>
+                                                <Input placeholder="2 Years experience with Laravel" />
                                                 <FieldError />
                                             </TextField>
-
-                                            <TextField name="company" type="text">
+                                            <TextField  name="company" type="text">
                                                 <Label>Company Name</Label>
-                                                <Input placeholder="RIOOOOOOOOOOOT" />
+                                                <Input placeholder="InternMap" />
                                                 <FieldError />
                                             </TextField>
-
+                                            {/* Internship fields */}
                                             {selectedValue === "intern" && (
                                                 <>
                                                     <TextField name="duration" type="text">
@@ -153,11 +213,11 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
                                                     </TextField>
                                                     <TextField name="job_location" type="text">
                                                         <Label>Location:</Label>
-                                                        <Input placeholder="Cairo" />
+                                                        <Input placeholder="Remote, 123 street, etc." />
                                                     </TextField>
                                                 </>
                                             )}
-
+                                            {/* freelance fields */}
                                             {selectedValue === "freelance" && (
                                                 <>
                                                     <TextField name="duration" type="text">
@@ -169,12 +229,13 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
                                                         <Input placeholder="Cairo" />
                                                     </TextField>
                                                     <TextField name="payout" type="text">
-                                                        <Label>Pay out:</Label>
+                                                        <Label>Payout:</Label>
                                                         <Input placeholder="3000" />
                                                     </TextField>
                                                 </>
                                             )}
 
+                                            {/* full time fields */}
                                             {selectedValue === "fulltime" && (
                                                 <>
                                                     <TextField name="benefits" type="text">
@@ -185,14 +246,12 @@ export default function JobPostingModal({ overlayState }: { overlayState: UseOve
                                             )}
 
                                         </FieldGroup>
-                                        <Fieldset.Actions>
-                                            <Button type="submit">Add</Button>
-                                            <Button type="reset" variant="secondary">Reset</Button>
+                                        <Fieldset.Actions style={{marginTop: "20px"}}>
+                                            { loading ? <Spinner size="lg" color="current" /> : <Button className="full-width p-3 font-semibold" type="submit" onClick={() => setErrorMessage(null)}>Compose</Button>}
                                         </Fieldset.Actions>
                                     </Fieldset>
-                                </form>
+                                </Form>
                             </Modal.Body>
-                            <Modal.Footer />
                         </Modal.Dialog>
                     </Modal.Container>
                 </Modal.Backdrop>

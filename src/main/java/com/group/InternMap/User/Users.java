@@ -1,6 +1,6 @@
 package com.group.InternMap.User;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -11,7 +11,7 @@ import java.util.Date;
 public class Users implements Serializable {
 
     @Column(nullable = false)
-//    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(nullable = false)

@@ -241,9 +241,31 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
                                     return (
 
-                                <div style={{display: "grid", gap: "10px", background: "var(--secondary-background-color)", gridTemplateColumns: "repeat(2, 1fr)", padding: "20px", borderRadius: "25px"}}>
-                                    <div>
-                                        <label className="label-small">Applied</label>
+                                <div style={{display: "grid", gap: "10px", background: "var(--component-secondary)", gridTemplateColumns: "repeat(2, 1fr)", padding: "20px", borderRadius: "25px"}}>
+                                    <div style={{display: "flex", flexDirection: "column", gap: "10px", alignItems: "start"}} >
+                                        {application.status == "ACCEPTED" && (
+                                            <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(35, 230, 77, 1), rgba(21, 183, 18, 1))', borderRadius: 75, outline: '2px rgba(35, 183, 30, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
+                                                <span style={{color: 'white', fontSize: 13, fontFamily: 'Inter', fontWeight: '800', whiteSpace: 'nowrap'}}>
+                                                    <a>Accepted</a>
+                                                </span>
+                                            </div>
+                                        )}
+
+                                        {application.status == "REJECTED" && (
+                                            <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(255, 110, 110, 1), rgba(231, 1, 5, 1))', borderRadius: 75, outline: '2px rgba(231, 5, 4, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
+                                                <span style={{color: 'white', fontSize: 13, fontFamily: 'Inter', fontWeight: '800', whiteSpace: 'nowrap'}}>
+                                                    <a>Rejected</a>
+                                                </span>
+                                            </div>
+                                        )}
+
+                                        {application.status == "PENDING" && (
+                                            <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(110, 199, 255, 1), rgba(1, 113, 231, 1))', borderRadius: 75, outline: '2px rgba(110, 113, 245, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
+                                                <span style={{color: 'white', fontSize: 13, fontFamily: 'Inter', fontWeight: '800', whiteSpace: 'nowrap'}}>
+                                                    <a>Pending</a>
+                                                </span>
+                                            </div>
+                                        )}
                                         <p className="auto-capitalise">{application.applicationDate.toString().substring(0, 10)}</p>
                                     </div>
 

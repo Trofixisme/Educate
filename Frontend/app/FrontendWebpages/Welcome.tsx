@@ -19,8 +19,8 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
         const seconds = Math.floor((Date.now() - dateObj.getTime()) / 1000);
 
-        if (seconds < 5) return "just now";
-        if (seconds < 0) return "in the future";
+        if (seconds < 5) return "Just now";
+        if (seconds < 0) return "In the future???";
 
         let interval = seconds / 31536000;
         if (interval >= 1) return Math.floor(interval) + (Math.floor(interval) === 1 ? " year ago" : " years ago");
