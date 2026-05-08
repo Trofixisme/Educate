@@ -21,28 +21,58 @@ export default function Profile({userDetails}: { userDetails: User}) {
     const [editLoading, setEditLoading] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState(null as string | null);
+    const [profilePicFile, setProfilePicFile] = useState<File | null>(null);
+    const [profilePicPreview, setProfilePicPreview] = useState<string | null>(null);
+
+    function handleProfilePicChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setProfilePicFile(file);
+        setProfilePicPreview(URL.createObjectURL(file));
+    }
 
     async function saveProfile() {
-        console.log("called it");
         setEditLoading(true);
         setErrorMessage(null);
+
+        let uploadedPath: string | null = null;
+
+        if (profilePicFile) {
+            const formData = new FormData();
+            formData.append("profilePicture", profilePicFile);
+
+            const uploadRes = await fetch("http://localhost:8050/api/files/upload/profile-picture", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: formData,
+            });
+
+            if (uploadRes.ok) {
+                uploadedPath = await uploadRes.text();
+            }
+        }
+        const finalForm = uploadedPath
+            ? { ...editForm, profilePicture: uploadedPath }
+            : editForm;
 
         let sendableData;
         let to;
 
         if (userDetails.role == "STUDENT") {
-            sendableData = JSON.stringify(editForm as unknown as Student);
+            sendableData = JSON.stringify(finalForm as unknown as Student);
             to = "student";
             console.log(sendableData);
         } else if (userDetails.role == "RECRUITER") {
-            sendableData = JSON.stringify(editForm as Recruiter);
+            sendableData = JSON.stringify(finalForm as Recruiter);
             to = "recruiter";
         } else {
-            sendableData = JSON.stringify(editForm as unknown as Admin);
+            sendableData = JSON.stringify(finalForm as unknown as Admin);
         }
 
         const response = await fetch("http://localhost:8050/api/" + to + "/update", {
-            method: "POST", // ⚠️ use POST (Laravel handles file uploads better)
+            method: "POST",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
                 Accept: "application/json",
@@ -157,11 +187,11 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                 <Chip.Label>{userDetails.role.charAt(0) + userDetails.role.toLowerCase().substring(1, userDetails.role.length)}</Chip.Label>
                             </Chip>
                             {userDetails.role == "RECRUITER" && (
-                            <Chip size="lg">
-                              <img className="chip_icon" src="/images/assets/suitcase.fill@4x.png" alt="suitcase"
-                                   style={{width: "15px"}}/>
-                                <Chip.Label className="auto-capitalise">{(userDetails as Recruiter).title}</Chip.Label>
-                            </Chip>
+                                <Chip size="lg">
+                                    <img className="chip_icon" src="/images/assets/suitcase.fill@4x.png" alt="suitcase"
+                                         style={{width: "15px"}}/>
+                                    <Chip.Label className="auto-capitalise">{(userDetails as Recruiter).title}</Chip.Label>
+                                </Chip>
                             )}
                             <Button
                                 style={{ width: "32px", height: "32px", background: "var(--container-secondary)" }}
@@ -174,47 +204,47 @@ export default function Profile({userDetails}: { userDetails: User}) {
                     </div>
                 </div>
             </div>
-                <div>
+            <div>
 
-                    <br/><br/>
+                <br/><br/>
 
-                    {/*// <!-- Student Fields -->*/}
-                    {userDetails.role == "STUDENT" && (
-                        <>
-                            <h4 className="container-label">About</h4>
+                {/*// <!-- Student Fields -->*/}
+                {userDetails.role == "STUDENT" && (
+                    <>
+                        <h4 className="container-label">About</h4>
 
-                            <div className="container-padded">
-                                <div>
-                                    <label className="label-small">Major</label>
-                                    <p className="auto-capitalise">{(userDetails as unknown as Student).studentMajor}</p>
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="label-small">Year</label>
-                                    <p className="auto-capitalise">{(userDetails as unknown as Student).graduatingYear}</p>
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="label-small">University</label>
-                                    <p className="auto-capitalise">{(userDetails as unknown as Student).uniName}</p>
-                                </div>
+                        <div className="container-padded">
+                            <div>
+                                <label className="label-small">Major</label>
+                                <p className="auto-capitalise">{(userDetails as unknown as Student).studentMajor}</p>
                             </div>
 
-                            <br />
-                            <br />
+                            <div className="mb-3">
+                                <label className="label-small">Year</label>
+                                <p className="auto-capitalise">{(userDetails as unknown as Student).graduatingYear}</p>
+                            </div>
 
-                            {/*// <!-- CV Section -->*/}
-                            <div style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
+                            <div className="mb-3">
+                                <label className="label-small">University</label>
+                                <p className="auto-capitalise">{(userDetails as unknown as Student).uniName}</p>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        {/*// <!-- CV Section -->*/}
+                        <div style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
                             <h4 className="container-label">Circulmn Vitae</h4>
-                                {(userDetails as unknown as Student).cv ? (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly onClick={() => CVFormOverlayState.open()}>
-                                    <img src="/images/assets/pencil@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
-                                </Button>) : (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly onClick={() => CVFormOverlayState.open()}>
-                                    <img src="/images/assets/plus@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
-                                </Button>)}
+                            {(userDetails as unknown as Student).cv ? (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly onClick={() => CVFormOverlayState.open()}>
+                                <img src="/images/assets/pencil@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
+                            </Button>) : (<Button style={{width: "32px", height: "32px", background: "var(--secondary-background-color)"}} className="dark" isIconOnly onClick={() => CVFormOverlayState.open()}>
+                                <img src="/images/assets/plus@4x.png" style={{width: "16px", filter: "invert(0.3)"}} alt="pencil"/>
+                            </Button>)}
 
-                            </div>
+                        </div>
 
-                            <div className="container-padded">
+                        <div className="container-padded">
                             {(userDetails as unknown as Student).cv ? (
                                 <>
                                     <div>
@@ -235,98 +265,98 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             ) : (
                                 <p className="text-muted">You don't have a CV</p>
                             )}
-                            </div>
+                        </div>
 
-                            <br/><br/>
+                        <br/><br/>
 
-                            {/*// <!-- Applications -->*/}
-                            <h4 className="container-label">Jobs You Applied For</h4>
+                        {/*// <!-- Applications -->*/}
+                        <h4 className="container-label">Jobs You Applied For</h4>
 
-                            <div className="container-padded">
-                                <div className="full-width" style={{display: "grid", justifyContent: "start", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 0.2fr))", gap: "50px"}}>
-                            {(userDetails as unknown as Student).applications.length == 0 ? (
-                                <h2 className="text-xl font-bold text-gray-400">You haven't applied for anything.</h2>
-                            ): (
-                                applicationList.map((application: Application) => {
+                        <div className="container-padded">
+                            <div className="full-width" style={{display: "grid", justifyContent: "start", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 0.2fr))", gap: "50px"}}>
+                                {(userDetails as unknown as Student).applications.length == 0 ? (
+                                    <h2 className="text-xl font-bold text-gray-400">You haven't applied for anything.</h2>
+                                ): (
+                                    applicationList.map((application: Application) => {
 
-                                    return (
+                                        return (
 
-                                <div style={{display: "grid", gap: "10px", background: "var(--component-secondary)", gridTemplateColumns: "repeat(2, 1fr)", padding: "20px", borderRadius: "25px"}}>
-                                    <div style={{display: "flex", flexDirection: "column", gap: "10px", alignItems: "start"}} >
-                                        {application.status == "ACCEPTED" && (
-                                            <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(35, 230, 77, 1), rgba(21, 183, 18, 1))', borderRadius: 75, outline: '2px rgba(35, 183, 30, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
+                                            <div style={{display: "grid", gap: "10px", background: "var(--component-secondary)", gridTemplateColumns: "repeat(2, 1fr)", padding: "20px", borderRadius: "25px"}}>
+                                                <div style={{display: "flex", flexDirection: "column", gap: "10px", alignItems: "start"}} >
+                                                    {application.status == "ACCEPTED" && (
+                                                        <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(35, 230, 77, 1), rgba(21, 183, 18, 1))', borderRadius: 75, outline: '2px rgba(35, 183, 30, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
                                                 <span style={{color: 'white', fontSize: 13, fontFamily: 'Inter', fontWeight: '800', whiteSpace: 'nowrap'}}>
                                                     <a>Accepted</a>
                                                 </span>
-                                            </div>
-                                        )}
+                                                        </div>
+                                                    )}
 
-                                        {application.status == "REJECTED" && (
-                                            <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(255, 110, 110, 1), rgba(231, 1, 5, 1))', borderRadius: 75, outline: '2px rgba(231, 5, 4, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
+                                                    {application.status == "REJECTED" && (
+                                                        <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(255, 110, 110, 1), rgba(231, 1, 5, 1))', borderRadius: 75, outline: '2px rgba(231, 5, 4, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
                                                 <span style={{color: 'white', fontSize: 13, fontFamily: 'Inter', fontWeight: '800', whiteSpace: 'nowrap'}}>
                                                     <a>Rejected</a>
                                                 </span>
-                                            </div>
-                                        )}
+                                                        </div>
+                                                    )}
 
-                                        {application.status == "PENDING" && (
-                                            <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(110, 199, 255, 1), rgba(1, 113, 231, 1))', borderRadius: 75, outline: '2px rgba(110, 113, 245, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
+                                                    {application.status == "PENDING" && (
+                                                        <div style={{padding: '4px 12px', background: 'linear-gradient(180deg, rgba(110, 199, 255, 1), rgba(1, 113, 231, 1))', borderRadius: 75, outline: '2px rgba(110, 113, 245, 0.20) solid',  backdropFilter: 'blur(20px)', alignItems: 'center', justifyContent: 'center'}}>
                                                 <span style={{color: 'white', fontSize: 13, fontFamily: 'Inter', fontWeight: '800', whiteSpace: 'nowrap'}}>
                                                     <a>Pending</a>
                                                 </span>
+                                                        </div>
+                                                    )}
+                                                    <p className="auto-capitalise">{application.applicationDate.toString().substring(0, 10)}</p>
+                                                </div>
+
+                                                <div className="mb-3">
+                                                    <label className="label-small">Job Position</label>
+                                                    <p className="auto-capitalise">{application.jobPosting.jobName + " - " + application.jobPosting.company?.name}</p>
+                                                </div>
+
+                                                <div className="mb-3">
+                                                    <label className="label-small">Phone Number</label>
+                                                    <p className="auto-capitalise">{application.phoneNumber}</p>
+                                                </div>
                                             </div>
                                         )}
-                                        <p className="auto-capitalise">{application.applicationDate.toString().substring(0, 10)}</p>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="label-small">Job Position</label>
-                                        <p className="auto-capitalise">{application.jobPosting.jobName + " - " + application.jobPosting.company?.name}</p>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="label-small">Phone Number</label>
-                                        <p className="auto-capitalise">{application.phoneNumber}</p>
-                                    </div>
-                                </div>
-                                )}
-                            ))}
-                                </div>
+                                    ))}
                             </div>
-                        </>
-                    )}
+                        </div>
+                    </>
+                )}
 
-                    {/*// <!-- Recruiter Fields -->*/}
-                    {userDetails.role == "RECRUITER" && (
-                        <>
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                <h4 className="container-label" style={{ margin: 0 }}>
-                                    Works At
-                                </h4>
+                {/*// <!-- Recruiter Fields -->*/}
+                {userDetails.role == "RECRUITER" && (
+                    <>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <h4 className="container-label" style={{ margin: 0 }}>
+                                Works At
+                            </h4>
 
-                                <Button
-                                    style={{
-                                        width: "32px",
-                                        height: "32px",
-                                        background: "var(--secondary-background-color)"
-                                    }}
-                                    isIconOnly
-                                    onClick={() => navigate("/company/register")}
-                                >
-                                    <img
-                                        src="/images/assets/plus-black@4x.png"
-                                        className="theme-adaptive-icon"
-                                        style={{ width: "20px" }}
-                                        alt="add company"
-                                    />
-                                </Button>
-                            </div>
+                            <Button
+                                style={{
+                                    width: "32px",
+                                    height: "32px",
+                                    background: "var(--secondary-background-color)"
+                                }}
+                                isIconOnly
+                                onClick={() => navigate("/company/register")}
+                            >
+                                <img
+                                    src="/images/assets/plus-black@4x.png"
+                                    className="theme-adaptive-icon"
+                                    style={{ width: "20px" }}
+                                    alt="add company"
+                                />
+                            </Button>
+                        </div>
 
 
-                            <div className="container-padded">
-                                {/*// <!-- If a recruiter has one or more companies -->*/}
-                                {(userDetails as Recruiter).companies && (userDetails as Recruiter).companies.length > 0 ? (
-                                    <>
+                        <div className="container-padded">
+                            {/*// <!-- If a recruiter has one or more companies -->*/}
+                            {(userDetails as Recruiter).companies && (userDetails as Recruiter).companies.length > 0 ? (
+                                <>
                                     <Table variant="secondary">
                                         <Table.ResizableContainer>
                                             <Table.Content className="min-w-150">
@@ -363,23 +393,23 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                             </Table.Content>
                                         </Table.ResizableContainer>
                                     </Table>
-                                    </>
-                                ) : (
-                                    <h1 className="text-gray-400">
-                                        — You're not working for any company.
-                                    </h1>
-                                )}
-                            </div>
-                        </>
-                    )}
-
-                    {userDetails.role == "ADMIN" && (
-                        <div className="flex items-center justify-center" style={{height: "52vh"}}>
-                        <h1 className="label-placeholder">We don't have anything else to show</h1>
+                                </>
+                            ) : (
+                                <h1 className="text-gray-400">
+                                    — You're not working for any company.
+                                </h1>
+                            )}
                         </div>
-                    )}
+                    </>
+                )}
 
-                    <br/><br/>
+                {userDetails.role == "ADMIN" && (
+                    <div className="flex items-center justify-center" style={{height: "52vh"}}>
+                        <h1 className="label-placeholder">We don't have anything else to show</h1>
+                    </div>
+                )}
+
+                <br/><br/>
             </div>
 
             {/*-------------profile edit-----------------*/}
@@ -410,6 +440,37 @@ export default function Profile({userDetails}: { userDetails: User}) {
                             </Modal.Header>
                             <Modal.Body className="space-y-4" style={{paddingTop: "20px"}}>
                                 <div className="full-width flex flex-col gap-6">
+
+                                    {/* Profile Picture  */}
+                                    <div className="flex flex-col items-center gap-3">
+                                        <img
+                                            src={
+                                                profilePicPreview
+                                                    ? profilePicPreview
+                                                    : userDetails.profilePicture
+                                                        ? `http://localhost:8050/uploads/${userDetails.profilePicture}`
+                                                        : "/images/navi/Navi%20Beta.png"
+                                            }
+                                            style={{ width: "80px", height: "80px", borderRadius: "100%", objectFit: "cover" }}
+                                            alt="Profile Preview"
+                                        />
+                                        <label style={{
+                                            cursor: "pointer",
+                                            padding: "6px 16px",
+                                            borderRadius: "20px",
+                                            fontSize: "13px",
+                                            background: "var(--container-secondary)"
+                                        }}>
+                                            Change Picture
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                style={{ display: "none" }}
+                                                onChange={handleProfilePicChange}
+                                            />
+                                        </label>
+                                    </div>
+                                    {/* profile picture  */}
 
                                     <div className="flex flex-row gap-4">
                                         <div className="full-width">
