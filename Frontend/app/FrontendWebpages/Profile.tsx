@@ -112,7 +112,7 @@ export default function Profile({userDetails}: { userDetails: User}) {
 
         for (let i = 0; i < applicationList.length; i++) {
             for (let j = applicationList.length - 1; j > i; j--) {
-                if (applicationList[i].jobPosting.jobName == applicationList[j].jobPosting.jobName &&
+                if (applicationList[i].jobPosting.id == applicationList[j].jobPosting.id &&
                     applicationList[i].jobPosting.company.name == applicationList[j].jobPosting.company.name) {
                     applicationList.splice(j, 1);
                 }

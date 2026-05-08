@@ -40,6 +40,9 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
     return (
         <>
             <IndexHeader />
+            <h1 className="text-4xl font-bold text-center mb-10">
+                {roadmap.name}
+            </h1>
             <div className="container">
                 <div style={{ paddingTop: "90px" }}>
                     <div className="w-full flex justify-center">
@@ -50,9 +53,6 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
                                 height: totalHeight,
                             }}
                         >
-                            <h1 className="text-4xl font-bold text-center mb-10">
-                                {roadmap.name}
-                            </h1>
 
                             <svg
                                 className="absolute top-0 left-0 w-full pointer-events-none"
