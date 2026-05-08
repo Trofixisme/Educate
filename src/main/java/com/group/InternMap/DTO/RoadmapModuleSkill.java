@@ -7,33 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoadmapModuleSkill {
-    private String roadmapName;
+    private String name;
     private List<ModuleData> modules = new ArrayList<>();
 
     // Constructor
-    public RoadmapModuleSkill() {
-    }
-
+    public RoadmapModuleSkill() {}
     // Getters and Setters
-    public String getRoadmapName() {
-        return roadmapName;
+    public String getName() {
+        return name;
     }
-
-    public void setRoadmapName(String roadmapName) {
-        this.roadmapName = roadmapName;
+    public void setName(String roadmapName) {
+        this.name = roadmapName;
     }
-
     public List<ModuleData> getModules() {
         return modules;
     }
-
     public void setModules(List<ModuleData> modules) {
         this.modules = modules;
     }
-
     // Convert to actual models
     public Roadmap toRoadmap() {
-        Roadmap roadmap = new Roadmap(this.roadmapName);
+        Roadmap roadmap = new Roadmap(this.name);
 
         for (ModuleData moduleData : this.modules) {
             RoadmapModule module = new RoadmapModule(
@@ -63,12 +57,15 @@ public class RoadmapModuleSkill {
 
     // Inner class for Module data
     public static class ModuleData {
+        private Long id;
         private String name;
         private String description;
         private List<SkillData> skills = new ArrayList<>();
+        private boolean _deleted;
 
         public ModuleData() {}
-
+        public Long getId() { return id; }
+        public void setId(Long id) { this.id = id; }
         public String getName() {
             return name;
         }
@@ -92,17 +89,22 @@ public class RoadmapModuleSkill {
         public void setSkills(List<SkillData> skills) {
             this.skills = skills;
         }
+        public boolean is_deleted() { return _deleted; }
+        public void set_deleted(boolean _deleted) { this._deleted = _deleted; }
     }
 
     // Inner class for Skill data
     public static class SkillData {
+        private Long id;
         private String name;
         private String description;
         private List<String> links = new ArrayList<>();
+        private boolean _deleted;
 
         public SkillData() {
         }
-
+        public Long getId() { return id; }
+        public void setId(Long id) { this.id = id; }
         public String getName() {
             return name;
         }
@@ -126,5 +128,7 @@ public class RoadmapModuleSkill {
         public void setLinks(List<String> links) {
             this.links = links;
         }
+        public boolean is_deleted() { return _deleted; }
+        public void set_deleted(boolean _deleted) { this._deleted = _deleted; }
     }
 }

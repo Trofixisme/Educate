@@ -43,14 +43,6 @@ public class Skill implements Serializable {
         name = newName;
     }
 
-    public void addURLs(String... resourceLinks) {
-        this.resourceLinks.addAll(List.of(resourceLinks));
-    }
-
-    public List<String> getResourceLinks() {
-        return resourceLinks;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -70,5 +62,10 @@ public class Skill implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setLinks(List<String> links) {
+        this.resourceLinks.clear();
+        this.resourceLinks.addAll(links);
     }
 }

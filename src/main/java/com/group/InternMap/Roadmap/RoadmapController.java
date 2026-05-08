@@ -1,6 +1,7 @@
 package com.group.InternMap.Roadmap;
 
 import com.group.InternMap.DTO.RoadmapModuleSkill;
+import com.group.InternMap.Skill.Skill;
 import com.group.InternMap.User.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,22 @@ public class RoadmapController {
         this.roadmapRepo = roadmapRepo;
         this.roadmapService = roadmapService;
     }
+    //updating part for roadmap
+    //getting 1 roadmap by id so i can edit it
+    @GetMapping("/{id}")
+    public Roadmap getRoadmap(@PathVariable long id) {
+        return roadmapRepo.findById(id)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Roadmap not found"));
+    }
+    @PatchMapping("/{id}")
+    public Roadmap patchRoadmap(@PathVariable long id, @RequestBody RoadmapModuleSkill dto, Authentication authentication) {
+        if (authentication == null || !authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
+            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "User must be of " + UserRole.ADMIN + " to proceed");
+        }
+        Roadmap existing = roadmapRepo.findById(id)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Roadmap not found"));
+        return roadmapService.applyPatch(existing, dto);
+    }
 
     @GetMapping("/roadmaps")
     public List<Roadmap> getRoadmaps() {
@@ -33,17 +50,6 @@ public class RoadmapController {
 
         if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
             Roadmap roadmap = dto.toRoadmap();
-            roadmapRepo.save(roadmap);
-        } else {
-            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "User must be of "+ UserRole.ADMIN +" to proceed");
-        }
-    }
-
-    @PostMapping("/{id}")
-    public void updateRoadmap(@PathVariable long id, @RequestBody Roadmap roadmap, Authentication authentication) {
-
-        if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.ADMIN + "]")) {
-            roadmap.setId(id);
             roadmapRepo.save(roadmap);
         } else {
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "User must be of "+ UserRole.ADMIN +" to proceed");

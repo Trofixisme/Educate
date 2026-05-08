@@ -2,24 +2,49 @@ import "../CSS/jobPosting.css";
 import "../CSS/InternMapHomepage.css";
 import { useEffect, useState } from "react";
 import {Button, FieldError, FieldGroup, Fieldset, Form, IconPlus, Input, Label, Modal, TextField, type UseOverlayStateReturn,} from "@heroui/react";
+import {useNavigate} from "react-router";
+//sorry i had to bring thm here because the models .ts were not working propely
+type SkillData = {
+    id?: number;
+    name: string;
+    description: string;
+    links: string[];
+    _deleted?: boolean;
+};
 
+type ModuleData = {
+    id?: number;
+    name: string;
+    description: string;
+    skills: SkillData[];
+    _deleted?: boolean;
+};
 // pass roadmapId as prop
 export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseOverlayStateReturn, roadmapId: number|null}) {
     const [title, setTitle] = useState("");
-    const [modules, setModules] = useState([]);
+    const [modules, setModules] = useState<ModuleData[]>([]);
     const onRoadmapState = overlayState;
+    const navigate= useNavigate();
 
-    // ✅ LOAD EXISTING DATA
+    // loading the existing data
     useEffect(() => {
             if (!roadmapId) return;
         async function fetchRoadmap() {
             const res = await fetch(`http://localhost:8050/api/roadmap/${roadmapId}`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
             });
             const data = await res.json();
-
             setTitle(data.name);
-            setModules(data.modules || []);
+            //loading the modules and from it loading the skills
+            setModules((data.allModules || []).map((mod: any) => ({
+                ...mod,
+                skills: (mod.allSkills || []).map((skill: any) => ({
+                    ...skill,
+                    links: skill.resourceLinks || [],
+                }))
+            })));
         }
 
         fetchRoadmap();
@@ -28,7 +53,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
     // ================= MODULE =================
 
     function addModule() {
-        setModules([...modules, { name: "", description: "", skills: [] }]);
+        setModules([{ name: "", description: "", skills: [] }, ...modules]);
     }
 
     function removeModule(moduleIndex: any) {
@@ -82,15 +107,13 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
 
             return { ...mod, skills: newSkills };
         });
-
         setModules(updated);
     }
 
-    // ================= SUBMIT =================
-
+//-------------------------------submit------------------
     async function handleSubmit(e: any) {
         e.preventDefault();
-        const token = localStorage.getItem("token"); // ✅ FIX
+        const token = localStorage.getItem("token");
         const body = {
             name: title,
             modules: modules.map((mod) => ({
@@ -111,7 +134,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
         console.log("UPDATE BODY:", body);
 
         const res = await fetch(`http://localhost:8050/api/roadmap/${roadmapId}`, {
-            method: "POST",  // was PUT, your backend uses @PostMapping
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -124,12 +147,17 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
         if (!res.ok) {
             console.error("Update failed", await res.text());
             return;
+        }else{
+            onRoadmapState.close();
+            navigate("/dashboard");
         }
+        const data = await res.json();
+        console.log("FETCHED DATA:", JSON.stringify(data, null, 2));
+        setTitle(data.name);
 
         console.log("Roadmap updated successfully!");
     }
 
-    // ================= UI =================
 
     return (
         <>
@@ -149,10 +177,8 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                                                 <TextField
                                                     isRequired
                                                     name="title"
-                                                    validate={(value) => {
-                                                        if (value.length < 3) return "Name must be at least 3 characters";
-                                                        return null;
-                                                    }}>
+
+                                                    validationBehavior="aria">
                                                     <Label style={{ fontSize: "20px"}}>Title</Label>
                                                     <Input
                                                         value={title}
@@ -186,10 +212,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                                                             <TextField
                                                                 isRequired
                                                                 name={`modules[${moduleIndex}].name`}
-                                                                validate={(value) => {
-                                                                    if (value.length < 3) return "Name must be at least 3 characters";
-                                                                    return null;
-                                                                }}>
+                                                                validationBehavior="aria" >
                                                                 <Label>Name</Label>
                                                                 <Input
                                                                     value={mod.name || ""}
@@ -204,10 +227,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                                                             <TextField
                                                                 isRequired
                                                                 name={`modules[${moduleIndex}].description`}
-                                                                validate={(value) => {
-                                                                    if (value.length < 3) return "Name must be at least 3 characters";
-                                                                    return null;
-                                                                }}>
+                                                                validationBehavior="aria">
                                                                 <Label>Description</Label>
                                                                 <Input
                                                                     value={mod.description || ""}
@@ -236,10 +256,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                                                                         <TextField
                                                                             isRequired
                                                                             name={`modules[${moduleIndex}].skills[${skillIndex}].name`}
-                                                                            validate={(value) => {
-                                                                                if (value.length < 3) return "Name must be at least 3 characters";
-                                                                                return null;
-                                                                            }}>
+                                                                            validationBehavior="aria">
                                                                             <Label>Skill Name</Label>
                                                                             <Input
                                                                                 value={skill.name || ""}
@@ -257,7 +274,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
 
                                                                         <br/>
 
-                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].description`} type="text">
+                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].description`} type="text" validationBehavior="aria">
                                                                             <Label>Skill Description</Label>
                                                                             <Input
                                                                                 value={skill.description || ""}
@@ -274,11 +291,15 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                                                                         </TextField>
 
                                                                         <br/>
-                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].links[0]`} type="text">
+                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].links[0]`}
+                                                                                   type="text"
+                                                                                   validationBehavior="aria"
+                                                                        >
                                                                             <Label>Resource Link</Label>
                                                                             <Input
                                                                                 value={skill.links?.[0] || ""}
                                                                                 placeholder="https://InternMap.com"
+
                                                                                 onChange={(e) =>
                                                                                     updateSkillField(
                                                                                         moduleIndex,
