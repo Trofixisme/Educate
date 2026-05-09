@@ -5,6 +5,7 @@ import {toast} from "@heroui/react";
 let client: Client | null = null;
 
 export function notification() {
+
     if (client && client.active) {
         return;
     }
@@ -13,13 +14,15 @@ export function notification() {
         //Never using SockJS again... WHY DID WE USE IT IN THE FIRST PLACE????
         // webSocketFactory: () => new SockJS('http://localhost:8050/ws'),
         webSocketFactory: () => new WebSocket('http://localhost:8050/websocket/ws'),
+        connectHeaders: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         debug: (str) => {
             console.log(str);
         },
     });
 
     client.onConnect = (frame) => {
-        console.log("If you're reading this, Have a great day!");
         console.log('Connected: ' + frame);
         client?.subscribe('/user/queue/notifications', (message) => {
             console.log('You got mail! -> ' + message.body);

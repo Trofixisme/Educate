@@ -52,6 +52,8 @@ export default function ApplicationForm({overlayState, job}: {overlayState: UseO
             return;
         } else {
             onApplicationState.close();
+            setLoading(false);
+            setErrorMessage(null)
             toast("Sucessfully applied!", {
                 actionProps: {
                     children: "Dismiss",

@@ -33,11 +33,11 @@
 
         @Autowired
         applicationController(StudentRepo studentRepo, JobPostingService jobPostingService, ApplicationRepo applicationRep, NotificationService notificationService, UserService userService){
-            this.applicationRepo=applicationRep;
-            this.studentRepo=studentRepo;
-            this.jobPostingService=jobPostingService;
-            this.notificationService=notificationService;
-            this.userService=userService;
+            this.applicationRepo = applicationRep;
+            this.studentRepo = studentRepo;
+            this.jobPostingService = jobPostingService;
+            this.notificationService = notificationService;
+            this.userService = userService;
         }
         @PatchMapping("/{applicationId}/status")
         public ResponseEntity<?> updateApplicationStatus(@PathVariable long applicationId, @RequestBody Map<String, String> body, Authentication authentication) {
@@ -45,8 +45,13 @@
             if (app == null) {
                 return ResponseEntity.notFound().build();
             }
+
             app.setStatus(ApplicationStatus.valueOf(body.get("status")));
+
             applicationRepo.save(app);
+
+            notificationService.sendToUser(app.getStudent().getEmail(), authentication.getName() + " has updated the status of your application to " + app.getStatus());
+
             return ResponseEntity.ok().build();
         }
 
@@ -64,6 +69,7 @@
                 System.out.println("dum user role: " + authentication.getAuthorities());
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User must be of role STUDENT to apply for a job");
             }
+
             return jobPostingService.getAllJobPostings();
         }
 
@@ -97,9 +103,10 @@
                 applicationAndCVDTO.setStudent(student);
                 String recruiterEmail = jobPosting.getRecruiterEmail();
                 System.out.println(recruiterEmail);
-                notificationService.sendToUser(recruiterEmail, authentication.getName() + " has applied to " + applicationAndCVDTO.getApplication().getJobPosting().getJobName());
-                return ResponseEntity.ok("works");
 
+                notificationService.sendToUser(recruiterEmail, authentication.getName() + " has applied to " + applicationAndCVDTO.getApplication().getJobPosting().getJobName());
+
+                return ResponseEntity.ok("works");
         }
 
         @GetMapping

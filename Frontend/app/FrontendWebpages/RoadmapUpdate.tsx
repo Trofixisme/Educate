@@ -22,7 +22,7 @@ type SkillData = {
     id?: number;
     name: string;
     description: string;
-    resourceLinks: string[];
+    links: string[];
     _deleted?: boolean;
 };
 
@@ -35,7 +35,7 @@ type ModuleData = {
 };
 
 // pass roadmapId as prop
-export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:UseOverlayStateReturn, roadmapId: number|null}) {
+export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseOverlayStateReturn, roadmapId: number|null}) {
     const [title, setTitle] = useState("");
     const [modules, setModules] = useState<ModuleData[]>([]);
     const onRoadmapState = overlayState;
@@ -44,7 +44,6 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
     // loading the existing data
     useEffect(() => {
         if (!roadmapId) return;
-
         async function fetchRoadmap() {
             const res = await fetch(`http://localhost:8050/api/roadmap/${roadmapId}`, {
                 headers: {
@@ -58,7 +57,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                 ...mod,
                 skills: (mod.skills || []).map((skill: any) => ({
                     ...skill,
-                    resourceLinks: skill.resourceLinks || [],
+                    links: skill.resourceLinks || [],
                 }))
             })));
         }
@@ -93,7 +92,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
             if (i !== moduleIndex) return mod;
             return {
                 ...mod,
-                skills: [...(mod.skills || []), { name: "", description: "", resourceLinks: [""] }],
+                skills: [...(mod.skills || []), { name: "", description: "", links: [""] }],
             };
         });
         setModules(updated);
@@ -141,7 +140,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                     id: skill.id,
                     name: skill.name,
                     description: skill.description,
-                    resourceLinks: skill.resourceLinks || [""],
+                    links: skill.links || [""],
                     _deleted: skill._deleted || false,
                 })),
             })),
@@ -164,9 +163,9 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
             console.error("Update failed", await res.text());
             return;
         } else {
-            onRoadmapState.close();
+            console.log(res);
 
-            toast("Roamdap updated!", {
+            toast("Roadmap updated!", {
                 actionProps: {
                     children: "Dismiss",
                     onPress: () => toast.clear(),
@@ -177,15 +176,16 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                 variant: "success",
             })
 
+            onRoadmapState.close();
             navigate("/dashboard");
         }
-
-        const data = await res.json()
+        const data = await res.json();
         console.log("FETCHED DATA:", JSON.stringify(data, null, 2));
         setTitle(data.name);
 
         console.log("Roadmap updated successfully!");
     }
+
 
     return (
         <>
@@ -218,7 +218,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                                                 {/* MODULES */}
                                                 {modules.filter((mod) => !mod._deleted).map((mod, moduleIndex) => (
                                                     <>
-                                                    <br/><br/>
+                                                        <br/><br/>
                                                         <div key={moduleIndex}>
                                                             <div className="flex items-center justify-between">
                                                                 <h1 className="font-bold text-2xl">Module {moduleIndex + 1}</h1>
@@ -269,7 +269,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
 
                                                             {/* SKILLS */}
                                                             <div className="gap-8" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))"}}>
-                                                            {(mod.skills || []).filter((s) => !s._deleted).map((skill, skillIndex) => (
+                                                                {(mod.skills || []).filter((s) => !s._deleted).map((skill, skillIndex) => (
                                                                     <div className="skill-card" key={skillIndex}>
                                                                         <div className="flex justify-between h-10">
                                                                             <span className="font-bold">Skill {skillIndex + 1}</span>
@@ -319,20 +319,20 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                                                                         </TextField>
 
                                                                         <br/>
-                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].resourceLinks[0]`}
+                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].links[0]`}
                                                                                    type="text"
                                                                                    validationBehavior="aria"
                                                                         >
                                                                             <Label>Resource Link</Label>
                                                                             <Input
-                                                                                value={skill.resourceLinks?.[0] || ""}
+                                                                                value={skill.links?.[0] || ""}
                                                                                 placeholder="https://InternMap.com"
 
                                                                                 onChange={(e) =>
                                                                                     updateSkillField(
                                                                                         moduleIndex,
                                                                                         skillIndex,
-                                                                                        "resourceLinks",
+                                                                                        "links",
                                                                                         [e.target.value]
                                                                                     )
                                                                                 }
@@ -344,7 +344,7 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                                                             </div>
                                                         </div>
                                                     </>
-                                                    ))}
+                                                ))}
 
                                                 <Button type="button" onPress={addModule} variant="secondary">
                                                     Add Another Module

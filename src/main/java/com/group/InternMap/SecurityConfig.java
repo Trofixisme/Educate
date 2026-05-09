@@ -43,7 +43,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
            .csrf(AbstractHttpConfigurer::disable)
            .authorizeHttpRequests(auth -> auth
-                   .requestMatchers("/ws/**", "/ws").permitAll()
+                   .requestMatchers("/websocket/**").permitAll()
 //                   .requestMatchers("/student/**").hasRole("STUDENT")
 //                   .requestMatchers("/recruiter/**").hasRole("RECRUITER")
 //                   .requestMatchers("/recruiter/**").hasRole("ADMIN")
