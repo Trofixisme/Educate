@@ -11,4 +11,10 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:" + uploadPath);
     }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/uploads/**")
+                .allowedOrigins("http://localhost:5173") // your React dev port
+                .allowedMethods("GET");
+    }
 }
