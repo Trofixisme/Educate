@@ -19,6 +19,7 @@
 
     import java.security.Principal;
     import java.util.List;
+    import java.util.Locale;
     import java.util.Map;
 
     @RestController
@@ -50,7 +51,7 @@
 
             applicationRepo.save(app);
 
-            notificationService.sendToUser(app.getStudent().getEmail(), authentication.getName() + " has updated the status of your application to " + app.getStatus());
+            notificationService.sendToUser(app.getStudent().getEmail(), authentication.getName() + " has " + app.getStatus().toString().toLowerCase() + " your application for " + app.getJobPosting().getJobName());
 
             return ResponseEntity.ok().build();
         }

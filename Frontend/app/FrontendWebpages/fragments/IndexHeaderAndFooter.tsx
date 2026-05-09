@@ -33,7 +33,6 @@ export function IndexHeader() {
             },
         })).text())
 
-        console.log("role:", role)
     }
 
     function logout() {

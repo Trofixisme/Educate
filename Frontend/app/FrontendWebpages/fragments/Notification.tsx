@@ -26,15 +26,15 @@ export function notification() {
         console.log('Connected: ' + frame);
         client?.subscribe('/user/queue/notifications', (message) => {
             console.log('You got mail! -> ' + message.body);
-            toast("You got mail!", {
+            toast(!message.body.includes("accepted") && !message.body.includes("rejected") ? "You got mail!" : "You recived a response for one of your applications", {
                 actionProps: {
                     children: "Dismiss",
                     onPress: () => toast.clear(),
                     variant: "tertiary",
                 },
-                indicator: <img src="/images/assets/bell.fill@4x.png" alt="Bell" width={15} height={15}/>,
+                indicator: message.body.includes("accepted") ? <img src="/images/assets/checkmark@4x.png" alt="X" width={17} height={17}/> : message.body.includes("rejected") ? <img src="/images/assets/xmark@4x.png" alt="X" width={17} height={17}/> : <img src="/images/assets/bell.fill@4x.png" alt="Bell" width={17} height={17}/>,
                 description: message.body,
-                variant: "default",
+                variant: message.body.includes("accepted") ? "success" : message.body.includes("rejected") ? "danger" : "default",
             })
         });
     };

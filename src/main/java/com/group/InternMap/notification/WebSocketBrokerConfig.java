@@ -74,5 +74,5 @@ public class WebSocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
                 return message;
             }
         });
-//    }
+    }
 }
