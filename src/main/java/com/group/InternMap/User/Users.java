@@ -28,12 +28,12 @@ public class Users implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
-    @Column(nullable = true)
+
+    @Column
     private String profilePicture;
 
     @Column(nullable = false)
-    private final Date createdAt  = Date.from(Instant.now());
-
+    private Date createdAt  = Date.from(Instant.now());
 
     public Users() {}
 
@@ -108,5 +108,7 @@ public class Users implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 
 }
