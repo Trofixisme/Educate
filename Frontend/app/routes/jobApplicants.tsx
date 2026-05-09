@@ -7,7 +7,7 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
     const token = localStorage.getItem("token");
     if (!token) return Response.redirect("/login", 302);
 
-    // @ts-ignore
+
     const res = await fetch(`http://localhost:8050/api/jobposting/${params.id}/applications`, {
         method: "GET",
         headers: {

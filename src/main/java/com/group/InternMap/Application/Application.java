@@ -31,7 +31,7 @@ public class Application implements Serializable, Comparable<Application> {
     private Date applicationDate = Date.from(Instant.now());
 
     @ManyToOne //@JoinColumn(name = "student_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"applications", "hibernateLazyInitializer", "handler"})
     Student student;
 
     @ManyToOne

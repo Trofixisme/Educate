@@ -54,7 +54,7 @@ export default function MyJobApplicants({ applications }: { applications: Applic
                             <div key={String(app.id)} style={{borderRadius: "60px", background: "var(--container-secondary)", boxShadow: "0 0 40px 0 rgba(0, 0, 0, 0.17)", backdropFilter: "blur(30px)", padding: "20px 28px", marginBottom: "12px", display: "flex", justifyContent: "space-between", gap: "16px",}}>
                                 <div>
                                     <p style={{fontWeight: 600, fontSize: "16px", margin: "0 0 6px"}}>
-                                        {app.fName} {app.lName}
+                                        {app.fname} {app.lname}
                                     </p>
                                     <div style={{display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap"}}>
                                         <span style={{fontSize: "13px", color: "var(--text-secondary)"}}>
@@ -94,7 +94,7 @@ export default function MyJobApplicants({ applications }: { applications: Applic
                                 </div>
 
                                 {!decided && (
-                                    <div style={{display: "flex", gap: "8px", flexShrink: 0, alignItems: "center"}}>
+                                    <div style={{display: "flex", gap: "8px", flexShrink: 0, alignItems: "flex-end"}}>
                                         <Button onClick={() => updateStatus(String(app.id), ApplicationStatus.ACCEPTED)} style={{color: "#4ade80", background: "rgba(34,197,94,0.15)"}}>
                                             Accept
                                         </Button>

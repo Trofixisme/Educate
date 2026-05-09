@@ -1,23 +1,25 @@
 import type {ApplicationStatus} from "~/Model/ApplicationStatus";
 import type { JobPosting } from "./Jobs/JobPosting";
+import type {Student} from "~/Model/Users/Student";
 
 export class Application {
 
     id: bigint
-    fName: string
-    lName: string
+    fname: string
+    lname: string
     email: string
     phoneNumber: string
     applicationDate: Date
     jobPosting: JobPosting
     status: ApplicationStatus
-    student:Student
+    student: Student
 
-    constructor(id: bigint, fName: string, lName: string, email: string, phoneNumber: string, applicationDate: Date, jobPosting: JobPosting, status: ApplicationStatus,student:Student) {
+    constructor(id: bigint, fname: string, lname: string, email: string, phoneNumber: string, applicationDate: Date, jobPosting: JobPosting, status: ApplicationStatus,student:Student) {
         this.id= id;
-        this.fName = fName;
-        this.lName = lName;
+        this.fname = fname;
+        this.lname = lname;
         this.email = email;
+
         this.phoneNumber = phoneNumber;
         this.applicationDate = applicationDate;
         this.jobPosting = jobPosting;
