@@ -50,9 +50,9 @@ export function IndexHeader() {
         }
 
         fetchRole();
+        notification();
     }, []);
 
-    notification()
 
     return (
         <header className="header">
