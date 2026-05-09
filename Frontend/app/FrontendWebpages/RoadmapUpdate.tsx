@@ -42,7 +42,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
             //loading the modules and from it loading the skills
             setModules((data.allModules || []).map((mod: any) => ({
                 ...mod,
-                skills: (mod.allSkills || []).map((skill: any) => ({
+                skills: (mod.skills || []).map((skill: any) => ({
                     ...skill,
                     links: skill.resourceLinks || [],
                 }))
@@ -150,6 +150,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
             console.error("Update failed", await res.text());
             return;
         }else{
+            console.log(res);
             onRoadmapState.close();
             navigate("/dashboard");
         }
