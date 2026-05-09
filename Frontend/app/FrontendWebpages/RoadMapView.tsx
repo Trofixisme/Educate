@@ -14,9 +14,9 @@ export default function RoadMapView({ roadmap }: { roadmap: Roadmap }) {
 
     const width = 900;
     const centerX = width / 2;
-    const amplitude = 140;
-    const heightStep = 200;
-    const topOffset = 120;
+    const amplitude = 0;
+    const heightStep = 275;
+    const topOffset = 50;
 
     const n = roadmap.allModules.length;
 

@@ -1,7 +1,20 @@
 import "../CSS/jobPosting.css";
 import "../CSS/InternMapHomepage.css";
-import { useEffect, useState } from "react";
-import {Button, FieldError, FieldGroup, Fieldset, Form, IconPlus, Input, Label, Modal, TextField, type UseOverlayStateReturn,} from "@heroui/react";
+import React, { useEffect, useState } from "react";
+import {
+    Button,
+    FieldError,
+    FieldGroup,
+    Fieldset,
+    Form,
+    IconPlus,
+    Input,
+    Label,
+    Modal,
+    TextField, toast,
+    Toast,
+    type UseOverlayStateReturn,
+} from "@heroui/react";
 import {useNavigate} from "react-router";
 
 //sorry I had to bring them here because the models .ts were not working properly
@@ -9,7 +22,7 @@ type SkillData = {
     id?: number;
     name: string;
     description: string;
-    links: string[];
+    resourceLinks: string[];
     _deleted?: boolean;
 };
 
@@ -22,7 +35,7 @@ type ModuleData = {
 };
 
 // pass roadmapId as prop
-export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseOverlayStateReturn, roadmapId: number|null}) {
+export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:UseOverlayStateReturn, roadmapId: number|null}) {
     const [title, setTitle] = useState("");
     const [modules, setModules] = useState<ModuleData[]>([]);
     const onRoadmapState = overlayState;
@@ -30,7 +43,8 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
 
     // loading the existing data
     useEffect(() => {
-            if (!roadmapId) return;
+        if (!roadmapId) return;
+
         async function fetchRoadmap() {
             const res = await fetch(`http://localhost:8050/api/roadmap/${roadmapId}`, {
                 headers: {
@@ -44,7 +58,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                 ...mod,
                 skills: (mod.skills || []).map((skill: any) => ({
                     ...skill,
-                    links: skill.resourceLinks || [],
+                    resourceLinks: skill.resourceLinks || [],
                 }))
             })));
         }
@@ -79,7 +93,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
             if (i !== moduleIndex) return mod;
             return {
                 ...mod,
-                skills: [...(mod.skills || []), { name: "", description: "", links: [""] }],
+                skills: [...(mod.skills || []), { name: "", description: "", resourceLinks: [""] }],
             };
         });
         setModules(updated);
@@ -127,7 +141,7 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                     id: skill.id,
                     name: skill.name,
                     description: skill.description,
-                    links: skill.links || [""],
+                    resourceLinks: skill.resourceLinks || [""],
                     _deleted: skill._deleted || false,
                 })),
             })),
@@ -149,18 +163,29 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
         if (!res.ok) {
             console.error("Update failed", await res.text());
             return;
-        }else{
-            console.log(res);
+        } else {
             onRoadmapState.close();
+
+            toast("Roamdap updated!", {
+                actionProps: {
+                    children: "Dismiss",
+                    onPress: () => toast.clear(),
+                    variant: "tertiary",
+                },
+                indicator: <img src="/images/assets/checkmark@4x.png" alt="checkmark" width={15} height={15}/>,
+                description: body.name + " has been successfully updated!",
+                variant: "success",
+            })
+
             navigate("/dashboard");
         }
-        const data = await res.json();
+
+        const data = await res.json()
         console.log("FETCHED DATA:", JSON.stringify(data, null, 2));
         setTitle(data.name);
 
         console.log("Roadmap updated successfully!");
     }
-
 
     return (
         <>
@@ -294,20 +319,20 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                                                                         </TextField>
 
                                                                         <br/>
-                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].links[0]`}
+                                                                        <TextField isRequired name={`modules[${moduleIndex}].skills[${skillIndex}].resourceLinks[0]`}
                                                                                    type="text"
                                                                                    validationBehavior="aria"
                                                                         >
                                                                             <Label>Resource Link</Label>
                                                                             <Input
-                                                                                value={skill.links?.[0] || ""}
+                                                                                value={skill.resourceLinks?.[0] || ""}
                                                                                 placeholder="https://InternMap.com"
 
                                                                                 onChange={(e) =>
                                                                                     updateSkillField(
                                                                                         moduleIndex,
                                                                                         skillIndex,
-                                                                                        "links",
+                                                                                        "resourceLinks",
                                                                                         [e.target.value]
                                                                                     )
                                                                                 }
@@ -339,6 +364,8 @@ export default function RoadMapEdit({overlayState,roadmapId}: {overlayState:UseO
                     </Modal.Container>
                 </Modal.Backdrop>
             </Modal>
+
+            <Toast.Provider placement="top end"/>
         </>
     );
 }

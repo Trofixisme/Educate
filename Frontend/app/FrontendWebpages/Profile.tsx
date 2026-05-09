@@ -163,9 +163,11 @@ export default function Profile({userDetails}: { userDetails: User}) {
                 <div className="flex items-center gap-4 flex-row">
                     <img
                         src={
-                            userDetails.profilePicture
-                                ? `http://localhost:8050/uploads/${userDetails.profilePicture}`
-                                : "/images/navi/Navi%20Beta.png"
+                            profilePicPreview
+                                ? profilePicPreview
+                                : userDetails.profilePicture
+                                    ? `http://localhost:8050/uploads/${userDetails.profilePicture}`
+                                    : "/images/navi/Navi%20Beta.png"
                         }
                         style={{ display: "flex", width: "100px", height: "100px", borderRadius: "100%", objectFit: "cover" }}
                         alt="Profile Picture"
@@ -439,12 +441,11 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                 )}
                             </Modal.Header>
                             <Modal.Body className="space-y-4" style={{paddingTop: "20px"}}>
-                                <div className="full-width flex flex-col gap-6">
+                                <div className="flex flex-col gap-6">
 
                                     {/* Profile Picture  */}
-                                    <div className="flex flex-col items-center gap-3">
-                                        <img
-                                            src={
+                                    <div className="flex flex-col items-center content-center justify-center self-center gap-3">
+                                        <img src={
                                                 profilePicPreview
                                                     ? profilePicPreview
                                                     : userDetails.profilePicture
@@ -452,22 +453,10 @@ export default function Profile({userDetails}: { userDetails: User}) {
                                                         : "/images/navi/Navi%20Beta.png"
                                             }
                                             style={{ width: "80px", height: "80px", borderRadius: "100%", objectFit: "cover" }}
-                                            alt="Profile Preview"
-                                        />
-                                        <label style={{
-                                            cursor: "pointer",
-                                            padding: "6px 16px",
-                                            borderRadius: "20px",
-                                            fontSize: "13px",
-                                            background: "var(--container-secondary)"
-                                        }}>
-                                            Change Picture
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                style={{ display: "none" }}
-                                                onChange={handleProfilePicChange}
-                                            />
+                                            alt="Profile Preview"/>
+                                        <label className="flex self-center items-center justify-start font-bold text-2xl" style={{cursor: "pointer", padding: "6px 16px", borderRadius: "20px", fontSize: "13px", background: "var(--component-tertiary)"}}>
+                                            Change
+                                            <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleProfilePicChange}/>
                                         </label>
                                     </div>
                                     {/* profile picture  */}
