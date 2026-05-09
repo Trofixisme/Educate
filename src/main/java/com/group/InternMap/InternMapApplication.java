@@ -26,6 +26,7 @@ public class InternMapApplication {
                 registry.addMapping("/REST/**").allowedOrigins("http://localhost:5173");
                 registry.addMapping("/api/**")
                         .allowedOrigins("http://localhost:5173")
+                        .allowedOrigins("http://localhost:*")
                         .allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE")
                         .allowedHeaders("*");
             }
