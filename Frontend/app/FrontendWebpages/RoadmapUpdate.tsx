@@ -1,7 +1,20 @@
 import "../CSS/jobPosting.css";
 import "../CSS/InternMapHomepage.css";
-import { useEffect, useState } from "react";
-import {Button, FieldError, FieldGroup, Fieldset, Form, IconPlus, Input, Label, Modal, TextField, type UseOverlayStateReturn,} from "@heroui/react";
+import React, { useEffect, useState } from "react";
+import {
+    Button,
+    FieldError,
+    FieldGroup,
+    Fieldset,
+    Form,
+    IconPlus,
+    Input,
+    Label,
+    Modal,
+    TextField, toast,
+    Toast,
+    type UseOverlayStateReturn,
+} from "@heroui/react";
 import {useNavigate} from "react-router";
 
 //sorry I had to bring them here because the models .ts were not working properly
@@ -152,9 +165,22 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
             return;
         } else {
             onRoadmapState.close();
+
+            toast("Roamdap updated!", {
+                actionProps: {
+                    children: "Dismiss",
+                    onPress: () => toast.clear(),
+                    variant: "tertiary",
+                },
+                indicator: <img src="/images/assets/checkmark@4x.png" alt="checkmark" width={15} height={15}/>,
+                description: body.name + " has been successfully updated!",
+                variant: "success",
+            })
+
             navigate("/dashboard");
         }
-        const data = await res.json();
+
+        const data = await res.json()
         console.log("FETCHED DATA:", JSON.stringify(data, null, 2));
         setTitle(data.name);
 
@@ -338,6 +364,8 @@ export default function RoadMapEdit({overlayState, roadmapId}: {overlayState:Use
                     </Modal.Container>
                 </Modal.Backdrop>
             </Modal>
+
+            <Toast.Provider placement="top end"/>
         </>
     );
 }
