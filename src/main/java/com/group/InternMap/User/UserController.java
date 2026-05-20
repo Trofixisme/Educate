@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -61,8 +62,7 @@ public class UserController {
             }
         }
 
-        ArrayList<JobPosting> jobPosting = (ArrayList<JobPosting>) jobPostingService.getAllJobPostings();
-        jobPosting.forEach(job -> job.getRecruiter().setPassword(""));
+        List<JobPosting> jobPosting = jobPostingService.getAllJobPostings();
         model.addAttribute("jobPostings", jobPosting);
 
         return "JobPosting"; // Thymeleaf template

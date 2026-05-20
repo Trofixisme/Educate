@@ -47,7 +47,7 @@ public class RestUserController {
     @GetMapping("/jobpostings")
     public List<JobPosting> getAllJobPostings() {
 
-        ArrayList<JobPosting> jobPostings = (ArrayList<JobPosting>) jobPostingService.getAllJobPostings();
+        List<JobPosting> jobPostings = jobPostingService.getAllJobPostings();
         System.out.println(jobPostings);
 
         return jobPostings;

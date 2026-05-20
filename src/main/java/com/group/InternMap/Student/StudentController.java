@@ -154,7 +154,7 @@ public class StudentController {
     @GetMapping("/student/applications")
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public String getStudentApplications(Model model, Principal principal) {
-        List<Application> myApplications = applicationRepo.findByStudentEmail((userService.searchByEmail(principal.getName()).get()).getEmail());
+        List<Application> myApplications = applicationRepo.findByStudentEmailOrderByApplicationDateDesc((userService.searchByEmail(principal.getName()).get()).getEmail());
         model.addAttribute("myApplications", myApplications);
         return "Student-Applications";
     }

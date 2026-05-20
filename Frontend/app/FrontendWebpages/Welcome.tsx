@@ -10,8 +10,6 @@ import JobModal from "~/FrontendWebpages/JobModal";
 
 export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], jobPostings: JobPosting[]}) {
 
-    jobPostings = [...jobPostings].reverse();
-
     const [search, setSearch] = useState("");
 
     const getTimeAgo = (date: string | Date) => {
@@ -302,7 +300,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
                                     {/* Left - image + name */}
                                     <div className={"flex gap-2 items-center"}>
-                                        <img style={{width: 54, borderRadius: 40,height: 50}}
+                                        <img style={{width: 50, borderRadius: 40,height: 50}}
                                             src={
                                                 posting.company?.logo
                                                     ? `http://localhost:8050/uploads/${posting.company.logo}`
@@ -344,7 +342,7 @@ export default function Welcome({roadmaps, jobPostings}: {roadmaps: Roadmap[], j
 
                                 <br/>
 
-                                <div>
+                                <div className=" line-clamp-4">
                                     <div className="text-xl font-bold mb-0.5">
                                         <a href={`/posting/${posting.id}`}>{posting.jobName}</a>
                                     </div>

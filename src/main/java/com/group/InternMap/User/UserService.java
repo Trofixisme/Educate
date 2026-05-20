@@ -236,17 +236,17 @@ public class UserService implements FilePaths {
         return userRepo.findAll();
     }
 
-    public void deleteByEmail(String email) { // DO NOT OVER WRITE THIS FLIPING FUNCTION MY DASHBOARD IS NOT GONNA WORKK
+    public void deleteByEmail(String email) { // DO NOT OVERWRITE THIS FLIPING FUNCTION MY DASHBOARD IS NOT GONNA WORKK
         Optional<Users> user = userRepo.findByEmail(email);
         if (user.isPresent()) {
             if (user.get().getRole() == UserRole.STUDENT) {
                 Student student = studentRepo.findByEmail(email);
                 if (student != null) {
+                    studentRepo.delete(student);
                     CV cv = student.getCv();
                     if (cv != null) {
                         cvRepo.delete(cv);
                     }
-                    studentRepo.delete(student);
                 }
             } else if (user.get().getRole() == UserRole.RECRUITER) {
                 Recruiter recruiter = recruiterRepo.findByEmail(email);

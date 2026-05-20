@@ -91,7 +91,7 @@ public class jobPostingController {
                 throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Job not found");
             }
 
-            List<Application> apps = applicationRepo.findByJobPosting(job);
+            List<Application> apps = applicationRepo.findByJobPostingOrderByApplicationDateDesc(job);
 
             logger.info("Fetched applications count: {}", (apps == null ? 0 : apps.size()));
             if (apps != null) {

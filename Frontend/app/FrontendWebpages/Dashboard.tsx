@@ -1,6 +1,17 @@
 import "../CSS/jobPosting.css"
 import "../CSS/InternMapHomepage.css";
-import {Avatar, Checkbox, Chip, cn, type Key, type SortDescriptor, Tabs, useOverlayState} from "@heroui/react";
+import {
+    Avatar,
+    Checkbox,
+    Chip,
+    cn,
+    type Key,
+    type SortDescriptor,
+    Tabs,
+    Toast,
+    toast,
+    useOverlayState
+} from "@heroui/react";
 import { Table } from '@heroui/react';
 import React, {useMemo, useState} from "react";
 import {Button, Alert} from "@heroui/react";
@@ -110,8 +121,8 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                         </section>
                         <div className="flex items-center gap-3 flex-row">
                             <Chip size="lg">
-                                <img src="/images/assets/calendar@4x.png" alt="calendar"
-                                     style={{width: "17px", filter: "invert(1)"}}/>
+                                <img className="chip_icon" src="/images/assets/calendar@4x.png" alt="calendar"
+                                     style={{width: "17px"}}/>
                                 <Chip.Label>{userDetails.createdAt?.toString().substring(0, 4)}</Chip.Label>
                             </Chip>
                             <Chip size="lg">
@@ -142,7 +153,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                 <Alert status="danger">
                     <Alert.Indicator/>
                     <Alert.Content>
-                        <Alert.Title>Cannot delete admin user</Alert.Title>
+                        <Alert.Title>Cannot remove another admin</Alert.Title>
                         <Alert.Description>
                             You selected at least one ADMIN user. This action is blocked.
                         </Alert.Description>
@@ -259,7 +270,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                             {/* Bulk delete */}
                             <AlertDialog>
                                 <Button className="full-width p-3.5" variant="danger" isDisabled={selectedKeys !== "all" && (selectedKeys as Set<Key>).size === 0}>
-                                    Delete Selection
+                                    Remove Selection
                                 </Button>
                                 <AlertDialog.Backdrop>
                                     <AlertDialog.Container>
@@ -267,10 +278,10 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                             <AlertDialog.CloseTrigger/>
                                             <AlertDialog.Header>
                                                 <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
-                                                <AlertDialog.Heading>Delete selected users permanently?</AlertDialog.Heading>
+                                                <AlertDialog.Heading>Remove selected users permanently?</AlertDialog.Heading>
                                             </AlertDialog.Header>
                                             <AlertDialog.Body>
-                                                <p>This will permanently delete{" "}
+                                                <p>This will permanently remove{" "}
                                                     <strong>{selectedKeys === "all" ? "all users" : `${(selectedKeys as Set<Key>).size} user(s)`}</strong>
                                                     {" "}and all of their data. This action cannot be undone.</p>
                                             </AlertDialog.Body>
@@ -281,15 +292,24 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                         ? users
                                                         : users.filter(u => (selectedKeys as Set<string>).has(u.email));
                                                     if (selectedUsers.some(u => u.role === "ADMIN")) {
-                                                        setShowAdminError(true);
-                                                        setTimeout(() => setShowAdminError(false), 3000);
+                                                        toast("Cannot remove another admin", {
+                                                            actionProps: {
+                                                                children: "Dismiss",
+                                                                onPress: () => toast.clear(),
+                                                                variant: "tertiary",
+                                                            },
+                                                            indicator: <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="checkmark" width={20} height={20}/>,
+                                                            description: "You sele  cted at least one ADMIN user. This action is blocked.",
+                                                            variant: "danger",
+                                                        })
+
                                                         return;
                                                     }
                                                     const formData = new FormData();
                                                     selectedUsers.forEach(u => formData.append("emails", u.email));
                                                     fetcher.submit(formData, {method: "POST", action: "/dashboard"});
                                                     setSelectedKeys(new Set());
-                                                }}>Delete</Button>
+                                                }}>Remove</Button>
                                             </AlertDialog.Footer>
                                         </AlertDialog.Dialog>
                                     </AlertDialog.Container>
@@ -304,10 +324,10 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                             <AlertDialog.CloseTrigger/>
                                             <AlertDialog.Header>
                                                 <img className="w-8" src="/images/assets/exclamationmark.circle.fill@4x.png" alt="Warn"/>
-                                                <AlertDialog.Heading>Delete user permanently?</AlertDialog.Heading>
+                                                <AlertDialog.Heading>Remove user permanently?</AlertDialog.Heading>
                                             </AlertDialog.Header>
                                             <AlertDialog.Body>
-                                                <p>This will permanently delete{" "}
+                                                <p>This will permanently remove{" "}
                                                     <strong>{userToSmite?.fname} {userToSmite?.lname}</strong>
                                                     {" "}and all of their data. This action cannot be undone.</p>
                                             </AlertDialog.Body>
@@ -316,8 +336,17 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                 <Button className="full-width p-2" slot="close" variant="danger" onPress={() => {
                                                     if (!userToSmite) return;
                                                     if (userToSmite.role === "ADMIN") {
-                                                        setShowAdminError(true);
-                                                        setTimeout(() => setShowAdminError(false), 3000);
+                                                        toast("Cannot remove another admin", {
+                                                            actionProps: {
+                                                                children: "Dismiss",
+                                                                onPress: () => toast.clear(),
+                                                                variant: "tertiary",
+                                                            },
+                                                            indicator: <img src="/images/assets/exclamationmark.circle.fill@4x.png" alt="checkmark" width={20} height={20}/>,
+                                                            description: "You selected at least one ADMIN user. This action is blocked.",
+                                                            variant: "danger",
+                                                        })
+
                                                         setIsDialogOpen(false);
                                                         return;
                                                     }
@@ -326,7 +355,7 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                                     fetcher.submit(formData, {method: "POST", action: "/dashboard"});
                                                     setUserToSmite(null);
                                                     setIsDialogOpen(false);
-                                                }}>Smite!</Button>
+                                                }}>Remove</Button>
                                             </AlertDialog.Footer>
                                         </AlertDialog.Dialog>
                                     </AlertDialog.Container>
@@ -398,16 +427,20 @@ export default function Dashboard({users, roadmaps, userDetails}: { users: User[
                                 </Table>
                             )}
 
-                            <p className="text-sm text-muted">
+                            <br/>
+
+                            <p className="text-sm text-muted font-bold">
                                 Roadmaps Selected:{" "}
                                 <span className="font-medium">
                                     {selectedRoadmapKeys === "all" ? "All" : selectedRoadmapKeys.size > 0 ? selectedRoadmapKeys.size : "None"}
                                 </span>
                             </p>
 
+                            <br/>
+
                             {/* Bulk delete */}
                             <AlertDialog>
-                                <Button variant="danger" isDisabled={selectedRoadmapKeys !== "all" && (selectedRoadmapKeys as Set<Key>).size === 0}>
+                                <Button className="full-width p-3.5" variant="danger" isDisabled={selectedRoadmapKeys !== "all" && (selectedRoadmapKeys as Set<Key>).size === 0}>
                                     Delete selection
                                 </Button>
                                 <AlertDialog.Backdrop>

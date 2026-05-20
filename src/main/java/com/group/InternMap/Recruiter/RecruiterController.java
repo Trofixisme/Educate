@@ -141,7 +141,7 @@ public class RecruiterController {
             return "redirect:/JobPostings";
         }
 
-        List<Application> apps = applicationRepo.findByJobPosting(job);
+        List<Application> apps = applicationRepo.findByJobPostingOrderByApplicationDateDesc(job);
 
         logger.info("Fetched applications count: {}", (apps == null ? 0 : apps.size()));
         if (apps != null) {

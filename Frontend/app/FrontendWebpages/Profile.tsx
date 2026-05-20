@@ -179,8 +179,8 @@ export default function Profile({userDetails}: { userDetails: User}) {
                         </section>
                         <div className="flex items-center gap-3 flex-row">
                             <Chip size="lg" >
-                                <img src="/images/assets/calendar@4x.png" alt="calendar"
-                                     style={{width: "17px", filter: "invert(1)"}}/>
+                                <img className="chip_icon" src="/images/assets/calendar@4x.png" alt="calendar"
+                                     style={{width: "17px"}}/>
                                 <Chip.Label>{userDetails.createdAt?.toString().substring(0, 4)}</Chip.Label>
                             </Chip>
                             <Chip size="lg">

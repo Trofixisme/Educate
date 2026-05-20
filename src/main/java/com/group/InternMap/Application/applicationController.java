@@ -115,7 +115,7 @@
         public List<Application> getStudentApplications(Principal principal, Authentication authentication) {
 
             if (authentication != null && authentication.getAuthorities().toString().equals("[ROLE_" + UserRole.STUDENT + "]")) {
-                return applicationRepo.findByStudentEmail((userService.searchByEmail(principal.getName()).get()).getEmail());
+                return applicationRepo.findByStudentEmailOrderByApplicationDateDesc((userService.searchByEmail(principal.getName()).get()).getEmail());
             } else {
                 throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "User must be of role STUDENT to proceed");
             }

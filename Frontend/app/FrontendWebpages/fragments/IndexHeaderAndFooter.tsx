@@ -120,7 +120,7 @@ export function IndexHeader() {
                                     <Dropdown.Section>
                                         <Dropdown.Item id="profile" textValue="Profile" onAction={() => location.href = '/profile' }>
                                             <div className="">
-                                                <img className="chip_icon" src="/images/assets/person.fill@4x.png" style={{width: "14px", filter: "invert(1)"}} alt="Profile"/>
+                                                <img className="chip_icon" src="/images/assets/person.fill@4x.png" style={{width: "14px"}} alt="Profile"/>
                                             </div>
                                             <div>
                                                 <Label>Profile</Label>
@@ -154,7 +154,7 @@ export function IndexHeader() {
                                     variant: "default",
                                     })}>
                                     <div>
-                                        <img src="/images/assets/inset.filled.topright.rectangle@4x.png" style={{width: "16px", filter: "invert(1)"}} alt="Show onboarding"/>
+                                        <img src="/images/assets/inset.filled.topright.rectangle@4x.png" style={{width: "16px"}} alt="Show onboarding"/>
                                     </div>
                                     <div>
                                         <Label>Toast</Label>

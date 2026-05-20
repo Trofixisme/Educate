@@ -15,15 +15,15 @@ public class JobPostingService {
     }
 
     public List<JobPosting> getAllJobPostings()  {
-        return jobRepo.findAll();
+        return jobRepo.findAllByOrderByDatePostedDesc();
     }
 
     public List<JobPosting> getJobPostingsByRecruiterId(long recruiterId)  {
-        return jobRepo.findJobPostingByRecruiterId(recruiterId);
+        return jobRepo.findJobPostingByRecruiterIdOrderByDatePostedDesc(recruiterId);
     }
 
     public List<JobPosting> getAllJobPostingsName(String name) {
-        return jobRepo.findJobPostingByJobName(name);
+        return jobRepo.findJobPostingByJobNameOrderByDatePostedDesc(name);
     }
 
     public JobPosting findJobPostingByID(long appId) {
@@ -39,7 +39,7 @@ public class JobPostingService {
     }
 
     public List<JobPosting> findJobPostingByName(String name) {
-        return jobRepo.findJobPostingByJobName(name);
+        return jobRepo.findJobPostingByJobNameOrderByDatePostedDesc(name);
     }
 //    JobPosting job =  jobRepo.getById(id);
 

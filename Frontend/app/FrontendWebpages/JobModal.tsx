@@ -90,7 +90,7 @@ export default function JobModal({overlayState, job, action, role}: {overlayStat
 
                                         {job?.type == "Internship" && (
                                         <div>
-                                            <label className="text-lg font-semibold">Duration {(job as Internship).duration}</label>
+                                            <label className="text-lg font-semibold">Duration: <a className="text-sm" style={{color: "var(--text-primary)"}}>{(job as Internship).duration} months</a></label>
                                         </div>
                                         )}
 

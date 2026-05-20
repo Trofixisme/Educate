@@ -17,7 +17,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class JobPosting implements Serializable {
+public class JobPosting implements Serializable, Comparable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -146,5 +146,14 @@ public class JobPosting implements Serializable {
 
     public void setType(PostingType type) {
         this.type = type;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof JobPosting jobPosting) {
+            return jobPosting.datePosted.compareTo(this.datePosted);
+        } else {
+            return -1;
+        }
     }
 }
